@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <LinearLayout
+      android:layout_width="50dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:id="@+id/todayContainer"
+      android:layout_gravity="center"
+      android:orientation="vertical">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="14sp"
+          android:id="@+id/tvDay"
+          android:textColor="@color/gnt_white"
+          android:layout_gravity="center"
+          android:text="Today"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:textColor="@color/gnt_white"
+          android:textSize="12sp"
+          android:id="@+id/tvDate"/>
+
+  </LinearLayout>
+
+    <ImageView
+
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:tint="@color/gnt_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/imgDailyForecast"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_weight="1"
+        android:textColor="@color/gnt_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgDailyForecast"
+        app:layout_constraintEnd_toStartOf="@id/tvMinMaxTemp"
+        android:layout_marginStart="15dp"
+        android:id="@+id/tvDailyForecastStatus"
+        android:singleLine="true"
+        android:layout_marginEnd="15dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gnt_white"
+        android:textSize="14sp"
+        android:text="14/13"
+        android:layout_gravity="center"
+        android:id="@+id/tvMinMaxTemp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="20dp"/>
+
+
+<!--    <View-->
+<!--        android:id="@+id/divider"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="@color/colorHomeBgRegular"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/todayContainer"-->
+<!--        android:layout_marginTop="10dp"/>-->
+
+
+
+
+
+
+</LinearLayout>

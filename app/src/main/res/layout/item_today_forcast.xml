@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/home_transparent_bg"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_humidity"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/imgToday"
+        android:tint="@color/gnt_white"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/tvTodayForecastStyle"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/tvTodayHeading"
+        android:text="Humidity"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/tvTodayForecastStyle"
+        android:id="@+id/tvTodayValue"
+        android:layout_marginBottom="20dp"
+        android:text="32%"/>
+
+
+</LinearLayout>

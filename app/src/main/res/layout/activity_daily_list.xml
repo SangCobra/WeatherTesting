@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorHomeBg"
+    tools:context=".ui.activity.DailyListActivity">
+
+    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorHomeBg"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activity_weather_daily_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_toolbar_back">
+
+            <TextView
+                android:id="@+id/activity_weather_daily_title"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                style="@style/title_text"
+                tools:text="12-24 周五" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:minHeight="?attr/actionBarSize">
+
+
+
+                <TextView
+                    android:id="@+id/activity_weather_daily_indicator"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/normal_margin"
+                    style="@style/subtitle_text"
+                    android:visibility="gone"
+                    tools:text="3/15" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/activity_weather_daily_indicator"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/little_margin"
+                    android:paddingBottom="@dimen/little_margin"
+                    tools:ignore="UselessParent">
+
+                    <!--                        <TextView-->
+                    <!--                            android:id="@+id/activity_weather_daily_title"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:textStyle="bold"-->
+                    <!--                            android:textColor="@android:color/white"-->
+                    <!--                            style="@style/title_text"-->
+                    <!--                            tools:text="12-24 周五" />-->
+
+                    <TextView
+                        android:id="@+id/activity_weather_daily_subtitle"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="2dp"
+                        style="@style/subtitle_text"
+                        tools:text="十一月初七"
+                        tools:ignore="RtlHardcoded" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/home_transparent_bg"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="60dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/gnt_white"
+            android:textSize="18sp"
+            android:id="@+id/tvDailyStatus"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gnt_white" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dailyForecastList"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

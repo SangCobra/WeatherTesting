@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorHomeBg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            style="@style/material_image_button"
+
+            android:tint="@color/gnt_white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:text="@string/city_management"
+            android:textColor="@color/gnt_white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgAddLocation"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_add_location"
+            android:tint="@color/gnt_white" />
+    </LinearLayout>
+
+    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+        android:id="@+id/fragment_location_manage_appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/fragment_location_manage_searchBar"
+                style="@style/material_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/little_margin"
+                app:cardBackgroundColor="@color/colorSearchBarBackground">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/fragment_location_manage_searchIcon"
+                        style="@style/material_icon"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/little_margin"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="@dimen/little_margin"
+                        android:layout_marginBottom="0dp"
+                        android:src="@drawable/ic_search"
+                        tools:ignore="ContentDescription" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/fragment_location_manage_currentLocationButton"
+                        style="@style/material_image_button"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="0dp"
+                        android:src="@drawable/ic_location" />
+
+                    <TextView
+                        android:id="@+id/fragment_location_manage_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/fragment_location_manage_currentLocationButton"
+                        android:layout_toEndOf="@id/fragment_location_manage_searchIcon"
+                        android:text="@string/feedback_search_location"
+                        android:textColor="@color/colorTextSubtitle"
+                        android:textSize="@dimen/content_text_size"
+                        tools:ignore="RtlHardcoded" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
+
+    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_location_manage_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHomeBg"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

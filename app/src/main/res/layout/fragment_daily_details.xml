@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.DailyDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/tvDailyTime"
+    android:textColor="@color/gnt_white"
+    android:textSize="16sp"
+    android:text="@string/daytime"
+    android:layout_margin="15dp"
+    android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical"
+        android:background="@drawable/home_transparent_bg">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    >
+
+    <anaxxes.com.weatherFlow.ui.widget.astro.SunMoonView
+        android:id="@+id/daySunMoonView"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@id/daySunMoonView"
+        app:layout_constraintStart_toStartOf="@id/daySunMoonView"
+        app:layout_constraintEnd_toEndOf="@id/daySunMoonView">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorTextWhite"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:id="@+id/tvDayStartTime"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorTextWhite"
+            android:gravity="end"
+            android:textSize="12sp"
+            android:id="@+id/tvDayEndTime"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/weather_cloudy"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:id="@+id/imgDailyIcon"
+        app:tint="@color/gnt_white"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:id="@+id/llDailyDetails"
+        app:layout_constraintStart_toEndOf="@+id/imgDailyIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/daySunMoonView">
+
+        <TextView
+            android:id="@+id/tvDayDailyStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/gnt_white"
+            android:maxLines="4"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_downward_24"
+                app:layout_constraintTop_toBottomOf="@id/tvTemperature"
+                app:layout_constraintStart_toStartOf="@id/tvTemperature"
+                android:id="@+id/imgDownArrowDay"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gnt_white"
+                android:text="28"
+                android:layout_gravity="center"
+                android:id="@+id/tvLowTempDay"
+                app:layout_constraintTop_toTopOf="@id/imgDownArrow"
+                app:layout_constraintStart_toEndOf="@id/imgDownArrow"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_upward_24"
+                android:layout_marginStart="15dp"
+                android:id="@+id/imgUpArrowDay"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gnt_white"
+                android:text="28"
+                android:layout_gravity="center"
+                android:id="@+id/tvMaxTempDay"
+                app:layout_constraintTop_toTopOf="@id/imgDownArrow"
+                app:layout_constraintStart_toEndOf="@id/imgUpArrow"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_daily_details"
+            android:id="@+id/rcDailyDetails"/>
+
+    </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvNightTime"
+            android:textColor="@color/gnt_white"
+            android:textSize="16sp"
+            android:text="@string/nighttime"
+            android:layout_margin="15dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/home_transparent_bg">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                >
+
+                <anaxxes.com.weatherFlow.ui.widget.astro.SunMoonView
+                    android:id="@+id/nightSunMoonView"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="10dp"
+
+                    app:layout_constraintTop_toBottomOf="@id/nightSunMoonView"
+                    app:layout_constraintStart_toStartOf="@id/nightSunMoonView"
+                    app:layout_constraintEnd_toEndOf="@id/nightSunMoonView">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorTextWhite"
+                        android:layout_gravity="start"
+                        android:textSize="12sp"
+                        android:id="@+id/tvNightStartTime"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorTextWhite"
+                        android:gravity="end"
+                        android:textSize="12sp"
+                        android:id="@+id/tvNightEndTime"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/weather_cloudy"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:id="@+id/imgNightIcon"
+                    app:tint="@color/gnt_white"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/llDailyNightDetails"
+                    app:layout_constraintStart_toEndOf="@+id/imgNightIcon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/nightSunMoonView"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvNightDailyStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:maxLines="4"
+                        android:textColor="@color/gnt_white"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_downward_24"
+                            app:layout_constraintTop_toBottomOf="@id/tvTemperature"
+                            app:layout_constraintStart_toStartOf="@id/tvTemperature"
+                            android:id="@+id/imgDownArrow"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/gnt_white"
+                            android:text="28"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvLowTempNight"
+                            app:layout_constraintTop_toTopOf="@id/imgDownArrow"
+                            app:layout_constraintStart_toEndOf="@id/imgDownArrow"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_upward_24"
+                            android:layout_marginStart="15dp"
+                            android:id="@+id/imgUpArrow"
+                            android:layout_gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/gnt_white"
+                            android:text="28"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvMaxTemp"
+                            app:layout_constraintTop_toTopOf="@id/imgDownArrow"
+                            app:layout_constraintStart_toEndOf="@id/imgUpArrow"/>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_daily_details"
+                android:id="@+id/rcNightDetails"
+                />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

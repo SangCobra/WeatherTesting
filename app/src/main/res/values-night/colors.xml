@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorAccent">@color/colorAccent_dark</color>
+    
+    <color name="colorLine">@color/colorLine_dark</color>
+    <color name="colorRoot">@color/colorRoot_dark</color>
+    <color name="colorRootDark">@color/colorRootDark_dark</color>
+    <color name="colorTextTitle">@color/colorTextTitle_dark</color>
+    <color name="colorTextContent">@color/colorTextContent_dark</color>
+    <color name="colorTextSubtitle">@color/colorTextSubtitle_dark</color>
+
+    <color name="colorSearchBarBackground">@color/colorSearchBarBackground_dark</color>
+
+
+
+    <!---    Custome Colors-->
+    <color name="colorHomeBg">#000000</color>
+    <color name="colorHomeBgRegular">#3c92b1</color>
+    <color name="colorDivider">#80FFFFFF</color>
+
+    <color name="colorPureRed">#ff0000</color>
+    <color name="black20">#662F7189</color>
+    <color name="black30">#4DFFFFFF</color>
+    <color name="transparent80">#CC000000</color>
+    <color name="colorTextBlack">#24cfe0</color>
+    <color name="colorSkyBlue">#24cfe0</color>
+    <color name="colorTextWhite">#FFFFFF</color>
+    <color name="colorPureBlack">#000000</color>
+    <color name="colorActualBlack">#000000</color>
+
+</resources>

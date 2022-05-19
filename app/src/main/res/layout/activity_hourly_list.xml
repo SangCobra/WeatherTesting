@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_clear"
+    tools:context=".main.HourlyListActivity">
+
+    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activity_weather_hourly_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_toolbar_back">
+
+            <TextView
+                android:id="@+id/activity_weather_hourly_title"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                style="@style/title_text"
+                tools:text="" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hourlyList"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="60dp"/>
+
+</LinearLayout>

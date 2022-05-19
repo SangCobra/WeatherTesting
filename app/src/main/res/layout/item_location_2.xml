@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal"
+    android:background="@drawable/home_transparent_bg"
+    android:foreground="@drawable/selectable_item_background"
+    android:stateListAnimator="@animator/touch_raise"
+    tools:ignore="UnusedAttribute">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgCityLocation"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_location"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvTemperatureLocation"
+        app:layout_constraintStart_toEndOf="@id/imgCityLocation"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/gnt_white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded"
+            tools:text="Current Location, 5°" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:singleLine="true"
+            android:text="Dummy location"
+            android:textColor="@color/gnt_white50"
+            android:id="@+id/geo_position"/>
+
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatureContainer">
+
+
+    <TextView
+        android:id="@+id/tvTemperatureLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:textColor="@color/gnt_white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/degree_ring"
+        app:layout_constraintStart_toEndOf="@id/tvTemperatureLocation"
+        app:layout_constraintTop_toTopOf="@id/tvTemperatureLocation" />
+
+    <TextView
+        android:id="@+id/tvTempScale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="5dp"
+        android:text="C"
+        android:textColor="@color/gnt_white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvTemperatureLocation"
+        app:layout_constraintStart_toEndOf="@id/tvTemperatureLocation" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Hazy"
+        android:textColor="@color/gnt_white50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tvTempScale"
+        app:layout_constraintStart_toStartOf="@id/tvTemperatureLocation"
+        app:layout_constraintTop_toBottomOf="@+id/tvTemperatureLocation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <!--    android:background="@color/striking_red"-->
+
+    <!--    <androidx.appcompat.widget.AppCompatImageView-->
+    <!--        android:id="@+id/swipeIcon_start"-->
+    <!--        android:layout_width="56dp"-->
+    <!--        android:layout_height="56dp"-->
+    <!--        android:layout_alignParentStart="true"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:padding="@dimen/normal_margin"-->
+    <!--        android:src="@drawable/ic_delete"-->
+    <!--        android:tint="@android:color/white"-->
+    <!--        tools:ignore="ContentDescription,RtlHardcoded" />-->
+
+    <!--    <androidx.appcompat.widget.AppCompatImageView-->
+    <!--        android:id="@+id/swipeIcon_end"-->
+    <!--        android:layout_width="56dp"-->
+    <!--        android:layout_height="56dp"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:padding="@dimen/normal_margin"-->
+    <!--        android:src="@drawable/ic_star_outline"-->
+    <!--        android:tint="@android:color/white"-->
+    <!--        tools:ignore="ContentDescription,RtlHardcoded" />-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/item"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/colorRoot"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <RelativeLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="@dimen/normal_margin"-->
+    <!--            android:layout_marginTop="@dimen/normal_margin"-->
+    <!--            android:layout_marginEnd="@dimen/normal_margin"-->
+    <!--            android:layout_marginBottom="2dp"-->
+    <!--            tools:ignore="UseCompoundDrawables">-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/weather_icon"-->
+    <!--                android:layout_width="@dimen/material_icon_size"-->
+    <!--                android:layout_height="@dimen/material_icon_size"-->
+    <!--                android:layout_centerVertical="true"-->
+    <!--                android:layout_marginEnd="@dimen/little_margin"-->
+    <!--                tools:ignore="ContentDescription"-->
+    <!--                tools:src="@drawable/ic_location" />-->
+
+    <!--            <androidx.appcompat.widget.AppCompatImageView-->
+    <!--                android:id="@+id/resident_icon"-->
+    <!--                style="@style/material_icon"-->
+    <!--                android:layout_alignParentEnd="true"-->
+    <!--                android:layout_centerVertical="true"-->
+    <!--                android:layout_margin="0dp"-->
+    <!--                android:src="@drawable/ic_circle_medium"-->
+    <!--                app:tint="@color/colorTextAlert" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/title"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_centerVertical="true"-->
+    <!--                android:layout_toStartOf="@id/resident_icon"-->
+    <!--                android:layout_toEndOf="@id/weather_icon"-->
+    <!--                android:ellipsize="end"-->
+    <!--                android:maxLines="1"-->
+    <!--                android:textAlignment="viewStart"-->
+    <!--                android:textColor="@color/gnt_white"-->
+    <!--                android:textSize="@dimen/title_text_size"-->
+    <!--                android:textStyle="bold"-->
+    <!--                tools:ignore="RtlHardcoded"-->
+    <!--                tools:text="Current Location, 5°" />-->
+
+    <!--        </RelativeLayout>-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/alerts"-->
+    <!--            style="@style/subtitle_text"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="@dimen/normal_margin"-->
+    <!--            android:layout_marginEnd="@dimen/normal_margin"-->
+    <!--            android:layout_marginBottom="@dimen/normal_margin"-->
+    <!--            android:textAlignment="viewStart"-->
+    <!--            tools:text="大雾黄色预警, 发布于2018-07-10 02:32\n大风蓝色预警, 发布于2018-07-10 03:34" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/subtitle"-->
+    <!--            style="@style/subtitle_text"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_marginStart="@dimen/normal_margin"-->
+    <!--            android:layout_marginEnd="@dimen/normal_margin"-->
+    <!--            android:textAlignment="viewStart"-->
+    <!--            android:textColor="@color/colorTextContent"-->
+    <!--            tools:ignore="RtlHardcoded"-->
+    <!--            tools:text="中国 山东省 青岛市 李沧区" />-->
+    <!--        &lt;!&ndash;-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/geo_position"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_marginStart="@dimen/normal_margin"-->
+    <!--                    android:layout_marginEnd="@dimen/normal_margin"-->
+    <!--                    android:textAlignment="viewStart"-->
+    <!--                    android:textColor="@color/colorTextSubtitle"-->
+    <!--                    style="@style/subtitle_text"-->
+    <!--                    tools:text="23.66 22.58, GMT+8"-->
+    <!--                    tools:ignore="RtlHardcoded" />-->
+    <!--        &ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/source"-->
+    <!--            style="@style/subtitle_text"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_marginStart="@dimen/normal_margin"-->
+    <!--            android:layout_marginEnd="@dimen/normal_margin"-->
+    <!--            android:layout_marginBottom="@dimen/normal_margin"-->
+    <!--            android:ellipsize="end"-->
+    <!--            android:maxLines="1"-->
+    <!--            android:textAlignment="viewStart"-->
+    <!--            android:textSize="10sp"-->
+    <!--            android:textStyle="bold"-->
+    <!--            tools:ignore="RtlHardcoded,SmallSp"-->
+    <!--            tools:text="Powered by 彩云天气" />-->
+
+    <!--    </LinearLayout>-->
+
+</LinearLayout>
