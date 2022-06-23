@@ -498,12 +498,15 @@
     <string name="theme">Theme</string>
     <string name="refresh_rate">Refresh rate</string>
     <string name="hourly">Hourly</string>
-    <string name="_72_hours">72 Hours</string>
+    <string name="_72_hours"><u>Details</u></string>
     <string name="today_forecast">Today Forecast</string>
     <string name="daily_forecast">Daily Forecast</string>
     <string name="sun_moon">SUN/MOON</string>
     <string name="radar">Radar</string>
     <string name="see_more">See more</string>
     <string name="wind_pressure">Wind/Pressure</string>
+    <string name="may_16_2022">May 16 2022</string>
+    <string name="mon">Mon\t</string>
+    <string name="hanoi_vietnam">Hà Nội, Việt Nam</string>
 
 </resources>

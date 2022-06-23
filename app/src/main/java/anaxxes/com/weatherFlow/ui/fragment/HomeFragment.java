@@ -1,5 +1,6 @@
 package anaxxes.com.weatherFlow.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -27,8 +28,11 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.GeoActivity;
@@ -53,6 +57,7 @@ import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
 import anaxxes.com.weatherFlow.ui.adapter.DailyDayNightAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.DailyForecastAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.TodayForecastAdapter;
+import anaxxes.com.weatherFlow.ui.widget.trend.TrendRecyclerView;
 import anaxxes.com.weatherFlow.utils.DisplayUtils;
 import anaxxes.com.weatherFlow.utils.MyUtils;
 import anaxxes.com.weatherFlow.utils.SunMoonUtils;
@@ -99,7 +104,8 @@ public class HomeFragment extends Fragment {
                 new SharedPreferences.OnSharedPreferenceChangeListener() {
                     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                        if(key.equals(getString(R.string.key_weather_background))){
-                               setWeatherImage(location.getWeather(),binding.imgWeather,settingsOptionManager.isWeatherBgEnabled());
+                           assert location.getWeather() != null;
+                           setWeatherImage(location.getWeather(),binding.imgWeather,settingsOptionManager.isWeatherBgEnabled());
                        }
                     }
                 });
@@ -178,6 +184,7 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void resetUI(Location location) {
 
         SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(requireActivity());
@@ -185,7 +192,7 @@ public class HomeFragment extends Fragment {
             setWeatherImage(location.getWeather(), binding.imgWeather,settingsOptionManager.isWeatherBgEnabled());
             String currentTemperature = location.getWeather().getCurrent().getTemperature().getTemperatureWithoutDegree(requireActivity(), settingsOptionManager.getTemperatureUnit());
             binding.tvTemperature.setText(String.valueOf(currentTemperature));
-            binding.tvRealFeelTemp.setText(location.getWeather().getCurrent().getTemperature().getShortRealFeeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()));
+            binding.tvRealFeelTemp.setText("Feels like: " + location.getWeather().getCurrent().getTemperature().getShortRealFeeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()));
             binding.tvTempStatus.setText(location.getWeather().getCurrent().getWeatherText());
             binding.tvLowTemp.setText(location.getWeather().getYesterday().getNighttimeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()) +"\u00B0");
             binding.tvMaxTemp.setText(location.getWeather().getYesterday().getDaytimeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()) +"\u00B0");
@@ -196,17 +203,17 @@ public class HomeFragment extends Fragment {
 
 
 
-            switch (settingsOptionManager.getTemperatureUnit()) {
-                case C:
-                    binding.tvTempScale.setText("C");
-                    break;
-                case F:
-                    binding.tvTempScale.setText("F");
-                    break;
-                case K:
-                    binding.tvTempScale.setText("K");
-                    break;
-            }
+//            switch (settingsOptionManager.getTemperatureUnit()) {
+//                case C:
+//                    binding.tvTempScale.setText("C");
+//                    break;
+//                case F:
+//                    binding.tvTempScale.setText("F");
+//                    break;
+//                case K:
+//                    binding.tvTempScale.setText("K");
+//                    break;
+//            }
 
 
             todayForecastAdapter.updateData(getTodayForecastList(location));
@@ -380,7 +387,20 @@ public class HomeFragment extends Fragment {
             Log.d("laksjdhfasdf",location.getCityId() + "");
             binding.tvPressureValue.setText(settingsOptionManager.getPressureUnit().getPressureText(requireActivity(), location.getWeather().getCurrent().getPressure()));
 
-            binding.tvCityName.setText(location.getCityName(requireActivity()));
+            binding.tvCityName.setText(location.getCityName(requireActivity()) + ", " + location.getCountry());
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat fommater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZ", Locale.ENGLISH);
+            try {
+//                Date parsed = fommater.parse(location.getWeather().getDailyForecast().get(0).getDate().toString());
+                fommater.setTimeZone(location.getTimeZone());
+//                assert parsed != null;
+                @SuppressLint("SimpleDateFormat") String outDay = new SimpleDateFormat("EEE").format(location.getWeather().getDailyForecast().get(0).getDate());
+                @SuppressLint("SimpleDateFormat") String outMon = new SimpleDateFormat("MMM dd, yyyy").format(location.getWeather().getDailyForecast().get(0).getDate());
+                binding.tvCurrentTime.setText(outDay + " ");
+                binding.dayCurrent.setText(outMon);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
 
 
 //            AQIGasAdapter aqiGasAdapter = new AQIGasAdapter(requireActivity());
@@ -493,9 +513,9 @@ public class HomeFragment extends Fragment {
         switch (weather.getCurrent().getWeatherCode()) {
             case CLEAR:
                 if (MyUtils.isNight()) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.moon));
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_moon));
                     if(isBgEnabled){
-                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear_night));
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_t_clear));
 
                     }else{
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
@@ -504,30 +524,30 @@ public class HomeFragment extends Fragment {
 
                 } else {
                     if(isBgEnabled){
-                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear_day));
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_cloudy));
 
                     }else{
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
 
                     }
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.sun));
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_sun_cloudy));
 
                 }
                 break;
             case PARTLY_CLOUDY:
 
                 if (MyUtils.isNight()) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.moon_partialy_cloudy));
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_cloudy_moon));
                     if(isBgEnabled){
-                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_partly_cloudy_night));
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_t_cloudy));
                     }else{
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
                     }
 
                 } else {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.sun_clouds));
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_sun_cloudy));
                     if(isBgEnabled){
-                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_partly_cloudy_day));
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_cloudy));
                     }else{
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
                     }
@@ -536,50 +556,50 @@ public class HomeFragment extends Fragment {
                 }
                 break;
             case CLOUDY:
-                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.clouds));
+                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_cloudy));
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_sun_cloudy));
                 break;
             case RAIN:
                 if (MyUtils.isNight()) {
                     if(isBgEnabled){
-                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_rainy_night));
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_t_rain));
 
                     }else{
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
                     }
                 }else{
                     if(isBgEnabled){
-                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_raining_day));
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_rain));
 
                     }else{
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
                     }
                 }
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.rain));
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_rain));
                 break;
             case SNOW:
             case HAIL:
             case SLEET:
-                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
+                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_snow));
 
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.snow));
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_snow));
                 break;
             case WIND:
-                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
+                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_wind));
 
                 imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.wind));
                 break;
             case FOG:
             case HAZE:
-                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
+                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_haze));
 
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.fog));
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_fog));
                 break;
 
             case THUNDER:
             case THUNDERSTORM:
-                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.lighting));
+                binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_thunder));
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_thunder));
 
                 break;
 

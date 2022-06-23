@@ -53,6 +53,7 @@ public class HourlyPrecipitationAdapter extends AbsHourlyTrendAdapter<HourlyPrec
         }
 
         void onBindView(int position) {
+
             Context context = itemView.getContext();
             Hourly hourly = weather.getHourlyForecast().get(position);
 
