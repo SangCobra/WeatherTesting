@@ -44,6 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgDailyDetails"
                 android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:id="@+id/tvDailyDetails"
                 android:singleLine="true"
                 android:layout_marginEnd="15dp"/>
@@ -52,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gnt_white"
+                android:fontFamily="@font/montserrat_regular"
                 android:textSize="14sp"
                 android:id="@+id/tvDailyValue"
                 android:layout_gravity="center"

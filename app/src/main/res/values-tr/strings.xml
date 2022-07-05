@@ -151,5 +151,6 @@
     <string name="settings_title_notification_hide_in_lockScreen">Kilit ekranında gizle.</string>
     <string name="settings_notification_hide_in_lockScreen_on">Gizle (Sistem ayarlarında açmanız gerekir).</string>
     <string name="settings_notification_hide_in_lockScreen_off">Göster.</string>
+    <string name="details">Details</string>
 
 </resources>

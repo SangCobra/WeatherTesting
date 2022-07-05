@@ -56,7 +56,7 @@ public class PreviewIconActivity extends GeoActivity {
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return container;
     }
 

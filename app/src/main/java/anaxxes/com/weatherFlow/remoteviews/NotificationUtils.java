@@ -168,7 +168,7 @@ public class NotificationUtils {
                         context,
                         notificationId,
                         IntentHelper.buildMainActivityShowAlertsIntent(location),
-                        PendingIntent.FLAG_UPDATE_CURRENT
+                        PendingIntent.FLAG_IMMUTABLE
                 )
         ).setStyle(
                 new NotificationCompat.BigTextStyle()
@@ -204,7 +204,7 @@ public class NotificationUtils {
                                 context,
                                 notificationId,
                                 IntentHelper.buildMainActivityShowAlertsIntent(location),
-                                PendingIntent.FLAG_UPDATE_CURRENT
+                                PendingIntent.FLAG_IMMUTABLE
                         )
                 ).build();
     }
@@ -262,7 +262,7 @@ public class NotificationUtils {
                                     context,
                                     WeatherFlow.NOTIFICATION_ID_PRECIPITATION,
                                     IntentHelper.buildMainActivityIntent(location),
-                                    PendingIntent.FLAG_UPDATE_CURRENT
+                                    PendingIntent.FLAG_IMMUTABLE
                             )
                     ).build()
             );
@@ -289,7 +289,7 @@ public class NotificationUtils {
                                     context,
                                     WeatherFlow.NOTIFICATION_ID_PRECIPITATION,
                                     IntentHelper.buildMainActivityIntent(location),
-                                    PendingIntent.FLAG_UPDATE_CURRENT
+                                    PendingIntent.FLAG_IMMUTABLE
                             )
                     ).build()
             );

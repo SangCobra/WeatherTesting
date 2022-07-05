@@ -46,8 +46,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
+//import com.anjlab.android.iab.v3.BillingProcessor;
+//import com.anjlab.android.iab.v3.TransactionDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +55,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import anaxxes.com.weatherFlow.BuildConfig;
+import anaxxes.com.weatherFlow.OnActionCallback;
 import anaxxes.com.weatherFlow.basic.model.option.unit.CloudCoverUnit;
 import anaxxes.com.weatherFlow.basic.model.option.unit.RelativeHumidityUnit;
 import anaxxes.com.weatherFlow.basic.model.option.unit.SpeedUnit;
@@ -63,6 +64,7 @@ import anaxxes.com.weatherFlow.basic.model.weather.Base;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.main.adapter.MainPagerAdapter;
 import anaxxes.com.weatherFlow.main.adapter.trend.HourlyTrendAdapter;
+import anaxxes.com.weatherFlow.main.dialog.SettingNavDialog;
 import anaxxes.com.weatherFlow.main.layout.TrendHorizontalLinearLayoutManager;
 import anaxxes.com.weatherFlow.models.AQIGasModel;
 import anaxxes.com.weatherFlow.models.TodayForecastModel;
@@ -113,7 +115,7 @@ public class MainActivity extends GeoActivity
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
 
-    private BillingProcessor bp;
+//    private BillingProcessor bp;
 
     @Nullable
     private String pendingAction;
@@ -176,7 +178,7 @@ public class MainActivity extends GeoActivity
             String formattedId = intent.getStringExtra(KEY_LOCATION_FORMATTED_ID);
             viewModel.updateLocationFromBackground(MainActivity.this, formattedId);
             if (isForeground()) {
-                getSnackbarContainer().postDelayed(() -> {
+                getSnackBarContainer().postDelayed(() -> {
                     if (isForeground()
                             && formattedId != null
                             && formattedId.equals(viewModel.getCurrentLocationFormattedId())) {
@@ -251,9 +253,9 @@ public class MainActivity extends GeoActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+//        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
+//        }
+        super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
             case SETTINGS_ACTIVITY:
@@ -279,7 +281,9 @@ public class MainActivity extends GeoActivity
                         formattedId = viewModel.getCurrentLocationFormattedId();
                     }
                     viewModel.init(this, formattedId);
-                    index = data.getIntExtra(MainActivity.KEY_LOCATION_INDEX,0);
+                    if (data != null) {
+                        index = data.getIntExtra(MainActivity.KEY_LOCATION_INDEX,0);
+                    }
                     binding.background.mainPager.setCurrentItem(index);
                 }
                 break;
@@ -325,14 +329,14 @@ public class MainActivity extends GeoActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (bp != null) {
-            bp.release();
-        }
+//        if (bp != null) {
+//            bp.release();
+//        }
         unregisterReceiver(backgroundUpdateReceiver);
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return binding.background.background;
     }
 
@@ -376,7 +380,7 @@ public class MainActivity extends GeoActivity
 
         DisplayUtils.disableEditText(binding.background.tv24Hours);
         DisplayUtils.disableEditText(binding.background.tv25Days);
-        DisplayUtils.disableEditText(binding.background.tvSeeMoreRadar);
+//        DisplayUtils.disableEditText(binding.background.tvSeeMoreRadar);
 
         binding.background.scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
@@ -446,28 +450,28 @@ public class MainActivity extends GeoActivity
 //            }
 //        });
 //
-        bp = new BillingProcessor(this, Config.LICENCE_KEY_FROM_GOOGLE_PLAY_CONSOLE, new BillingProcessor.IBillingHandler() {
-            @Override
-            public void onProductPurchased(String productId, TransactionDetails details) {
-                PurchaseUtils.setIsPurchased(MainActivity.this);
-            }
-
-            @Override
-            public void onPurchaseHistoryRestored() {
-
-            }
-
-            @Override
-            public void onBillingError(int errorCode, Throwable error) {
-
-            }
-
-            @Override
-            public void onBillingInitialized() {
-
-            }
-        });
-        bp.initialize();
+//        bp = new BillingProcessor(this, Config.LICENCE_KEY_FROM_GOOGLE_PLAY_CONSOLE, new BillingProcessor.IBillingHandler() {
+//            @Override
+//            public void onProductPurchased(String productId, TransactionDetails details) {
+//                PurchaseUtils.setIsPurchased(MainActivity.this);
+//            }
+//
+//            @Override
+//            public void onPurchaseHistoryRestored() {
+//
+//            }
+//
+//            @Override
+//            public void onBillingError(int errorCode, Throwable error) {
+//
+//            }
+//
+//            @Override
+//            public void onBillingInitialized() {
+//
+//            }
+//        });
+//        bp.initialize();
     }
 
     private void clickListeners() {
@@ -483,16 +487,16 @@ public class MainActivity extends GeoActivity
                     this, viewModel.getCurrentLocationFormattedId(), 0);
         });
 
-
-        binding.navLayout.tvSettings.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            IntentHelper.startMySettingsActivityForResult(this, SETTINGS_ACTIVITY);
-        });
-
-        binding.navLayout.llRemoveAds.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            bp.purchase(MainActivity.this, Config.PRODUCT_ID);
-        });
+//
+//        binding.navLayout.tvSettings.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            IntentHelper.startMySettingsActivityForResult(this, SETTINGS_ACTIVITY);
+//        });
+//
+//        binding.navLayout.llRemoveAds.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            bp.purchase(MainActivity.this, Config.PRODUCT_ID);
+//        });
 
         binding.background.imgMenu.setOnClickListener(view -> {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -612,6 +616,7 @@ public class MainActivity extends GeoActivity
         resetUI(location);
     }
 
+    @SuppressLint({"ClickableViewAccessibility", "SetJavaScriptEnabled"})
     private void resetUI(Location location) {
 
 
@@ -1152,6 +1157,18 @@ public class MainActivity extends GeoActivity
         viewModel.updateWeather(this);
     }
 
+    public void showDialogSettingUnit() {
+        SettingNavDialog.Companion.start(this, (key, data) -> {
+
+        });
+    }
+
+    public void goToMap() {
+        if (location != null){
+            sendToRadar(location);
+        }
+    }
+
     // on scroll changed listener.
 
     private class OnScrollListener extends RecyclerView.OnScrollListener {
@@ -1234,111 +1251,111 @@ public class MainActivity extends GeoActivity
     }
 
 
-    public void showSpeedUnitDialog() {
-        String[] unitsTitle = getResources().getStringArray(R.array.speed_units);
-        String[] unitsValues = getResources().getStringArray(R.array.speed_unit_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(getString(R.string.settings_title_speed_unit));
-
-        builder.setItems(unitsTitle, (dialog, which) -> {
-            settingsOptionManager.setSpeedUnit(unitsValues[which]);
-            binding.navLayout.etNavSpeedUnit.setText(settingsOptionManager.getSpeedUnit().getAbbreviation(this));
-
-            SnackbarUtils.showSnackbar(
-                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    public void showDistanceUnitDialog() {
-        String[] unitsTitle = getResources().getStringArray(R.array.distance_units);
-        String[] unitsValues = getResources().getStringArray(R.array.distance_unit_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(getString(R.string.settings_title_distance_unit));
-
-        builder.setItems(unitsTitle, (dialog, which) -> {
-            settingsOptionManager.setDistanceUnit(unitsValues[which]);
-            binding.navLayout.etNavDistanceUnit.setText(settingsOptionManager.getDistanceUnit().getAbbreviation(this));
-
-            SnackbarUtils.showSnackbar(
-                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    public void showPrecipUnitDialog() {
-        String[] unitsTitle = getResources().getStringArray(R.array.precipitation_units);
-        String[] unitsValues = getResources().getStringArray(R.array.precipitation_unit_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(getString(R.string.settings_title_precipitation_unit));
-
-        builder.setItems(unitsTitle, (dialog, which) -> {
-            settingsOptionManager.setPrecipitationUnit(unitsValues[which]);
-            binding.navLayout.etNavPrecipUnit.setText(settingsOptionManager.getPrecipitationUnit().getAbbreviation(this));
-
-            SnackbarUtils.showSnackbar(
-                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    public void showPressureUnitDialog() {
-        String[] pressureUnitsTitle = getResources().getStringArray(R.array.pressure_units);
-        String[] pressureUnitsValues = getResources().getStringArray(R.array.pressure_unit_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(getString(R.string.settings_title_pressure_unit));
-
-        builder.setItems(pressureUnitsTitle, (dialog, which) -> {
-            settingsOptionManager.setPressureUnit(pressureUnitsValues[which]);
-            binding.navLayout.etNavPressureUnit.setText(settingsOptionManager.getPressureUnit().getAbbreviation(this));
-
-            SnackbarUtils.showSnackbar(
-                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    public void showTempUnitDialog() {
-        String[] tempUnitsTitle = getResources().getStringArray(R.array.temperature_units);
-        String[] tempUnitsValues = getResources().getStringArray(R.array.temperature_unit_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(getString(R.string.settings_title_temperature_unit));
-
-        builder.setItems(tempUnitsTitle, (dialog, which) -> {
-            settingsOptionManager.setTemperatureUnit(tempUnitsValues[which]);
-            PollingManager.resetNormalBackgroundTask(MainActivity.this, false);
-            binding.navLayout.etNavTempUnit.setText(settingsOptionManager.getTemperatureUnit().getAbbreviation(this));
-
-            SnackbarUtils.showSnackbar(
-                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    public void showRefreshRateDialog() {
-        String[] refreshRatesTitles = getResources().getStringArray(R.array.automatic_refresh_rates);
-        String[] refreshRatesValues = getResources().getStringArray(R.array.automatic_refresh_rate_values);
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle(getString(R.string.settings_title_refresh_rate));
-
-        builder.setItems(refreshRatesTitles, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                settingsOptionManager.setUpdateInterval(refreshRatesValues[which]);
-                PollingManager.resetNormalBackgroundTask(MainActivity.this, false);
-                binding.navLayout.etNavRefreshRate.setText(settingsOptionManager.getUpdateInterval().getUpdateIntervalName(MainActivity.this));
-
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
+//    public void showSpeedUnitDialog() {
+//        String[] unitsTitle = getResources().getStringArray(R.array.speed_units);
+//        String[] unitsValues = getResources().getStringArray(R.array.speed_unit_values);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//        builder.setTitle(getString(R.string.settings_title_speed_unit));
+//
+//        builder.setItems(unitsTitle, (dialog, which) -> {
+//            settingsOptionManager.setSpeedUnit(unitsValues[which]);
+//            binding.navLayout.etNavSpeedUnit.setText(settingsOptionManager.getSpeedUnit().getAbbreviation(this));
+//
+//            SnackbarUtils.showSnackbar(
+//                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
+//        });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+//
+//    public void showDistanceUnitDialog() {
+//        String[] unitsTitle = getResources().getStringArray(R.array.distance_units);
+//        String[] unitsValues = getResources().getStringArray(R.array.distance_unit_values);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//        builder.setTitle(getString(R.string.settings_title_distance_unit));
+//
+//        builder.setItems(unitsTitle, (dialog, which) -> {
+//            settingsOptionManager.setDistanceUnit(unitsValues[which]);
+//            binding.navLayout.etNavDistanceUnit.setText(settingsOptionManager.getDistanceUnit().getAbbreviation(this));
+//
+//            SnackbarUtils.showSnackbar(
+//                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
+//        });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+//
+//    public void showPrecipUnitDialog() {
+//        String[] unitsTitle = getResources().getStringArray(R.array.precipitation_units);
+//        String[] unitsValues = getResources().getStringArray(R.array.precipitation_unit_values);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//        builder.setTitle(getString(R.string.settings_title_precipitation_unit));
+//
+//        builder.setItems(unitsTitle, (dialog, which) -> {
+//            settingsOptionManager.setPrecipitationUnit(unitsValues[which]);
+//            binding.navLayout.etNavPrecipUnit.setText(settingsOptionManager.getPrecipitationUnit().getAbbreviation(this));
+//
+//            SnackbarUtils.showSnackbar(
+//                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
+//        });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+//
+//    public void showPressureUnitDialog() {
+//        String[] pressureUnitsTitle = getResources().getStringArray(R.array.pressure_units);
+//        String[] pressureUnitsValues = getResources().getStringArray(R.array.pressure_unit_values);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//        builder.setTitle(getString(R.string.settings_title_pressure_unit));
+//
+//        builder.setItems(pressureUnitsTitle, (dialog, which) -> {
+//            settingsOptionManager.setPressureUnit(pressureUnitsValues[which]);
+//            binding.navLayout.etNavPressureUnit.setText(settingsOptionManager.getPressureUnit().getAbbreviation(this));
+//
+//            SnackbarUtils.showSnackbar(
+//                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
+//        });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+//
+//    public void showTempUnitDialog() {
+//        String[] tempUnitsTitle = getResources().getStringArray(R.array.temperature_units);
+//        String[] tempUnitsValues = getResources().getStringArray(R.array.temperature_unit_values);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//        builder.setTitle(getString(R.string.settings_title_temperature_unit));
+//
+//        builder.setItems(tempUnitsTitle, (dialog, which) -> {
+//            settingsOptionManager.setTemperatureUnit(tempUnitsValues[which]);
+//            PollingManager.resetNormalBackgroundTask(MainActivity.this, false);
+//            binding.navLayout.etNavTempUnit.setText(settingsOptionManager.getTemperatureUnit().getAbbreviation(this));
+//
+//            SnackbarUtils.showSnackbar(
+//                    MainActivity.this, getString(R.string.feedback_refresh_ui_after_refresh));
+//        });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+//
+//    public void showRefreshRateDialog() {
+//        String[] refreshRatesTitles = getResources().getStringArray(R.array.automatic_refresh_rates);
+//        String[] refreshRatesValues = getResources().getStringArray(R.array.automatic_refresh_rate_values);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//        builder.setTitle(getString(R.string.settings_title_refresh_rate));
+//
+//        builder.setItems(refreshRatesTitles, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                settingsOptionManager.setUpdateInterval(refreshRatesValues[which]);
+//                PollingManager.resetNormalBackgroundTask(MainActivity.this, false);
+//                binding.navLayout.etNavRefreshRate.setText(settingsOptionManager.getUpdateInterval().getUpdateIntervalName(MainActivity.this));
+//
+//            }
+//        });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
+//
 
     public void setCityName(String cityName){
         binding.background.tvCityName.setText(cityName);

@@ -5,7 +5,8 @@
     android:id="@+id/activity_weather_daily_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorHomeBg">
+    android:background="@color/colorHomeBg"
+    android:backgroundTint="#3B3B3B">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,7 +16,7 @@
         <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorHomeBg"
+            android:background="#3B3B3B"
             android:fitsSystemWindows="true">
 
             <androidx.appcompat.widget.Toolbar
@@ -30,8 +31,9 @@
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
-                    style="@style/title_text"
-                    tools:text="12-24 周五" />
+                    android:textSize="@dimen/_16sdp"
+                    android:fontFamily="@font/montserrat_regular"
+                    tools:text="Daily weather"  android:layout_height="wrap_content"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

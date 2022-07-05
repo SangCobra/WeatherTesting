@@ -194,7 +194,7 @@ public class DailyTrendDisplayManageActivity extends GeoActivity {
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return binding.container;
     }
 

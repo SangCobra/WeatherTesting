@@ -198,7 +198,7 @@ public class CardDisplayManageActivity extends GeoActivity {
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return findViewById(R.id.activity_card_display_manage_container);
     }
 

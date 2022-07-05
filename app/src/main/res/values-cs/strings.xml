@@ -361,8 +361,7 @@
     <string name="settings_notification_hide_big_view_on">Zakázán</string>
     <string name="settings_notification_hide_big_view_off">Povolen</string>
     <string name="wind_pressure">Vítr/tlak</string>
-
-
+    <string name="details">Details</string>
 
 
 </resources>

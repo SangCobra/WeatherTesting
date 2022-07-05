@@ -49,6 +49,7 @@ public class SettingsOptionManager {
     private boolean precipitationPushEnabled;
     private boolean showNightInfoEnabled;
     private boolean isWeatherBgEnabled;
+    private boolean isTermChange;
     private UpdateInterval updateInterval;
     private DarkMode darkMode;
 
@@ -134,7 +135,7 @@ public class SettingsOptionManager {
                 context.getString(R.string.key_precipitation_notification_switch), false);
 
         showNightInfoEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_show_night_info_switch),false);
-        isWeatherBgEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_weather_background),false);
+        isWeatherBgEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_weather_background),true);
 
         updateInterval = OptionMapper.getUpdateInterval(
                 sharedPreferences.getString(

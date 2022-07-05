@@ -23,6 +23,13 @@ public class Temperature implements Serializable {
     @Nullable private Integer wetBulbTemperature;
     @Nullable private Integer degreeDayTemperature;
 
+    @Override
+    public String toString() {
+        return "Temperature{" +
+                "temperature=" + temperature +
+                '}';
+    }
+
     public Temperature(int temperature,
                        @Nullable Integer realFeelTemperature,
                        @Nullable Integer realFeelShaderTemperature,

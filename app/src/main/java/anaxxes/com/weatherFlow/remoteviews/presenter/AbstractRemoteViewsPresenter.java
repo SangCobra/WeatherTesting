@@ -192,7 +192,7 @@ public abstract class AbstractRemoteViewsPresenter {
                 context,
                 requestCode,
                 IntentHelper.buildMainActivityIntent(location),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_MUTABLE);
     }
 
     public static PendingIntent getDailyForecastPendingIntent(Context context,
@@ -202,7 +202,7 @@ public abstract class AbstractRemoteViewsPresenter {
                 context,
                 requestCode,
                 IntentHelper.buildMainActivityShowDailyForecastIntent(location, index),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_MUTABLE);
     }
 
     public static PendingIntent getRefreshPendingIntent(Context context, int requestCode) {
@@ -210,7 +210,7 @@ public abstract class AbstractRemoteViewsPresenter {
                 context,
                 requestCode,
                 IntentHelper.getAwakeForegroundUpdateServiceIntent(context),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_MUTABLE);
     }
 
     public static PendingIntent getAlarmPendingIntent(Context context, int requestCode) {
@@ -218,7 +218,7 @@ public abstract class AbstractRemoteViewsPresenter {
                 context,
                 requestCode,
                 new Intent(AlarmClock.ACTION_SHOW_ALARMS),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_MUTABLE);
     }
 
     public static PendingIntent getCalendarPendingIntent(Context context, int requestCode) {
@@ -229,7 +229,7 @@ public abstract class AbstractRemoteViewsPresenter {
                 context,
                 requestCode,
                 new Intent(Intent.ACTION_VIEW).setData(builder.build()),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_MUTABLE);
     }
 
     @NonNull

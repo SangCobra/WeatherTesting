@@ -278,5 +278,6 @@
     <string name="wind_level">Windstärke</string>
     <string name="wind_speed">Windgeschwindigkeit</string>
     <string name="yesterday">Gestern</string>
+    <string name="details">Details</string>
 
 </resources>

@@ -373,5 +373,6 @@
     <string name="settings_title_notification_hide_big_view">Ukryj więcej informacji</string>
     <string name="settings_notification_hide_big_view_on">Ukryte</string>
     <string name="settings_notification_hide_big_view_off">Więcej informacji w powiadomieniu</string>
+    <string name="details">Details</string>
 
 </resources>

@@ -250,5 +250,6 @@
     <string name="settings_title_notification_hide_big_view">Nascondi notifica estesa</string>
     <string name="settings_notification_hide_big_view_on">Nascondi</string>
     <string name="settings_notification_hide_big_view_off">Mostra</string>
+    <string name="details">Details</string>
 
 </resources>

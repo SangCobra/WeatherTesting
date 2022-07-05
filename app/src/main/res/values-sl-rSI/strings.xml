@@ -241,5 +241,6 @@
     <string name="settings_title_notification_hide_big_view">Razširjen pogled</string>
     <string name="settings_notification_hide_big_view_on">Skrij</string>
     <string name="settings_notification_hide_big_view_off">Pokaži</string>
+    <string name="details">Details</string>
 
 </resources>

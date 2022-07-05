@@ -16,7 +16,7 @@ import anaxxes.com.weatherFlow.basic.GeoActivity;
 public class SnackbarUtils {
 
     public static void showSnackbar(@NonNull GeoActivity activity, String txt) {
-        Snackbar.make(activity.getSnackbarContainer(), txt, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(activity.getSnackBarContainer(), txt, Snackbar.LENGTH_SHORT).show();
     }
 
     public static void showSnackbar(@NonNull GeoActivity activity, String txt, String action,
@@ -32,7 +32,7 @@ public class SnackbarUtils {
         }
 
         Snackbar.make(
-                activity.getSnackbarContainer(),
+                activity.getSnackBarContainer(),
                 txt,
                 Snackbar.LENGTH_LONG
         ).setAction(action, l)

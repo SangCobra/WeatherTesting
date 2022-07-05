@@ -100,6 +100,7 @@
     <color name="colorPureBlack">#000000</color>
     <color name="colorActualBlack">#000000</color>
     <color name="colorYellow">#dbb123</color>
+    <color name="white">#FFFFFF</color>
 
 
 </resources>

@@ -8,11 +8,11 @@ android {
         }
     }
 
-    compileSdkVersion 30
+    compileSdkVersion 32
     defaultConfig {
         applicationId "anaxxes.com.weatherFlow"
-        minSdkVersion 19
-        targetSdkVersion 30
+        minSdkVersion 22
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -22,15 +22,15 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "WeatherFlow ${variant.versionName}.apk"
+                    outputFileName = "Weather Forecast ${variant.versionName}.apk"
                 }
             }
         }
@@ -78,7 +78,7 @@ greendao {
 dependencies {
     implementation 'org.greenrobot:greendao:3.2.0'
     implementation "androidx.core:core-ktx:+"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
@@ -94,14 +94,14 @@ dependencies {
     // android architect.
     implementation "androidx.work:work-runtime:2.3.4"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime:2.4.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //noinspection LifecycleAnnotationProcessorWithJava8
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.4.1"
 
     // multi dex.
     implementation 'com.android.support:multidex:1.0.3'
@@ -141,6 +141,7 @@ dependencies {
     // utils.
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'com.github.XhinLiang:LunarCalendar:3.0.0'
+    implementation 'com.airbnb.android:lottie:5.0.3'
 //    implementation 'com.github.didikee:AndroidDonate:0.1.0'
 
     //ads
@@ -148,9 +149,10 @@ dependencies {
 
     //native templates
     implementation project(':nativetemplates')
+    implementation 'com.github.MTGLibs:CommonLibs:1.1.8'
 
     //billing
-    implementation 'com.anjlab.android.iab.v3:library:1.1.0'
+//    implementation 'com.anjlab.android.iab.v3:library:1.1.0'
 
     //Volley
     implementation 'com.android.volley:volley:1.1.1'

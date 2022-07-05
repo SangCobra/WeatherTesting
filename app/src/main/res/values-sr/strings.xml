@@ -168,5 +168,6 @@
     <string name="settings_title_notification_hide_big_view">Сакриј велики приказ.</string>
     <string name="settings_notification_hide_big_view_on">Сакриј.</string>
     <string name="settings_notification_hide_big_view_off">Прикажи.</string>
+    <string name="details">Details</string>
 
 </resources>

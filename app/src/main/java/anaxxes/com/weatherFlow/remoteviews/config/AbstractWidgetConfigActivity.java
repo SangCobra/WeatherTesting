@@ -157,7 +157,7 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return container;
     }
 

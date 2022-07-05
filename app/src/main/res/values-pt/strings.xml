@@ -213,5 +213,6 @@
     <string name="settings_title_notification_hide_big_view">Ocultar visão estendida</string>
     <string name="settings_notification_hide_big_view_on">Oculto</string>
     <string name="settings_notification_hide_big_view_off">Mostrando</string>
+    <string name="details">Details</string>
 
 </resources>

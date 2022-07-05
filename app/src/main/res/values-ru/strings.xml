@@ -349,5 +349,6 @@
     <string name="settings_title_notification_hide_big_view">Расширенный вид</string>
     <string name="settings_notification_hide_big_view_on">Скрывать</string>
     <string name="settings_notification_hide_big_view_off">Показывать</string>
+    <string name="details">Details</string>
 
 </resources>

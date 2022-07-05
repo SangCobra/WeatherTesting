@@ -31,6 +31,15 @@ public class Daily implements Serializable {
     private Pollen pollen;
     private UV uv;
     private float hoursOfSun;
+    private boolean isExpand;
+
+    public boolean isExpand() {
+        return isExpand;
+    }
+
+    public void setExpand(boolean expand) {
+        isExpand = expand;
+    }
 
     public Daily(Date date, long time,
                  HalfDay day, HalfDay night, Astro sun, Astro moon,

@@ -363,5 +363,6 @@
     <string name="settings_title_notification_hide_big_view">隱藏大視圖</string>
     <string name="settings_notification_hide_big_view_on">隱藏</string>
     <string name="settings_notification_hide_big_view_off">顯示</string>
+    <string name="details">Details</string>
 
 </resources>

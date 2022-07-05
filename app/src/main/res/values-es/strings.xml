@@ -239,5 +239,6 @@
     <string name="settings_title_notification_custom_color">Color personalizado de la notificación</string>
     <string name="settings_title_service_provider">Proveedor de servicio</string>
     <string name="settings_title_unit">Unidades</string>
+    <string name="details">Details</string>
 
 </resources>

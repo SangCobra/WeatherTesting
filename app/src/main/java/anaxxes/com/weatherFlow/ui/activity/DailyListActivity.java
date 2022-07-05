@@ -21,6 +21,7 @@ import anaxxes.com.weatherFlow.basic.GeoActivity;
 import anaxxes.com.weatherFlow.basic.model.location.Location;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.basic.model.weather.Weather;
+import anaxxes.com.weatherFlow.daily.adapter.holder.DailyListAdapter;
 import anaxxes.com.weatherFlow.databinding.ActivityDailyListBinding;
 import anaxxes.com.weatherFlow.databinding.ActivityMainBinding;
 import anaxxes.com.weatherFlow.db.DatabaseHelper;
@@ -41,6 +42,7 @@ public class DailyListActivity extends GeoActivity {
     private DailyForecastAdapter dailyForecastAdapter;
     private DailyDayNightAdapter dailyDayNightAdapter;
     private SettingsOptionManager settingsOptionManager;
+    private DailyListAdapter dailyListAdapter;
 
 
 
@@ -70,13 +72,13 @@ public class DailyListActivity extends GeoActivity {
         dailyDayNightAdapter = new DailyDayNightAdapter(this, index -> IntentHelper.startDailyWeatherActivity(
                 this, location.getFormattedId(), index));
 
-
+        dailyListAdapter = new DailyListAdapter(this);
 
         initData();
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return null;
     }
 
@@ -100,29 +102,30 @@ public class DailyListActivity extends GeoActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
                 layoutManager.getOrientation());
         binding.dailyForecastList.addItemDecoration(dividerItemDecoration);
+        binding.dailyForecastList.setAdapter(dailyListAdapter);
+        dailyListAdapter.setList((ArrayList<Daily>) weather.getDailyForecast());
 
+//        if (settingsOptionManager.isShowNightInfoEnabled()) {
+//            binding.dailyForecastList.setAdapter(dailyDayNightAdapter);
+//        } else {
+//            binding.dailyForecastList.setAdapter(dailyForecastAdapter);
+//        }
+//
+//
+//
+//        if (settingsOptionManager.isShowNightInfoEnabled()) {
+//            dailyDayNightAdapter.updateData((ArrayList<Daily>) weather.getDailyForecast());
+//        } else {
+//            dailyForecastAdapter.updateData((ArrayList<Daily>) weather.getDailyForecast());
+//        }
 
-        if (settingsOptionManager.isShowNightInfoEnabled()) {
-            binding.dailyForecastList.setAdapter(dailyDayNightAdapter);
-        } else {
-            binding.dailyForecastList.setAdapter(dailyForecastAdapter);
-        }
-
-
-
-        if (settingsOptionManager.isShowNightInfoEnabled()) {
-            dailyDayNightAdapter.updateData((ArrayList<Daily>) weather.getDailyForecast());
-        } else {
-            dailyForecastAdapter.updateData((ArrayList<Daily>) weather.getDailyForecast());
-        }
-
-        binding.tvDailyStatus.setText(weather.getCurrent().getWeatherText());
+//        binding.tvDailyStatus.setText(weather.getCurrent().getWeatherText());
 
         Toolbar toolbar = findViewById(R.id.activity_weather_daily_toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
-
-        TextView title = findViewById(R.id.activity_weather_daily_title);
-        title.setText(location.getCityName(this));
+//
+//        TextView title = findViewById(R.id.activity_weather_daily_title);
+//        title.setText(location.getCityName(this));
 
 
     }

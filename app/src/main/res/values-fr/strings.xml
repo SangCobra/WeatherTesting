@@ -170,5 +170,6 @@
     <string name="phase_waning_gibbous">Lune gibbeuse décroissante</string>
     <string name="phase_waxing_crescent">Premier croissant</string>
     <string name="phase_waxing_gibbous">Lune gibbeuse croissante</string>
+    <string name="details">Details</string>
 
 </resources>

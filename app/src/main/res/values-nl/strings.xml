@@ -179,5 +179,6 @@
     <string name="settings_title_notification_hide_big_view">Verberg weekvoorspelling.</string>
     <string name="settings_notification_hide_big_view_on">Verborgen.</string>
     <string name="settings_notification_hide_big_view_off">Zichtbaar.</string>
+    <string name="details">Details</string>
 
 </resources>

@@ -323,6 +323,7 @@
     <string name="settings_notification_hide_big_view_on">مُعطل</string>
     <string name="settings_notification_hide_big_view_off">مُفعل</string>
     <string name="wind_pressure">الرياح/الضغط</string>
+    <string name="details">Details</string>
 
 
 </resources>

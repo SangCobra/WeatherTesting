@@ -1,10 +1,22 @@
 package anaxxes.com.weatherFlow.ui.fragment;
 
+import static anaxxes.com.weatherFlow.main.MainActivity.MANAGE_ACTIVITY;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,24 +26,11 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-
-import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import anaxxes.com.weatherFlow.R;
@@ -43,12 +42,14 @@ import anaxxes.com.weatherFlow.basic.model.option.unit.SpeedUnit;
 import anaxxes.com.weatherFlow.basic.model.weather.AirQuality;
 import anaxxes.com.weatherFlow.basic.model.weather.Base;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
+import anaxxes.com.weatherFlow.basic.model.weather.Hourly;
 import anaxxes.com.weatherFlow.basic.model.weather.Weather;
 import anaxxes.com.weatherFlow.databinding.FragmentHomeBinding;
 import anaxxes.com.weatherFlow.main.MainActivity;
 import anaxxes.com.weatherFlow.main.RadarActivity;
-import anaxxes.com.weatherFlow.main.adapter.MainPagerAdapter;
+import anaxxes.com.weatherFlow.main.adapter.trend.HourlyAdapter;
 import anaxxes.com.weatherFlow.main.adapter.trend.HourlyTrendAdapter;
+import anaxxes.com.weatherFlow.main.adapter.trend.daily.DailyAdapter;
 import anaxxes.com.weatherFlow.main.layout.TrendHorizontalLinearLayoutManager;
 import anaxxes.com.weatherFlow.models.TodayForecastModel;
 import anaxxes.com.weatherFlow.resource.provider.ResourceProvider;
@@ -57,13 +58,10 @@ import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
 import anaxxes.com.weatherFlow.ui.adapter.DailyDayNightAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.DailyForecastAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.TodayForecastAdapter;
-import anaxxes.com.weatherFlow.ui.widget.trend.TrendRecyclerView;
 import anaxxes.com.weatherFlow.utils.DisplayUtils;
 import anaxxes.com.weatherFlow.utils.MyUtils;
 import anaxxes.com.weatherFlow.utils.SunMoonUtils;
 import anaxxes.com.weatherFlow.utils.helpter.IntentHelper;
-
-import static anaxxes.com.weatherFlow.main.MainActivity.MANAGE_ACTIVITY;
 
 
 public class HomeFragment extends Fragment {
@@ -77,6 +75,8 @@ public class HomeFragment extends Fragment {
     private DailyForecastAdapter dailyForecastAdapter;
     private DailyDayNightAdapter dailyDayNightAdapter;
     private HourlyTrendAdapter hourlyTrendAdapter;
+    private HourlyAdapter hourlyAdapter;
+    private DailyAdapter dailyAdapter;
     private SunMoonUtils sunMoonUtils;
     private SettingsOptionManager settingsOptionManager;
 
@@ -95,79 +95,76 @@ public class HomeFragment extends Fragment {
 
 
         ensureResourceProvider();
-        location = getArguments().getParcelable("location");
-
+        if (getArguments() != null) {
+            location = getArguments().getParcelable("location");
+        }
 
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity());
         prefs.registerOnSharedPreferenceChangeListener(
-                new SharedPreferences.OnSharedPreferenceChangeListener() {
-                    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                       if(key.equals(getString(R.string.key_weather_background))){
-                           assert location.getWeather() != null;
-                           setWeatherImage(location.getWeather(),binding.imgWeather,settingsOptionManager.isWeatherBgEnabled());
-                       }
+                (prefs1, key) -> {
+                    if (key.equals(getString(R.string.key_weather_background))) {
+                        assert location.getWeather() != null;
+                        setWeatherImage(location.getWeather(), binding.imgWeather, settingsOptionManager.isWeatherBgEnabled());
                     }
                 });
 
 
-        todayForecastAdapter = new TodayForecastAdapter(requireActivity());
-        dailyForecastAdapter = new DailyForecastAdapter(requireActivity(), new DailyForecastAdapter.DailyForecastClickListener() {
-            @Override
-            public void clickDaily(int index) {
-                IntentHelper.startDailyWeatherActivity(
-                        requireActivity(), location.getFormattedId(), index);
-            }
-        });
+//        todayForecastAdapter = new TodayForecastAdapter(requireActivity());
+        dailyForecastAdapter = new DailyForecastAdapter(requireActivity(), index -> IntentHelper.startDailyWeatherActivity(
+                requireActivity(), location.getFormattedId(), index));
         dailyDayNightAdapter = new DailyDayNightAdapter(requireActivity(), index -> IntentHelper.startDailyWeatherActivity(
                 requireActivity(), location.getFormattedId(), index));
         settingsOptionManager = SettingsOptionManager.getInstance(requireActivity());
         hourlyTrendAdapter = new HourlyTrendAdapter();
-        binding.todayForecastList.setAdapter(todayForecastAdapter);
-        binding.todayForecastList.setLayoutManager(new GridLayoutManager(requireActivity(), 3));
+        hourlyAdapter = new HourlyAdapter(requireContext());
+        dailyAdapter = new DailyAdapter(requireContext(), index -> IntentHelper.startDailyWeatherActivity(requireActivity(), location.getFormattedId(), index));
+        binding.rcvHourlyMain.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
+        binding.rcvHourlyMain.setAdapter(hourlyAdapter);
+        binding.recyclerViewMainDaily.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
+        binding.recyclerViewMainDaily.setAdapter(dailyAdapter);
+//        binding.todayForecastList.setAdapter(todayForecastAdapter);
+//        binding.todayForecastList.setLayoutManager(new GridLayoutManager(requireActivity(), 3));
 
 
-        if (settingsOptionManager.isShowNightInfoEnabled()) {
-            binding.dailyForecastList.setAdapter(dailyDayNightAdapter);
-        } else {
-            binding.dailyForecastList.setAdapter(dailyForecastAdapter);
-        }
+//        if (settingsOptionManager.isShowNightInfoEnabled()) {
+//            binding.dailyForecastList.setAdapter(dailyDayNightAdapter);
+//        } else {
+//            binding.dailyForecastList.setAdapter(dailyForecastAdapter);
+//        }
+//
+//
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(requireActivity());
+//        binding.dailyForecastList.setLayoutManager(layoutManager);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireActivity(),
+//                layoutManager.getOrientation());
+//        binding.dailyForecastList.addItemDecoration(dividerItemDecoration);
 
-
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireActivity());
-        binding.dailyForecastList.setLayoutManager(layoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireActivity(),
-                layoutManager.getOrientation());
-        binding.dailyForecastList.addItemDecoration(dividerItemDecoration);
-
-        DisplayUtils.disableEditText(binding.tv24Hours);
-        DisplayUtils.disableEditText(binding.tv25Days);
-        DisplayUtils.disableEditText(binding.tvSeeMoreRadar);
+//        DisplayUtils.disableEditText(binding.tv24Hours);
+//        DisplayUtils.disableEditText(binding.tvSeeMoreRadar);
 
         clickListeners();
 
-        sunMoonUtils = new SunMoonUtils(binding.sunMoonView, location, resourceProvider,MyUtils.isNight());
-        sunMoonUtils.ensureTime(location.getWeather().getDailyForecast().get(0),
-                location.getWeather().getDailyForecast().get(1),
-                location.getTimeZone());
+        sunMoonUtils = new SunMoonUtils(binding.sunMoonView, location, resourceProvider, MyUtils.isNight());
+        if (location.getWeather() != null) {
+            sunMoonUtils.ensureTime(location.getWeather().getDailyForecast().get(0),
+                    location.getWeather().getDailyForecast().get(1),
+                    location.getTimeZone());
+        }
 
 
         sunMoonUtils.setMoonDrawable();
         sunMoonUtils.setSunDrawable();
 
 
-        binding.scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                View view = (View) binding.scrollView.getChildAt(binding.scrollView.getChildCount() - 1);
+        binding.scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            View view1 = (View) binding.scrollView.getChildAt(binding.scrollView.getChildCount() - 1);
 
-                int diff = (view.getBottom() - (binding.scrollView.getHeight() + binding.scrollView
-                        .getScrollY()));
+            int diff = (view1.getBottom() - (binding.scrollView.getHeight() + binding.scrollView
+                    .getScrollY()));
 
-                if (diff == 0) {
-                    sunMoonUtils.onEnterScreen();
-                }
+            if (diff == 0) {
+                sunMoonUtils.onEnterScreen();
             }
         });
 
@@ -184,43 +181,51 @@ public class HomeFragment extends Fragment {
 
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "SetJavaScriptEnabled", "ClickableViewAccessibility"})
     private void resetUI(Location location) {
 
         SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(requireActivity());
         if (location.getWeather() != null) {
-            setWeatherImage(location.getWeather(), binding.imgWeather,settingsOptionManager.isWeatherBgEnabled());
-            String currentTemperature = location.getWeather().getCurrent().getTemperature().getTemperatureWithoutDegree(requireActivity(), settingsOptionManager.getTemperatureUnit());
-            binding.tvTemperature.setText(String.valueOf(currentTemperature));
+            setWeatherImage(location.getWeather(), binding.imgWeather, settingsOptionManager.isWeatherBgEnabled());
+
+            binding.tvTemperature.setText(location.getWeather().getCurrent().getTemperature().getTemperatureWithoutDegree(requireContext(), settingsOptionManager.getTemperatureUnit()));
             binding.tvRealFeelTemp.setText("Feels like: " + location.getWeather().getCurrent().getTemperature().getShortRealFeeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()));
             binding.tvTempStatus.setText(location.getWeather().getCurrent().getWeatherText());
-            binding.tvLowTemp.setText(location.getWeather().getYesterday().getNighttimeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()) +"\u00B0");
-            binding.tvMaxTemp.setText(location.getWeather().getYesterday().getDaytimeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()) +"\u00B0");
-            binding.tvRecentRefresh.setText(
-                    String.format("%s %s", getString(R.string.refresh_at), Base.getTime(requireActivity(), location.getWeather().getBase().getUpdateDate()))
-            );
+            if (location.getWeather().getYesterday() != null) {
+                binding.tvLowTemp.setText(location.getWeather().getYesterday().getNighttimeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()) + "\u00B0");
+            }
+            binding.tvMaxTemp.setText(location.getWeather().getYesterday().getDaytimeTemperature(requireActivity(), settingsOptionManager.getTemperatureUnit()) + "\u00B0");
+//            binding.tvRecentRefresh.setText(
+//                    String.format("%s %s", getString(R.string.refresh_at), Base.getTime(requireActivity(), location.getWeather().getBase().getUpdateDate()))
+//            );
 
+            binding.humidityCurrent.setText(RelativeHumidityUnit.PERCENT.getRelativeHumidityText(
+                    location.getWeather().getCurrent().getRelativeHumidity()));
+            binding.realFeelCurrent.setText(settingsOptionManager.getTemperatureUnit().getTemperatureText(requireContext(), location.getWeather().getCurrent().getTemperature().getTemperature()));
+            if (location.getWeather().getHourlyForecast().get(0).getPrecipitationProbability().getRain() != null) {
+                binding.percentRainCurrent.setText(location.getWeather().getHourlyForecast().get(0).getPrecipitationProbability().getRain().toString());
+            }
+            if (location.getWeather().getCurrent().getWind().getSpeed() != null)
 
+                binding.windSpeedCurrent.setText(settingsOptionManager.getSpeedUnit().getSpeedText(requireActivity(), location.getWeather().getCurrent().getWind().getSpeed()));
+            if (location.getWeather().getCurrent().getVisibility() != null) {
+                binding.visibilityCurrent.setText(settingsOptionManager.getDistanceUnit().getDistanceText(requireActivity(), location.getWeather().getCurrent().getVisibility()));
+            }
+            if (location.getWeather().getCurrent().getPressure() != null) {
+                binding.pressureCurrent.setText(settingsOptionManager.getPressureUnit().getPressureText(requireActivity(), location.getWeather().getCurrent().getPressure()));
+            }
+            if (location.getWeather().getCurrent().getUV().getIndex() != null) {
+                binding.uvCurrent.setText(location.getWeather().getCurrent().getUV().getUVDescription());
+            }
+            if (location.getWeather().getCurrent().getPrecipitation().getTotal() != null) {
+                binding.precipitationCurrent.setText(settingsOptionManager.getPrecipitationUnit().getPrecipitationText(requireActivity(), location.getWeather().getCurrent().getPrecipitation().getTotal()));
+            }
 
-
-//            switch (settingsOptionManager.getTemperatureUnit()) {
-//                case C:
-//                    binding.tvTempScale.setText("C");
-//                    break;
-//                case F:
-//                    binding.tvTempScale.setText("F");
-//                    break;
-//                case K:
-//                    binding.tvTempScale.setText("K");
-//                    break;
-//            }
-
-
-            todayForecastAdapter.updateData(getTodayForecastList(location));
+//            todayForecastAdapter.updateData(getTodayForecastList(location));
 
             ArrayList<Daily> dailyList = new ArrayList<>();
 
-            for(int i =0; i<5;i++){
+            for (int i = 0; i < 5; i++) {
                 dailyList.add(location.getWeather().getDailyForecast().get(i));
             }
             if (settingsOptionManager.isShowNightInfoEnabled()) {
@@ -232,24 +237,20 @@ public class HomeFragment extends Fragment {
             }
 
             //Hourly Trend RecyclerView
-            binding.containerMainHourlyTrendCardTrendRecyclerView.setHasFixedSize(true);
-            binding.containerMainHourlyTrendCardTrendRecyclerView.setLayoutManager(
-                    new TrendHorizontalLinearLayoutManager(
-                            requireActivity(),
-                            DisplayUtils.isLandscape(requireActivity()) ? 7 : 5
-                    )
-            );
-            binding.containerMainHourlyTrendCardTrendRecyclerView.setAdapter(hourlyTrendAdapter);
-            binding.containerMainHourlyTrendCardTrendRecyclerView.setKeyLineVisibility(
-                    SettingsOptionManager.getInstance(requireActivity()).isTrendHorizontalLinesEnabled());
-            hourlyTrendAdapter.temperature(
-                    (GeoActivity) requireActivity(), binding.containerMainHourlyTrendCardTrendRecyclerView,
-                    location.getWeather(),
-                    resourceProvider,
-                    SettingsOptionManager.getInstance(requireActivity()).getTemperatureUnit()
-            );
+            hourlyAdapter.updateList((ArrayList<Hourly>) location.getWeather().getHourlyForecast());
+            dailyAdapter.updateList((ArrayList<Daily>) location.getWeather().getDailyForecast());
 
-            binding.tvDailyStatus.setText(location.getWeather().getCurrent().getWeatherText());
+            //            binding.containerMainHourlyTrendCardTrendRecyclerView.setKeyLineVisibility(
+//                    SettingsOptionManager.getInstance(requireActivity()).isTrendHorizontalLinesEnabled());
+//            hourlyTrendAdapter.temperature(
+//                    (GeoActivity) requireActivity(), binding.containerMainHourlyTrendCardTrendRecyclerView,
+//                    location.getWeather(),
+//                    resourceProvider,
+//                    SettingsOptionManager.getInstance(requireActivity()).getTemperatureUnit()
+//            );
+
+
+//            binding.tvDailyStatus.setText(location.getWeather().getCurrent().getWeatherText());
 
 
             sunMoonUtils.ensureTime(location.getWeather().getDailyForecast().get(0),
@@ -265,10 +266,10 @@ public class HomeFragment extends Fragment {
             int hour = cal.get(Calendar.HOUR_OF_DAY);
             boolean isNight = hour < 6 || hour > 18;
 
-            if(isNight) {
+            if (isNight) {
                 binding.tvStartTime.setText(location.getWeather().getDailyForecast().get(0).moon().getRiseTime(requireActivity()));
                 binding.tvEndTime.setText(location.getWeather().getDailyForecast().get(0).moon().getSetTime(requireActivity()));
-            }else{
+            } else {
                 binding.tvStartTime.setText(location.getWeather().getDailyForecast().get(0).sun().getRiseTime(requireActivity()));
                 binding.tvEndTime.setText(location.getWeather().getDailyForecast().get(0).sun().getSetTime(requireActivity()));
             }
@@ -286,8 +287,7 @@ public class HomeFragment extends Fragment {
             Display display = requireActivity().getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
-            int width = size.x;
-            int height = size.y;
+
 
             String html = "<html><head><style>" +
 
@@ -300,50 +300,39 @@ public class HomeFragment extends Fragment {
                     "}" +
                     "</style></head><body  style=\"padding: 0; margin: 0;\">" +
                     "<div ><iframe src=\"https://embed.windy.com/embed2.html?" +
-                    "lat="+location.getLatitude()+
-                    "&lon="+location.getLongitude()+
-                    "&detailLat="+location.getLatitude()+"" +
-                    "&detailLon="+location.getLongitude()+
+                    "lat=" + location.getLatitude() +
+                    "&lon=" + location.getLongitude() +
+                    "&detailLat=" + location.getLatitude() + "" +
+                    "&detailLon=" + location.getLongitude() +
                     "&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1\"" +
                     " frameborder=\"0\"></iframe></div></body></html>";
 
 
-//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int)DisplayUtils.dpToPx(requireActivity(),300),(int)DisplayUtils.dpToPx(requireActivity(),100));
-//            binding.cardWebView.setLayoutParams(layoutParams);
             binding.radarWebView.getSettings().setJavaScriptEnabled(true);
 
-            binding.tvSeeMoreRadar.setOnClickListener(view -> {
-                sendToRadar(location);
+            binding.tvSeeMoreRadar.setOnClickListener(view -> sendToRadar(location));
+
+
+            binding.radarWebView.setOnTouchListener((v, event) -> {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        startY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        float endX = event.getX();
+                        float endY = event.getY();
+                        if (isAClick(startX, endX, startY, endY)) {
+                            sendToRadar(location);
+                        }
+                        break;
+                }
+                return true;
             });
 
+            binding.radarWebView.setOnClickListener(view -> {
 
-            binding.radarWebView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            startX = event.getX();
-                            startY = event.getY();
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            float endX = event.getX();
-                            float endY = event.getY();
-                            if (isAClick(startX, endX, startY, endY)) {
-                                sendToRadar(location);
-                            }
-                            break;
-                    }
-                    return true;
-                }
-            });
-
-            binding.radarWebView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-
-                }
             });
             binding.radarWebView.loadData(html, "text/html", null);
 
@@ -356,11 +345,10 @@ public class HomeFragment extends Fragment {
             rotateAnimation.setDuration(5000);
             rotateAnimation.setRepeatCount(Animation.INFINITE);
 
-            binding.imgWindFan.startAnimation(rotateAnimation);
+//            binding.imgWindFan.startAnimation(rotateAnimation);
 
 
             String windDirection = "N/A", windSpeed = "0.0", guageText = "N/A";
-            Boolean speedVisible = false;
             SpeedUnit unit = SettingsOptionManager.getInstance(requireActivity()).getSpeedUnit();
 
             if (location.getWeather().getCurrent().getWind().getDegree().isNoDirection() || location.getWeather().getCurrent().getWind().getDegree().getDegree() % 45 == 0) {
@@ -373,19 +361,18 @@ public class HomeFragment extends Fragment {
             if (location.getWeather().getCurrent().getWind().getSpeed() != null && location.getWeather().getCurrent().getWind().getSpeed() > 0) {
 
                 windSpeed = unit.getSpeedText(requireActivity(), location.getWeather().getCurrent().getWind().getSpeed());
-                binding.tvWindSpeed.setText(windSpeed);
+//                binding.tvWindSpeed.setText(windSpeed);
 
             }
 
             guageText = location.getWeather().getCurrent().getWind().getLevel();
 
-            binding.tvWindSpeed.setText(windSpeed);
-            binding.tvWindDirection.setText(windDirection);
-            binding.tvWindGauge.setText(guageText);
+//            binding.tvWindSpeed.setText(windSpeed);
+//            binding.tvWindDirection.setText(windDirection);
+//            binding.tvWindGauge.setText(guageText);
 
 
-            Log.d("laksjdhfasdf",location.getCityId() + "");
-            binding.tvPressureValue.setText(settingsOptionManager.getPressureUnit().getPressureText(requireActivity(), location.getWeather().getCurrent().getPressure()));
+//            binding.tvPressureValue.setText(settingsOptionManager.getPressureUnit().getPressureText(requireActivity(), location.getWeather().getCurrent().getPressure()));
 
             binding.tvCityName.setText(location.getCityName(requireActivity()) + ", " + location.getCountry());
             @SuppressLint("SimpleDateFormat") SimpleDateFormat fommater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZ", Locale.ENGLISH);
@@ -397,10 +384,9 @@ public class HomeFragment extends Fragment {
                 @SuppressLint("SimpleDateFormat") String outMon = new SimpleDateFormat("MMM dd, yyyy").format(location.getWeather().getDailyForecast().get(0).getDate());
                 binding.tvCurrentTime.setText(outDay + " ");
                 binding.dayCurrent.setText(outMon);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
 
 //            AQIGasAdapter aqiGasAdapter = new AQIGasAdapter(requireActivity());
@@ -437,7 +423,6 @@ public class HomeFragment extends Fragment {
 //        }
     }
 
-    private int CLICK_ACTION_THRESHOLD = 200;
     private float startX;
     private float startY;
 
@@ -451,6 +436,7 @@ public class HomeFragment extends Fragment {
     private boolean isAClick(float startX, float endX, float startY, float endY) {
         float differenceX = Math.abs(startX - endX);
         float differenceY = Math.abs(startY - endY);
+        int CLICK_ACTION_THRESHOLD = 200;
         return !(differenceX > CLICK_ACTION_THRESHOLD/* =5 */ || differenceY > CLICK_ACTION_THRESHOLD);
     }
 
@@ -476,12 +462,7 @@ public class HomeFragment extends Fragment {
 
 
     private void clickListeners() {
-        binding.tv24Hours.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IntentHelper.startHourlyWeatherActivity(requireActivity(), location.getFormattedId(), 0);
-            }
-        });
+        binding.tv24Hours.setOnClickListener(view -> IntentHelper.startHourlyWeatherActivity(requireActivity(), location.getFormattedId(), 0));
 //
         binding.tv25Days.setOnClickListener(view -> {
 
@@ -509,24 +490,24 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void setWeatherImage(Weather weather, ImageView imageView,boolean isBgEnabled) {
+    public void setWeatherImage(Weather weather, ImageView imageView, boolean isBgEnabled) {
         switch (weather.getCurrent().getWeatherCode()) {
             case CLEAR:
                 if (MyUtils.isNight()) {
                     imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_moon));
-                    if(isBgEnabled){
+                    if (isBgEnabled) {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_t_clear));
 
-                    }else{
+                    } else {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
 
                     }
 
                 } else {
-                    if(isBgEnabled){
+                    if (isBgEnabled) {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_cloudy));
 
-                    }else{
+                    } else {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
 
                     }
@@ -538,17 +519,17 @@ public class HomeFragment extends Fragment {
 
                 if (MyUtils.isNight()) {
                     imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_cloudy_moon));
-                    if(isBgEnabled){
+                    if (isBgEnabled) {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_t_cloudy));
-                    }else{
+                    } else {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
                     }
 
                 } else {
                     imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_sun_cloudy));
-                    if(isBgEnabled){
+                    if (isBgEnabled) {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_cloudy));
-                    }else{
+                    } else {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_clear));
                     }
 
@@ -561,17 +542,17 @@ public class HomeFragment extends Fragment {
                 break;
             case RAIN:
                 if (MyUtils.isNight()) {
-                    if(isBgEnabled){
+                    if (isBgEnabled) {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_t_rain));
 
-                    }else{
+                    } else {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
                     }
-                }else{
-                    if(isBgEnabled){
+                } else {
+                    if (isBgEnabled) {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_rain));
 
-                    }else{
+                    } else {
                         binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_cloudy));
                     }
                 }

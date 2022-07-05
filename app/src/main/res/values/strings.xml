@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- app. -->
-    <string name="app_name">Weather Flow</string>
+    <string name="app_name">Weather Forecast</string>
     <string name="weather_flow">Weather App</string>
     <string name="package_name">anaxxes.com.weatherFlow</string><!-- Do not translate. -->
     <string name="version_code">v1.0</string><!-- Do not translate. -->
@@ -14,7 +14,7 @@
     <string name="today">Today</string>
     <string name="refresh_at">Refresh at</string>
     <string name="local_time">Local time</string>
-    <string name="precipitation">Precipitation</string>
+    <string name="precipitation">PRECIPITATION</string>
     <string name="precipitation_probability">Precipitation probability</string>
     <string name="precipitation_duration">Precipitation duration</string>
     <string name="maxi_temp">daytime</string>
@@ -26,12 +26,12 @@
     <string name="night">Night</string>
     <string name="temperature">Temperature</string>
     <string name="wind">Wind</string>
-    <string name="wind_direction">Wind direction</string>
-    <string name="wind_speed">Wind speed</string>
-    <string name="wind_level">Wind gauge</string>
+    <string name="wind_direction">WIND DIRECTION</string>
+    <string name="wind_speed">WIND SPEED</string>
+    <string name="wind_level">WIND GAUGE</string>
     <string name="sensible_temp">Sensible temp</string>
     <string name="humidity">Humidity</string>
-    <string name="uv_index">UV index</string>
+    <string name="uv_index">UV INDEX</string>
     <string name="hours_of_sun">Hours of sun</string>
     <string name="forecast">Forecast</string>
     <string name="briefings">Briefings</string>
@@ -68,7 +68,7 @@
     <string name="week_6">Sat</string>
     <string name="week_7">Sun</string>
 
-    <string name="real_feel_temperature">Real feel</string>
+    <string name="real_feel_temperature">FEELS LIKE</string>
     <string name="real_feel_shader_temperature">Real feel shader</string>
     <string name="apparent_temperature">Apparent</string>
     <string name="wind_chill_temperature">Wind chill</string>
@@ -76,7 +76,7 @@
     <string name="degree_day_temperature">Degree day</string>
 
     <string name="total">Total</string>
-    <string name="thunderstorm">Thunderstorm</string>
+    <string name="thunderstorm">THUNDERSTORM</string>
     <string name="rain">Rain</string>
     <string name="snow">Snow</string>
     <string name="ice">Ice</string>
@@ -491,7 +491,7 @@
     <string name="edit_locations">Edit Locations</string>
     <string name="share_to_friends">Share to friends</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="city_management">City Management</string>
+    <string name="city_management">Location</string>
     <string name="_15_days">25 Days</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -503,10 +503,18 @@
     <string name="daily_forecast">Daily Forecast</string>
     <string name="sun_moon">SUN/MOON</string>
     <string name="radar">Radar</string>
-    <string name="see_more">See more</string>
+    <string name="see_more"><u>See more</u></string>
     <string name="wind_pressure">Wind/Pressure</string>
     <string name="may_16_2022">May 16 2022</string>
     <string name="mon">Mon\t</string>
     <string name="hanoi_vietnam">Hà Nội, Việt Nam</string>
+    <string name="do_you_want_to_delete_this_address">Do you want to delete this address</string>
+    <string name="delete">Delete</string>
+    <string name="ultraviolet_index">Ultraviolet Index</string>
+    <string name="wind_chill">Wind chill</string>
+    <string name="wind_dir">Wind direction</string>
+    <string name="now">Now</string>
+    <string name="details"><u>Details</u></string>
+    <string name="moon_phrase">Moon phrase</string>
 
 </resources>

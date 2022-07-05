@@ -54,7 +54,7 @@ public class MySettingsActivity extends GeoActivity {
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return binding.getRoot();
     }
 

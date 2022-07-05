@@ -112,21 +112,11 @@ public class LocationManageFragment extends Fragment
                     }
                 }
         );
+        adapter.setListenerChange(this);
         this.recyclerView = view.findViewById(R.id.fragment_location_manage_recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 requireActivity()));
-
-//        adapter2.updateData(modelList);
-//        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, insets) -> {
-//            v.setPadding(
-//                    insets.getSystemWindowInsetLeft(),
-//                    0,
-//                    drawerMode ? 0 : insets.getSystemWindowInsetRight(),
-//                    insets.getSystemWindowInsetBottom()
-//            );
-//            return insets;
-//        });
 
         new ItemTouchHelper(
                 new LocationTouchCallback(
@@ -138,57 +128,9 @@ public class LocationManageFragment extends Fragment
                 )
         ).attachToRecyclerView(recyclerView);
 
-//        setThemeStyle();
         onLocationListChanged(locationList, false, false);
     }
 
-//    private void setThemeStyle() {
-//        ThemeManager themeManager = ThemeManager.getInstance(requireActivity());
-//
-//        ImageViewCompat.setImageTintList(
-//                searchIcon,
-//                ColorStateList.valueOf(themeManager.getTextContentColor(requireActivity()))
-//        );
-//        ImageViewCompat.setImageTintList(
-//                currentLocationButton,
-//                ColorStateList.valueOf(themeManager.getTextContentColor(requireActivity()))
-//        );
-//        searchTitle.setTextColor(
-//                ColorStateList.valueOf(themeManager.getTextSubtitleColor(requireActivity())));
-//
-//        // background.
-//        if (colorAnimator != null) {
-//            colorAnimator.cancel();
-//            colorAnimator = null;
-//        }
-//
-//        int oldColor = Color.TRANSPARENT;
-//        Drawable background = recyclerView.getBackground();
-//        if (background instanceof ColorDrawable) {
-//            oldColor = ((ColorDrawable) background).getColor();
-//        }
-//        int newColor = themeManager.getRootColor(requireActivity());
-//
-//        if (newColor != oldColor) {
-//            colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), oldColor, newColor);
-//            colorAnimator.addUpdateListener(animation -> {
-//                cardView.setCardBackgroundColor((Integer) animation.getAnimatedValue());
-//                recyclerView.setBackgroundColor((Integer) animation.getAnimatedValue());
-//            });
-//            colorAnimator.setDuration(450);
-//            colorAnimator.start();
-//        } else {
-//            cardView.setCardBackgroundColor(newColor);
-//            recyclerView.setBackgroundColor(newColor);
-//        }
-//
-//        if (decoration != null) {
-//            recyclerView.removeItemDecoration(decoration);
-//            decoration = null;
-//        }
-//        decoration = new MainListDecoration(requireActivity());
-//        recyclerView.addItemDecoration(decoration);
-//    }
 
     public void setRequestCodes(int searchRequestCode, int providerSettingsRequestCode) {
         this.searchRequestCode = searchRequestCode;
@@ -197,7 +139,7 @@ public class LocationManageFragment extends Fragment
 
     public void updateView(List<Location> newList) {
         adapter.update(newList);
-//        setThemeStyle();
+//        iconWeatherStyle();
     }
 
     public void addLocation() {

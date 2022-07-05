@@ -6,5 +6,6 @@
     <string name="date_format_widget_short">EEEE, d MMM</string>
     <string name="date_format_widget_long">EEEE, d MMM</string>
     <string name="date_format_widget_oreo_style">EEEE, d MMM│</string>
+    <string name="details">Details</string>
 
 </resources>

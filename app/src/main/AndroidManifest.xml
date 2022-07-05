@@ -31,16 +31,16 @@
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
 
-    <uses-permission android:name="com.android.vending.BILLING" />
+<!--    <uses-permission android:name="com.android.vending.BILLING" />-->
 
     <application
         android:name=".WeatherFlow"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_clear"
         android:label="@string/weather_flow"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_clear"
         android:supportsRtl="true"
         android:theme="@style/WeatherFlowTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,ManifestResource,RtlEnabled,UnusedAttribute"
@@ -50,7 +50,9 @@
         <activity android:name=".main.HourlyListActivity" />
         <activity android:name=".settings.activity.MySettingsActivity" />
         <activity android:name=".ui.activity.DailyListActivity" />
-        <activity android:name=".main.DailyListActivity" />
+        <activity
+            android:name=".main.DailyListActivity"
+            tools:ignore="MissingClass" />
 
         <meta-data
             android:name="com.anaxxes.weatherFlow.PROVIDER_CONFIG"
@@ -67,12 +69,13 @@
         <meta-data
             android:name="com.anaxxes.weatherFlow.SUN_MOON_FILTER"
             android:resource="@xml/icon_provider_sun_moon_filter" />
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3419835294" /> <!-- android:theme="@style/WeatherFlowTheme.Main" -->
+        <!--        <meta-data-->
+        <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+        <!--            android:value="ca-app-pub-3940256099942544~3419835294" /> &lt;!&ndash; android:theme="@style/WeatherFlowTheme.Main" &ndash;&gt;-->
         <activity
             android:name=".main.MainActivity"
             android:configChanges="uiMode"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="user">
             <intent-filter>
@@ -141,6 +144,7 @@
             android:theme="@style/WeatherFlowTheme" />
         <activity
             android:name=".ui.activity.AwakeUpdateActivity"
+            android:exported="true"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="com.wangdaye.geometricweather.UPDATE" />
@@ -156,6 +160,7 @@
             android:theme="@style/WeatherFlowTheme" /> <!-- widget -->
         <activity
             android:name=".remoteviews.config.DayWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -164,6 +169,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.WeekWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -172,6 +178,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.DayWeekWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -180,6 +187,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.ClockDayHorizontalWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -188,6 +196,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.ClockDayDetailsWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -196,6 +205,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.ClockDayVerticalWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -204,6 +214,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.ClockDayWeekWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -212,6 +223,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.TextWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -220,6 +232,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.DailyTrendWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -228,6 +241,7 @@
         </activity>
         <activity
             android:name=".remoteviews.config.HourlyTrendWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
@@ -236,12 +250,28 @@
         </activity>
         <activity
             android:name=".remoteviews.config.MultiCityWidgetConfigActivity"
+            android:exported="true"
             android:screenOrientation="user"
             android:theme="@style/WeatherFlowTheme">
             <intent-filter>
                 <action android:name="andorid.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
-        </activity> <!-- service -->
+        </activity>
+        <activity
+            android:name=".main.dialog.DeleteDialog"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name=".main.dialog.SetWindDialog"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name=".main.dialog.SetPrecipitationDialog"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name=".main.dialog.SetPressureDialog"
+            android:theme="@style/Transparent" />
+        <activity
+            android:name=".main.dialog.SettingNavDialog"
+            android:theme="@style/Transparent" /> <!-- service -->
         <service
             android:name=".background.polling.basic.AwakeForegroundUpdateService"
             android:foregroundServiceType="location" />
@@ -260,6 +290,7 @@
             android:foregroundServiceType="location" />
         <service
             android:name=".background.service.TileService"
+            android:exported="true"
             android:icon="@drawable/weather_clear_day_mini_light"
             android:label="@string/weather_flow"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -269,6 +300,7 @@
         </service>
         <service
             android:name=".background.service.CMWeatherProviderService"
+            android:exported="true"
             android:permission="cyanogenmod.permission.BIND_WEATHER_PROVIDER_SERVICE">
             <intent-filter>
                 <action android:name="cyanogenmod.weatherservice.WeatherProviderService" />
@@ -280,6 +312,7 @@
         </service>
         <service
             android:name=".wallpaper.material.MaterialLiveWallpaperService"
+            android:exported="true"
             android:permission="android.permission.BIND_WALLPAPER">
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
@@ -289,7 +322,9 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/live_wallpaper" />
         </service> <!-- receiver -->
-        <receiver android:name=".background.receiver.MainReceiver">
+        <receiver
+            android:name=".background.receiver.MainReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.WALLPAPER_CHANGED" />
@@ -297,6 +332,7 @@
         </receiver> <!-- widget -->
         <receiver
             android:name=".background.receiver.widget.WidgetDayProvider"
+            android:exported="true"
             android:label="@string/widget_day">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -309,6 +345,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetWeekProvider"
+            android:exported="true"
             android:label="@string/widget_week">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -321,6 +358,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetDayWeekProvider"
+            android:exported="true"
             android:label="@string/widget_day_week">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -333,6 +371,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetClockDayHorizontalProvider"
+            android:exported="true"
             android:label="@string/widget_clock_day_horizontal">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -345,6 +384,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetClockDayDetailsProvider"
+            android:exported="true"
             android:label="@string/widget_clock_day_details">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -357,6 +397,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetClockDayVerticalProvider"
+            android:exported="true"
             android:label="@string/widget_clock_day_vertical">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -369,6 +410,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetClockDayWeekProvider"
+            android:exported="true"
             android:label="@string/widget_clock_day_week">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -381,6 +423,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetTextProvider"
+            android:exported="true"
             android:label="@string/widget_text">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -393,6 +436,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetTrendDailyProvider"
+            android:exported="true"
             android:label="@string/widget_trend_daily">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -405,6 +449,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetTrendHourlyProvider"
+            android:exported="true"
             android:label="@string/widget_trend_hourly">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -417,6 +462,7 @@
         </receiver>
         <receiver
             android:name=".background.receiver.widget.WidgetMultiCityProvider"
+            android:exported="true"
             android:label="@string/widget_multi_city">
             <meta-data
                 android:name="android.appwidget.provider"

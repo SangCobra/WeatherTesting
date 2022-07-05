@@ -14,7 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,7 +48,7 @@ import anaxxes.com.weatherFlow.weather.WeatherHelper;
  * */
 
 public class SearchActivity extends GeoActivity
-        implements EditText.OnEditorActionListener, WeatherHelper.OnRequestLocationListener {
+        implements WeatherHelper.OnRequestLocationListener {
 
     private ActivitySearchBinding binding;
 
@@ -133,7 +136,7 @@ public class SearchActivity extends GeoActivity
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return binding.container;
     }
 
@@ -154,15 +157,40 @@ public class SearchActivity extends GeoActivity
         binding.backBtn.setOnClickListener(v -> finishSelf(false));
         binding.clearBtn.setOnClickListener(v -> binding.editText.setText(""));
 
-        binding.editText.setOnEditorActionListener(this);
-        new Handler().post(() -> {
-            binding.editText.requestFocus();
-            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputManager != null) {
-                inputManager.showSoftInput(binding.editText, 0);
+        binding.editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!TextUtils.isEmpty(binding.editText.getText().toString())) {
+//                    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                    if (manager != null) {
+//                        manager.hideSoftInputFromWindow(binding.editText.getWindowToken(), 0);
+//                    }
+
+                    query = binding.editText.getText().toString();
+                    setState(STATE_LOADING);
+                    weatherHelper.requestLocation(SearchActivity.this, query, SearchActivity.this);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
-
+//        new Handler().post(() -> {
+//            binding.editText.requestFocus();
+//            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//            if (inputManager != null) {
+//                inputManager.showSoftInput(binding.editText, 0);
+//            }
+//        });
+// 19037245202018
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 this, RecyclerView.VERTICAL, false);
 
@@ -267,22 +295,6 @@ public class SearchActivity extends GeoActivity
     // interface.
 
     // on editor action listener.
-
-    @Override
-    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        if (!TextUtils.isEmpty(textView.getText().toString())) {
-            InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            if (manager != null) {
-                manager.hideSoftInputFromWindow(binding.editText.getWindowToken(), 0);
-            }
-
-            query = textView.getText().toString();
-            setState(STATE_LOADING);
-            weatherHelper.requestLocation(this, query, this);
-        }
-        return true;
-    }
-
     // on request weather location listener.
 
     @Override

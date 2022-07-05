@@ -44,6 +44,15 @@ public class Hourly implements Serializable {
     @Nullable
     private UV uv;
     private PrecipitationProbability precipitationProbability;
+    private boolean isExpand;
+
+    public boolean isExpand() {
+        return isExpand;
+    }
+
+    public void setExpand(boolean expand) {
+        isExpand = expand;
+    }
 
     public Hourly(Date date, long time, boolean daylight,
                   String weatherText, WeatherCode weatherCode,

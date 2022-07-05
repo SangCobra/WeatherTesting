@@ -67,7 +67,7 @@ public class RadarActivity extends GeoActivity {
     }
 
     @Override
-    public View getSnackbarContainer() {
+    public View getSnackBarContainer() {
         return null;
     }
 }

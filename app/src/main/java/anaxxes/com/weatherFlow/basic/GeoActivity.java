@@ -63,7 +63,7 @@ public abstract class GeoActivity extends AppCompatActivity {
         WeatherFlow.getInstance().removeActivity(this);
     }
 
-    public abstract View getSnackbarContainer();
+    public abstract View getSnackBarContainer();
 
     public boolean isForeground() {
         return foreground;

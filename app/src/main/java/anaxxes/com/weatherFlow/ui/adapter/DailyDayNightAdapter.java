@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.databinding.ItemDailyDayNightBinding;
-import anaxxes.com.weatherFlow.databinding.ItemDailyForecastBinding;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
-import anaxxes.com.weatherFlow.utils.MyUtils;
 
 public class DailyDayNightAdapter extends RecyclerView.Adapter<DailyDayNightAdapter.DailyDayNightViewHolder> {
 
@@ -98,7 +96,7 @@ public class DailyDayNightAdapter extends RecyclerView.Adapter<DailyDayNightAdap
                     binding.imgDailyDay.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_snow));
                     break;
                 case WIND:
-                    binding.imgDailyDay.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_wind));
+                    binding.imgDailyDay.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.img_weather_wind));
                     break;
                 case FOG:
                     binding.imgDailyDay.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_fog));
@@ -140,7 +138,7 @@ public class DailyDayNightAdapter extends RecyclerView.Adapter<DailyDayNightAdap
                     binding.imgDailyNight.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_snow));
                     break;
                 case WIND:
-                    binding.imgDailyNight.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_wind));
+                    binding.imgDailyNight.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.img_weather_wind));
                     break;
                 case FOG:
                     binding.imgDailyNight.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_fog));

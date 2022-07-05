@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorHomeBg">
+    android:background="#262626">
 
     <LinearLayout
         android:orientation="vertical"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            android:background="@color/colorHomeBg"
+            android:background="#262626"
             android:transitionName="@string/transition_activity_search_bar"
             tools:targetApi="lollipop">
 
@@ -63,6 +63,7 @@
                     android:inputType="text"
                     android:textColor="@color/gnt_white"
                     android:textColorHint="@color/gnt_white50"
+                    android:fontFamily="@font/montserrat_regular"
                     android:textSize="@dimen/title_text_size"
                     tools:ignore="Autofill,RtlHardcoded" />
 
@@ -99,12 +100,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
-                    app:msb_recyclerView="@id/recyclerView"
-                    app:msb_lightOnTouch="true"
-                    app:msb_scrollMode="firstVisible"
                     app:msb_barColor="@color/colorTextSubtitle"
                     app:msb_handleColor="@color/colorPrimary"
                     app:msb_handleOffColor="@color/colorPrimary"
+                    app:msb_lightOnTouch="true"
+                    app:msb_recyclerView="@id/recyclerView"
+                    app:msb_scrollMode="firstVisible"
                     app:msb_textColor="@color/colorRoot" />
 
             </RelativeLayout>

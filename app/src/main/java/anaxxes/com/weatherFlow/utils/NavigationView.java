@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.background.polling.PollingManager;
+import anaxxes.com.weatherFlow.basic.model.weather.Temperature;
 import anaxxes.com.weatherFlow.databinding.ActivityMainBinding;
 import anaxxes.com.weatherFlow.main.MainActivity;
 import anaxxes.com.weatherFlow.remoteviews.presenter.notification.NormalNotificationIMP;
@@ -25,27 +26,14 @@ public class NavigationView {
 
         SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(mainActivity);
 
-        DisplayUtils.disableEditText(binding.navLayout.etNavTempUnit);
-        DisplayUtils.disableEditText(binding.navLayout.etNavPressureUnit);
-        DisplayUtils.disableEditText(binding.navLayout.etNavDistanceUnit);
-        DisplayUtils.disableEditText(binding.navLayout.etNavSpeedUnit);
-        DisplayUtils.disableEditText(binding.navLayout.etNavPrecipUnit);
-        DisplayUtils.disableEditText(binding.navLayout.etNavRefreshRate);
-
-
-        binding.navLayout.etNavTempUnit.setText(settingsOptionManager.getTemperatureUnit().getAbbreviation(mainActivity));
-        binding.navLayout.etNavPressureUnit.setText(settingsOptionManager.getPressureUnit().getAbbreviation(mainActivity));
-        binding.navLayout.etNavDistanceUnit.setText(settingsOptionManager.getDistanceUnit().getAbbreviation(mainActivity));
-        binding.navLayout.etNavSpeedUnit.setText(settingsOptionManager.getSpeedUnit().getAbbreviation(mainActivity));
-        binding.navLayout.etNavPrecipUnit.setText(settingsOptionManager.getPrecipitationUnit().getAbbreviation(mainActivity));
-        binding.navLayout.etNavRefreshRate.setText(settingsOptionManager.getUpdateInterval().getUpdateIntervalName(mainActivity));
 
         clickListeners(mainActivity, binding);
-
-        binding.navLayout.switchNavAlertNotification.setChecked(settingsOptionManager.isNotificationEnabled());
+//
+//        binding.navLayout.switchNavAlertNotification.setChecked(settingsOptionManager.isNotificationEnabled());
         binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isPrecipitationPushEnabled());
 
-        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
+
+//        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
         binding.navLayout.switchWeatherBackground.setChecked(settingsOptionManager.isWeatherBgEnabled());
 
 
@@ -55,84 +43,103 @@ public class NavigationView {
     }
 
     private void clickListeners(MainActivity mainActivity, anaxxes.com.weatherFlow.databinding.ActivityMainBinding binding) {
-        binding.navLayout.llNavTemp.setOnClickListener(view -> {
+        binding.navLayout.navSetting.setOnClickListener(v -> {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.showTempUnitDialog();
+            mainActivity.showDialogSettingUnit();
         });
-
-
-        binding.navLayout.llNavPressure.setOnClickListener(view -> {
+        binding.navLayout.weatherRadar.setOnClickListener(v -> {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.showPressureUnitDialog();
-
+            mainActivity.goToMap();
         });
-
-
-        binding.navLayout.llNavPrecip.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.showPrecipUnitDialog();
-        });
-
-
-        binding.navLayout.llNavDistance.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.showDistanceUnitDialog();
-        });
-
-
-        binding.navLayout.llNavSpeedUnit.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.showSpeedUnitDialog();
-        });
-
+//        binding.navLayout.navSetting..llNavTemp.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.showTempUnitDialog();
+//        });
+//
+//
+//        binding.navLayout.llNavPressure.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.showPressureUnitDialog();
+//
+//        });
+//
+//
+//        binding.navLayout.llNavPrecip.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.showPrecipUnitDialog();
+//        });
+//
+//
+//        binding.navLayout.llNavDistance.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.showDistanceUnitDialog();
+//        });
+//
+//
+//        binding.navLayout.llNavSpeedUnit.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.showSpeedUnitDialog();
+//        });
+//
 
         binding.navLayout.tvEditLocation.setOnClickListener(view -> {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             IntentHelper.startManageActivityForResult(mainActivity, MANAGE_ACTIVITY);
         });
 
-        binding.navLayout.tvNavCurrentLocation.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.resetNavLocation(mainActivity.currentLocationFormattedId);
-        });
-
-        binding.navLayout.llNavRefreshRate.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.showRefreshRateDialog();
-        });
-
-        binding.navLayout.tvShareWithFriends.setOnClickListener(view -> {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-            mainActivity.shareToFriend();
-        });
+//        binding.navLayout.tvNavCurrentLocation.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.resetNavLocation(mainActivity.currentLocationFormattedId);
+//        });
+//
+//        binding.navLayout.llNavRefreshRate.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.showRefreshRateDialog();
+//        });
+//
+//        binding.navLayout.tvShareWithFriends.setOnClickListener(view -> {
+//            binding.drawerLayout.closeDrawer(GravityCompat.START);
+//            mainActivity.shareToFriend();
+//        });
     }
 
     private void changeListeners(MainActivity mainActivity,anaxxes.com.weatherFlow.databinding.ActivityMainBinding binding, SettingsOptionManager settingsOptionManager) {
-        binding.navLayout.switchNavAlertNotification.setOnCheckedChangeListener(((compoundButton, b) -> {
-            if (compoundButton.isPressed()) {
-                settingsOptionManager.setNotificationEnabled(b);
-                if (b) { // open notification.
-                    PollingManager.resetNormalBackgroundTask(mainActivity, true);
-                } else { // close notification.
-                    NormalNotificationIMP.cancelNotification(mainActivity);
-                    PollingManager.resetNormalBackgroundTask(mainActivity, false);
-                }
-            }
-        }));
+//        binding.navLayout.switchNavAlertNotification.setOnCheckedChangeListener(((compoundButton, b) -> {
+//            if (compoundButton.isPressed()) {
+//                settingsOptionManager.setNotificationEnabled(b);
+//                if (b) { // open notification.
+//                    PollingManager.resetNormalBackgroundTask(mainActivity, true);
+//                } else { // close notification.
+//                    NormalNotificationIMP.cancelNotification(mainActivity);
+//                    PollingManager.resetNormalBackgroundTask(mainActivity, false);
+//                }
+//            }
+//        }));
 
-
+        if (settingsOptionManager.getTemperatureUnit().getUnitId().equals("c")){
+            binding.navLayout.changeTermType.setChecked(true);
+        }
+        else if (settingsOptionManager.getTemperatureUnit().getUnitId().equals("f")){
+            binding.navLayout.changeTermType.setChecked(false);
+        }
         binding.navLayout.switchNavPrecipitation.setOnCheckedChangeListener(((compoundButton, b) -> {
             if (compoundButton.isPressed()) {
                 settingsOptionManager.setPrecipitationPushEnabled(b);
             }
         }));
-
-        binding.navLayout.switchShowNightInfo.setOnCheckedChangeListener(((compoundButton, b) -> {
-            if (compoundButton.isPressed()) {
-                settingsOptionManager.setShowNightInfoEnabled(b);
-                mainActivity.redrawAfterNightInfo();
+        binding.navLayout.changeTermType.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                settingsOptionManager.setTemperatureUnit("f");
+            }else {
+                settingsOptionManager.setTemperatureUnit("c");
             }
-        }));
+        });
+//        binding.navLayout.switchShowNightInfo.setOnCheckedChangeListener(((compoundButton, b) -> {
+//            if (compoundButton.isPressed()) {
+//                settingsOptionManager.setShowNightInfoEnabled(b);
+//                mainActivity.redrawAfterNightInfo();
+//            }
+//        }));
 
         binding.navLayout.switchWeatherBackground.setOnCheckedChangeListener(((compoundButton, b) -> {
             if (compoundButton.isPressed()) {

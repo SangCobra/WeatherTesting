@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorHomeBg"
+    android:background="#262626"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_marginEnd="10dp"
             style="@style/material_image_button"
 
-            android:tint="@color/gnt_white" />
+            app:tint="@color/gnt_white" />
 
         <TextView
             android:layout_width="0dp"
@@ -27,6 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:gravity="center"
             android:layout_weight="1"
             android:text="@string/city_management"
             android:textColor="@color/gnt_white"
@@ -41,7 +42,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_add_location"
-            android:tint="@color/gnt_white" />
+            app:tint="@color/gnt_white" />
     </LinearLayout>
 
     <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
@@ -112,7 +113,7 @@
         android:id="@+id/fragment_location_manage_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorHomeBg"
+        android:background="#262626"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 

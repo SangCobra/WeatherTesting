@@ -1,17 +1,14 @@
 package anaxxes.com.weatherFlow.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,7 +16,6 @@ import java.util.ArrayList;
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.databinding.ItemDailyForecastBinding;
-import anaxxes.com.weatherFlow.models.TodayForecastModel;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
 import anaxxes.com.weatherFlow.utils.MyUtils;
 
@@ -66,8 +62,8 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
                     + "/" +
                     model.night().getTemperature().getShortTemperature(context, SettingsOptionManager.getInstance(context).getTemperatureUnit());
             binding.tvMinMaxTemp.setText(minMaxWeather);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
-            SimpleDateFormat daySdf = new SimpleDateFormat("EEE");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat daySdf = new SimpleDateFormat("EEE");
             binding.tvDate.setText(sdf.format(model.getDate()));
             if (getAdapterPosition() != 0)
                 binding.tvDay.setText(daySdf.format(model.getDate()));
@@ -117,7 +113,7 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
                         binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_snow));
                         break;
                     case WIND:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_wind));
+                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.img_weather_wind));
                         break;
                     case FOG:
                         binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_fog));

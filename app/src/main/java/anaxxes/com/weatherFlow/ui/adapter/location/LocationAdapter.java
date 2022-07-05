@@ -1,5 +1,6 @@
 package anaxxes.com.weatherFlow.ui.adapter.location;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 
@@ -35,13 +36,18 @@ import anaxxes.com.weatherFlow.utils.manager.ThemeManager;
 public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
         implements ICustomAdapter {
 
-    private Context context;
+    private final Context context;
+    private LocationTouchCallback.OnLocationListChangedListener listenerChange;
     private OnLocationItemClickListener listener = null;
 
-    private @NonNull ThemeManager themeManager;
-    private @NonNull ResourceProvider resourceProvider;
-    private @NonNull WeatherSource defaultSource;
-    private @NonNull TemperatureUnit temperatureUnit;
+    private @NonNull
+    final ThemeManager themeManager;
+    private @NonNull
+    final ResourceProvider resourceProvider;
+    private @NonNull
+    final WeatherSource defaultSource;
+    private @NonNull
+    final TemperatureUnit temperatureUnit;
 
     public LocationAdapter(Context context, List<Location> locationList, OnLocationItemClickListener l) {
         super(new DiffUtil.ItemCallback<LocationModel>() {
@@ -64,6 +70,9 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
 
         update(locationList);
     }
+    public void setListenerChange(LocationTouchCallback.OnLocationListChangedListener listenerChange){
+        this.listenerChange = listenerChange;
+    }
 
     @NonNull
     @Override
@@ -74,9 +83,11 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
         );
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull LocationHolder holder, int position) {
         holder.onBindView(context, getItem(position), resourceProvider);
+        holder.deleteLocation(getItem(position), this);
     }
 
     public void update(@NonNull List<Location> newList) {
