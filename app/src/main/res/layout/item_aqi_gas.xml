@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/_28sdp"
     android:layout_height="wrap_content"
     android:layout_marginStart="3dp"
+    android:gravity="center"
     android:layout_marginEnd="3dp"
     android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorTextWhite"
-        android:textSize="16sp"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/tvGasName"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvGasValue"
         android:textColor="@color/colorTextWhite"
-        android:textSize="14sp"/>
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/montserrat_semibold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="@dimen/_8sdp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/tvGasName"
+        android:fontFamily="@font/montserrat_medium"/>
+
+
 
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import androidx.multidex.MultiDexApplication;
 
 import anaxxes.com.weatherFlow.admob.AdmobUtil;
 
+import com.common.control.MyApplication;
 import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
@@ -30,7 +31,7 @@ import anaxxes.com.weatherFlow.utils.manager.TimeManager;
  * Geometric weather application class.
  */
 
-public class WeatherFlow extends MultiDexApplication {
+public class WeatherFlow extends MyApplication {
 
     private static WeatherFlow instance;
 
@@ -145,15 +146,45 @@ public class WeatherFlow extends MultiDexApplication {
     public static int click = 1;
     public static final String PURCHASE = "purchase";
 
+//    @Override
+//    public void onCreate() {
+//        super.onCreate();
+//
+//    }
+
     @Override
-    public void onCreate() {
-        super.onCreate();
+    protected void onApplicationCreate() {
         initialize();
 
         String processName = getProcessName();
         if (processName != null && processName.equals(getPackageName())) {
             resetDayNightMode();
         }
+    }
+
+    @Override
+    protected boolean hasAds() {
+        return true;
+    }
+
+    @Override
+    protected boolean isShowDialogLoadingAd() {
+        return false;
+    }
+
+    @Override
+    protected boolean isShowAdsTest() {
+        return true;
+    }
+
+    @Override
+    public boolean enableAdsResume() {
+        return false;
+    }
+
+    @Override
+    public String getOpenAppAdId() {
+        return null;
     }
 
     private void initialize() {

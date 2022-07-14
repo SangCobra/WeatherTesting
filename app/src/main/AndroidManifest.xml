@@ -5,8 +5,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+<!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -42,11 +43,11 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/ic_clear"
         android:supportsRtl="true"
-        android:theme="@style/WeatherFlowTheme"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,ManifestResource,RtlEnabled,UnusedAttribute"
         tools:replace="android:label"
         tools:targetApi="n">
-        <activity android:name=".main.RadarActivity"></activity>
+        <activity android:name=".main.RadarActivity" />
         <activity android:name=".main.HourlyListActivity" />
         <activity android:name=".settings.activity.MySettingsActivity" />
         <activity android:name=".ui.activity.DailyListActivity" />
@@ -69,26 +70,23 @@
         <meta-data
             android:name="com.anaxxes.weatherFlow.SUN_MOON_FILTER"
             android:resource="@xml/icon_provider_sun_moon_filter" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
         <!--        <meta-data-->
         <!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
         <!--            android:value="ca-app-pub-3940256099942544~3419835294" /> &lt;!&ndash; android:theme="@style/WeatherFlowTheme.Main" &ndash;&gt;-->
         <activity
             android:name=".main.MainActivity"
-            android:configChanges="uiMode"
             android:exported="true"
-            android:label="@string/app_name"
-            android:screenOrientation="user">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
 
                 <!-- <action android:name="com.wangdaye.geometricweather.ICON_PROVIDER" /> -->
-                <action android:name="com.wangdaye.geometricweather.Main" />
-                <action android:name="com.wangdaye.geomtricweather.ACTION_SHOW_ALERTS" />
-                <action android:name="com.wangdaye.geomtricweather.ACTION_SHOW_DAILY_FORECAST" />
+<!--                <action android:name="com.wangdaye.geometricweather.Main" />-->
+<!--                <action android:name="com.wangdaye.geomtricweather.ACTION_SHOW_ALERTS" />-->
+<!--                <action android:name="com.wangdaye.geomtricweather.ACTION_SHOW_DAILY_FORECAST" />-->
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -271,7 +269,21 @@
             android:theme="@style/Transparent" />
         <activity
             android:name=".main.dialog.SettingNavDialog"
-            android:theme="@style/Transparent" /> <!-- service -->
+            android:theme="@style/Transparent" />
+        <activity android:name=".main.dialog.DialogSettingBegin"
+            android:theme="@style/Transparent"/>
+        <activity android:name=".main.dialog.DialogPer1"
+            android:theme="@style/Transparent"/>
+        <activity android:name=".main.dialog.DialogPer2"
+            android:theme="@style/Transparent"/>
+        <activity android:name=".ui.activity.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- service -->
         <service
             android:name=".background.polling.basic.AwakeForegroundUpdateService"
             android:foregroundServiceType="location" />

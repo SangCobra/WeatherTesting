@@ -2,116 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_cloud_cover"
-        app:tint="@color/gnt_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/imgDailyDetails"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_54sdp"
+        android:gravity="center"
         android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_gravity="center">
-
-
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_launcher"
+                android:layout_gravity="center|left"
+                android:id="@+id/imgDailyDetails"
+                android:layout_marginStart="@dimen/_12sdp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="@dimen/_10sdp"
                 android:layout_weight="1"
-                android:textColor="@color/gnt_white"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imgDailyDetails"
-                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
+                android:text="@string/about_app"
+                android:textColor="#fff"
+                android:layout_marginStart="@dimen/_3sdp"
                 android:fontFamily="@font/montserrat_regular"
                 android:id="@+id/tvDailyDetails"
-                android:singleLine="true"
-                android:layout_marginEnd="15dp"/>
+                android:singleLine="true" />
 
             <TextView
+                android:id="@+id/tvDailyValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gnt_white"
-                android:fontFamily="@font/montserrat_regular"
-                android:textSize="14sp"
-                android:id="@+id/tvDailyValue"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="#fff"
                 android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="20dp"/>
-
-
-
+                android:textSize="18sp" />
 
         </LinearLayout>
 
+        <!--    <TextView-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:textColor="@color/gnt_white"-->
+        <!--        android:textSize="14sp"-->
+        <!--        android:id="@+id/tvDailyValue"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--        android:layout_marginEnd="20dp"/>-->
 
+
+        <!--    <TextView-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:textSize="16sp"-->
+        <!--        android:textColor="@color/gnt_white"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--        app:layout_constraintStart_toEndOf="@+id/imgDailyDetails"-->
+        <!--        android:layout_marginStart="20dp"-->
+        <!--        android:id="@+id/tvDailyDetails"-->
+        <!--        android:singleLine="true"-->
+        <!--        android:layout_marginEnd="15dp"/>-->
+
+<!--        <View-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/colorHomeBg"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvDailyDetails"-->
+<!--            app:layout_constraintStart_toStartOf="@id/tvDailyDetails"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginTop="10dp"/>-->
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorHomeBg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="@color/gnt_white"-->
-<!--        android:textSize="14sp"-->
-<!--        android:id="@+id/tvDailyValue"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_marginEnd="20dp"/>-->
-
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/gnt_white"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/imgDailyDetails"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:id="@+id/tvDailyDetails"-->
-<!--        android:singleLine="true"-->
-<!--        android:layout_marginEnd="15dp"/>-->
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/colorHomeBg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDailyDetails"
-        app:layout_constraintStart_toStartOf="@id/tvDailyDetails"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"/>
+            android:background="#80FFFFFF"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            />
+    </LinearLayout>
 
 </LinearLayout>

@@ -18,6 +18,7 @@ import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
 import anaxxes.com.weatherFlow.ui.adapter.DailyForecastAdapter;
+import anaxxes.com.weatherFlow.utils.DisplayUtils;
 
 public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> {
 
@@ -62,59 +63,59 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         switch (daily.day().getWeatherCode()) {
             case CLEAR:
                 holder.iconWeatherDaily.setImageResource(R.drawable.img_clear);
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
             case PARTLY_CLOUDY:
                 holder.iconWeatherDaily.setImageResource(R.drawable.img_partly_cloudy);
-
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
             case CLOUDY:
                 holder.iconWeatherDaily.setImageResource(R.drawable.img_sun_cloudy);
-
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
             case RAIN:
                 holder.iconWeatherDaily.setImageResource(R.drawable.img_rain);
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
 
                 break;
             case SNOW:
                 holder.iconWeatherDaily.setImageResource(R.drawable.img_snow);
+                holder.iconRain.setImageResource(R.drawable.ic_snow);
 
                 break;
             case WIND:
                 holder.iconWeatherDaily.setImageResource(R.drawable.img_weather_wind);
-
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
             case FOG:
-                holder.iconWeatherDaily.setImageResource(R.drawable.img_fog);
-
-                break;
             case HAZE:
                 holder.iconWeatherDaily.setImageResource(R.drawable.img_fog);
-
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
+
             case SLEET:
                 holder.iconWeatherDaily.setImageResource(R.drawable.weather_sleet);
-
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
             case HAIL:
                 holder.iconWeatherDaily.setImageResource(R.drawable.weather_hail);
-
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
             case THUNDER:
             case THUNDERSTORM:
-                holder.iconWeatherDaily.setImageResource(R.drawable.img_thunder);
-
-
+                holder.iconWeatherDaily.setImageResource(R.drawable.img_thunder_rain);
+                holder.iconRain.setImageResource(R.drawable.ic_wi_umbrella_yellow);
                 break;
 
         }
-        holder.percentRain.setText(daily.day().getPrecipitationProbability().getTotal() + "%");
-        holder.maxTerm.setText(settingsOptionManager.getTemperatureUnit().getTemperatureText(context, daily.day().getTemperature().getTemperature()));
-        holder.minTerm.setText(settingsOptionManager.getTemperatureUnit().getTemperatureText(context, daily.night().getTemperature().getTemperature()));
+        holder.percentRain.setText(Math.round(daily.day().getPrecipitationProbability().getTotal()) + "%");
+        holder.maxTerm.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(context, daily.day().getTemperature().getTemperature()));
+        holder.minTerm.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(context, daily.night().getTemperature().getTemperature()));
         int dif = daily.day().getTemperature().getTemperature() - daily.night().getTemperature().getTemperature();
         ViewGroup.LayoutParams layoutParams = holder.length.getLayoutParams();
         layoutParams.height =(dif*100/getListIndexBiggest());
         layoutParams.width = 25;
-        holder.itemView.setOnClickListener(v -> {
+        holder.dayName.setOnClickListener(v -> {
             this.listener.clickDaily(position);
         });
     }
@@ -131,12 +132,12 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return Math.min(list.size(), 7);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView dayName, percentRain, maxTerm, minTerm;
-        private ImageView iconWeatherDaily;
+        private ImageView iconWeatherDaily, iconRain;
         private FrameLayout length;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -145,6 +146,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
             maxTerm = itemView.findViewById(R.id.percent_in_daily_up);
             minTerm = itemView.findViewById(R.id.percent_in_daily_down);
             iconWeatherDaily = itemView.findViewById(R.id.icon_weather_in_daily);
+            iconRain = itemView.findViewById(R.id.icon_daily_trend);
             length = itemView.findViewById(R.id.length_to_percent);
         }
     }

@@ -5,12 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowBackground">@drawable/sun_bg</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@null</item>
     </style>
 
     <style name="WeatherFlowTheme.Main" parent="WeatherFlowTheme">
@@ -19,25 +14,25 @@
 
     <style name="WeatherFlowTheme.Search" parent="WeatherFlowTheme" />
 
-    <style name="WeatherFlowTheme.AppbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="WeatherFlowTheme.AppbarTheme" parent="WeatherFlowTheme">
         <item name="elevation">2dp</item>
     </style>
-    <style name="WeatherFlowTheme.AppbarPopupTheme" parent="ThemeOverlay.AppCompat.Light" >
+    <style name="WeatherFlowTheme.AppbarPopupTheme" parent="WeatherFlowTheme" >
 
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="WeatherFlowTheme.AppbarTheme.Light" parent="ThemeOverlay.AppCompat.Light">
+    <style name="WeatherFlowTheme.AppbarTheme.Light" parent="WeatherFlowTheme">
         <item name="elevation">2dp</item>
     </style>
-    <style name="WeatherFlowTheme.AppbarPopupTheme.Light" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="WeatherFlowTheme.AppbarPopupTheme.Light" parent="WeatherFlowTheme" />
 
-    <style name="WeatherFlowTheme.AppbarTheme.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="WeatherFlowTheme.AppbarTheme.Dark" parent="WeatherFlowTheme">
         <item name="elevation">2dp</item>
     </style>
-    <style name="WeatherFlowTheme.AppbarPopupTheme.Dark" parent="ThemeOverlay.AppCompat.Dark" />
+    <style name="WeatherFlowTheme.AppbarPopupTheme.Dark" parent="WeatherFlowTheme" />
 
-    <style name="WeatherFlowTheme.TabLayoutTheme" parent="Widget.Design.TabLayout">
+    <style name="WeatherFlowTheme.TabLayoutTheme" parent="WeatherFlowTheme">
         <item name="tabIndicatorHeight">3dp</item>
         <item name="tabIndicatorColor">@color/colorTextTitle</item>
         <item name="tabSelectedTextColor">@color/colorTextTitle</item>

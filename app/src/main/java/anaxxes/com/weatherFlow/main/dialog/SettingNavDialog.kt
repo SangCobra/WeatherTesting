@@ -42,7 +42,7 @@ class SettingNavDialog(contentLayoutId: Int  = R.layout.dialog_setting_nav) : Ap
         borderSetNav = findViewById(R.id.border_set_nav)
         doneButton = findViewById(R.id.btn_done_set_nav)
         borderDetails = findViewById(R.id.border_detail)
-        switchChangeTime = findViewById(R.id.switch_change_time)
+//        switchChangeTime = findViewById(R.id.switch_change_time)
         tvPrep = findViewById(R.id.etNavPrecipUnit)
         tvPressure = findViewById(R.id.etNavPressureUnit)
         tvtypeWind = findViewById(R.id.etNavSpeedUnit)
@@ -88,14 +88,15 @@ class SettingNavDialog(contentLayoutId: Int  = R.layout.dialog_setting_nav) : Ap
             finish()
         }
         doneButton!!.setOnClickListener {
+            callback?.callback("done")
             finish()
         }
         borderDetails!!.setOnClickListener {
 
         }
-        switchChangeTime!!.isChecked
-        switchChangeTime!!.setOnCheckedChangeListener { _, isChecked ->
-        }
+//        switchChangeTime!!.isChecked
+//        switchChangeTime!!.setOnCheckedChangeListener { _, isChecked ->
+//        }
         findViewById<LinearLayout>(R.id.llNavPrecip).setOnClickListener {
             showPrecipUnitDialog()
         }

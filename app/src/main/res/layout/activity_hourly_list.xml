@@ -8,40 +8,36 @@
     android:background="#262626"
     tools:context=".main.HourlyListActivity">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:fitsSystemWindows="true">
+        android:orientation="vertical"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_weather_hourly_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:outlineSpotShadowColor="@android:color/transparent"
             app:navigationIcon="@drawable/ic_toolbar_back">
 
             <TextView
-                android:id="@+id/activity_weather_hourly_title"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="@dimen/_14sdp"
                 android:textColor="@android:color/white"
-                style="@style/title_text"
-                tools:text="" />
+                android:layout_height="wrap_content"
+                android:text="Hourly Weather"/>
 
 
         </androidx.appcompat.widget.Toolbar>
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="@dimen/_12sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourlyList" />
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:padding="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/hourlyList"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="60dp"/>
+    </LinearLayout>
 
 </LinearLayout>

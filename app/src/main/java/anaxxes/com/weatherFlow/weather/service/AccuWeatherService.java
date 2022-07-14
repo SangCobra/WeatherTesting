@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import anaxxes.com.weatherFlow.weather.api.WeatherBitApi;
+import anaxxes.com.weatherFlow.weather.json.accu.CurrentCondition;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Retrofit;
@@ -41,6 +43,7 @@ import anaxxes.com.weatherFlow.weather.observer.ObserverContainer;
 public class AccuWeatherService extends WeatherService {
 
     private AccuWeatherApi api;
+    private WeatherBitApi bitApi;
     private CompositeDisposable compositeDisposable;
 
     private static final String PREFERENCE_LOCAL = "LOCAL_PREFERENCE";
@@ -83,12 +86,21 @@ public class AccuWeatherService extends WeatherService {
         }
     }
 
+    public AccuWeatherApi getApi() {
+        return api;
+    }
+
+    public void setApi(AccuWeatherApi api) {
+        this.api = api;
+    }
+
     private class EmptyMinuteResult extends AccuMinuteResult {
     }
 
     private class EmptyAqiResult extends AccuAqiResult {
     }
-
+    private class EmptyAqiResultBit extends CurrentCondition {
+    }
     public AccuWeatherService() {
         api = new Retrofit.Builder()
                 .baseUrl(BuildConfig.ACCU_WEATHER_BASE_URL)
@@ -103,6 +115,18 @@ public class AccuWeatherService extends WeatherService {
                 .build()
                 .create((AccuWeatherApi.class));
         compositeDisposable = new CompositeDisposable();
+        bitApi = new Retrofit.Builder()
+                .baseUrl(BuildConfig.ACCU_WEATHERBIT_BASE_URL)
+                .client(
+                        WeatherFlow.getInstance()
+                                .getOkHttpClient()
+                                .newBuilder()
+                                .addInterceptor(new GzipInterceptor())
+                                .build()
+                ).addConverterFactory(WeatherFlow.getInstance().getGsonConverterFactory())
+                .addCallAdapterFactory(WeatherFlow.getInstance().getRxJava2CallAdapterFactory())
+                .build()
+                .create((WeatherBitApi.class));
     }
 
     @Override
@@ -130,11 +154,15 @@ public class AccuWeatherService extends WeatherService {
         Observable<List<AccuAlertResult>> alert = api.getAlert(
                 location.getCityId(), BuildConfig.ACCU_WEATHER_KEY, languageCode, true);
 
-        Observable<AccuAqiResult> aqi = api.getAirQuality(
-                location.getCityId(),
-                BuildConfig.ACCU_AQI_KEY
+//        Observable<AccuAqiResult> aqi = api.getAirQuality(
+//                location.getCityId(),
+//                BuildConfig.ACCU_AQI_KEY
+//        ).onExceptionResumeNext(
+//                Observable.create(emitter -> emitter.onNext(new EmptyAqiResult()))
+//        );
+        Observable<CurrentCondition> aqi = bitApi.getCurrentAQI(location.getLatitude(), location.getLongitude(), BuildConfig.ACCU_WEATHERBIT_KEY
         ).onExceptionResumeNext(
-                Observable.create(emitter -> emitter.onNext(new EmptyAqiResult()))
+                Observable.create(emitter -> emitter.onNext(new EmptyAqiResultBit()))
         );
 
 
@@ -149,7 +177,7 @@ public class AccuWeatherService extends WeatherService {
                          accuDailyResult,
                          accuHourlyResults,
                          accuMinuteResult instanceof EmptyMinuteResult ? null : accuMinuteResult,
-                         accuAqiResult instanceof EmptyAqiResult ? null : accuAqiResult,
+                         accuAqiResult instanceof EmptyAqiResultBit ? null : accuAqiResult,
                          accuAlertResults
                  )
         ).compose(SchedulerTransformer.create())

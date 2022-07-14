@@ -18,14 +18,17 @@ import java.util.ArrayList;
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
+import anaxxes.com.weatherFlow.ui.adapter.DailyForecastAdapter;
 
 public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Daily> list;
     private SettingsOptionManager settingsOptionManager;
+    private DailyForecastAdapter.DailyForecastClickListener listener;
 
-    public DailyListAdapter(Context context) {
+    public DailyListAdapter(Context context, DailyForecastAdapter.DailyForecastClickListener listener) {
         this.context = context;
+        this.listener = listener;
         settingsOptionManager = SettingsOptionManager.getInstance(context);
     }
 
@@ -43,26 +46,26 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Daily daily = list.get(position);
-        if (daily.isExpand()){
-            holder.moreInfo.setVisibility(View.VISIBLE);
-            holder.expand.setImageResource(R.drawable.ic_back_up);
-        }else {
-            holder.moreInfo.setVisibility(View.GONE);
-            holder.expand.setImageResource(R.drawable.ic_back);
-        }
+//        if (daily.isExpand()){
+//            holder.moreInfo.setVisibility(View.VISIBLE);
+//            holder.expand.setImageResource(R.drawable.ic_back_up);
+//        }else {
+//            holder.moreInfo.setVisibility(View.GONE);
+//            holder.expand.setImageResource(R.drawable.ic_back);
+//        }
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy\nEEEE");
         holder.time.setText(dateFormat.format(daily.getDate()));
-        holder.precipitationProb.setText(daily.day().getPrecipitationProbability().getTotal() + "%");
-        holder.maxTerm.setText(settingsOptionManager.getTemperatureUnit().getTemperatureText(context, daily.day().getTemperature().getTemperature()));
-        holder.minTerm.setText(settingsOptionManager.getTemperatureUnit().getTemperatureText(context, daily.night().getTemperature().getTemperature()));
+        holder.precipitationProb.setText(Math.round(daily.day().getPrecipitationProbability().getTotal()) + "%");
+        holder.maxTerm.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(context, daily.day().getTemperature().getTemperature()));
+        holder.minTerm.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(context, daily.night().getTemperature().getTemperature()));
         holder.statusWeather.setText(daily.day().getWeatherPhase());
-        holder.precipitation.setText("Precipitation: " + settingsOptionManager.getPrecipitationUnit().getPrecipitationText(context, daily.day().getPrecipitation().getTotal()));
-        holder.windChill.setText("Wind chill: " + daily.day().getWind().getLevel());
-        holder.cloudCover.setText("Cloud cover: " + daily.day().getCloudCover());
-        holder.moonPhrase.setText("Moon phrase: " + daily.getMoonPhase().getMoonPhase(context));
-        holder.windSpeed.setText("Wind speed: " + settingsOptionManager.getSpeedUnit().getSpeedText(context, daily.day().getWind().getSpeed()));
-        holder.uvIndex.setText("Ultraviolet index: " + daily.getUV().getIndex());
-        holder.windDir.setText("Wind direction: " + daily.day().getWind().getDirection());
+//        holder.precipitation.setText("Precipitation: " + settingsOptionManager.getPrecipitationUnit().getPrecipitationText(context, daily.day().getPrecipitation().getTotal()));
+//        holder.windChill.setText("Wind chill: " + daily.day().getWind().getLevel());
+//        holder.cloudCover.setText("Cloud cover: " + daily.day().getCloudCover());
+//        holder.moonPhrase.setText("Moon phrase: " + daily.getMoonPhase().getMoonPhase(context));
+//        holder.windSpeed.setText("Wind speed: " + settingsOptionManager.getSpeedUnit().getSpeedText(context, daily.day().getWind().getSpeed()));
+//        holder.uvIndex.setText("Ultraviolet index: " + daily.getUV().getIndex());
+//        holder.windDir.setText("Wind direction: " + daily.day().getWind().getDirection());
         switch (daily.day().getWeatherCode()) {
             case CLEAR:
                 holder.iconWeather.setImageResource(R.drawable.img_clear);
@@ -88,13 +91,11 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
 
                 break;
             case FOG:
-                holder.iconWeather.setImageResource(R.drawable.img_fog);
-
-                break;
             case HAZE:
                 holder.iconWeather.setImageResource(R.drawable.img_fog);
 
                 break;
+
             case SLEET:
                 holder.iconWeather.setImageResource(R.drawable.weather_sleet);
 
@@ -105,23 +106,24 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
                 break;
             case THUNDER:
             case THUNDERSTORM:
-                holder.iconWeather.setImageResource(R.drawable.img_thunder);
+                holder.iconWeather.setImageResource(R.drawable.img_thunder_rain);
 
 
                 break;
 
         }
-        holder.expand.setOnClickListener(v -> {
-            if (daily.isExpand()){
-                holder.moreInfo.setVisibility(View.GONE);
-                daily.setExpand(false);
-                holder.expand.setImageResource(R.drawable.ic_back);
-            }
-            else {
-                holder.moreInfo.setVisibility(View.VISIBLE);
-                daily.setExpand(true);
-                holder.expand.setImageResource(R.drawable.ic_back_up);
-            }
+        holder.itemView.setOnClickListener(v -> {
+//            if (daily.isExpand()){
+//                holder.moreInfo.setVisibility(View.GONE);
+//                daily.setExpand(false);
+//                holder.expand.setImageResource(R.drawable.ic_back);
+//            }
+//            else {
+//                holder.moreInfo.setVisibility(View.VISIBLE);
+//                daily.setExpand(true);
+//                holder.expand.setImageResource(R.drawable.ic_back_up);
+//            }
+            this.listener.clickDaily(position);
         });
     }
 
@@ -141,16 +143,15 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
             maxTerm = itemView.findViewById(R.id.term_max);
             minTerm = itemView.findViewById(R.id.term_min);
             statusWeather = itemView.findViewById(R.id.daily_weather_text);
-            precipitation = itemView.findViewById(R.id.precipitation_daily);
-            windChill = itemView.findViewById(R.id.wind_chill_daily);
-            cloudCover = itemView.findViewById(R.id.cloud_cover_daily);
-            moonPhrase = itemView.findViewById(R.id.moon_phrase_daily);
-            windSpeed = itemView.findViewById(R.id.wind_speed_daily);
-            uvIndex = itemView.findViewById(R.id.ultraviolet_index_daily);
-            windDir = itemView.findViewById(R.id.wind_dir_daily);
+//            precipitation = itemView.findViewById(R.id.precipitation_daily);
+//            windChill = itemView.findViewById(R.id.wind_chill_daily);
+//            cloudCover = itemView.findViewById(R.id.cloud_cover_daily);
+//            moonPhrase = itemView.findViewById(R.id.moon_phrase_daily);
+//            windSpeed = itemView.findViewById(R.id.wind_speed_daily);
+//            uvIndex = itemView.findViewById(R.id.ultraviolet_index_daily);
+//            windDir = itemView.findViewById(R.id.wind_dir_daily);
             iconWeather = itemView.findViewById(R.id.icon_status_weather_daily);
             expand = itemView.findViewById(R.id.icon_expand);
-            moreInfo = itemView.findViewById(R.id.more_info_daily);
         }
     }
 }

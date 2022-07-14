@@ -1,5 +1,6 @@
 package anaxxes.com.weatherFlow.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -44,12 +45,18 @@ public class SettingsOptionManager {
     }
 
     // basic.
+    private boolean isFirstTime;
+
+
+
     private boolean backgroundFree;
     private boolean alertPushEnabled;
     private boolean precipitationPushEnabled;
     private boolean showNightInfoEnabled;
     private boolean isWeatherBgEnabled;
     private boolean isTermChange;
+
+
     private UpdateInterval updateInterval;
     private DarkMode darkMode;
 
@@ -124,7 +131,7 @@ public class SettingsOptionManager {
        this.context = context;
 
         // basic.
-
+        isFirstTime = sharedPreferences.getBoolean(context.getString(R.string.key_check_time_start_app), true);
         backgroundFree = sharedPreferences.getBoolean(
                 context.getString(R.string.key_background_free), true);
 
@@ -136,6 +143,7 @@ public class SettingsOptionManager {
 
         showNightInfoEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_show_night_info_switch),false);
         isWeatherBgEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_weather_background),true);
+        isTermChange =sharedPreferences.getBoolean(context.getString(R.string.key_term_change), true);
 
         updateInterval = OptionMapper.getUpdateInterval(
                 sharedPreferences.getString(
@@ -292,7 +300,15 @@ public class SettingsOptionManager {
         notificationHideBigViewEnabled = sharedPreferences.getBoolean(
                 context.getString(R.string.key_notification_hide_big_view), false);
     }
+    public boolean isFirstTime() {
+        return isFirstTime;
+    }
 
+    @SuppressLint("CommitPrefEdits")
+    public void setFirstTime(boolean firstTime) {
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_check_time_start_app), firstTime).apply();
+        isFirstTime = firstTime;
+    }
     public boolean isBackgroundFree() {
         return backgroundFree;
     }
@@ -317,6 +333,22 @@ public class SettingsOptionManager {
     public void setPrecipitationPushEnabled(boolean precipitationPushEnabled) {
         sharedPreferences.edit().putBoolean(context.getString(R.string.key_precipitation_notification_switch),precipitationPushEnabled).apply();
         this.precipitationPushEnabled = precipitationPushEnabled;
+
+    }
+
+    public boolean isTermChange() {
+        return isTermChange;
+    }
+
+    public void setTermChange(boolean termChange) {
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_term_change), termChange).apply();
+        this.isTermChange = termChange;
+        if (termChange){
+            this.setTemperatureUnit("c");
+        }
+        else{
+            this.setTemperatureUnit("f");
+        }
     }
     public boolean isShowNightInfoEnabled() {
         return showNightInfoEnabled;

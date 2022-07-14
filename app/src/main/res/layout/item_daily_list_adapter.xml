@@ -11,10 +11,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="3"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/_12sdp"
@@ -25,10 +27,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_2sdp"
-                android:layout_gravity="center"
+                android:layout_gravity="center|left"
                 android:gravity="center|left"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="15:00"
+                android:lineHeight="@dimen/_15sdp"
                 android:textColor="@color/white"
                 android:textFontWeight="500"
                 android:textSize="@dimen/_10sdp" />
@@ -44,6 +47,7 @@
                     android:layout_width="@dimen/_12sdp"
                     android:layout_height="@dimen/_12sdp"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_2sdp"
                     android:src="@drawable/ic_wi_umbrella" />
 
                 <TextView
@@ -61,10 +65,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
             android:layout_gravity="center"
             android:orientation="horizontal">
 
@@ -73,11 +76,13 @@
                 android:layout_width="@dimen/_36sdp"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_sun_cloudy" />
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:src="@drawable/sun_cloudy" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -105,14 +110,16 @@
 
         <LinearLayout
             android:id="@+id/overcast_throughout_the_day_daily"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/daily_weather_text"
-                android:layout_width="@dimen/_90sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="@dimen/_65sdp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -124,122 +131,10 @@
 
             <ImageView
                 android:id="@+id/icon_expand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_back" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/more_info_daily"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="#262626"
-        android:fitsSystemWindows="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_12sdp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_12sdp"
-                android:src="@drawable/ic_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/precipitation_daily"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="@string/precipitation"
-                        android:textColor="#A1A1A1"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <TextView
-                        android:id="@+id/wind_chill_daily"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_width="wrap_content"
-                        android:text="@string/wind_chill"
-                        android:textColor="#A1A1A1"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <TextView
-                        android:id="@+id/cloud_cover_daily"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_width="wrap_content"
-                        android:text="@string/cloud_cover"
-                        android:textColor="#A1A1A1"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <TextView
-                        android:id="@+id/moon_phrase_daily"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_width="wrap_content"
-                        android:text="@string/moon_phrase"
-                        android:textColor="#A1A1A1"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <TextView
-                        android:id="@+id/wind_speed_daily"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_width="wrap_content"
-                        android:text="@string/wind_speed"
-                        android:textColor="#A1A1A1"
-                        android:textSize="@dimen/_12sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/ultraviolet_index_daily"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_width="wrap_content"
-                        android:text="@string/ultraviolet_index"
-                        android:textColor="#A1A1A1"
-                        android:textSize="@dimen/_12sdp" />
-
-                    <TextView
-                        android:id="@+id/wind_dir_daily"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_width="wrap_content"
-                        android:text="@string/wind_dir"
-                        android:textColor="#A1A1A1"
-                        android:textSize="@dimen/_12sdp" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center|right"
+                android:src="@drawable/ic_next" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

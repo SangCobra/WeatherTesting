@@ -14,16 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import anaxxes.com.weatherFlow.R;
+import anaxxes.com.weatherFlow.basic.model.option.unit.UnitUtils;
+import anaxxes.com.weatherFlow.basic.model.weather.AQIObject;
+import anaxxes.com.weatherFlow.basic.model.weather.AirQuality;
 import anaxxes.com.weatherFlow.models.AQIGasModel;
 import anaxxes.com.weatherFlow.models.TodayForecastModel;
+import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
 
 public class AQIGasAdapter extends RecyclerView.Adapter<AQIGasAdapter.AQIViewHolder> {
 
     private Context context;
-    private ArrayList<AQIGasModel> list = new ArrayList<>();
+    private ArrayList<AQIObject> list = new ArrayList<>();
+    private SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(context);
+    private UnitUtils unitUtils;
 
     public AQIGasAdapter(Context context) {
+
         this.context = context;
+        unitUtils = new UnitUtils();
     }
 
     @NonNull
@@ -54,14 +62,15 @@ public class AQIGasAdapter extends RecyclerView.Adapter<AQIGasAdapter.AQIViewHol
             tvValue = itemView.findViewById(R.id.tvGasValue);
         }
 
-        public void setData(AQIGasModel model) {
-
-            tvHeading.setText(model.getHeading());
-            tvValue.setText(model.getValue());
+        public void setData(AQIObject model) {
+            if (model.getValue() != null){
+                tvHeading.setText(model.getName());
+                tvValue.setText(UnitUtils.formatFloat(model.getValue(), 0));
+            }
         }
     }
 
-    public void updateData(ArrayList<AQIGasModel> newList) {
+    public void updateData(ArrayList<AQIObject> newList) {
         list = newList;
         notifyDataSetChanged();
     }

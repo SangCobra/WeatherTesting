@@ -125,14 +125,14 @@
     <string name="hourly_overview">Hourly forecast</string>
     <string name="minutely_overview">Minutely forecast</string>
     <string name="precipitation_overview">Precipitation forecast</string>
-    <string name="air_quality">Air quality</string>
+    <string name="air_quality">Air Quality</string>
     <string name="allergen">Allergen</string>
     <string name="life_details">Details</string>
     <string name="sunrise_sunset">Sun &amp; moon</string>
 
     <string name="next">NEXT</string>
     <string name="done">DONE</string>
-    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="cancel" tools:ignore="ButtonCase">Cancel</string>
     <string name="on">Enabled</string>
     <string name="off">Disabled</string>
     <string name="go_to_set">SET</string>
@@ -423,6 +423,7 @@
     <string name="key_hide_lunar">hide_lunar</string>
 
     <!-- Do not translate the following set of strings. -->
+    <string name="key_check_time_start_app">first_time</string>
     <string name="key_background_free">background_free_3</string>
     <string name="key_live_wallpaper">live_wallpaper</string>
     <string name="key_service_provider">service_provider</string>
@@ -442,6 +443,7 @@
     <string name="key_language">language</string>
     <string name="key_unit">unit</string>
     <string name="key_weather_background">weather_background</string>
+    <string name="key_term_change">term_change</string>
     <string name="key_temperature_unit">temperature_unit</string>
     <string name="key_distance_unit">distance_unit</string>
     <string name="key_precipitation_unit">precipitation_unit</string>
@@ -516,5 +518,12 @@
     <string name="now">Now</string>
     <string name="details"><u>Details</u></string>
     <string name="moon_phrase">Moon phrase</string>
+    <string name="touch_a_day_to_see_forecast_by_day_and_night">Touch a day to see forecast</string>
+    <string name="set_location_to_always">Location Permission</string>
+    <string name="in_settings_select_permission">In Settings, select \"Permission\"</string>
+    <string name="then_turn_on_allow_all_the_time">Then choose \"Allow\"</string>
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="then_turn_on_location">Then turn on \"Location\"</string>
+    <string name="weather_forecast">Weather Forecast</string>
 
 </resources>

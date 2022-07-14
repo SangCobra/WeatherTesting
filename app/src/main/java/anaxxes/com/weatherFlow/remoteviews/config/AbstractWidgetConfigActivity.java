@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.widget.NestedScrollView;
 
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -47,6 +49,8 @@ import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.background.polling.PollingManager;
 import anaxxes.com.weatherFlow.basic.GeoActivity;
 import anaxxes.com.weatherFlow.basic.model.location.Location;
+import anaxxes.com.weatherFlow.main.dialog.DialogPer1;
+import anaxxes.com.weatherFlow.main.dialog.DialogPer2;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
 import anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarNestedScrollView;
 import anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout;
@@ -446,7 +450,7 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
         scrollContainer.post(() -> scrollContainer.setPaddingRelative(
                 0, 0, 0, subtitleInputLayout.getMeasuredHeight()));
 
-        FitTopSystemBarAppBarLayout bottomSheet = findViewById(R.id.activity_widget_config_custom_subtitle);
+        LinearLayout bottomSheet = findViewById(R.id.activity_widget_config_custom_subtitle);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheet.post(() -> {
@@ -609,7 +613,7 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
         try {
             WallpaperManager manager = WallpaperManager.getInstance(this);
             if (manager != null) {
-                Drawable drawable = manager.getDrawable();
+                @SuppressLint("MissingPermission") Drawable drawable = manager.getDrawable();
                 if (drawable != null) {
                     wallpaper.setImageDrawable(drawable);
                 }
@@ -617,6 +621,13 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
         } catch (Exception ignore) {
             // do nothing.
         }
+    }
+
+    private void gotoSettings(AbstractWidgetConfigActivity abstractWidgetConfigActivity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", abstractWidgetConfigActivity.getPackageName(), null);
+        intent.setData(uri);
+        abstractWidgetConfigActivity.startActivity(intent);
     }
 
     /**
@@ -732,6 +743,7 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
                 if (hasPermission) {
                     updateHostView();
                 }
+
             }
         }
 

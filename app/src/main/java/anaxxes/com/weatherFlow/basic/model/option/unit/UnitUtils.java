@@ -2,13 +2,13 @@ package anaxxes.com.weatherFlow.basic.model.option.unit;
 
 import android.annotation.SuppressLint;
 
-class UnitUtils {
+public class UnitUtils {
 
-    static String formatFloat(float value) {
-        return formatFloat(value, 2);
+    public static String formatFloat(float value) {
+        return formatFloat(value, 0);
     }
 
-    static String formatFloat(float value, int decimalNumber) {
+    public static String formatFloat(float value, int decimalNumber) {
         return String.format(
                 "%." + decimalNumber + "f",
                 value
@@ -16,7 +16,7 @@ class UnitUtils {
     }
 
     @SuppressLint("DefaultLocale")
-    static String formatInt(int value) {
+    public static String formatInt(int value) {
         return String.format("%d", value);
     }
 }

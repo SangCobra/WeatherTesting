@@ -2,6 +2,8 @@ package anaxxes.com.weatherFlow.weather.api;
 
 import java.util.List;
 
+import anaxxes.com.weatherFlow.weather.json.accu.CurrentCondition;
+import anaxxes.com.weatherFlow.weather.json.accu.search.Search;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -75,4 +77,9 @@ public interface AccuWeatherApi {
                                                @Query("apikey") String apikey,
                                                @Query("language") String language,
                                                @Query("details") boolean details);
+    @GET("locations/v1/autocomplete.json")
+    Observable<List<Search>> searchPlace(@Query("apikey") String apikey,
+                                         @Query("language") String language,
+                                         @Query("q") String name,
+                                         @Query("includealiases") boolean includeAlias);
 }

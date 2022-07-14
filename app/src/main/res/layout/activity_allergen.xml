@@ -7,10 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+
         app:theme="@style/WeatherFlowTheme.AppbarTheme" >
 
         <androidx.appcompat.widget.Toolbar
@@ -21,7 +21,7 @@
             app:title="@string/allergen"
             app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
     <anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarRecyclerView
         android:id="@+id/activity_allergen_recyclerView"
@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:scrollbars="none"
         android:clipToPadding="false"
-        android:fitsSystemWindows="true"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

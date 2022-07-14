@@ -5,24 +5,26 @@
     android:id="@+id/activity_weather_daily_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorHomeBg"
-    android:backgroundTint="#3B3B3B">
+    android:background="#262626">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#262626">
 
-        <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#3B3B3B"
-            android:fitsSystemWindows="true">
+            android:background="#262626"
+            android:orientation="vertical"
+            >
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/activity_weather_daily_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#262626"
                 app:navigationIcon="@drawable/ic_toolbar_back">
 
                 <TextView
@@ -33,26 +35,24 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_16sdp"
                     android:fontFamily="@font/montserrat_regular"
-                    tools:text="Daily weather"  android:layout_height="wrap_content"/>
+                    android:text="Daily weather"
+                    android:layout_height="wrap_content"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:minHeight="?attr/actionBarSize">
-
-
+                    android:background="#3B3B3B"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/activity_weather_daily_indicator"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
                         android:layout_margin="@dimen/normal_margin"
-                        style="@style/subtitle_text"
-                        android:visibility="gone"
-                        tools:text="3/15" />
-
-
+                        android:textColor="@color/white"
+                        android:text="3/15"  android:layout_width="wrap_content"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -60,6 +60,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/activity_weather_daily_indicator"
                         android:orientation="vertical"
+                        android:background="#3B3B3B"
                         android:paddingTop="@dimen/little_margin"
                         android:paddingBottom="@dimen/little_margin"
                         tools:ignore="UselessParent">
@@ -76,28 +77,26 @@
                             android:id="@+id/activity_weather_daily_subtitle"
                             android:layout_width="match_parent"
                             android:layout_marginTop="2dp"
-                            style="@style/subtitle_text"
-                            tools:text="十一月初七"
-                            tools:ignore="RtlHardcoded" />
-
+                            android:text="十一月初七"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
-
-                </RelativeLayout>
-
+                </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
-
-        </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
-
+        </LinearLayout>
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable"
+            android:background="#262626"
             android:id="@+id/dailyTabs"/>
+
 
         <anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarViewPager
             android:id="@+id/activity_weather_daily_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#262626"/>
 
     </LinearLayout>
 

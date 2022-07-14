@@ -5,13 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
-    android:background="@drawable/bg_clear"
     tools:context=".main.MainActivity">
-
-
-
     <include layout="@layout/layout_main" android:id="@+id/background"/>
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
@@ -64,19 +59,19 @@
 <!--                        android:layout_width="match_parent"-->
 <!--                        android:layout_height="match_parent"-->
 <!--                        android:scrollbars="none"-->
-<!--                        android:fitsSystemWindows="true"-->
+<!--                        -->
 <!--                        android:clipToPadding="false" />-->
 
 <!--                </anaxxes.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout>-->
 
 <!--            </anaxxes.com.weatherFlow.ui.widget.SwipeSwitchLayout>-->
 
-<!--            <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout-->
+<!--            <LinearLayout-->
 <!--                android:id="@+id/app_bar"-->
 <!--                android:orientation="vertical"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
-<!--                android:fitsSystemWindows="true"-->
+<!--                -->
 <!--                android:background="@android:color/transparent"-->
 <!--                app:elevation="0dp">-->
 
@@ -89,7 +84,7 @@
 <!--                    app:titleTextAppearance="@style/Toolbar.TitleText"-->
 <!--                    app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />-->
 
-<!--            </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>-->
+<!--            </LinearLayout>-->
 
 <!--            <anaxxes.com.weatherFlow.ui.widget.InkPageIndicator-->
 <!--                android:id="@+id/indicator"-->
@@ -97,7 +92,7 @@
 <!--                android:layout_height="wrap_content"-->
 <!--                android:layout_margin="@dimen/normal_margin"-->
 <!--                android:alpha="0"-->
-<!--                android:fitsSystemWindows="true"-->
+<!--                -->
 <!--                app:layout_behavior=".ui.behavior.InkPageIndicatorBehavior"-->
 <!--                app:dotDiameter="8dp"-->
 <!--                app:dotGap="8dp"-->

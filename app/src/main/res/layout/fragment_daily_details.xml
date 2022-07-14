@@ -86,29 +86,20 @@
                     android:src="@drawable/weather_cloudy"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/gnt_white" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/llDailyDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-
+                    app:layout_constraintHorizontal_weight="1"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/daySunMoonView"
                     app:layout_constraintStart_toEndOf="@+id/imgDailyIcon"
+                    app:layout_constraintEnd_toStartOf="@id/daySunMoonView"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/tvDayDailyStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:layout_marginStart="20dp"
-                        android:maxLines="4"
-                        android:textColor="@color/gnt_white"
-                        android:textSize="16sp" />
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -120,7 +111,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="@dimen/_5sdp"
                             android:src="@drawable/ic_arrow_downward_24"
                             app:layout_constraintStart_toStartOf="@id/tvTemperature"
                             app:layout_constraintTop_toBottomOf="@id/tvTemperature"
@@ -144,7 +135,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="15dp"
+                            android:layout_marginStart="@dimen/_5sdp"
                             android:src="@drawable/ic_arrow_upward_24" />
 
                         <TextView
@@ -163,7 +154,17 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <TextView
+                android:id="@+id/tvDayDailyStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:maxLines="4"
+                android:textColor="@color/gnt_white"
+                android:textSize="16sp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcDailyDetails"
                 android:layout_width="match_parent"
@@ -244,8 +245,7 @@
                     android:src="@drawable/weather_cloudy"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/gnt_white" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/llDailyNightDetails"
@@ -257,14 +257,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imgNightIcon"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/tvNightDailyStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:maxLines="4"
-                        android:textColor="@color/gnt_white"
-                        android:textSize="16sp" />
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -273,10 +266,10 @@
 
                         <ImageView
                             android:id="@+id/imgDownArrow"
-                            android:layout_width="20dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="@dimen/_5sdp"
                             android:src="@drawable/ic_arrow_downward_24"
                             app:layout_constraintStart_toStartOf="@id/tvTemperature"
                             app:layout_constraintTop_toBottomOf="@id/tvTemperature"
@@ -299,7 +292,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="15dp"
+                            android:layout_marginStart="@dimen/_5sdp"
                             android:src="@drawable/ic_arrow_upward_24" />
 
                         <TextView
@@ -317,11 +310,21 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <TextView
+                android:id="@+id/tvNightDailyStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:maxLines="4"
+                android:textColor="@color/gnt_white"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:textSize="16sp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcNightDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 tools:listitem="@layout/item_daily_details" />
 
         </LinearLayout>

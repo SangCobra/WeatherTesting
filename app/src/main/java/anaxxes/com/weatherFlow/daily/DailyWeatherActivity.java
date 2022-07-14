@@ -1,6 +1,8 @@
 package anaxxes.com.weatherFlow.daily;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -40,20 +42,23 @@ import anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarRecyclerView;
 import anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarViewPager;
 import anaxxes.com.weatherFlow.utils.DisplayUtils;
 import anaxxes.com.weatherFlow.utils.SunMoonUtils;
+import anaxxes.com.weatherFlow.utils.manager.ThemeManager;
 
 /**
  * Daily weather activity.
- * */
+ */
 
 public class DailyWeatherActivity extends GeoActivity {
 
     private CoordinatorLayout container;
     private TextView title;
-//    private TextView subtitle;
+    //    private TextView subtitle;
     private TextView indicator;
 
-    private @Nullable Weather weather;
-    private @Nullable TimeZone timeZone;
+    private @Nullable
+    Weather weather;
+    private @Nullable
+    TimeZone timeZone;
     private Location location;
     private int position;
 
@@ -102,11 +107,13 @@ public class DailyWeatherActivity extends GeoActivity {
         title = findViewById(R.id.activity_weather_daily_title);
 //        subtitle = findViewById(R.id.activity_weather_daily_subtitle);
         indicator = findViewById(R.id.activity_weather_daily_indicator);
+        indicator.setTextColor(Color.parseColor("#ffffff"));
 //        if (!SettingsOptionManager.getInstance(this).getLanguage().isChinese()){
 //            subtitle.setVisibility(View.GONE);
 //        }
 
         title.setText(location.getCityName(this));
+        title.setTextColor(Color.WHITE);
         selectPage(
                 weather.getDailyForecast().get(position),
                 position,
@@ -117,12 +124,12 @@ public class DailyWeatherActivity extends GeoActivity {
         List<String> titleList = new ArrayList<>(weather.getDailyForecast().size());
 
 
-        for (int i = 0; i < weather.getDailyForecast().size(); i ++) {
+        for (int i = 0; i < weather.getDailyForecast().size(); i++) {
             Daily d = weather.getDailyForecast().get(i);
             Daily tomorrow = null;
 
-            if(i+1 <weather.getDailyForecast().size()){
-                tomorrow = weather.getDailyForecast().get(i+1);
+            if (i + 1 < weather.getDailyForecast().size()) {
+                tomorrow = weather.getDailyForecast().get(i + 1);
             }
 
             FitBottomSystemBarRecyclerView recyclerView = new FitBottomSystemBarRecyclerView(this);
@@ -134,16 +141,15 @@ public class DailyWeatherActivity extends GeoActivity {
             recyclerView.setLayoutManager(gridLayoutManager);
 
 
-
             FragmentDailyDetailsBinding dayDetailsBinding = FragmentDailyDetailsBinding.inflate(getLayoutInflater());
 
 
             //Day Time Sun Moon View
-            SunMoonUtils daySunMoonUtils = new SunMoonUtils(dayDetailsBinding.daySunMoonView,location, ResourcesProviderFactory.getNewInstance(),false);
-            if(tomorrow != null){
-                daySunMoonUtils.ensureTime(d, tomorrow,location.getTimeZone());
-            }else{
-                daySunMoonUtils.ensureTime(d, d,location.getTimeZone());
+            SunMoonUtils daySunMoonUtils = new SunMoonUtils(dayDetailsBinding.daySunMoonView, location, ResourcesProviderFactory.getNewInstance(), false);
+            if (tomorrow != null) {
+                daySunMoonUtils.ensureTime(d, tomorrow, location.getTimeZone());
+            } else {
+                daySunMoonUtils.ensureTime(d, d, location.getTimeZone());
 
             }
             daySunMoonUtils.onEnterScreen();
@@ -158,11 +164,11 @@ public class DailyWeatherActivity extends GeoActivity {
 
 
             //Night Time Sun moon View
-            SunMoonUtils nightSunMoonUtils = new SunMoonUtils(dayDetailsBinding.nightSunMoonView,location, ResourcesProviderFactory.getNewInstance(),true);
-            if(tomorrow != null){
-                nightSunMoonUtils.ensureTime(d, tomorrow,location.getTimeZone());
-            }else{
-                nightSunMoonUtils.ensureTime(d, d,location.getTimeZone());
+            SunMoonUtils nightSunMoonUtils = new SunMoonUtils(dayDetailsBinding.nightSunMoonView, location, ResourcesProviderFactory.getNewInstance(), true);
+            if (tomorrow != null) {
+                nightSunMoonUtils.ensureTime(d, tomorrow, location.getTimeZone());
+            } else {
+                nightSunMoonUtils.ensureTime(d, d, location.getTimeZone());
 
             }
             nightSunMoonUtils.setMoonDrawable();
@@ -173,36 +179,33 @@ public class DailyWeatherActivity extends GeoActivity {
             dayDetailsBinding.tvNightEndTime.setText(d.moon().getSetTime(DailyWeatherActivity.this));
 
 
-
             //Day list
             DailyDetailsAdapter dayDetailsAdapter = new DailyDetailsAdapter(this);
-            ArrayList<DailyDetailsModel> dayList = getDailyDetailsModels(d.day(),settingsOptionManager);
+            ArrayList<DailyDetailsModel> dayList = getDailyDetailsModels(d.day(), settingsOptionManager);
             if (d.getUV().getIndex() != null) {
-                dayList.add(new DailyDetailsModel(R.drawable.ic_uv,getString(R.string.uv_index),d.getUV().getIndex().toString(),true));
+                dayList.add(new DailyDetailsModel(R.drawable.ic_uv, getString(R.string.uv_index), d.getUV().getIndex().toString(), true));
             }
             dayDetailsBinding.rcDailyDetails.setAdapter(dayDetailsAdapter);
             dayDetailsBinding.rcDailyDetails.setLayoutManager(new LinearLayoutManager(this));
             dayDetailsAdapter.updateData(dayList);
 
             //NightList
-            ArrayList<DailyDetailsModel> nightList = getDailyDetailsModels(d.night(),settingsOptionManager);
+            ArrayList<DailyDetailsModel> nightList = getDailyDetailsModels(d.night(), settingsOptionManager);
             DailyDetailsAdapter nightDetailsAdapter = new DailyDetailsAdapter(this);
             dayDetailsBinding.rcNightDetails.setAdapter(nightDetailsAdapter);
             dayDetailsBinding.rcNightDetails.setLayoutManager(new LinearLayoutManager(this));
             nightDetailsAdapter.updateData(nightList);
 
 
-            dayDetailsBinding.tvLowTempDay.setText(d.night().getTemperature().getShortTemperature(this,settingsOptionManager.getTemperatureUnit()));
-            dayDetailsBinding.tvLowTempNight.setText(d.night().getTemperature().getShortTemperature(this,settingsOptionManager.getTemperatureUnit()));
-            dayDetailsBinding.tvMaxTempDay.setText(d.day().getTemperature().getShortTemperature(this,settingsOptionManager.getTemperatureUnit()));
-            dayDetailsBinding.tvMaxTemp.setText(d.day().getTemperature().getShortTemperature(this,settingsOptionManager.getTemperatureUnit()));
+            dayDetailsBinding.tvLowTempDay.setText(d.night().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
+            dayDetailsBinding.tvLowTempNight.setText(d.night().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
+            dayDetailsBinding.tvMaxTempDay.setText(d.day().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
+            dayDetailsBinding.tvMaxTemp.setText(d.day().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
             dayDetailsBinding.tvDayDailyStatus.setText(d.day().getWeatherText());
             dayDetailsBinding.tvNightDailyStatus.setText(d.night().getWeatherText());
             viewList.add(dayDetailsBinding.getRoot());
 
             titleList.add(d.getDate("EEE\nd/M"));
-
-
 
 
         }
@@ -211,7 +214,7 @@ public class DailyWeatherActivity extends GeoActivity {
 
         pager.setAdapter(new FitBottomSystemBarViewPager.FitBottomSystemBarPagerAdapter(pager, viewList, titleList));
         pager.setPageMargin((int) DisplayUtils.dpToPx(this, 1));
-//        pager.setPageMarginDrawable(new ColorDrawable(ThemeManager.getInstance(this).getLineColor(this)));
+        pager.setPageMarginDrawable(new ColorDrawable(ThemeManager.getInstance(this).getLineColor(this)));
         pager.setCurrentItem(position);
         pager.setOffscreenPageLimit(30);
         pager.clearOnPageChangeListeners();
@@ -238,27 +241,28 @@ public class DailyWeatherActivity extends GeoActivity {
         });
 
         TabLayout tabs = findViewById(R.id.dailyTabs);
+        tabs.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
+        tabs.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
         tabs.setupWithViewPager(pager);
     }
 
     private void setWeatherIcon(Daily d, anaxxes.com.weatherFlow.databinding.FragmentDailyDetailsBinding dayDetailsBinding) {
         switch (d.day().getWeatherCode()) {
             case CLEAR:
-                    dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_clear));
+                dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_clear));
                 dayDetailsBinding.imgNightIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_moon));
 
                 break;
             case PARTLY_CLOUDY:
+            case CLOUDY:
 
-                    dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_partly_cloudy));
+                dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_partly_cloudy));
                 dayDetailsBinding.imgNightIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_cloudy_moon));
 
                 break;
-            case CLOUDY:
-                dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_partly_cloudy));
-                break;
             case RAIN:
                 dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_rain));
+                dayDetailsBinding.imgNightIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_night_rain));
                 break;
             case SNOW:
                 dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_snow));
@@ -280,33 +284,34 @@ public class DailyWeatherActivity extends GeoActivity {
                 break;
             case THUNDER:
             case THUNDERSTORM:
-                dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_thunder));
+                dayDetailsBinding.imgDailyIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_thunder_rain));
+                dayDetailsBinding.imgNightIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_thunder_night));
                 break;
 
         }
     }
 
     @NotNull
-    private ArrayList<DailyDetailsModel> getDailyDetailsModels(HalfDay d,SettingsOptionManager settingsOptionManager) {
+    private ArrayList<DailyDetailsModel> getDailyDetailsModels(HalfDay d, SettingsOptionManager settingsOptionManager) {
         ArrayList<DailyDetailsModel> list = new ArrayList<>();
-        list.add(new DailyDetailsModel(R.drawable.ic_temperature,getString(R.string.real_feel_temperature),String.valueOf(d.getTemperature().getTemperature(this,settingsOptionManager.getTemperatureUnit())),true));
-        if(d.getPrecipitation().getTotal() != null)
-        list.add(new DailyDetailsModel(R.drawable.ic_drop,getString(R.string.precipitation),settingsOptionManager.getPrecipitationUnit().getPrecipitationText(this,d.getPrecipitation().getTotal()),true));
-        else{
-            list.add(new DailyDetailsModel(R.drawable.ic_drop,getString(R.string.precipitation),"0.0",true));
+        list.add(new DailyDetailsModel(R.drawable.ic_temperature, getString(R.string.real_feel_temperature), String.valueOf(d.getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit())), true));
+        if (d.getPrecipitation().getTotal() != null)
+            list.add(new DailyDetailsModel(R.drawable.ic_drop, getString(R.string.precipitation), settingsOptionManager.getPrecipitationUnit().getPrecipitationText(this, d.getPrecipitation().getTotal()), true));
+        else {
+            list.add(new DailyDetailsModel(R.drawable.ic_drop, getString(R.string.precipitation), "0.0", true));
         }
 
-        if(d.getPrecipitation().getThunderstorm() != null)
-        list.add(new DailyDetailsModel(R.drawable.img_thunder,getString(R.string.thunderstorm),settingsOptionManager.getPrecipitationUnit().getPrecipitationText(this,d.getPrecipitation().getThunderstorm()),true));
-        else{
-            list.add(new DailyDetailsModel(R.drawable.img_thunder,getString(R.string.thunderstorm),"0.0",true));
+        if (d.getPrecipitation().getThunderstorm() != null)
+            list.add(new DailyDetailsModel(R.drawable.ic_thunder, getString(R.string.thunderstorm), settingsOptionManager.getPrecipitationUnit().getPrecipitationText(this, d.getPrecipitation().getThunderstorm()), true));
+        else {
+            list.add(new DailyDetailsModel(R.drawable.ic_thunder, getString(R.string.thunderstorm), "0.0", true));
         }
-        String windDirection = "",windSpeed = "",guageText = "";
+        String windDirection = "", windSpeed = "", guageText = "";
         Boolean speedVisible = false;
         SpeedUnit unit = SettingsOptionManager.getInstance(this).getSpeedUnit();
 
         if (d.getWind().getDegree().isNoDirection() || d.getWind().getDegree().getDegree() % 45 == 0) {
-           windDirection = d.getWind().getDirection();
+            windDirection = d.getWind().getDirection();
         } else {
             windDirection = d.getWind().getDirection()
                     + " (" + (int) (d.getWind().getDegree().getDegree() % 360) + "°)";
@@ -314,16 +319,16 @@ public class DailyWeatherActivity extends GeoActivity {
 
         if (d.getWind().getSpeed() != null && d.getWind().getSpeed() > 0) {
             speedVisible = true;
-            windSpeed = unit.getSpeedText(this, d.getWind().getSpeed());
+            windSpeed = unit.getSpeedText(this, unit.getSpeed(d.getWind().getSpeed()));
         } else {
             speedVisible = false;
         }
 
         guageText = d.getWind().getLevel();
 
-        list.add(new DailyDetailsModel(R.drawable.ic_wind_direction,getString(R.string.wind_direction),windDirection,true));
-        list.add(new DailyDetailsModel(R.drawable.ic_windspeed,getString(R.string.wind_speed),windSpeed,speedVisible));
-        list.add(new DailyDetailsModel(R.drawable.ic_wind_gauge,getString(R.string.wind_level),guageText,true));
+        list.add(new DailyDetailsModel(R.drawable.ic_wind_direction, getString(R.string.wind_direction), windDirection, true));
+        list.add(new DailyDetailsModel(R.drawable.ic_windspeed, getString(R.string.wind_speed), windSpeed, speedVisible));
+        list.add(new DailyDetailsModel(R.drawable.ic_windgauge, getString(R.string.wind_level), guageText, true));
         return list;
     }
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.List;
+import java.util.Objects;
 
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.GeoActivity;
@@ -39,6 +42,7 @@ public class LocationManageFragment extends Fragment
 
     private CardView cardView;
     private AppCompatImageView imgAddLocation;
+    private ImageView imgBack;
     private AppCompatImageView searchIcon;
     private TextView searchTitle;
     private AppCompatImageButton currentLocationButton;
@@ -73,8 +77,14 @@ public class LocationManageFragment extends Fragment
         return locationList;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initWidget(requireView());
+    }
+
     private void initWidget(View view) {
-        AppBarLayout appBar = view.findViewById(R.id.fragment_location_manage_appBar);
+        LinearLayout appBar = view.findViewById(R.id.fragment_location_manage_appBar);
         ViewCompat.setOnApplyWindowInsetsListener(appBar, (v, insets) -> {
             v.setPadding(
                     insets.getSystemWindowInsetLeft(),
@@ -87,6 +97,10 @@ public class LocationManageFragment extends Fragment
 
         this.cardView = view.findViewById(R.id.fragment_location_manage_searchBar);
         this.imgAddLocation = view.findViewById(R.id.imgAddLocation);
+        this.imgBack = view.findViewById(R.id.imgBack);
+        imgBack.setOnClickListener(v -> {
+            requireActivity().finish();
+        });
         imgAddLocation.setOnClickListener(v ->
                 IntentHelper.startSearchActivityForResult(requireActivity(), cardView, searchRequestCode));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -110,7 +124,8 @@ public class LocationManageFragment extends Fragment
                     if (locationListChangedListener != null) {
                         locationListChangedListener.onSelectedLocation(formattedId,index);
                     }
-                }
+                },
+                true
         );
         adapter.setListenerChange(this);
         this.recyclerView = view.findViewById(R.id.fragment_location_manage_recyclerView);

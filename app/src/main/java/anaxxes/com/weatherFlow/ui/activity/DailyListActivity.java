@@ -52,8 +52,8 @@ public class DailyListActivity extends GeoActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = ActivityDailyListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -72,7 +72,8 @@ public class DailyListActivity extends GeoActivity {
         dailyDayNightAdapter = new DailyDayNightAdapter(this, index -> IntentHelper.startDailyWeatherActivity(
                 this, location.getFormattedId(), index));
 
-        dailyListAdapter = new DailyListAdapter(this);
+        dailyListAdapter = new DailyListAdapter(this, index -> IntentHelper.startDailyWeatherActivity(
+                this, location.getFormattedId(), index));
 
         initData();
     }
@@ -99,9 +100,6 @@ public class DailyListActivity extends GeoActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.dailyForecastList.setLayoutManager(layoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
-                layoutManager.getOrientation());
-        binding.dailyForecastList.addItemDecoration(dividerItemDecoration);
         binding.dailyForecastList.setAdapter(dailyListAdapter);
         dailyListAdapter.setList((ArrayList<Daily>) weather.getDailyForecast());
 

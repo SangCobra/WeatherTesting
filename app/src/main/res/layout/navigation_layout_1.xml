@@ -45,8 +45,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_location" />
 
@@ -73,8 +73,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_temperature" />
 
@@ -113,8 +113,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_lock" />
 
@@ -144,7 +144,7 @@
                             android:text="Allow us to display on lock screen"
                             android:textColor="#fff"
                             android:textFontWeight="500"
-                            android:textSize="8dp" />
+                            android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
                     <Switch
@@ -170,8 +170,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_notification"
 
@@ -213,8 +213,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_tem"
 
@@ -246,7 +246,7 @@
                             android:text="Allow us to display on Status bar"
                             android:textColor="#fff"
                             android:textFontWeight="500"
-                            android:textSize="8dp" />
+                            android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
                     <Switch
@@ -272,8 +272,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_image" />
 
@@ -322,8 +322,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_radar" />
 
@@ -345,51 +345,51 @@
                     android:layout_height="2dp"
                     android:src="@drawable/ic_line_second" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_widget" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/_24sdp"-->
+<!--                        android:layout_height="@dimen/_24sdp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/ic_widget" />-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingStart="16dp">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:paddingStart="16dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center|left"
-                            android:fontFamily="@font/montserrat_regular"
-                            android:text="Weather widgets"
-                            android:textColor="#fff"
-                            android:textFontWeight="500"
-                            android:textSize="16dp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center|left"-->
+<!--                            android:fontFamily="@font/montserrat_regular"-->
+<!--                            android:text="Weather widgets"-->
+<!--                            android:textColor="#fff"-->
+<!--                            android:textFontWeight="500"-->
+<!--                            android:textSize="16dp" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center|left"
-                            android:fontFamily="@font/montserrat_regular"
-                            android:text="Show on phone screen"
-                            android:textColor="#fff"
-                            android:textFontWeight="500"
-                            android:textSize="8dp" />
-                    </LinearLayout>
-                </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center|left"-->
+<!--                            android:fontFamily="@font/montserrat_regular"-->
+<!--                            android:text="Show on phone screen"-->
+<!--                            android:textColor="#fff"-->
+<!--                            android:textFontWeight="500"-->
+<!--                            android:textSize="@dimen/_8sdp" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:src="@drawable/ic_line_second" />
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:src="@drawable/ic_line_second" />-->
 
                 <LinearLayout
                     android:id="@+id/nav_Setting"
@@ -398,8 +398,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_unit" />
 
@@ -429,38 +429,38 @@
                             android:text="Pressure, wind speed, time format,..."
                             android:textColor="#fff"
                             android:textFontWeight="500"
-                            android:textSize="8dp" />
+                            android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:src="@drawable/ic_line_second" />
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:src="@drawable/ic_line_second" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_aqi" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/_24sdp"-->
+<!--                        android:layout_height="@dimen/_24sdp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/ic_aqi" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:paddingStart="16dp"
-                        android:text="Air Quality Index"
-                        android:textColor="#fff"
-                        android:textFontWeight="500"
-                        android:textSize="16dp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:fontFamily="@font/montserrat_regular"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:text="Air Quality Index"-->
+<!--                        android:textColor="#fff"-->
+<!--                        android:textFontWeight="500"-->
+<!--                        android:textSize="16dp" />-->
+<!--                </LinearLayout>-->
             </LinearLayout>
 
             <LinearLayout
@@ -476,13 +476,14 @@
                 android:paddingEnd="16dp">
 
                 <LinearLayout
+                    android:id="@+id/navShare"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_share" />
 
@@ -506,13 +507,14 @@
                     android:src="@drawable/ic_line_second" />
 
                 <LinearLayout
+                    android:id="@+id/navRate"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_rate" />
 
@@ -535,15 +537,16 @@
                     android:src="@drawable/ic_line_second" />
 
                 <LinearLayout
+                    android:id="@+id/navFeedback"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_feedback" />
+                        android:src="@drawable/ic_deedback" />
 
                     <TextView
                         android:layout_width="wrap_content"

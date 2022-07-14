@@ -2,10 +2,11 @@ package anaxxes.com.weatherFlow.main;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,8 +16,11 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import anaxxes.com.weatherFlow.main.dialog.DialogPer1;
+import anaxxes.com.weatherFlow.main.dialog.DialogPer2;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,7 +28,6 @@ import io.reactivex.schedulers.Schedulers;
 import anaxxes.com.weatherFlow.basic.GeoActivity;
 import anaxxes.com.weatherFlow.basic.model.location.Location;
 import anaxxes.com.weatherFlow.db.DatabaseHelper;
-import anaxxes.com.weatherFlow.main.dialog.BackgroundLocationDialog;
 import anaxxes.com.weatherFlow.main.model.Indicator;
 import anaxxes.com.weatherFlow.main.model.LocationResource;
 import anaxxes.com.weatherFlow.main.model.LockableLocationList;
@@ -38,6 +41,8 @@ public class MainActivityViewModel extends ViewModel
     private MutableLiveData<Indicator> indicator;
     private LockableLocationList lockableLocationList;
     private MainActivityRepository repository;
+    private boolean denyPermission = false;
+    int denyCount = 0;
 
     private boolean newInstance;
 
@@ -213,7 +218,6 @@ public class MainActivityViewModel extends ViewModel
 
     public void updateWeather(GeoActivity activity) {
         repository.cancel();
-
         assert currentLocation.getValue() != null;
         Location location = currentLocation.getValue().data;
 
@@ -223,11 +227,16 @@ public class MainActivityViewModel extends ViewModel
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && location.isCurrentPosition()) {
             // check basic location permissions.
+
             List<String> permissionList = getDeniedPermissionList(activity, false);
             if (permissionList.size() != 0) {
                 // request basic location permissions.
+
                 activity.requestPermissions(permissionList.toArray(new String[0]), 0,
                         (requestCode, permission, grantResult) -> {
+//                            if (grantResult[1] != PackageManager.PERMISSION_GRANTED){
+//
+//                            }
                             for (int i = 0; i < permission.length && i < grantResult.length; i++) {
                                 if (isPivotalPermission(permission[i])
                                         && grantResult[i] != PackageManager.PERMISSION_GRANTED) {
@@ -239,25 +248,33 @@ public class MainActivityViewModel extends ViewModel
                                         currentLocation.setValue(
                                                 LocationResource.error(location, true));
                                     }
+                                    activity.requestPermissions(
+                                            permissionList.toArray(new String[0]),
+                                            requestCode+1,
+                                            (requestCodes, permissions, grantResults) -> {
+                                                repository.getWeather(activity, currentLocation, lockableLocationList, true, this);
+                                            }
+                                    );
                                     return;
                                 }
                             }
-
                             // check background location permissions.
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                List<String> backgroundPermissionList = getDeniedPermissionList(activity, true);
-                                if (backgroundPermissionList.size() != 0) {
-                                    BackgroundLocationDialog dialog = new BackgroundLocationDialog();
-                                    dialog.setOnSetButtonClickListener(() ->
-                                            activity.requestPermissions(
-                                                    backgroundPermissionList.toArray(new String[0]),
-                                                    0,
-                                                    null
-                                            )
-                                    );
-                                    dialog.show(activity.getSupportFragmentManager(), null);
-                                }
-                            }
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                                List<String> backgroundPermissionList = getDeniedPermissionList(activity, true);
+//                                if (backgroundPermissionList.size() != 0) {
+////                                    BackgroundLocationDialog dialog = new BackgroundLocationDialog();
+////                                    dialog.setOnSetButtonClickListener(() ->
+////                                            activity.requestPermissions(
+////                                                    backgroundPermissionList.toArray(new String[0]),
+////                                                    0,
+////                                                    null
+////                                            )
+////                                    );
+////                                    dialog.show(activity.getSupportFragmentManager(), null);
+//
+//                                }
+//                            }
+
 
                             repository.getWeather(activity, currentLocation, lockableLocationList, true, this);
                         });
@@ -267,6 +284,8 @@ public class MainActivityViewModel extends ViewModel
 
         repository.getWeather(activity, currentLocation, lockableLocationList, location.isCurrentPosition(), this);
     }
+
+
 
     private List<String> getDeniedPermissionList(Context context, boolean background) {
         List<String> permissionList = repository.getLocatePermissionList(background);

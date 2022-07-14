@@ -115,15 +115,20 @@ public class ShortcutsManager {
 
     @NonNull
     private static Bitmap drawableToBitmap(@NonNull Drawable drawable) {
-        Bitmap bitmap = Bitmap.createBitmap(
-                drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(),
-                Bitmap.Config.ARGB_8888
-        );
+        Bitmap bitmap = null;
+        try {
+            bitmap = Bitmap.createBitmap(
+                    drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(),
+                    Bitmap.Config.ARGB_8888
+            );
 
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            drawable.draw(canvas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return bitmap;
     }

@@ -30,9 +30,9 @@ public class NavigationView {
         clickListeners(mainActivity, binding);
 //
 //        binding.navLayout.switchNavAlertNotification.setChecked(settingsOptionManager.isNotificationEnabled());
-        binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isPrecipitationPushEnabled());
-
-
+        binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isNotificationEnabled());
+        binding.navLayout.isLockScreen.setChecked(settingsOptionManager.isNotificationHideInLockScreenEnabled());
+        binding.navLayout.changeTermType.setChecked(!settingsOptionManager.isTermChange());
 //        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
         binding.navLayout.switchWeatherBackground.setChecked(settingsOptionManager.isWeatherBgEnabled());
 
@@ -51,6 +51,19 @@ public class NavigationView {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             mainActivity.goToMap();
         });
+        binding.navLayout.navShare.setOnClickListener(v -> {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            mainActivity.share();
+        });
+        binding.navLayout.navRate.setOnClickListener(v -> {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            mainActivity.rate(false);
+        });
+        binding.navLayout.navFeedback.setOnClickListener(v -> {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            mainActivity.feedBack("verifiedapps.help@gmail.com");
+        });
+
 //        binding.navLayout.navSetting..llNavTemp.setOnClickListener(view -> {
 //            binding.drawerLayout.closeDrawer(GravityCompat.START);
 //            mainActivity.showTempUnitDialog();
@@ -116,22 +129,32 @@ public class NavigationView {
 //            }
 //        }));
 
-        if (settingsOptionManager.getTemperatureUnit().getUnitId().equals("c")){
-            binding.navLayout.changeTermType.setChecked(true);
-        }
-        else if (settingsOptionManager.getTemperatureUnit().getUnitId().equals("f")){
-            binding.navLayout.changeTermType.setChecked(false);
-        }
+
         binding.navLayout.switchNavPrecipitation.setOnCheckedChangeListener(((compoundButton, b) -> {
+//            if (compoundButton.isPressed()) {
+//                settingsOptionManager.setPrecipitationPushEnabled(b);
+//            }
             if (compoundButton.isPressed()) {
-                settingsOptionManager.setPrecipitationPushEnabled(b);
+                settingsOptionManager.setNotificationEnabled(b);
+                if (b) { // open notification.
+                    PollingManager.resetNormalBackgroundTask(mainActivity, true);
+                } else { // close notification.
+                    NormalNotificationIMP.cancelNotification(mainActivity);
+                    PollingManager.resetNormalBackgroundTask(mainActivity, false);
+                }
+//                toggleNotificationItems(binding.llNotification);
             }
         }));
+        binding.navLayout.isLockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(buttonView.isPressed()){
+                settingsOptionManager.setNotificationHideInLockScreenEnabled(!isChecked);
+                PollingManager.resetNormalBackgroundTask(mainActivity, true);
+            }
+        });
         binding.navLayout.changeTermType.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
-                settingsOptionManager.setTemperatureUnit("f");
-            }else {
-                settingsOptionManager.setTemperatureUnit("c");
+            if (buttonView.isPressed()){
+                settingsOptionManager.setTermChange(!isChecked);
+                mainActivity.onRefresh();
             }
         });
 //        binding.navLayout.switchShowNightInfo.setOnCheckedChangeListener(((compoundButton, b) -> {
@@ -144,6 +167,7 @@ public class NavigationView {
         binding.navLayout.switchWeatherBackground.setOnCheckedChangeListener(((compoundButton, b) -> {
             if (compoundButton.isPressed()) {
                 settingsOptionManager.setWeatherBgEnabled(b);
+                mainActivity.onRefresh();
                 SnackbarUtils.showSnackbar(
                         mainActivity, mainActivity.getString(R.string.feedback_refresh_ui_after_refresh));
             }

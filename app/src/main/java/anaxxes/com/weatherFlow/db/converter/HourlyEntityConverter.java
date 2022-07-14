@@ -5,12 +5,14 @@ import java.util.List;
 
 import anaxxes.com.weatherFlow.basic.model.option.provider.WeatherSource;
 import anaxxes.com.weatherFlow.basic.model.weather.Hourly;
+import anaxxes.com.weatherFlow.basic.model.weather.Humidity;
 import anaxxes.com.weatherFlow.basic.model.weather.Precipitation;
 import anaxxes.com.weatherFlow.basic.model.weather.PrecipitationProbability;
 import anaxxes.com.weatherFlow.basic.model.weather.Temperature;
 import anaxxes.com.weatherFlow.basic.model.weather.UV;
 import anaxxes.com.weatherFlow.basic.model.weather.Wind;
 import anaxxes.com.weatherFlow.basic.model.weather.WindDegree;
+import anaxxes.com.weatherFlow.basic.model.weather.WindGust;
 import anaxxes.com.weatherFlow.db.entity.HourlyEntity;
 import anaxxes.com.weatherFlow.db.propertyConverter.WeatherSourceConverter;
 
@@ -59,6 +61,9 @@ public class HourlyEntityConverter {
         entity.windDirection = hourly.getWind().getDirection();
         entity.windLevel = hourly.getWind().getLevel();
         entity.windSpeed = hourly.getWind().getSpeed();
+        entity.windGustSpeed = hourly.getWindGust().getSpeed();
+        entity.relativeHumidity = hourly.getRelativeHumidity();
+        entity.indoorHumidity = hourly.getIndoorRelativeHumidity();
 
         return entity;
     }
@@ -92,6 +97,7 @@ public class HourlyEntityConverter {
                         entity.snowPrecipitation,
                         entity.icePrecipitation
                 ),
+                new WindGust(entity.windGustSpeed),
                 new Wind(entity.getWindDirection(),entity.getWindDegree(), entity.windSpeed,entity.windLevel),
                 entity.visibility,entity.dewPoint,entity.cloudCover,entity.ceiling,new UV(entity.uvIndex,entity.uvLevel,entity.uvDescription),
                 new PrecipitationProbability(
@@ -100,7 +106,9 @@ public class HourlyEntityConverter {
                         entity.rainPrecipitationProbability,
                         entity.snowPrecipitationProbability,
                         entity.icePrecipitationProbability
-                )
+                ),
+                entity.relativeHumidity,
+                entity.indoorHumidity
         );
     }
 

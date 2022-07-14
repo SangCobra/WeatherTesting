@@ -8,10 +8,10 @@
     android:layout_height="match_parent"
     android:background="@color/colorRoot">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+
         app:theme="@style/WeatherFlowTheme.AppbarTheme" >
 
         <androidx.appcompat.widget.Toolbar
@@ -21,7 +21,7 @@
             android:background="@color/colorPrimary"
             app:title="@string/settings_title_live_wallpaper" />
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/activity_live_wallpaper_config_container"
@@ -33,7 +33,7 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
+
             android:clipToPadding="false">
 
             <LinearLayout

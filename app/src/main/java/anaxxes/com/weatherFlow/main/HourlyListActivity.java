@@ -44,8 +44,8 @@ public class HourlyListActivity extends GeoActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = ActivityHourlyListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -81,7 +81,7 @@ public class HourlyListActivity extends GeoActivity {
     }
 
     private void initViews(){
-        binding.activityWeatherHourlyTitle.setText(location.getCityName(this));
+//        binding.activityWeatherHourlyTitle.setText(location.getCityName(this));
         Toolbar toolbar = findViewById(R.id.activity_weather_hourly_toolbar);
         toolbar.setBackgroundColor(ContextCompat.getColor(this,android.R.color.transparent));
         toolbar.setNavigationOnClickListener(v -> finish());

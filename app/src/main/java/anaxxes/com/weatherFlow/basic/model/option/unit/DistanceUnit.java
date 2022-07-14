@@ -31,7 +31,7 @@ public enum DistanceUnit {
     }
 
     public String getDistanceText(Context context, float km) {
-        return UnitUtils.formatFloat(km * unitFactor, 2) + getAbbreviation(context);
+        return UnitUtils.formatFloat(km * unitFactor, 0) + " " + getAbbreviation(context);
     }
 
     public String getAbbreviation(Context context) {

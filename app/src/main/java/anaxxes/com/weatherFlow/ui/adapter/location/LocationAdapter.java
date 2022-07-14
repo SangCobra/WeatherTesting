@@ -39,7 +39,7 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
     private final Context context;
     private LocationTouchCallback.OnLocationListChangedListener listenerChange;
     private OnLocationItemClickListener listener = null;
-
+    private boolean isLocationActivity;
     private @NonNull
     final ThemeManager themeManager;
     private @NonNull
@@ -49,7 +49,7 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
     private @NonNull
     final TemperatureUnit temperatureUnit;
 
-    public LocationAdapter(Context context, List<Location> locationList, OnLocationItemClickListener l) {
+    public LocationAdapter(Context context, List<Location> locationList, OnLocationItemClickListener l, boolean isLocationActivity) {
         super(new DiffUtil.ItemCallback<LocationModel>() {
             @Override
             public boolean areItemsTheSame(@NonNull LocationModel oldItem, @NonNull LocationModel newItem) {
@@ -66,6 +66,7 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
         this.resourceProvider = ResourcesProviderFactory.getNewInstance();
         this.defaultSource = SettingsOptionManager.getInstance(context).getWeatherSource();
         this.temperatureUnit = SettingsOptionManager.getInstance(context).getTemperatureUnit();
+        this.isLocationActivity = isLocationActivity;
         setOnLocationItemClickListener(l);
 
         update(locationList);
@@ -86,8 +87,8 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull LocationHolder holder, int position) {
-        holder.onBindView(context, getItem(position), resourceProvider);
-        holder.deleteLocation(getItem(position), this);
+        holder.onBindView(context, getItem(position), resourceProvider, isLocationActivity);
+        holder.deleteLocation(getItem(position), this, getLocationList(), listenerChange);
     }
 
     public void update(@NonNull List<Location> newList) {

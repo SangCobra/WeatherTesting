@@ -1,5 +1,9 @@
 package anaxxes.com.weatherFlow.basic;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.CallSuper;
@@ -8,9 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.Settings;
 import android.view.View;
 
 import anaxxes.com.weatherFlow.WeatherFlow;
+import anaxxes.com.weatherFlow.main.dialog.DialogPer1;
+import anaxxes.com.weatherFlow.main.dialog.DialogPer2;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
 import anaxxes.com.weatherFlow.utils.DisplayUtils;
 import anaxxes.com.weatherFlow.utils.LanguageUtils;
@@ -24,6 +31,7 @@ public abstract class GeoActivity extends AppCompatActivity {
     private boolean foreground;
 
     @Nullable private OnRequestPermissionsResultListener permissionsListener;
+    private boolean denyPermission = false;
 
     @CallSuper
     @Override
@@ -74,12 +82,39 @@ public abstract class GeoActivity extends AppCompatActivity {
                                    @Nullable OnRequestPermissionsResultListener l) {
         permissionsListener = l;
         requestPermissions(permissions, requestCode);
+
+
     }
 
+    private void gotoSettings(GeoActivity activity) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+        intent.setData(uri);
+        activity.startActivity(intent);
+    }
+
+    @SuppressLint("NewApi")
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permission, @NonNull int[] grantResult) {
         super.onRequestPermissionsResult(requestCode, permission, grantResult);
+        for (int j : grantResult) {
+            if (j != PackageManager.PERMISSION_GRANTED && requestCode == 1) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    DialogPer1.start(this);
+                    DialogPer1.listener = () -> {
+                        gotoSettings(this);
+                    };
+                } else {
+                    DialogPer2.start(this);
+                    DialogPer2.listener = () -> {
+                        gotoSettings(this);
+                    };
+                }
+                break;
+            }
+
+        }
         if (permissionsListener != null) {
             permissionsListener.onRequestPermissionsResult(requestCode, permission, grantResult);
             permissionsListener = null;

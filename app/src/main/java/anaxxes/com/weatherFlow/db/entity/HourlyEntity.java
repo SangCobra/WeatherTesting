@@ -13,6 +13,7 @@ import anaxxes.com.weatherFlow.db.propertyConverter.WindDegreeConverter;
 import anaxxes.com.weatherFlow.weather.json.accu.AccuHourlyResult;
 
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Keep;
 
 /**
  * Hourly entity.
@@ -70,14 +71,32 @@ public class HourlyEntity {
     public Float windSpeed;
     public String windLevel;
 
+    //WindGust
+    public Float windGustSpeed;
 
     //UV
     public Integer uvIndex;
     public String uvLevel;
     public String uvDescription;
+    //Humidity
+    public Integer relativeHumidity;
+    public Integer indoorHumidity;
 
-    @Generated(hash = 288241640)
-    public HourlyEntity(Long id, String cityId, String weatherSource, Date date, long time, boolean daylight, String weatherText, WeatherCode weatherCode, int temperature, Integer realFeelTemperature, Integer realFeelShaderTemperature, Integer apparentTemperature, Integer windChillTemperature, Integer wetBulbTemperature, Integer degreeDayTemperature, Float totalPrecipitation, Float thunderstormPrecipitation, Float rainPrecipitation, Float snowPrecipitation, Float icePrecipitation, Float totalPrecipitationProbability, Float thunderstormPrecipitationProbability, Float rainPrecipitationProbability, Float snowPrecipitationProbability, Float icePrecipitationProbability, Float visibility, Integer dewPoint, Integer cloudCover, Float ceiling, String windDirection, WindDegree windDegree, Float windSpeed, String windLevel, Integer uvIndex, String uvLevel, String uvDescription) {
+    @Generated(hash = 892631300)
+    public HourlyEntity(Long id, String cityId, String weatherSource, Date date, long time,
+            boolean daylight, String weatherText, WeatherCode weatherCode, int temperature,
+            Integer realFeelTemperature, Integer realFeelShaderTemperature,
+            Integer apparentTemperature, Integer windChillTemperature,
+            Integer wetBulbTemperature, Integer degreeDayTemperature,
+            Float totalPrecipitation, Float thunderstormPrecipitation,
+            Float rainPrecipitation, Float snowPrecipitation, Float icePrecipitation,
+            Float totalPrecipitationProbability, Float thunderstormPrecipitationProbability,
+            Float rainPrecipitationProbability, Float snowPrecipitationProbability,
+            Float icePrecipitationProbability, Float visibility, Integer dewPoint,
+            Integer cloudCover, Float ceiling, String windDirection, WindDegree windDegree,
+            Float windSpeed, String windLevel, Float windGustSpeed, Integer uvIndex,
+            String uvLevel, String uvDescription, Integer relativeHumidity,
+            Integer indoorHumidity) {
         this.id = id;
         this.cityId = cityId;
         this.weatherSource = weatherSource;
@@ -111,17 +130,19 @@ public class HourlyEntity {
         this.windDegree = windDegree;
         this.windSpeed = windSpeed;
         this.windLevel = windLevel;
+        this.windGustSpeed = windGustSpeed;
         this.uvIndex = uvIndex;
         this.uvLevel = uvLevel;
         this.uvDescription = uvDescription;
+        this.relativeHumidity = relativeHumidity;
+        this.indoorHumidity = indoorHumidity;
     }
-
-
 
 
     @Generated(hash = 617074574)
     public HourlyEntity() {
     }
+
 
     public Long getId() {
         return this.id;
@@ -328,7 +349,6 @@ public class HourlyEntity {
     }
 
 
-
     public Float getVisibility() {
         return visibility;
     }
@@ -415,6 +435,36 @@ public class HourlyEntity {
 
     public void setUvDescription(String uvDescription) {
         this.uvDescription = uvDescription;
+    }
+
+
+    public Float getWindGustSpeed() {
+        return this.windGustSpeed;
+    }
+
+
+    public void setWindGustSpeed(Float windGustSpeed) {
+        this.windGustSpeed = windGustSpeed;
+    }
+
+
+    public Integer getRelativeHumidity() {
+        return this.relativeHumidity;
+    }
+
+
+    public void setRelativeHumidity(Integer relativeHumidity) {
+        this.relativeHumidity = relativeHumidity;
+    }
+
+
+    public Integer getIndoorHumidity() {
+        return this.indoorHumidity;
+    }
+
+
+    public void setIndoorHumidity(Integer indoorHumidity) {
+        this.indoorHumidity = indoorHumidity;
     }
 
 }

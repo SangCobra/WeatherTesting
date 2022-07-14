@@ -44,13 +44,13 @@ public class LocationHolder extends RecyclerView.ViewHolder {
     }
 
     @SuppressLint("SetTextI18n")
-    protected void onBindView(Context context, LocationModel model, ResourceProvider resourceProvider) {
+    protected void onBindView(Context context, LocationModel model, ResourceProvider resourceProvider, boolean isLocationActivity) {
         this.model = model;
         direction = 0;
         swipeEndColor = ContextCompat.getColor(context,
                 model.location.isCurrentPosition() ? R.color.colorPrimary : R.color.colorTextAlert);
+
         binding.title.setText(model.title);
-        binding.geoPosition.setText(model.subtitle);
         String weatherText = "";
         if (model.location.getWeather() == null) {
             binding.temperatureContainer.setVisibility(View.INVISIBLE);
@@ -58,23 +58,79 @@ public class LocationHolder extends RecyclerView.ViewHolder {
         } else {
             binding.temperatureContainer.setVisibility(View.VISIBLE);
             weatherText = model.location.getWeather().getCurrent().getWeatherText();
+            switch (model.location.getWeather().getCurrent().getWeatherCode()) {
+                case CLEAR:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_clear);
+                    binding.geoPosition.setText("Clear");
+
+                    break;
+                case PARTLY_CLOUDY:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_partly_cloudy);
+                    binding.geoPosition.setText("Partly cloudy");
+
+                    break;
+                case CLOUDY:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_sun_cloudy);
+                    binding.geoPosition.setText("Cloudy");
+
+                    break;
+                case RAIN:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_rain);
+                    binding.geoPosition.setText("Rain");
+
+                    break;
+                case SNOW:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_snow);
+                    binding.geoPosition.setText("Snow");
+
+                    break;
+                case WIND:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_weather_wind);
+                    binding.geoPosition.setText("Wind");
+
+                    break;
+                case FOG:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_fog);
+                    binding.geoPosition.setText("Fog");
+
+                    break;
+                case HAZE:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_fog);
+                    binding.geoPosition.setText("Haze");
+
+                    break;
+                case SLEET:
+                    binding.imgCityLocation.setImageResource(R.drawable.weather_sleet);
+                    binding.geoPosition.setText("Sleet");
+
+                    break;
+                case HAIL:
+                    binding.imgCityLocation.setImageResource(R.drawable.weather_hail);
+                    binding.geoPosition.setText("Hail");
+
+                    break;
+                case THUNDER:
+                case THUNDERSTORM:
+                    binding.imgCityLocation.setImageResource(R.drawable.img_thunder_rain);
+                    binding.geoPosition.setText("Thunderstorm");
+                    break;
+
+            }
+
 
         }
+
         drawSwipe(context, 0);
         drawDrag(context, false);
     }
 
     @SuppressLint({"NotifyDataSetChanged", "NewApi"})
-    public void deleteLocation(LocationModel model, LocationAdapter adapter) {
+    public void deleteLocation(LocationModel model, LocationAdapter adapter, List<Location> locationList, LocationTouchCallback.OnLocationListChangedListener listenerChange) {
         binding.deleteLocation.setOnClickListener(v -> {
             DeleteDialog.Companion.start(itemView.getContext(), (key, data) -> {
                 if (Objects.equals(key, "delete")){
-                    DatabaseHelper.getInstance(itemView.getContext()).deleteLocation(model.location);
-                    DatabaseHelper.getInstance(itemView.getContext()).deleteWeather(model.location);
+                    listenerChange.onLocationRemoved(locationList, model.location);
                     adapter.update(DatabaseHelper.getInstance(itemView.getContext()).readLocationList());
-                    DatabaseHelper.getInstance(itemView.getContext()).readLocationList().forEach(location -> {
-                        DatabaseHelper.getInstance(itemView.getContext()).readWeather(location);
-                    });
                 }
             });
         });

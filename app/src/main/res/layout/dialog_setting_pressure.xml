@@ -225,7 +225,7 @@
             </RadioGroup>
             <FrameLayout
                 android:id="@+id/btn_cancel_pres"
-                android:layout_marginLeft="171dp"
+                android:layout_marginLeft="@dimen/_171sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
@@ -233,12 +233,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center|right"
-                    android:layout_marginRight="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="@dimen/_32sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:text="Cancel"
-                    android:textSize="20dp"
                     android:textColor="#FFA800"
                     android:textAllCaps="true"/>
             </FrameLayout>

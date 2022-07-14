@@ -55,7 +55,13 @@ public class DailyDetailsAdapter extends RecyclerView.Adapter<DailyDetailsAdapte
                 binding.getRoot().setVisibility(View.VISIBLE);
                 binding.tvDailyDetails.setText(model.getDailyDetailsHeading());
                 binding.tvDailyValue.setText(model.getDailyDetailsValue());
-               binding.imgDailyDetails.setImageDrawable(ContextCompat.getDrawable(context,model.getImageId()));
+                binding.imgDailyDetails.setImageDrawable(ContextCompat.getDrawable(context,model.getImageId()));
+//                if (list.indexOf(model) == list.size() - 1){
+//                    binding.divider.setVisibility(View.GONE);
+//                }
+//                else {
+//                    binding.divider.setVisibility(View.VISIBLE);
+//                }
             }else{
                 binding.getRoot().setVisibility(View.GONE);
             }

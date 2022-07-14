@@ -4,12 +4,9 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,30 +15,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.turingtechnologies.materialscrollbar.CustomIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import anaxxes.com.weatherFlow.BuildConfig;
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.GeoActivity;
 import anaxxes.com.weatherFlow.basic.model.location.Location;
 import anaxxes.com.weatherFlow.databinding.ActivitySearchBinding;
+import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
+import anaxxes.com.weatherFlow.ui.adapter.location.LocationModel;
+import anaxxes.com.weatherFlow.ui.adapter.location.SearchLocationAdapter;
 import anaxxes.com.weatherFlow.utils.DisplayUtils;
 import anaxxes.com.weatherFlow.utils.SnackbarUtils;
 import anaxxes.com.weatherFlow.db.DatabaseHelper;
-import anaxxes.com.weatherFlow.ui.adapter.location.LocationAdapter;
-import anaxxes.com.weatherFlow.ui.decotarion.ListDecoration;
+import anaxxes.com.weatherFlow.utils.manager.ThemeManager;
 import anaxxes.com.weatherFlow.weather.WeatherHelper;
+import anaxxes.com.weatherFlow.weather.service.AccuWeatherService;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Search activity.
@@ -52,7 +51,7 @@ public class SearchActivity extends GeoActivity
 
     private ActivitySearchBinding binding;
 
-    private LocationAdapter adapter;
+    private SearchLocationAdapter adapter;
     private WeatherHelper weatherHelper;
 
     private List<Location> currentList;
@@ -62,6 +61,7 @@ public class SearchActivity extends GeoActivity
     private int state = STATE_SHOWING;
     private static final int STATE_SHOWING = 1;
     private static final int STATE_LOADING = 2;
+    private AccuWeatherService accuWeatherService = new AccuWeatherService();
 
     private static class ShowAnimation extends Animation {
         // widget
@@ -108,6 +108,8 @@ public class SearchActivity extends GeoActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -149,13 +151,21 @@ public class SearchActivity extends GeoActivity
         this.weatherHelper = new WeatherHelper();
     }
 
+    @SuppressLint("NewApi")
     private void initWidget() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             binding.searchBar.setTransitionName(getString(R.string.transition_activity_search_bar));
         }
+        if (!TextUtils.isEmpty(binding.editText.getText())){
+            binding.clearBtn.setVisibility(View.VISIBLE);
+        }else {
+            binding.clearBtn.setVisibility(View.GONE);
+        }
 
-        binding.backBtn.setOnClickListener(v -> finishSelf(false));
         binding.clearBtn.setOnClickListener(v -> binding.editText.setText(""));
+        binding.editText.setOnClickListener(v -> {
+            binding.editText.setCursorVisible(true);
+        });
 
         binding.editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -163,19 +173,29 @@ public class SearchActivity extends GeoActivity
 
             }
 
+            @SuppressLint("CheckResult")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(binding.editText.getText().toString())) {
+                if (!TextUtils.isEmpty(s)) {
 //                    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 //                    if (manager != null) {
 //                        manager.hideSoftInputFromWindow(binding.editText.getWindowToken(), 0);
 //                    }
+//                    binding.clearBtn.setVisibility(View.VISIBLE);
+//                    accuWeatherService.getApi().searchPlace(BuildConfig.ACCU_WEATHER_KEY, "vi", s.toString(), true)
+//                            .subscribeOn(Schedulers.newThread())
+//                            .observeOn(AndroidSchedulers.mainThread()).subscribe(searches -> {
+//                                searches.forEach(search -> {
+//
+//                                });
+//                            });
 
-                    query = binding.editText.getText().toString();
+                    query = s.toString();
                     setState(STATE_LOADING);
                     weatherHelper.requestLocation(SearchActivity.this, query, SearchActivity.this);
-
+                    binding.clearBtn.setVisibility(View.VISIBLE);
                 }
+                else binding.clearBtn.setVisibility(View.GONE);
             }
 
             @Override
@@ -194,9 +214,8 @@ public class SearchActivity extends GeoActivity
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 this, RecyclerView.VERTICAL, false);
 
-        this.adapter = new LocationAdapter(
+        this.adapter = new SearchLocationAdapter(
                 this,
-                locationList,
                 (view, formattedId,index) -> {
                     for (int i = 0; i < currentList.size(); i ++) {
                         if (currentList.get(i).equals(formattedId)) {
@@ -212,30 +231,35 @@ public class SearchActivity extends GeoActivity
                             return;
                         }
                     }
-                }
-        );
+                });
+        ArrayList<LocationModel> listModel = new ArrayList<>();
+        locationList.forEach(location -> {
+            listModel.add(new LocationModel(this, location, SettingsOptionManager.getInstance(this).getTemperatureUnit(), SettingsOptionManager.getInstance(this).getWeatherSource()
+            , ThemeManager.getInstance(this).isLightTheme(), location.getFormattedId().equals(null)));
+        });
+        this.adapter.setList(listModel);
         binding.recyclerView.setLayoutManager(layoutManager);
 //        binding.recyclerView.addItemDecoration(new ListDecoration(this));
         binding.recyclerView.setAdapter(adapter);
 
-        binding.scrollBar.setIndicator(
-                new WeatherSourceIndicator(this).setTextSize(16), true);
-
-        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @ColorInt int sourceColor = Color.TRANSPARENT;
-            @ColorInt int color;
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                color = adapter.getItemSourceColor(layoutManager.findFirstVisibleItemPosition());
-                if (color != sourceColor) {
-                    binding.scrollBar.setHandleColor(color);
-                    binding.scrollBar.setHandleOffColor(color);
-                }
-            }
-        });
+//        binding.scrollBar.setIndicator(
+//                new WeatherSourceIndicator(this).setTextSize(16), true);
+//
+//        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//
+//            @ColorInt int sourceColor = Color.TRANSPARENT;
+//            @ColorInt int color;
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                color = adapter.getItemSourceColor(layoutManager.findFirstVisibleItemPosition());
+//                if (color != sourceColor) {
+//                    binding.scrollBar.setHandleColor(color);
+//                    binding.scrollBar.setHandleOffColor(color);
+//                }
+//            }
+//        });
 
         binding.progress.setAlpha(0);
 

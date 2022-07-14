@@ -3,18 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:backgroundTint="#80000000"
+    android:background="#4D000000"
     tools:ignore="UnusedAttribute">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:backgroundTint="#3B3B3B"
-        android:padding="8dp"
+        android:padding="@dimen/_8sdp"
         android:background="@drawable/shape_border"
         android:layout_gravity="center"
-        android:layout_margin="16dp">
+        android:layout_margin="@dimen/_12sdp">
         <TextView
             android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
@@ -22,21 +21,22 @@
             android:text="Delete address"
             android:textColor="#fff"
             android:fontFamily="@font/montserrat_semibold"
-            android:textSize="18dp"
+            android:textSize="@dimen/_16sdp"
             android:layout_marginBottom="16dp"
             />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/montserrat_regular"
             android:text="@string/do_you_want_to_delete_this_address"
             android:textColor="#fff"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:fontFamily="@font/montserrat_regular"
-            android:layout_marginBottom="24dp"/>
+            android:textSize="@dimen/_13sdp" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/_40sdp"
             android:orientation="horizontal"
             android:weightSum="2"
             android:layout_marginBottom="8dp"
@@ -53,7 +53,7 @@
                 android:backgroundTint="#262626"
                 android:gravity="center"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="14dp"/>
+                android:textSize="@dimen/_14sdp"/>
             <TextView
                 android:id="@+id/bt_delete"
                 android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
                 android:backgroundTint="#FFA800"
                 android:gravity="center"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="14dp"/>
+                android:textSize="@dimen/_14sdp"/>
         </LinearLayout>
 
     </LinearLayout>

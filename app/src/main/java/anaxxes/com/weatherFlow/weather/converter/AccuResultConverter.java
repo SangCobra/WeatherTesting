@@ -22,6 +22,7 @@ import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.basic.model.weather.HalfDay;
 import anaxxes.com.weatherFlow.basic.model.weather.History;
 import anaxxes.com.weatherFlow.basic.model.weather.Hourly;
+import anaxxes.com.weatherFlow.basic.model.weather.Humidity;
 import anaxxes.com.weatherFlow.basic.model.weather.Minutely;
 import anaxxes.com.weatherFlow.basic.model.weather.MoonPhase;
 import anaxxes.com.weatherFlow.basic.model.weather.Pollen;
@@ -34,6 +35,7 @@ import anaxxes.com.weatherFlow.basic.model.weather.Weather;
 import anaxxes.com.weatherFlow.basic.model.weather.WeatherCode;
 import anaxxes.com.weatherFlow.basic.model.weather.Wind;
 import anaxxes.com.weatherFlow.basic.model.weather.WindDegree;
+import anaxxes.com.weatherFlow.basic.model.weather.WindGust;
 import anaxxes.com.weatherFlow.weather.json.accu.AccuAlertResult;
 import anaxxes.com.weatherFlow.weather.json.accu.AccuAqiResult;
 import anaxxes.com.weatherFlow.weather.json.accu.AccuDailyResult;
@@ -41,6 +43,7 @@ import anaxxes.com.weatherFlow.weather.json.accu.AccuHourlyResult;
 import anaxxes.com.weatherFlow.weather.json.accu.AccuLocationResult;
 import anaxxes.com.weatherFlow.weather.json.accu.AccuMinuteResult;
 import anaxxes.com.weatherFlow.weather.json.accu.AccuCurrentResult;
+import anaxxes.com.weatherFlow.weather.json.accu.CurrentCondition;
 
 public class AccuResultConverter {
 
@@ -79,7 +82,7 @@ public class AccuResultConverter {
                     TimeZone.getTimeZone(result.TimeZone.Name),
                     result.Country.LocalizedName,
                     result.AdministrativeArea == null ? "" : result.AdministrativeArea.LocalizedName,
-                    result.LocalizedName + (zipCode == null ? "" : (" (" + zipCode + ")")),
+                    result.LocalizedName,
                     "",
                     null,
                     WeatherSource.ACCU,
@@ -102,7 +105,7 @@ public class AccuResultConverter {
                                   AccuDailyResult dailyResult,
                                   List<AccuHourlyResult> hourlyResultList,
                                   @Nullable AccuMinuteResult minuteResult,
-                                  @Nullable AccuAqiResult aqiResult,
+                                  CurrentCondition aqiResult,
                                   List<AccuAlertResult> alertResultList) {
         try {
             return new Weather(
@@ -143,22 +146,22 @@ public class AccuResultConverter {
                             new Wind(
                                     currentResult.Wind.Direction.Localized,
                                     new WindDegree(currentResult.Wind.Direction.Degrees, false),
-                                    (float) currentResult.WindGust.Speed.Metric.Value,
-                                    CommonConverter.getWindLevel(context, currentResult.WindGust.Speed.Metric.Value)
+                                    (float) currentResult.Wind.Speed.Metric.Value,
+                                    CommonConverter.getWindLevel(context, currentResult.Wind.Speed.Metric.Value)
                             ),
                             new UV(currentResult.UVIndex, currentResult.UVIndexText, null),
                             aqiResult == null ? new AirQuality(
                                     null, null, null, null,
                                     null, null, null, null
                             ) : new AirQuality(
-                                    CommonConverter.getAqiQuality(context, aqiResult.Index),
-                                    aqiResult.Index,
-                                    aqiResult.ParticulateMatter2_5,
-                                    aqiResult.ParticulateMatter10,
-                                    aqiResult.SulfurDioxide,
-                                    aqiResult.NitrogenDioxide,
-                                    aqiResult.Ozone,
-                                    aqiResult.CarbonMonoxide
+                                    CommonConverter.getAqiQuality(context, toInt(aqiResult.getData().get(0).getAqi())),
+                                    (toInt(aqiResult.getData().get(0).getAqi())),
+                                    (float) toInt(aqiResult.getData().get(0).getPm25()),
+                                    (float) toInt(aqiResult.getData().get(0).getPm10()),
+                                    (float) toInt(aqiResult.getData().get(0).getSo2()),
+                                    (float) toInt(aqiResult.getData().get(0).getNo2()),
+                                    (float) toInt(aqiResult.getData().get(0).getO3()),
+                                    (float) toInt(aqiResult.getData().get(0).getCo())
                             ),
                             (float) currentResult.RelativeHumidity,
                             (float) currentResult.Pressure.Metric.Value,
@@ -234,8 +237,8 @@ public class AccuResultConverter {
                                     new Wind(
                                             forecasts.Day.Wind.Direction.Localized,
                                             new WindDegree(forecasts.Day.Wind.Direction.Degrees, false),
-                                            (float) forecasts.Day.WindGust.Speed.Value,
-                                            CommonConverter.getWindLevel(context, forecasts.Day.WindGust.Speed.Value)
+                                            (float) forecasts.Day.Wind.Speed.Value,
+                                            CommonConverter.getWindLevel(context, forecasts.Day.Wind.Speed.Value)
                                     ),
                                     forecasts.Day.CloudCover
                             ),
@@ -276,8 +279,8 @@ public class AccuResultConverter {
                                     new Wind(
                                             forecasts.Night.Wind.Direction.Localized,
                                             new WindDegree(forecasts.Night.Wind.Direction.Degrees, false),
-                                            (float) forecasts.Night.WindGust.Speed.Value,
-                                            CommonConverter.getWindLevel(context, forecasts.Night.WindGust.Speed.Value)
+                                            (float) forecasts.Night.Wind.Speed.Value,
+                                            CommonConverter.getWindLevel(context, forecasts.Night.Wind.Speed.Value)
                                     ),
                                     forecasts.Night.CloudCover
                             ),
@@ -377,23 +380,32 @@ public class AccuResultConverter {
                                     null
                             ),
                             new Precipitation(
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null
-                            ),new Wind(result.Wind.Direction.Localized,new WindDegree((float)result.Wind.Direction.Degrees, false),
-                            (float) result.WindGust.Speed.Value,
-                            CommonConverter.getWindLevel(context, result.WindGust.Speed.Value)),
-                            (float)result.Visibility.Value,(int)result.DewPoint.Value,(int) result.CloudCover,(float) result.Ceiling.Value,
+                                    null, null,
+                                    (float) result.Rain.Value,
+                                    (float) result.Snow.Value,
+                                    (float) result.Ice.Value
+                            ),
+                            new WindGust((float) result.WindGust.Speed.Value),
+                            new Wind(
+                                    result.Wind.Direction.Localized,
+                                    new WindDegree(
+                                            (float)result.Wind.Direction.Degrees,
+                                            false
+                                    ),
+                                    (float) result.Wind.Speed.Value,
+                                    CommonConverter.getWindLevel(context, result.Wind.Speed.Value)
+                            ),
+                            (float) result.Visibility.Value,(int)result.DewPoint.Value,(int) result.CloudCover,(float) result.Ceiling.Value,
                             new UV(result.UVIndex,result.UVIndexText,null),
                             new PrecipitationProbability(
                                     (float) result.PrecipitationProbability,
                                     null,
-                                    null,
-                                    null,
-                                    null
-                            )
+                                    (float) result.RainProbability,
+                                    (float) result.SnowProbability,
+                                    (float) result.IceProbability
+                            ),
+                            result.RelativeHumidity,
+                            result.IndoorRelativeHumidity
                     )
             );
         }

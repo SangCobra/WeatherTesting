@@ -44,6 +44,8 @@ android {
         it.buildConfigField 'String', 'ACCU_WEATHER_KEY', ACCU_WEATHER_KEY
         it.buildConfigField 'String', 'ACCU_CURRENT_KEY', ACCU_CURRENT_KEY
         it.buildConfigField 'String', 'ACCU_AQI_KEY', ACCU_AQI_KEY
+        it.buildConfigField 'String', 'ACCU_WEATHERBIT_BASE_URL', ACCU_WEATHERBIT_BASE_URL
+        it.buildConfigField 'String', 'ACCU_WEATHERBIT_KEY', ACCU_WEATHERBIT_KEY
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -76,7 +78,7 @@ greendao {
     generateTests false
 }
 dependencies {
-    implementation 'org.greenrobot:greendao:3.2.0'
+    implementation 'org.greenrobot:greendao:3.3.0'
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

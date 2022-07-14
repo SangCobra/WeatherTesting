@@ -7,10 +7,10 @@
     android:background="@color/colorRoot"
     android:orientation="vertical">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+
         app:theme="@style/WeatherFlowTheme.AppbarTheme" >
 
         <androidx.appcompat.widget.Toolbar
@@ -20,7 +20,7 @@
             app:title="@string/action_settings"
             app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/activity_settings_container"

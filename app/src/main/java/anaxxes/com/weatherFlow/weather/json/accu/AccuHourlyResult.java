@@ -39,11 +39,19 @@ public class AccuHourlyResult {
     public Wind Wind;
     public WindGust WindGust;
     public int PrecipitationProbability;
+    public int RainProbability;
+    public int SnowProbability;
+    public int IceProbability;
+    public Rain Rain;
+    public Snow Snow;
+    public Ice Ice;
     public String MobileLink;
     public String Link;
     public int UVIndex;
     public int CloudCover;
     public String UVIndexText;
+    public int RelativeHumidity;
+    public int IndoorRelativeHumidity;
 
     public static class Temperature {
         public double Value;
@@ -97,5 +105,20 @@ public class AccuHourlyResult {
 
     public static class WindGust {
         public Speed Speed;
+    }
+    public static class Rain{
+        public double Value;
+        public String Unit;
+        public int UnitType;
+    }
+    public static class Snow{
+        public double Value;
+        public String Unit;
+        public int UnitType;
+    }
+    public static class Ice{
+        public double Value;
+        public String Unit;
+        public int UnitType;
     }
 }

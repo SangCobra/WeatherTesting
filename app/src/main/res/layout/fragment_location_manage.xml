@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/_8sdp"
     android:background="#262626"
     android:orientation="vertical">
 
@@ -14,43 +15,42 @@
 
         <ImageView
             android:id="@+id/imgBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            style="@style/material_image_button"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/ic_back_home"
 
-            app:tint="@color/gnt_white" />
+            app:tint="@color/gnt_white"  />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:fontFamily="@font/montserrat_medium"
             android:layout_weight="1"
             android:text="@string/city_management"
             android:textColor="@color/gnt_white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_14sdp" />
 
         <ImageView
             android:id="@+id/imgAddLocation"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_add_location"
-            app:tint="@color/gnt_white" />
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/ic_add" />
     </LinearLayout>
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:id="@+id/fragment_location_manage_appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:visibility="gone">
 
         <FrameLayout
@@ -107,13 +107,15 @@
 
         </FrameLayout>
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_location_manage_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/_12sdp"
         android:background="#262626"
+        android:layout_marginTop="@dimen/_8sdp"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 

@@ -8,11 +8,12 @@
     android:background="#262626"
     tools:context=".ui.activity.DailyListActivity">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#262626"
-        android:fitsSystemWindows="true">
+        android:orientation="vertical"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_weather_daily_toolbar"
@@ -26,7 +27,7 @@
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
-                tools:text="Daily weather"  android:layout_height="wrap_content"
+                android:text="Daily weather"  android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_regular"
                 android:textSize="@dimen/_16sdp"/>
 
@@ -80,8 +81,13 @@
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dailyForecastList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"/>
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
 
 <!--    <LinearLayout-->
@@ -117,11 +123,6 @@
 <!--            android:layout_marginBottom="10dp"/>-->
 
 <!--    </LinearLayout>-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dailyForecastList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"/>
 
 
 

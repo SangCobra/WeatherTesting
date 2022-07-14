@@ -46,16 +46,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.common.control.dialog.RateAppDialog;
+import com.common.control.interfaces.RateCallback;
+import com.common.control.utils.CommonUtils;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 //import com.anjlab.android.iab.v3.BillingProcessor;
 //import com.anjlab.android.iab.v3.TransactionDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import anaxxes.com.weatherFlow.BuildConfig;
 import anaxxes.com.weatherFlow.OnActionCallback;
+import anaxxes.com.weatherFlow.admob.Interstitial;
 import anaxxes.com.weatherFlow.basic.model.option.unit.CloudCoverUnit;
 import anaxxes.com.weatherFlow.basic.model.option.unit.RelativeHumidityUnit;
 import anaxxes.com.weatherFlow.basic.model.option.unit.SpeedUnit;
@@ -64,10 +70,12 @@ import anaxxes.com.weatherFlow.basic.model.weather.Base;
 import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.main.adapter.MainPagerAdapter;
 import anaxxes.com.weatherFlow.main.adapter.trend.HourlyTrendAdapter;
+import anaxxes.com.weatherFlow.main.dialog.DialogSettingBegin;
 import anaxxes.com.weatherFlow.main.dialog.SettingNavDialog;
 import anaxxes.com.weatherFlow.main.layout.TrendHorizontalLinearLayoutManager;
 import anaxxes.com.weatherFlow.models.AQIGasModel;
 import anaxxes.com.weatherFlow.models.TodayForecastModel;
+import anaxxes.com.weatherFlow.settings.SharePreferenceUtils;
 import anaxxes.com.weatherFlow.ui.adapter.AQIGasAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.DailyForecastAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.TodayForecastAdapter;
@@ -171,6 +179,7 @@ public class MainActivity extends GeoActivity
             = "com.wangdaye.geomtricweather.ACTION_SHOW_DAILY_FORECAST";
     public static final String KEY_DAILY_INDEX = "DAILY_INDEX";
     public static final String KEY_LOCATION_INDEX = "KEY_LOCATION_INDEX";
+    private static Interstitial interstitial;
 
     private BroadcastReceiver backgroundUpdateReceiver = new BroadcastReceiver() {
         @Override
@@ -194,17 +203,19 @@ public class MainActivity extends GeoActivity
     private float startX;
     private float startY;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.pendingIntentAction(getIntent());
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setTheme(R.style.Theme_AppCompat_NoActionBar);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
+        if (viewModel != null){
+            viewModel.updateWeather(this);
+        }
 //
 //        // attach weather view.
 //        switch (SettingsOptionManager.getInstance(this).getUiStyle()) {
@@ -234,6 +245,8 @@ public class MainActivity extends GeoActivity
 //
         initModel();
         initView();
+
+
         registerReceiver(
                 backgroundUpdateReceiver,
                 new IntentFilter(ACTION_UPDATE_WEATHER_IN_BACKGROUND)
@@ -251,6 +264,7 @@ public class MainActivity extends GeoActivity
         viewModel.init(this, getLocationId(intent));
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
@@ -259,6 +273,15 @@ public class MainActivity extends GeoActivity
 
         switch (requestCode) {
             case SETTINGS_ACTIVITY:
+//                if (settingsOptionManager.isFirstTime()){
+//                    DialogSettingBegin.start(this, (key, data1) -> {
+//                        if (Objects.equals(key, "done")){
+//                            viewModel.reset(MainActivity.this);
+//                            settingsOptionManager.setFirstTime(false);
+//                        }
+//                    }, this);
+//
+//                }
                 ensureResourceProvider();
 //                updateThemeManager();
 
@@ -272,6 +295,7 @@ public class MainActivity extends GeoActivity
 
                 refreshBackgroundViews(true, viewModel.getLocationList(),
                         true, true);
+                onRefresh();
                 break;
 
             case MANAGE_ACTIVITY:
@@ -285,6 +309,7 @@ public class MainActivity extends GeoActivity
                         index = data.getIntExtra(MainActivity.KEY_LOCATION_INDEX,0);
                     }
                     binding.background.mainPager.setCurrentItem(index);
+                    onRefresh();
                 }
                 break;
 
@@ -292,21 +317,25 @@ public class MainActivity extends GeoActivity
                 if (resultCode == RESULT_OK) {
                     resetUIUpdateFlag();
                     viewModel.reset(this);
+                    onRefresh();
                 }
                 break;
 
             case SEARCH_ACTIVITY:
                 if (resultCode == RESULT_OK && manageFragment != null) {
                     manageFragment.addLocation();
+                    onRefresh();
                 }
                 break;
 
             case SELECT_PROVIDER_ACTIVITY:
                 if (manageFragment != null) {
                     manageFragment.resetLocationList();
+                    onRefresh();
                 }
                 break;
         }
+
     }
 
     public void resetNavLocation(String formattedId) {
@@ -317,6 +346,9 @@ public class MainActivity extends GeoActivity
     @Override
     protected void onStart() {
         super.onStart();
+        if (location != null){
+            onRefresh();
+        }
 //        weatherView.setDrawable(true);
     }
 
@@ -365,21 +397,22 @@ public class MainActivity extends GeoActivity
         new NavigationView().setUp(this, binding);
         todayForecastAdapter = new TodayForecastAdapter(this);
         settingsOptionManager = SettingsOptionManager.getInstance(this);
+
         hourlyTrendAdapter = new HourlyTrendAdapter();
-        binding.background.todayForecastList.setAdapter(todayForecastAdapter);
-        binding.background.todayForecastList.setLayoutManager(new GridLayoutManager(this, 3));
+//        binding.background.todayForecastList.setAdapter(todayForecastAdapter);
+//        binding.background.todayForecastList.setLayoutManager(new GridLayoutManager(this, 3));
 
 
         dailyForecastAdapter = new DailyForecastAdapter(this,null);
-        binding.background.dailyForecastList.setAdapter(dailyForecastAdapter);
+//        binding.background.dailyForecastList.setAdapter(dailyForecastAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.background.dailyForecastList.setLayoutManager(layoutManager);
+//        binding.background.dailyForecastList.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(MainActivity.this,
                 layoutManager.getOrientation());
-        binding.background.dailyForecastList.addItemDecoration(dividerItemDecoration);
+//        binding.background.dailyForecastList.addItemDecoration(dividerItemDecoration);
 
-        DisplayUtils.disableEditText(binding.background.tv24Hours);
-        DisplayUtils.disableEditText(binding.background.tv25Days);
+//        DisplayUtils.disableEditText(binding.background.tv24Hours);
+//        DisplayUtils.disableEditText(binding.background.tv25Days);
 //        DisplayUtils.disableEditText(binding.background.tvSeeMoreRadar);
 
         binding.background.scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -633,7 +666,7 @@ public class MainActivity extends GeoActivity
             );
 
 
-            setWeatherImage(location.getWeather(), binding.background.imgWeather);
+            setWeatherImage(location.getWeather(), binding.background.imgWeather, settingsOptionManager.isWeatherBgEnabled());
 
 
             switch (settingsOptionManager.getTemperatureUnit()) {
@@ -835,66 +868,164 @@ public class MainActivity extends GeoActivity
     }
 
 
-    public void setWeatherImage(Weather weather, ImageView imageView) {
+    public void setWeatherImage(Weather weather, ImageView imageView, boolean isBgEnabled) {
         switch (weather.getCurrent().getWeatherCode()) {
             case CLEAR:
                 if (MyUtils.isNight()) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.moon));
-                    binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_clear_night));
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_moon));
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.clear_n));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+
+                    }
 
                 } else {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.sun));
-                    binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_clear_day));
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.clear));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+
+                    }
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_sun_cloudy));
 
                 }
                 break;
             case PARTLY_CLOUDY:
+            case CLOUDY:
 
                 if (MyUtils.isNight()) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.moon_partialy_cloudy));
-                    binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_partly_cloudy_night));
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_cloudy_moon));
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_t_cloudy));
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+                    }
 
                 } else {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.sun_clouds));
-                    binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_partly_cloudy_day));
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_sun_cloudy));
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_s_cloudy));
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+                    }
+
 
                 }
-                break;
-            case CLOUDY:
-                binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_cloudy));
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.clouds));
                 break;
             case RAIN:
                 if (MyUtils.isNight()) {
-                    binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_rainy_night));
-                }else{
-                    binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_raining_day));
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.rain_n));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+                    }
+                } else {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.rain));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+                    }
                 }
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.rain));
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_rain));
                 break;
             case SNOW:
-            case HAIL:
             case SLEET:
-                binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_cloudy));
+                if (MyUtils.isNight()) {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.snow_n));
 
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.snow));
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+                    }
+                } else {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_s_snow));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+                    }
+                }
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_snow));
+                break;
+            case HAIL:
+                if (MyUtils.isNight()) {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_s_hail));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+                    }
+                } else {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_s_hail));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+                    }
+                }
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_fog));
                 break;
             case WIND:
-                binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_cloudy));
+                if (MyUtils.isNight()) {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_t_wind));
 
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+                    }
+                } else {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_s_wind));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+                    }
+                }
                 imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.wind));
                 break;
             case FOG:
             case HAZE:
-                binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_cloudy));
+                if (MyUtils.isNight()) {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_t_haze));
 
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.fog));
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+                    }
+                } else {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_s_haze));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+                    }
+                }
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_fog));
                 break;
 
             case THUNDER:
             case THUNDERSTORM:
-                binding.drawerLayout.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_cloudy));
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.lighting));
+                if (MyUtils.isNight()) {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_t_thunder));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.night));
+                    }
+                } else {
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.bg_s_thunder));
+
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(this, R.drawable.day));
+                    }
+                }
+                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_thunder_rain));
 
                 break;
 
@@ -990,7 +1121,10 @@ public class MainActivity extends GeoActivity
                     .subscribe();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                ShortcutsManager.refreshShortcutsInNewThread(this, locationList);
+                if (locationList != null && locationList.size() > 0){
+                    ShortcutsManager.refreshShortcutsInNewThread(this, locationList);
+
+                }
             }
         }
     }
@@ -1146,6 +1280,7 @@ public class MainActivity extends GeoActivity
                 }
 
                 consumeIntentAction();
+                refreshBackgroundViews(true, viewModel.getLocationList(), false, false);
             });
         }else{
             buildAlertMessageNoGps();
@@ -1159,7 +1294,7 @@ public class MainActivity extends GeoActivity
 
     public void showDialogSettingUnit() {
         SettingNavDialog.Companion.start(this, (key, data) -> {
-
+            if (key == "done") onRefresh();
         });
     }
 
@@ -1167,6 +1302,40 @@ public class MainActivity extends GeoActivity
         if (location != null){
             sendToRadar(location);
         }
+    }
+
+    public void rate(boolean isFinish) {
+        RateAppDialog rateAppDialog = new RateAppDialog(this);
+        rateAppDialog.show();
+        rateAppDialog.setCallback(new RateCallback() {
+            @Override
+            public void onMaybeLater() {
+                if (isFinish){
+                    SharePreferenceUtils.increaseCountRate(MainActivity.this);
+                    finishAffinity();
+                }
+            }
+
+            @Override
+            public void onSubmit(String review) {
+                SharePreferenceUtils.setRated(MainActivity.this);
+                if (isFinish){
+                    finishAffinity();
+                }
+            }
+
+            @Override
+            public void onRate() {
+                CommonUtils.getInstance().rateApp(MainActivity.this);
+                SharePreferenceUtils.setRated(MainActivity.this);
+            }
+        });
+    }
+    public void share(){
+        CommonUtils.getInstance().shareApp(this, "Share your app");
+    }
+    public void feedBack(String email){
+        CommonUtils.getInstance().support(this, "Feedback to us", email);
     }
 
     // on scroll changed listener.

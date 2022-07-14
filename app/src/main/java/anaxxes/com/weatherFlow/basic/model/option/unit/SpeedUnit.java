@@ -31,11 +31,11 @@ public enum SpeedUnit {
     }
 
     public String getSpeedText(Context context, float kph) {
-        return getSpeedTextWithoutUnit(kph) + getAbbreviation(context);
+        return getSpeedTextWithoutUnit(kph) + " " + getAbbreviation(context);
     }
 
     public String getSpeedTextWithoutUnit(float kph) {
-        return UnitUtils.formatFloat(kph * unitFactor, 1);
+        return UnitUtils.formatFloat(kph * unitFactor, 0);
     }
 
     public String getAbbreviation(Context context) {

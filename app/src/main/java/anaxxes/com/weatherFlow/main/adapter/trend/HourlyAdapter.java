@@ -28,6 +28,7 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
     public HourlyAdapter(Context context) {
         this.context = context;
         settingsOptionManager = SettingsOptionManager.getInstance(context);
+        list = new ArrayList<>();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -58,7 +59,7 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
             holder.tvHour.setBackgroundResource(0);
             holder.tvHour.setTextColor(Color.WHITE);
         }
-        holder.tvPercentRain.setText(Objects.requireNonNull(hourly.getPrecipitationProbability().getTotal()).toString() + "%");
+        holder.tvPercentRain.setText(Objects.requireNonNull(Math.round(hourly.getPrecipitationProbability().getTotal())).toString() + "%");
         switch (hourly.getWeatherCode()) {
             case CLEAR:
                 if (!hourly.isDaylight()) {
@@ -109,20 +110,22 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
                 break;
             case THUNDER:
             case THUNDERSTORM:
-                holder.iconWeather.setImageResource(R.drawable.img_thunder);
+                holder.iconWeather.setImageResource(R.drawable.img_thunder_rain);
 
 
                 break;
 
         }
 
-        holder.tvTerm.setText(settingsOptionManager.getTemperatureUnit().getTemperatureText(context, hourly.getTemperature().getTemperature()));
+        holder.tvTerm.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(context, hourly.getTemperature().getTemperature()));
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if (this.list.size() != 0)
+            return this.list.size();
+        else return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

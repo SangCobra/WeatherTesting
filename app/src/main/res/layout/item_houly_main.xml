@@ -15,13 +15,13 @@
         android:layout_gravity="center"
         android:background="@drawable/shape_border_text"
         android:backgroundTint="#fff"
-        android:fontFamily="@font/montserrat_regular"
-        android:textSize="@dimen/_10sdp"/>
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="@dimen/_11sdp"/>
     <ImageView
         android:id="@+id/icon_weather_in_day"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:src="@drawable/ic_sun_cloudy"
+        android:src="@drawable/sun_cloudy"
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_gravity="center" />
     <TextView
@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="80%"
-        android:textSize="@dimen/_8sdp"
+        android:textSize="@dimen/_10sdp"
         android:textColor="#5DCEFF"
-        android:fontFamily="@font/montserrat_regular"
+        android:fontFamily="@font/montserrat_semibold"
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginBottom="@dimen/_6sdp"/>
     <LinearLayout
@@ -48,7 +48,7 @@
             android:text="20"
             android:textColor="#fff"
             android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/montserrat_medium"
             />
     </LinearLayout>
 

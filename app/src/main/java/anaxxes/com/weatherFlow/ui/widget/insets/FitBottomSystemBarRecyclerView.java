@@ -65,15 +65,15 @@ public class FitBottomSystemBarRecyclerView extends RecyclerView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int viewWidth = getMeasuredWidth();
-        int adaptiveWidth = DisplayUtils.getTabletListAdaptiveWidth(getContext(), viewWidth);
-        int paddingHorizontal = adaptiveWidthEnabled ? ((viewWidth - adaptiveWidth) / 2) : 0;
-        setPadding(
-                Math.max(paddingHorizontal, windowInsets.left),
-                0,
-                Math.max(paddingHorizontal, windowInsets.right),
-                windowInsets.bottom
-        );
+//        int viewWidth = getMeasuredWidth();
+//        int adaptiveWidth = DisplayUtils.getTabletListAdaptiveWidth(getContext(), viewWidth);
+//        int paddingHorizontal = adaptiveWidthEnabled ? ((viewWidth - adaptiveWidth) / 2) : 0;
+//        setPadding(
+//                Math.max(paddingHorizontal, windowInsets.left),
+//                0,
+//                Math.max(paddingHorizontal, windowInsets.right),
+//                windowInsets.bottom
+//        );
     }
 
     public Rect getWindowInsets() {

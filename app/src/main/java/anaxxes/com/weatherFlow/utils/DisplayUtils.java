@@ -45,34 +45,34 @@ public class DisplayUtils {
     public static void setSystemBarStyle(Context context, Window window,
                                          boolean statusShader, boolean lightStatus,
                                          boolean navigationShader, boolean lightNavigation) {
-        setSystemBarStyle(context, window,
-                false, statusShader, lightStatus, navigationShader, lightNavigation);
+//        setSystemBarStyle(context, window,
+//                false, statusShader, lightStatus, navigationShader, lightNavigation);
     }
 
     public static void setSystemBarStyle(Context context, Window window, boolean miniAlpha,
                                          boolean statusShader, boolean lightStatus,
                                          boolean navigationShader, boolean lightNavigation) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
-
-        // statusShader &= Build.VERSION.SDK_INT < Build.VERSION_CODES.Q;
-        lightStatus &= Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-        navigationShader &= Build.VERSION.SDK_INT < Build.VERSION_CODES.Q;
-        lightNavigation &= Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
-
-        int visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        if (lightStatus) {
-            visibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-        }
-        if (lightNavigation) {
-            visibility |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-        }
-        window.getDecorView().setSystemUiVisibility(visibility);
-
-        setSystemBarColor(context, window, miniAlpha, statusShader, lightStatus, navigationShader, lightNavigation);
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//            return;
+//        }
+//
+//        // statusShader &= Build.VERSION.SDK_INT < Build.VERSION_CODES.Q;
+//        lightStatus &= Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+//        navigationShader &= Build.VERSION.SDK_INT < Build.VERSION_CODES.Q;
+//        lightNavigation &= Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+//
+//        int visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//        if (lightStatus) {
+//            visibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+//        }
+//        if (lightNavigation) {
+//            visibility |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+//        }
+//        window.getDecorView().setSystemUiVisibility(visibility);
+//
+//        setSystemBarColor(context, window, miniAlpha, statusShader, lightStatus, navigationShader, lightNavigation);
     }
 
     public static void setSystemBarColor(Context context, Window window, boolean miniAlpha,

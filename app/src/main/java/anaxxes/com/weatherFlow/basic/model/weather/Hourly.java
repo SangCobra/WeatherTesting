@@ -30,6 +30,7 @@ public class Hourly implements Serializable {
 
     private Temperature temperature;
     private Precipitation precipitation;
+    private WindGust windGust;
     private Wind wind;
     @Nullable
     private Float visibility;
@@ -44,6 +45,8 @@ public class Hourly implements Serializable {
     @Nullable
     private UV uv;
     private PrecipitationProbability precipitationProbability;
+    private Integer relativeHumidity;
+    private Integer indoorRelativeHumidity;
     private boolean isExpand;
 
     public boolean isExpand() {
@@ -57,13 +60,15 @@ public class Hourly implements Serializable {
     public Hourly(Date date, long time, boolean daylight,
                   String weatherText, WeatherCode weatherCode,
                   Temperature temperature,
-                  Precipitation precipitation, Wind wind,
+                  Precipitation precipitation, WindGust windGust, Wind wind,
                   @Nullable Float visibility,
                   @Nullable Integer dewPoint,
                   @Nullable Integer cloudCover,
                   @Nullable Float ceiling,
                   @Nullable UV uv,
-                  PrecipitationProbability precipitationProbability) {
+                  PrecipitationProbability precipitationProbability,
+                  Integer relativeHumidity,
+                  Integer indoorRelativeHumidity) {
         this.date = date;
         this.time = time;
         this.daylight = daylight;
@@ -72,12 +77,40 @@ public class Hourly implements Serializable {
         this.temperature = temperature;
         this.precipitation = precipitation;
         this.precipitationProbability = precipitationProbability;
+        this.windGust = windGust;
         this.wind = wind;
         this.visibility = visibility;
         this.dewPoint = dewPoint;
         this.cloudCover = cloudCover;
         this.ceiling = ceiling;
         this.uv = uv;
+        this.relativeHumidity = relativeHumidity;
+        this.indoorRelativeHumidity = indoorRelativeHumidity;
+    }
+
+
+    public Integer getRelativeHumidity() {
+        return relativeHumidity;
+    }
+
+    public void setRelativeHumidity(Integer relativeHumidity) {
+        this.relativeHumidity = relativeHumidity;
+    }
+
+    public Integer getIndoorRelativeHumidity() {
+        return indoorRelativeHumidity;
+    }
+
+    public void setIndoorRelativeHumidity(Integer indoorRelativeHumidity) {
+        this.indoorRelativeHumidity = indoorRelativeHumidity;
+    }
+
+    public WindGust getWindGust() {
+        return windGust;
+    }
+
+    public void setWindGust(WindGust windGust) {
+        this.windGust = windGust;
     }
 
     public Date getDate() {

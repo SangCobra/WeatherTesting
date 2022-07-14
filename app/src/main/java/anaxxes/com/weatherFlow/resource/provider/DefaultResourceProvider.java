@@ -299,17 +299,13 @@ public class DefaultResourceProvider extends ResourceProvider {
     @NonNull
     @Override
     public Drawable getShortcutsIcon(WeatherCode code, boolean dayTime) {
-        return Objects.requireNonNull(
-                getDrawable(getShortcutsIconName(code, dayTime))
-        );
+        return getDrawable(getShortcutsIconName(code, dayTime));
     }
 
     @NonNull
     @Override
     public Drawable getShortcutsForegroundIcon(WeatherCode code, boolean dayTime) {
-        return Objects.requireNonNull(
-                getDrawable(getShortcutsForegroundIconName(code, dayTime))
-        );
+        return getDrawable(getShortcutsForegroundIconName(code, dayTime));
     }
 
     private String getShortcutsIconName(WeatherCode code, boolean daytime) {

@@ -7,10 +7,9 @@
     android:layout_height="match_parent"
     android:background="@color/colorRoot">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         app:theme="@style/WeatherFlowTheme.AppbarTheme" >
 
         <androidx.appcompat.widget.Toolbar
@@ -20,7 +19,7 @@
             app:title="@string/action_about"
             app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
     <anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarRecyclerView
         android:id="@+id/activity_about_recyclerView"
@@ -28,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:fitsSystemWindows="true"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
