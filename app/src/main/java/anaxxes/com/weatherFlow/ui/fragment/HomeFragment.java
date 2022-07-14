@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment {
         AdmobManager admobManager = AdmobManager.getInstance();
         admobManager.loadBanner(getActivity(), "ca-app-pub-3940256099942544/6300978111");
 
-
+        AdmobManager.getInstance().loadNative(requireContext(), "ca-app-pub-3940256099942544/2247696110", binding.frAd);
         ensureResourceProvider();
         if (getArguments() != null) {
             location = getArguments().getParcelable("location");
