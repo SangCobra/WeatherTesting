@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/_12sdp"
+    android:layout_marginTop="@dimen/_12sdp"
     android:paddingTop="@dimen/_4sdp"
     android:paddingBottom="@dimen/_4sdp"
     android:background="@drawable/shape_border"

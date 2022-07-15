@@ -49,6 +49,10 @@ public class Hourly implements Serializable {
     private Integer indoorRelativeHumidity;
     private boolean isExpand;
 
+    public Hourly() {
+
+    }
+
     public boolean isExpand() {
         return isExpand;
     }

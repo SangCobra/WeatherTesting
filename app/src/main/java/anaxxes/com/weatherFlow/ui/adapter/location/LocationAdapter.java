@@ -1,5 +1,8 @@
 package anaxxes.com.weatherFlow.ui.adapter.location;
 
+import static anaxxes.com.weatherFlow.ui.adapter.HourlyForecastAdapter.AD_TYPE;
+import static anaxxes.com.weatherFlow.ui.adapter.HourlyForecastAdapter.NON_AD_TYPE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +23,11 @@ import com.turingtechnologies.materialscrollbar.ICustomAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.model.location.Location;
 import anaxxes.com.weatherFlow.basic.model.option.provider.WeatherSource;
 import anaxxes.com.weatherFlow.basic.model.option.unit.TemperatureUnit;
 import anaxxes.com.weatherFlow.databinding.ItemLocation2Binding;
-import anaxxes.com.weatherFlow.databinding.ItemLocationBinding;
 import anaxxes.com.weatherFlow.resource.provider.ResourceProvider;
 import anaxxes.com.weatherFlow.resource.provider.ResourcesProviderFactory;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
@@ -33,7 +37,7 @@ import anaxxes.com.weatherFlow.utils.manager.ThemeManager;
  * Location adapter.
  * */
 
-public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
+public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.ViewHolder>
         implements ICustomAdapter {
 
     private final Context context;
@@ -48,6 +52,7 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
     final WeatherSource defaultSource;
     private @NonNull
     final TemperatureUnit temperatureUnit;
+    private List<Location> list;
 
     public LocationAdapter(Context context, List<Location> locationList, OnLocationItemClickListener l, boolean isLocationActivity) {
         super(new DiffUtil.ItemCallback<LocationModel>() {
@@ -68,16 +73,18 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
         this.temperatureUnit = SettingsOptionManager.getInstance(context).getTemperatureUnit();
         this.isLocationActivity = isLocationActivity;
         setOnLocationItemClickListener(l);
+        list = locationList;
+        update(list);
 
-        update(locationList);
     }
     public void setListenerChange(LocationTouchCallback.OnLocationListChangedListener listenerChange){
         this.listenerChange = listenerChange;
     }
 
+
     @NonNull
     @Override
-    public LocationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new LocationHolder(
                 ItemLocation2Binding.inflate(LayoutInflater.from(parent.getContext())),
                 listener
@@ -86,9 +93,13 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull LocationHolder holder, int position) {
-        holder.onBindView(context, getItem(position), resourceProvider, isLocationActivity);
-        holder.deleteLocation(getItem(position), this, getLocationList(), listenerChange);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof LocationHolder){
+            LocationHolder locationHolder = (LocationHolder) holder;
+            locationHolder.onBindView(context, getItem(position), resourceProvider, isLocationActivity);
+            locationHolder.deleteLocation(getItem(position), this, getLocationList(getCurrentList()), listenerChange);
+        }
+
     }
 
     public void update(@NonNull List<Location> newList) {
@@ -98,16 +109,18 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
     public void update(@NonNull List<Location> newList, @Nullable String forceUpdateId) {
         List<LocationModel> modelList = new ArrayList<>(newList.size());
         for (Location l : newList) {
-            modelList.add(
-                    new LocationModel(
-                            context,
-                            l,
-                            temperatureUnit,
-                            defaultSource,
-                            themeManager.isLightTheme(),
-                            l.getFormattedId().equals(forceUpdateId)
-                    )
-            );
+            if (l != null){
+                modelList.add(
+                        new LocationModel(
+                                context,
+                                l,
+                                temperatureUnit,
+                                defaultSource,
+                                themeManager.isLightTheme(),
+                                l.getFormattedId().equals(forceUpdateId)
+                        )
+                );
+            }
         }
         submitList(modelList);
     }
@@ -138,6 +151,7 @@ public class LocationAdapter extends ListAdapter<LocationModel, LocationHolder>
         for (LocationModel m : modelList) {
             locationList.add(m.location);
         }
+
         return locationList;
     }
 

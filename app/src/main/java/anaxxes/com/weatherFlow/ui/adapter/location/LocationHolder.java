@@ -141,7 +141,7 @@ public class LocationHolder extends RecyclerView.ViewHolder {
         binding.container.setElevation(DisplayUtils.dpToPx(context, elevate ? 10 : 0));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         int sideMargins = (int) DisplayUtils.dpToPx(context,10);
-        params.setMargins(sideMargins,0,sideMargins,sideMargins);
+        params.setMargins(0,0,0,sideMargins);
 
         binding.container.setLayoutParams(params);
     }

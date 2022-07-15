@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.common.control.manager.AdmobManager;
+
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.databinding.FragmentDailyDetailsBinding;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 
 public class DailyDetailsFragment extends Fragment {
 
@@ -29,7 +32,5 @@ public class DailyDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
 }

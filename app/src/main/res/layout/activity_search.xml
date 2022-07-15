@@ -76,7 +76,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <com.github.rahatarmanahmed.cpv.CircularProgressView
                 android:id="@+id/progress"
@@ -114,6 +115,15 @@
             </RelativeLayout>
 
         </RelativeLayout>
+<!--        <FrameLayout-->
+<!--            android:id="@+id/banner_ad"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent">-->
+<!--            <include layout="@layout/layout_banner_control"/>-->
+<!--        </FrameLayout>-->
 
     </LinearLayout>
 

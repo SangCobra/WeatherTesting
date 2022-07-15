@@ -21,10 +21,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.appbar.AppBarLayout;
+import com.common.control.manager.AdmobManager;
 
 import java.util.List;
-import java.util.Objects;
 
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.basic.GeoActivity;
@@ -35,13 +34,14 @@ import anaxxes.com.weatherFlow.ui.adapter.location.LocationAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.location.LocationTouchCallback;
 import anaxxes.com.weatherFlow.utils.SnackbarUtils;
 import anaxxes.com.weatherFlow.utils.helpter.IntentHelper;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 import anaxxes.com.weatherFlow.utils.manager.ShortcutsManager;
 
 public class LocationManageFragment extends Fragment
         implements LocationTouchCallback.OnLocationListChangedListener {
 
     private CardView cardView;
-    private AppCompatImageView imgAddLocation;
+    private LinearLayout imgAddLocation;
     private ImageView imgBack;
     private AppCompatImageView searchIcon;
     private TextView searchTitle;
@@ -75,6 +75,13 @@ public class LocationManageFragment extends Fragment
             l.setWeather(DatabaseHelper.getInstance(requireActivity()).readWeather(l));
         }
         return locationList;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        AdmobManager.getInstance().loadBanner(requireActivity(), AdIdUtils.idBanner);
+        AdmobManager.getInstance().loadNative(requireContext(), AdIdUtils.idNative, view.findViewById(R.id.native_ad),R.layout.custom_native_app);
     }
 
     @Override
@@ -117,9 +124,10 @@ public class LocationManageFragment extends Fragment
         });
 
         List<Location> locationList = readLocationList();
+        List<Location> locationList1 = locationList;
         adapter = new LocationAdapter(
                 requireActivity(),
-                locationList,
+                locationList1,
                 (v, formattedId,index) -> {
                     if (locationListChangedListener != null) {
                         locationListChangedListener.onSelectedLocation(formattedId,index);
@@ -153,6 +161,12 @@ public class LocationManageFragment extends Fragment
     }
 
     public void updateView(List<Location> newList) {
+//        if (newList.size() > 3){
+//            newList.add(2, null);
+//        }
+//        else {
+//            newList.add(null);
+//        }
         adapter.update(newList);
 //        iconWeatherStyle();
     }
@@ -165,7 +179,13 @@ public class LocationManageFragment extends Fragment
 
     public void resetLocationList() {
         List<Location> list = readLocationList();
-        adapter.update(list);
+//        if (list.size() > 3){
+//            list.add(2, null);
+//        }
+//        else {
+//            list.add(null);
+//        }
+//        adapter.update(list);
         onLocationListChanged(list, false, true);
     }
 

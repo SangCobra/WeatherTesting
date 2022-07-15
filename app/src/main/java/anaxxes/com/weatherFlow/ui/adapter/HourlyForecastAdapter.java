@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.common.control.manager.AdmobManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,29 +26,48 @@ import anaxxes.com.weatherFlow.basic.model.option.unit.SpeedUnit;
 import anaxxes.com.weatherFlow.basic.model.weather.Hourly;
 import anaxxes.com.weatherFlow.models.TodayForecastModel;
 import anaxxes.com.weatherFlow.settings.SettingsOptionManager;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 
-public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.HourlyForecastViewHolder> {
+public class HourlyForecastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private ArrayList<Hourly> list = new ArrayList<>();
     private WeatherAttributesAdapter weatherAttributesAdapter;
     private final SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(context);
+    public static int AD_TYPE = 10000001;
+    public static int NON_AD_TYPE = 10000002;
 
     public HourlyForecastAdapter(Context context) {
         this.context = context;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (list.get(position) == null){
+            return AD_TYPE;
+        }
+        else
+            return NON_AD_TYPE;
+    }
+
     @NonNull
     @Override
-    public HourlyForecastAdapter.HourlyForecastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         weatherAttributesAdapter = new WeatherAttributesAdapter(context);
-        return new HourlyForecastAdapter.HourlyForecastViewHolder(LayoutInflater.from(parent.getContext())
+        if (viewType == AD_TYPE){
+            return new AdViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.item_native, parent, false));
+        }
+        else return new HourlyForecastAdapter.HourlyForecastViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_infomation, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HourlyForecastAdapter.HourlyForecastViewHolder holder, int position) {
-        holder.setData(list.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof  HourlyForecastViewHolder){
+            HourlyForecastViewHolder  hourlyForecastViewHolder = (HourlyForecastViewHolder) holder;
+            hourlyForecastViewHolder.setData(list.get(position));
+        }
     }
 
     @Override
@@ -194,6 +216,16 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
 
             adapter.updateData(getHourlyForecastList(model));
 
+        }
+    }
+    public class AdViewHolder extends RecyclerView.ViewHolder{
+
+        private final FrameLayout frAd;
+        public AdViewHolder(@NonNull View itemView) {
+            super(itemView);
+            frAd = itemView.findViewById(R.id.fr_ad_native);
+
+            AdmobManager.getInstance().loadNative(context, AdIdUtils.idNative, frAd, R.layout.custom_native_app);
         }
     }
 

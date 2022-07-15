@@ -90,6 +90,17 @@
             app:tabMode="scrollable"
             android:background="#262626"
             android:id="@+id/dailyTabs"/>
+        <FrameLayout
+            android:id="@+id/fr_ad_native"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_12sdp"
+            android:background="#3B3B3B">
+            <include layout="@layout/item_native"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
 
         <anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarViewPager

@@ -3,6 +3,7 @@ package anaxxes.com.weatherFlow.utils;
 import android.animation.AnimatorSet;
 import android.animation.FloatEvaluator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
@@ -79,7 +80,8 @@ public class SunMoonUtils {
     }
 
 
-    public void ensureTime(Daily today,Daily tomorrow,TimeZone timeZone) {
+    @SuppressLint("Range")
+    public void ensureTime(Daily today, Daily tomorrow, TimeZone timeZone) {
 
 //        Daily today = location.getWeather().getDailyForecast().get(todayIndex);
 //        Daily tomorrow = location.getWeather().getDailyForecast().get(tommorrowIndex);
@@ -172,6 +174,7 @@ public class SunMoonUtils {
     }
 
     public void onEnterScreen() {
+        try {
             ValueAnimator timeDay = ValueAnimator.ofObject(new FloatEvaluator(), startTimes[0], currentTimes[0]);
             timeDay.addUpdateListener(animation -> {
                 animCurrentTimes[0] = (Float) animation.getAnimatedValue();
@@ -224,6 +227,9 @@ public class SunMoonUtils {
 //                attachAnimatorSets[2].setDuration(getPhaseAnimatorDuration());
 //                attachAnimatorSets[2].start();
 //            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

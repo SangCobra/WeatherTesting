@@ -47,9 +47,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.common.control.dialog.RateAppDialog;
+import com.common.control.interfaces.AdCallback;
 import com.common.control.interfaces.RateCallback;
+import com.common.control.manager.AdmobManager;
 import com.common.control.utils.CommonUtils;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.nativead.NativeAd;
 //import com.anjlab.android.iab.v3.BillingProcessor;
 //import com.anjlab.android.iab.v3.TransactionDetails;
 
@@ -82,6 +86,7 @@ import anaxxes.com.weatherFlow.ui.adapter.TodayForecastAdapter;
 import anaxxes.com.weatherFlow.utils.MyUtils;
 import anaxxes.com.weatherFlow.utils.NavigationView;
 import anaxxes.com.weatherFlow.utils.SunMoonUtils;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import anaxxes.com.weatherFlow.admob.Config;
@@ -179,7 +184,8 @@ public class MainActivity extends GeoActivity
             = "com.wangdaye.geomtricweather.ACTION_SHOW_DAILY_FORECAST";
     public static final String KEY_DAILY_INDEX = "DAILY_INDEX";
     public static final String KEY_LOCATION_INDEX = "KEY_LOCATION_INDEX";
-    private static Interstitial interstitial;
+    public static InterstitialAd interstitial;
+    public static boolean isStartApp;
 
     private BroadcastReceiver backgroundUpdateReceiver = new BroadcastReceiver() {
         @Override
@@ -211,11 +217,17 @@ public class MainActivity extends GeoActivity
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setTheme(R.style.Theme_AppCompat_NoActionBar);
+        AdIdUtils.isDoneInters = true;
+        loadIntersAd();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        if (viewModel != null){
-            viewModel.updateWeather(this);
+        isStartApp = true;
+        if (isStartApp){
+            if (viewModel != null){
+                viewModel.updateWeather(this);
+            }
         }
+
 //
 //        // attach weather view.
 //        switch (SettingsOptionManager.getInstance(this).getUiStyle()) {
@@ -347,7 +359,10 @@ public class MainActivity extends GeoActivity
     protected void onStart() {
         super.onStart();
         if (location != null){
-            onRefresh();
+            if (isStartApp){
+                onRefresh();
+                isStartApp = false;
+            }
         }
 //        weatherView.setDrawable(true);
     }
@@ -355,7 +370,14 @@ public class MainActivity extends GeoActivity
     @Override
     protected void onStop() {
         super.onStop();
+
+
 //        weatherView.setDrawable(false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -364,7 +386,53 @@ public class MainActivity extends GeoActivity
 //        if (bp != null) {
 //            bp.release();
 //        }
+        AdIdUtils.isDoneInters = true;
+        loadIntersAd();
         unregisterReceiver(backgroundUpdateReceiver);
+    }
+    private void loadIntersAd(){
+        AdmobManager.getInstance().loadInterAds(this, AdIdUtils.idInters, new AdCallback() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+            }
+
+            @Override
+            public void onAdShowedFullScreenContent() {
+                super.onAdShowedFullScreenContent();
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError i) {
+                super.onAdFailedToLoad(i);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+            }
+
+            @Override
+            public void interCallback(InterstitialAd interstitialAd) {
+                super.interCallback(interstitialAd);
+            }
+
+            @Override
+            public void onResultInterstitialAd(InterstitialAd interstitialAd) {
+                super.onResultInterstitialAd(interstitialAd);
+                interstitial = interstitialAd;
+            }
+
+            @Override
+            public void onNativeAds(NativeAd nativeAd) {
+                super.onNativeAds(nativeAd);
+            }
+
+            @Override
+            public void onAdFailedToShowFullScreenContent(LoadAdError errAd) {
+                super.onAdFailedToShowFullScreenContent(errAd);
+            }
+        });
     }
 
     @Override
@@ -819,6 +887,7 @@ public class MainActivity extends GeoActivity
             int size = viewModel.getLocationList().size();
             binding.background.mainPager.setOffscreenPageLimit(viewModel.getLocationList().size() -1);
             binding.background.mainPager.setCurrentItem(index);
+            AdmobManager.getInstance().loadBanner(this, AdIdUtils.idBanner);
 
 //            AQIGasAdapter aqiGasAdapter = new AQIGasAdapter(this);
 //            binding.background.aqiList.setAdapter(aqiGasAdapter);
@@ -1280,7 +1349,10 @@ public class MainActivity extends GeoActivity
                 }
 
                 consumeIntentAction();
-                refreshBackgroundViews(true, viewModel.getLocationList(), false, false);
+                if (isStartApp){
+                    refreshBackgroundViews(true, viewModel.getLocationList(), false, false);
+                    isStartApp = false;
+                }
             });
         }else{
             buildAlertMessageNoGps();

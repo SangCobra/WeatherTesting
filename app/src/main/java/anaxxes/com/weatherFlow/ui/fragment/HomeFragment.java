@@ -1,12 +1,14 @@
 package anaxxes.com.weatherFlow.ui.fragment;
 
 import static anaxxes.com.weatherFlow.main.MainActivity.MANAGE_ACTIVITY;
+import static anaxxes.com.weatherFlow.main.MainActivity.interstitial;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +32,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.nativead.NativeAd;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +57,7 @@ import anaxxes.com.weatherFlow.basic.model.weather.Daily;
 import anaxxes.com.weatherFlow.basic.model.weather.Hourly;
 import anaxxes.com.weatherFlow.basic.model.weather.Weather;
 import anaxxes.com.weatherFlow.databinding.FragmentHomeBinding;
+import anaxxes.com.weatherFlow.main.AirQualityActivity;
 import anaxxes.com.weatherFlow.main.MainActivity;
 import anaxxes.com.weatherFlow.main.RadarActivity;
 import anaxxes.com.weatherFlow.main.adapter.trend.HourlyAdapter;
@@ -71,6 +78,7 @@ import anaxxes.com.weatherFlow.utils.DisplayUtils;
 import anaxxes.com.weatherFlow.utils.MyUtils;
 import anaxxes.com.weatherFlow.utils.SunMoonUtils;
 import anaxxes.com.weatherFlow.utils.helpter.IntentHelper;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 
 
 public class HomeFragment extends Fragment {
@@ -89,7 +97,6 @@ public class HomeFragment extends Fragment {
     private SunMoonUtils sunMoonUtils;
     private SettingsOptionManager settingsOptionManager;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,9 +109,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AdmobManager admobManager = AdmobManager.getInstance();
-        admobManager.loadBanner(getActivity(), "ca-app-pub-3940256099942544/6300978111");
-
-        AdmobManager.getInstance().loadNative(requireContext(), "ca-app-pub-3940256099942544/2247696110", binding.frAd);
+        admobManager.loadNative(requireContext(), AdIdUtils.idNative, binding.nativeAd, R.layout.custom_native_1);
         ensureResourceProvider();
         if (getArguments() != null) {
             location = getArguments().getParcelable("location");
@@ -325,7 +330,21 @@ public class HomeFragment extends Fragment {
 
             binding.radarWebView.getSettings().setJavaScriptEnabled(true);
 
-            binding.tvSeeMoreRadar.setOnClickListener(view -> sendToRadar(location));
+            binding.tvSeeMoreRadar.setOnClickListener(view -> {
+                if (AdIdUtils.isDoneInters){
+                    AdmobManager.getInstance().showInterstitial(requireActivity(), interstitial, new AdCallback() {
+                        @Override
+                        public void onAdClosed() {
+                            super.onAdClosed();
+                            sendToRadar(location);
+                            AdIdUtils.isDoneInters = false;
+                        }
+                    });
+                }
+                else {
+                    sendToRadar(location);
+                }
+            });
 
 
             binding.radarWebView.setOnTouchListener((v, event) -> {
@@ -487,13 +506,41 @@ public class HomeFragment extends Fragment {
     }
 
 
+
     private void clickListeners() {
-        binding.tv24Hours.setOnClickListener(view -> IntentHelper.startHourlyWeatherActivity(requireActivity(), location.getFormattedId(), 0));
+        binding.tv24Hours.setOnClickListener(view -> {
+            if (AdIdUtils.isDoneInters){
+                AdmobManager.getInstance().showInterstitial(requireActivity(), interstitial, new AdCallback() {
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        IntentHelper.startHourlyWeatherActivity(requireActivity(), location.getFormattedId(), 0);
+                        AdIdUtils.isDoneInters = false;
+                    }
+                });
+            }
+            else {
+                IntentHelper.startHourlyWeatherActivity(requireActivity(), location.getFormattedId(), 0);
+            }
+        });
 //
         binding.tv25Days.setOnClickListener(view -> {
+            if (AdIdUtils.isDoneInters){
+                AdmobManager.getInstance().showInterstitial(requireActivity(), interstitial, new AdCallback() {
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        IntentHelper.startDailyListActivity(
+                                requireActivity(), location.getFormattedId(), 0);
+                        AdIdUtils.isDoneInters = false;
+                    }
+                });
+            }
+            else {
+                IntentHelper.startDailyListActivity(
+                        requireActivity(), location.getFormattedId(), 0);
+            }
 
-            IntentHelper.startDailyListActivity(
-                    requireActivity(), location.getFormattedId(), 0);
         });
 
 //        binding.refreshLayout.setOnRefreshListener(requireActivity());
@@ -501,8 +548,37 @@ public class HomeFragment extends Fragment {
         binding.imgMenu.setOnClickListener(view -> {
             ((MainActivity) requireActivity()).toggleDrawerLayout();
         });
+        binding.tvAirQuality.setOnClickListener(v -> {
+            if (AdIdUtils.isDoneInters){
+                AdmobManager.getInstance().showInterstitial(requireActivity(), interstitial, new AdCallback() {
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        startActivity(new Intent(requireActivity(), AirQualityActivity.class));
+                        AdIdUtils.isDoneInters = false;
+                    }
+                });
+            }
+            else {
+                startActivity(new Intent(requireActivity(), AirQualityActivity.class));
+            }
+        });
 
-        binding.addCity.setOnClickListener(view -> IntentHelper.startManageActivityForResult(requireActivity(), MANAGE_ACTIVITY));
+        binding.addCity.setOnClickListener(view -> {
+            if (AdIdUtils.isDoneInters){
+                AdmobManager.getInstance().showInterstitial(requireActivity(), interstitial, new AdCallback() {
+                    @Override
+                    public void onAdClosed() {
+                        super.onAdClosed();
+                        IntentHelper.startManageActivityForResult(requireActivity(), MANAGE_ACTIVITY);
+                        AdIdUtils.isDoneInters = false;
+                    }
+                });
+            }
+            else {
+                IntentHelper.startManageActivityForResult(requireActivity(), MANAGE_ACTIVITY);
+            }
+        });
 
     }
 

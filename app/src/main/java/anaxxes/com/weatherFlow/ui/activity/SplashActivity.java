@@ -21,6 +21,7 @@ import com.google.android.gms.ads.nativead.NativeAd;
 
 import anaxxes.com.weatherFlow.R;
 import anaxxes.com.weatherFlow.main.MainActivity;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
@@ -47,17 +48,24 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void onAdClosed() {
                             super.onAdClosed();
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            finish();
+                        }
 
+                        @Override
+                        public void onAdFailedToLoad(@NonNull LoadAdError i) {
+                            super.onAdFailedToLoad(i);
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            finish();
                         }
                     });
                 }
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
+
             }
         }, 5000);
     }
     private void loadIntersAd(){
-        AdmobManager.getInstance().loadInterAds(this, "ca-app-pub-3940256099942544/8691691433", new AdCallback() {
+        AdmobManager.getInstance().loadInterAds(this, AdIdUtils.idInters, new AdCallback() {
             @Override
             public void onAdClosed() {
                 super.onAdClosed();

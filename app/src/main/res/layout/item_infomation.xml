@@ -130,11 +130,11 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:background="@drawable/shape_border_under">
-        <ImageView
+        <View
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_line_second"/>
+            android:layout_height="1dp"
+            android:background="#3B3B3B"/>
 <!--        <LinearLayout-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:layout_margin="@dimen/_10sdp"-->

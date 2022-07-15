@@ -1,11 +1,13 @@
 package anaxxes.com.weatherFlow.daily;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.common.control.manager.AdmobManager;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +45,7 @@ import anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarRecyclerView;
 import anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarViewPager;
 import anaxxes.com.weatherFlow.utils.DisplayUtils;
 import anaxxes.com.weatherFlow.utils.SunMoonUtils;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 import anaxxes.com.weatherFlow.utils.manager.ThemeManager;
 
 /**
@@ -54,6 +58,7 @@ public class DailyWeatherActivity extends GeoActivity {
     private TextView title;
     //    private TextView subtitle;
     private TextView indicator;
+    private FrameLayout frAd;
 
     private @Nullable
     Weather weather;
@@ -111,6 +116,11 @@ public class DailyWeatherActivity extends GeoActivity {
 //        if (!SettingsOptionManager.getInstance(this).getLanguage().isChinese()){
 //            subtitle.setVisibility(View.GONE);
 //        }
+
+        frAd = findViewById(R.id.fr_ad_native);
+        frAd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#3B3B3B")));
+        AdmobManager.getInstance().loadNative(this, AdIdUtils.idNative, frAd);
+
 
         title.setText(location.getCityName(this));
         title.setTextColor(Color.WHITE);

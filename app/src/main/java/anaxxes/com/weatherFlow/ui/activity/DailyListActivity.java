@@ -13,6 +13,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.common.control.manager.AdmobManager;
+
 import java.util.ArrayList;
 import java.util.TimeZone;
 
@@ -30,6 +32,7 @@ import anaxxes.com.weatherFlow.ui.adapter.DailyDayNightAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.DailyForecastAdapter;
 import anaxxes.com.weatherFlow.ui.adapter.DailyPagerAdapter;
 import anaxxes.com.weatherFlow.utils.helpter.IntentHelper;
+import anaxxes.com.weatherFlow.utils.manager.AdIdUtils;
 
 public class DailyListActivity extends GeoActivity {
 
@@ -58,7 +61,7 @@ public class DailyListActivity extends GeoActivity {
         binding = ActivityDailyListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
+        AdmobManager.getInstance().loadBanner(this, AdIdUtils.idBanner);
         settingsOptionManager = SettingsOptionManager.getInstance(this);
 
 
@@ -101,7 +104,14 @@ public class DailyListActivity extends GeoActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.dailyForecastList.setLayoutManager(layoutManager);
         binding.dailyForecastList.setAdapter(dailyListAdapter);
-        dailyListAdapter.setList((ArrayList<Daily>) weather.getDailyForecast());
+        ArrayList<Daily> listAdapter = null;
+        if (weather != null) {
+            listAdapter = (ArrayList<Daily>) weather.getDailyForecast();
+        }
+        if (listAdapter != null) {
+            listAdapter.add(2, null);
+        }
+        dailyListAdapter.setList(listAdapter);
 
 //        if (settingsOptionManager.isShowNightInfoEnabled()) {
 //            binding.dailyForecastList.setAdapter(dailyDayNightAdapter);

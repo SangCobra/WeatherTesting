@@ -283,7 +283,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- service -->
+        </activity>
+        <activity android:name=".main.AirQualityActivity" /> <!-- service -->
         <service
             android:name=".background.polling.basic.AwakeForegroundUpdateService"
             android:foregroundServiceType="location" />
