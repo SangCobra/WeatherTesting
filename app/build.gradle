@@ -10,7 +10,7 @@ android {
 
     compileSdkVersion 32
     defaultConfig {
-        applicationId "anaxxes.com.weatherFlow"
+        applicationId "com.mtgtech.weatherapp"
         minSdkVersion 22
         targetSdkVersion 32
         versionCode 1

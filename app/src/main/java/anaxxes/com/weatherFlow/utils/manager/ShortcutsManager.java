@@ -73,37 +73,38 @@ public class ShortcutsManager {
                     shortcutManager.getMaxShortcutCountPerActivity() - 1,
                     list.size()
             );
-            for (int i = 0; i < count; i ++) {
-                Weather weather = DatabaseHelper.getInstance(c).readWeather(list.get(i));
-                if (weather != null) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        icon = getAdaptiveIcon(
-                                provider,
-                                weather.getCurrent().getWeatherCode(),
-                                TimeManager.isDaylight(list.get(i))
-                        );
-                    } else {
-                        icon = getIcon(
-                                provider,
-                                weather.getCurrent().getWeatherCode(),
-                                TimeManager.isDaylight(list.get(i))
-                        );
-                    }
-                } else {
-                    icon = getIcon(provider, WeatherCode.CLEAR, true);
-                }
-
-                title = list.get(i).isCurrentPosition() ? c.getString(R.string.current_location) : list.get(i).getCityName(c);
-
-                shortcutList.add(
-                        new ShortcutInfo.Builder(c, list.get(i).getFormattedId())
-                                .setIcon(icon)
-                                .setShortLabel(title)
-                                .setLongLabel(title)
-                                .setIntent(IntentHelper.buildMainActivityIntent(list.get(i)))
-                                .build()
-                );
-            }
+//            for (int i = 0; i < count; i ++) {
+//                Weather weather = DatabaseHelper.getInstance(c).readWeather(list.get(i));
+//                if (weather != null) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//
+//                        icon = getAdaptiveIcon(
+//                                provider,
+//                                weather.getCurrent().getWeatherCode(),
+//                                TimeManager.isDaylight(list.get(i))
+//                        );
+//                    } else {
+//                        icon = getIcon(
+//                                provider,
+//                                weather.getCurrent().getWeatherCode(),
+//                                TimeManager.isDaylight(list.get(i))
+//                        );
+//                    }
+//                } else {
+//                    icon = getIcon(provider, WeatherCode.CLEAR, true);
+//                }
+//
+//                title = list.get(i).isCurrentPosition() ? c.getString(R.string.current_location) : list.get(i).getCityName(c);
+//
+//                shortcutList.add(
+//                        new ShortcutInfo.Builder(c, list.get(i).getFormattedId())
+//                                .setIcon(icon)
+//                                .setShortLabel(title)
+//                                .setLongLabel(title)
+//                                .setIntent(IntentHelper.buildMainActivityIntent(list.get(i)))
+//                                .build()
+//                );
+//            }
 
             try {
                 shortcutManager.setDynamicShortcuts(shortcutList);
