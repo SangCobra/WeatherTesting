@@ -30,7 +30,8 @@
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginBottom="40dp"
             android:layout_centerHorizontal="true"
-            tools:background="@drawable/shortcuts_clear_day"/>
+            tools:background="@drawable/shortcuts_clear_day"
+            />
 
     </RelativeLayout>
 

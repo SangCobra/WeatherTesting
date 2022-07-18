@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <anaxxes.com.weatherFlow.ui.widget.ArcProgress
+            <mtgtech.com.weather_forecast.view.weather_widget.ArcProgress
                 android:id="@+id/container_main_aqi_progress"
                 android:layout_width="120dp"
                 android:layout_height="120dp"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <anaxxes.com.weatherFlow.ui.widget.DonateImageView
+    <mtgtech.com.weather_forecast.view.weather_widget.DonateImageView
         android:id="@+id/dialog_donate_wechat_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".ui.fragment.DailyDetailsFragment">
+    tools:context=".view.fragment.DailyDetailsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp">
 
-                <anaxxes.com.weatherFlow.ui.widget.astro.SunMoonView
+                <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
                     android:id="@+id/daySunMoonView"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp">
 
-                <anaxxes.com.weatherFlow.ui.widget.astro.SunMoonView
+                <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
                     android:id="@+id/nightSunMoonView"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"

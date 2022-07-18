@@ -17,7 +17,7 @@
         style="@style/content_text"
         tools:text="PM 2.5"/>
 
-    <anaxxes.com.weatherFlow.ui.widget.RoundProgress
+    <mtgtech.com.weather_forecast.view.weather_widget.RoundProgress
         android:id="@+id/item_aqi_progress"
         android:layout_width="match_parent"
         android:layout_height="6dp" />

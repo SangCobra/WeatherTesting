@@ -15,7 +15,7 @@
     </changeBounds>
 
     <transition
-        class="anaxxes.com.weatherFlow.ui.transition.RoundCornerTransition"
+        class="mtgtech.com.weather_forecast.view.transition.RoundCornerTransition"
         android:interpolator="@android:interpolator/fast_out_slow_in"
         android:duration="350"
         app:radius_from="8dp"

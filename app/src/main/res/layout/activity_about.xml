@@ -21,7 +21,7 @@
 
     </LinearLayout>
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarRecyclerView
+    <mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarRecyclerView
         android:id="@+id/activity_about_recyclerView"
         android:scrollbars="none"
         android:layout_width="match_parent"

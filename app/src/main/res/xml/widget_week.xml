@@ -8,5 +8,5 @@
     android:initialLayout="@layout/widget_week"
     android:previewImage="@drawable/widget_week"
     android:resizeMode="horizontal|vertical"
-    android:configure="anaxxes.com.weatherFlow.remoteviews.config.WeekWidgetConfigActivity"
+    android:configure="mtgtech.com.weather_forecast.remoteviews.config.WeekWidgetConfigActivity"
     android:widgetCategory="home_screen|keyguard" />

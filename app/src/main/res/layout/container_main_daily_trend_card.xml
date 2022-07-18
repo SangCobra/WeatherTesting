@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <anaxxes.com.weatherFlow.ui.widget.trend.TrendRecyclerView
+        <mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView
             android:id="@+id/container_main_daily_trend_card_trendRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/daily_trend_item_height"

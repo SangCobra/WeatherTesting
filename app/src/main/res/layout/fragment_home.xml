@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-<!--    <anaxxes.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout-->
+<!--    <mtgtech.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout-->
 <!--        android:id="@+id/refresh_layout"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent">-->
@@ -483,7 +483,7 @@
 <!--                        </LinearLayout>-->
 
 
-<!--                        &lt;!&ndash;                        <anaxxes.com.weatherFlow.ui.widget.trend.TrendRecyclerView&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <mtgtech.com.weatherFlow.ui.widget.trend.TrendRecyclerView&ndash;&gt;-->
 <!--&lt;!&ndash;                            android:id="@+id/container_main_hourly_trend_card_trendRecyclerView"&ndash;&gt;-->
 <!--&lt;!&ndash;                            android:layout_width="match_parent"&ndash;&gt;-->
 <!--&lt;!&ndash;                            android:layout_height="@dimen/hourly_trend_item_height"&ndash;&gt;-->
@@ -689,17 +689,17 @@
                             android:layout_marginBottom="@dimen/_12sdp"/>
 
                     </LinearLayout>
-                    <FrameLayout
-                        android:id="@+id/native_ad"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_12sdp">
-                        <include
-                            layout="@layout/item_native"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"/>
-                    </FrameLayout>
+<!--                    <FrameLayout-->
+<!--                        android:id="@+id/native_ad"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_margin="@dimen/_12sdp">-->
+<!--                        <include-->
+<!--                            layout="@layout/item_native"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"/>-->
+<!--                    </FrameLayout>-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1065,7 +1065,7 @@
                         android:backgroundTint="#4D000000"
                         android:orientation="vertical">
 
-                        <anaxxes.com.weatherFlow.ui.widget.astro.SunMoonView
+                        <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
                             android:id="@+id/sunMoonView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1461,5 +1461,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    </anaxxes.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout>-->
+<!--    </mtgtech.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

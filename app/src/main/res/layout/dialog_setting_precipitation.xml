@@ -6,7 +6,7 @@
     android:id="@+id/border_prep"
     android:layout_height="match_parent"
     android:background="#99000000"
-    tools:context=".main.dialog.SetPrecipitationDialog">
+    tools:context=".settings.dialog.SetPrecipitationDialog">
 
     <LinearLayout
         android:layout_width="match_parent"

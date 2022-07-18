@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- app. -->
     <string name="app_name">Weather Forecast</string>
-    <string name="weather_flow">Weather App</string>
-    <string name="package_name">anaxxes.com.weatherFlow</string><!-- Do not translate. -->
+    <string name="weather_flow">Weather Forecast</string>
+    <string name="package_name">mtgtech.com.weatherFlow</string><!-- Do not translate. -->
     <string name="version_code">v1.0</string><!-- Do not translate. -->
     <string name="version">Version</string><!-- Do not translate. -->
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
 
-    <anaxxes.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout
+    <mtgtech.com.weather_forecast.view.weather_widget.verticalScrollView.VerticalSwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -280,7 +280,7 @@
                         android:background="@drawable/home_transparent_bg"
                         android:orientation="vertical">
 
-                        <anaxxes.com.weatherFlow.ui.widget.trend.TrendRecyclerView
+                        <mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView
                             android:id="@+id/container_main_hourly_trend_card_trendRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/hourly_trend_item_height"
@@ -664,7 +664,7 @@
                         android:background="@drawable/home_transparent_bg"
                         android:orientation="vertical">
 
-                        <anaxxes.com.weatherFlow.ui.widget.astro.SunMoonView
+                        <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
                             android:id="@+id/sunMoonView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -693,11 +693,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent">
-                <include layout="@layout/layout_banner_control"/>
+                <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    layout="@layout/layout_banner_control"/>
             </FrameLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </anaxxes.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout>
+    </mtgtech.com.weather_forecast.view.weather_widget.verticalScrollView.VerticalSwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
