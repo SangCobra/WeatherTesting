@@ -1,6 +1,6 @@
 package mtgtech.com.weather_forecast.main.dialog;
 
-import static mtgtech.com.weather_forecast.main.MainActivity.isStartApp;
+//import static mtgtech.com.weather_forecast.main.MainActivity.isStartApp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.main.MainActivity;
 
 public class DialogPer2 extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class DialogPer2 extends AppCompatActivity {
         setContentView(R.layout.dialog_permission_adr10_1);
         findViewById(R.id.goToSettings).setOnClickListener(v -> {
             listener.onSetButtonClicked();
-            isStartApp = true;
+            MainActivity.isGotoSettings = true;
             finish();
         });
     }

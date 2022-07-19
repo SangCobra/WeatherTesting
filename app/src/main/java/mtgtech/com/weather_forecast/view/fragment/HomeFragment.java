@@ -586,6 +586,25 @@ public class HomeFragment extends Fragment {
                 }
                 break;
             case PARTLY_CLOUDY:
+                if (!weather.getHourlyForecast().get(0).isDaylight()) {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_cloudy_moon));
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_t_cloudy));
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.night));
+                    }
+
+                } else {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(imageView.getContext(), R.drawable.img_partly_cloudy));
+                    if (isBgEnabled) {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.bg_s_cloudy));
+                    } else {
+                        binding.getRoot().setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.day));
+                    }
+
+
+                }
+                break;
             case CLOUDY:
 
                 if (!weather.getHourlyForecast().get(0).isDaylight()) {

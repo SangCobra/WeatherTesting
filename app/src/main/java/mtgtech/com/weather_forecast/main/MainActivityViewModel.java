@@ -20,6 +20,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import mtgtech.com.weather_forecast.utils.MyUtils;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
@@ -293,7 +294,7 @@ public class MainActivityViewModel extends ViewModel
         return permissionList;
     }
 
-    private boolean isPivotalPermission(String permission) {
+    public boolean isPivotalPermission(String permission) {
         return permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
                 || permission.equals(Manifest.permission.ACCESS_FINE_LOCATION);
     }

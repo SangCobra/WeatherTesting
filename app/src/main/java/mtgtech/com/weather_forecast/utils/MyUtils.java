@@ -8,6 +8,7 @@ public class MyUtils {
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         return  hour < 6 || hour > 18;
     }
+    public static int requestCode;
 
 // switch (model.getWeatherCode()){
 //        case CLEAR:

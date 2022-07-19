@@ -1,5 +1,8 @@
 package mtgtech.com.weather_forecast.weather_model;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isGotoSettings;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,12 +18,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.provider.Settings;
 import android.view.View;
 
+import com.common.control.interfaces.PermissionCallback;
+import com.common.control.utils.PermissionUtils;
+
 import mtgtech.com.weather_forecast.WeatherFlow;
+import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.main.dialog.DialogPer1;
 import mtgtech.com.weather_forecast.main.dialog.DialogPer2;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.LanguageUtils;
+import mtgtech.com.weather_forecast.utils.MyUtils;
 
 /**
  * Geometric weather activity.
@@ -32,6 +40,15 @@ public abstract class GeoActivity extends AppCompatActivity {
 
     @Nullable private OnRequestPermissionsResultListener permissionsListener;
     private boolean denyPermission = false;
+    public PermissionCallback permissionCallback;
+
+    public PermissionCallback getPermissionCallback() {
+        return permissionCallback;
+    }
+
+    public void setPermissionCallback(PermissionCallback permissionCallback) {
+        this.permissionCallback = permissionCallback;
+    }
 
     @CallSuper
     @Override
@@ -98,23 +115,50 @@ public abstract class GeoActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permission, @NonNull int[] grantResult) {
         super.onRequestPermissionsResult(requestCode, permission, grantResult);
-        for (int j : grantResult) {
-            if (j != PackageManager.PERMISSION_GRANTED && requestCode == 1) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        MyUtils.requestCode = requestCode;
+        if (Build.VERSION.SDK_INT >Build.VERSION_CODES.Q){
+            for (int j : grantResult) {
+                if (j != PackageManager.PERMISSION_GRANTED && requestCode == 1) {
                     DialogPer1.start(this);
                     DialogPer1.listener = () -> {
                         gotoSettings(this);
                     };
-                } else {
-                    DialogPer2.start(this);
-                    DialogPer2.listener = () -> {
-                        gotoSettings(this);
-                    };
+                    return;
                 }
-                break;
-            }
 
+            }
         }
+        else {
+//            boolean isPermissionDeny = false;
+//            for (int j : grantResult) {
+//                if (j != PackageManager.PERMISSION_GRANTED) {
+//                    isPermissionDeny = true;
+//                    break;
+//                }
+//            }
+//            if (isPermissionDeny){
+//                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) && shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)){
+//                    DialogPer2.start(this);
+//                    DialogPer2.listener = () -> {
+//                        gotoSettings(this);
+//                    };
+//                }
+//                else {
+//                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, requestCode);
+//                }
+//            }
+            if (permissionCallback != null){
+                if (PermissionUtils.permissionGranted(this, permission)){
+//                    isGotoSettings = true;
+                    permissionCallback.onPermissionGranted();
+                }
+                else {
+                    permissionCallback.onPermissionDenied();
+//                    onRequestPermissionsResult(requestCode, permission, grantResult);
+                }
+            }
+        }
+
         if (permissionsListener != null) {
             permissionsListener.onRequestPermissionsResult(requestCode, permission, grantResult);
             permissionsListener = null;

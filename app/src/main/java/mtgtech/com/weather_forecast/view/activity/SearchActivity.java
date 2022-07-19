@@ -28,6 +28,7 @@ import java.util.List;
 
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.utils.LanguageUtils;
 import mtgtech.com.weather_forecast.view.adapter.location.LocationAdapter;
 import mtgtech.com.weather_forecast.view.adapter.location.LocationTouchCallback;
 import mtgtech.com.weather_forecast.view.fragment.LocationManageFragment;
@@ -66,8 +67,6 @@ public class SearchActivity extends GeoActivity
     private AccuWeatherService accuWeatherService = new AccuWeatherService();
 
     int pos = 0;
-
-
 
     private static class ShowAnimation extends Animation {
         // widget
@@ -114,8 +113,6 @@ public class SearchActivity extends GeoActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         listSearch = new ArrayList<>();
@@ -178,7 +175,6 @@ public class SearchActivity extends GeoActivity
                 (l, pos)->{
                     query = l;
                     weatherHelper.requestLocation(SearchActivity.this, query, SearchActivity.this);
-                    this.pos = pos;
                     finishSelf(true);
                 }
                 );
@@ -194,12 +190,7 @@ public class SearchActivity extends GeoActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s)) {
-//                    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//                    if (manager != null) {
-//                        manager.hideSoftInputFromWindow(binding.editText.getWindowToken(), 0);
-//                    }
-//                    binding.clearBtn.setVisibility(View.VISIBLE);
-                    accuWeatherService.getApi().searchPlace(BuildConfig.ACCU_WEATHER_KEY, "vi", s.toString(), true)
+                    accuWeatherService.getApi().searchPlace(BuildConfig.ACCU_WEATHER_KEY, LanguageUtils.getCurrentLocale(SearchActivity.this).getLanguage(), s.toString(), true)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread()).subscribe(searches -> {
                                 listSearch = (ArrayList<Search>) searches;
@@ -218,46 +209,14 @@ public class SearchActivity extends GeoActivity
 
             }
         });
-//        new Handler().post(() -> {
-//            binding.editText.requestFocus();
-//            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//            if (inputManager != null) {
-//                inputManager.showSoftInput(binding.editText, 0);
-//            }
-//        });
-// 19037245202018
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 this, RecyclerView.VERTICAL, false);
 
 
-//        ArrayList<LocationModel> listModel = new ArrayList<>();
-//        locationList.forEach(location -> {
-//            listModel.add(new LocationModel(this, location, SettingsOptionManager.getInstance(this).getTemperatureUnit(), SettingsOptionManager.getInstance(this).getWeatherSource()
-//            , ThemeManager.getInstance(this).isLightTheme(), location.getFormattedId().equals(null)));
-//        });
 
         binding.recyclerView.setLayoutManager(layoutManager);
-//        binding.recyclerView.addItemDecoration(new ListDecoration(this));
         binding.recyclerView.setAdapter(adapter);
 
-//        binding.scrollBar.setIndicator(
-//                new WeatherSourceIndicator(this).setTextSize(16), true);
-//
-//        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//
-//            @ColorInt int sourceColor = Color.TRANSPARENT;
-//            @ColorInt int color;
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                color = adapter.getItemSourceColor(layoutManager.findFirstVisibleItemPosition());
-//                if (color != sourceColor) {
-//                    binding.scrollBar.setHandleColor(color);
-//                    binding.scrollBar.setHandleOffColor(color);
-//                }
-//            }
-//        });
 
         binding.progress.setAlpha(0);
 
@@ -323,9 +282,7 @@ public class SearchActivity extends GeoActivity
     public void requestLocationSuccess(String query, List<Location> locationList) {
         if (locationList.get(0) != null){
             DatabaseHelper.getInstance(SearchActivity.this).writeLocation(locationList.get(0));
-
         }
-
     }
 
     @Override

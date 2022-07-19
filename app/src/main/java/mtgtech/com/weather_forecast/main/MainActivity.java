@@ -1,5 +1,6 @@
 package mtgtech.com.weather_forecast.main;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,9 +38,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.common.control.dialog.RateAppDialog;
 import com.common.control.interfaces.AdCallback;
+import com.common.control.interfaces.PermissionCallback;
 import com.common.control.interfaces.RateCallback;
 import com.common.control.manager.AdmobManager;
 import com.common.control.utils.CommonUtils;
+import com.common.control.utils.PermissionUtils;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import java.util.ArrayList;
@@ -53,6 +57,7 @@ import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
+import mtgtech.com.weather_forecast.main.model.LocationResource;
 import mtgtech.com.weather_forecast.utils.CmUtils;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
@@ -166,7 +171,8 @@ public class MainActivity extends GeoActivity
     public static final String KEY_DAILY_INDEX = "DAILY_INDEX";
     public static final String KEY_LOCATION_INDEX = "KEY_LOCATION_INDEX";
     public static final String KEY_RELOAD_WEATHER = "RELOAD_WEATHER";
-    public static boolean isStartApp;
+    public static boolean isGotoSettings;
+    public static boolean isFirstStart;
 
     private final BroadcastReceiver backgroundUpdateReceiver = new BroadcastReceiver() {
         @Override
@@ -199,15 +205,48 @@ public class MainActivity extends GeoActivity
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setTheme(R.style.Theme_AppCompat_NoActionBar);
+        isGotoSettings = false;
         Log.d("android_log", "onCreate: ");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        isStartApp = true;
-        if (isStartApp) {
-            if (viewModel != null) {
-                viewModel.updateWeather(this);
+        setPermissionCallback(new PermissionCallback() {
+            @Override
+            public void onPermissionGranted() {
+                if (PermissionUtils.permissionGranted(
+                        MainActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                )){
+                    isGotoSettings = true;
+                    viewModel.updateWeather(MainActivity.this);
+                }
             }
-        }
+
+            @Override
+            public void onPermissionDenied() {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                    if (!PermissionUtils.permissionGranted(
+                            MainActivity.this,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) && !shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
+                    ) {
+                        DialogPer2.start(MainActivity.this);
+                        DialogPer2.listener = () -> {
+                            gotoSettings(MainActivity.this);
+                        };
+                    }
+                    else if (!PermissionUtils.permissionGranted(
+                            MainActivity.this,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                    )){
+                        isGotoSettings = false;
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MyUtils.requestCode);
+                    }
+                }
+            }
+        });
 
 //
 //        // attach weather view.
@@ -258,6 +297,7 @@ public class MainActivity extends GeoActivity
     }
 
 
+    @SuppressLint("NewApi")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
@@ -336,16 +376,11 @@ public class MainActivity extends GeoActivity
         index = 0;
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected void onStart() {
         super.onStart();
         Log.d("android_log", "onStart: ");
-        if (location != null) {
-            if (isStartApp) {
-                onRefresh();
-                isStartApp = false;
-            }
-        }
 //        weatherView.setDrawable(true);
     }
 
@@ -864,6 +899,7 @@ public class MainActivity extends GeoActivity
             int size = viewModel.getLocationList().size();
             binding.background.mainPager.setOffscreenPageLimit(viewModel.getLocationList().size() - 1);
             binding.background.mainPager.setCurrentItem(index);
+            binding.background.frAd.setVisibility(View.VISIBLE);
             AdmobManager.getInstance().loadBanner(this, BuildConfig.banner_main);
 
 //            AQIGasAdapter aqiGasAdapter = new AQIGasAdapter(this);
@@ -1299,11 +1335,37 @@ public class MainActivity extends GeoActivity
     // on refresh listener.
 
 
+    @SuppressLint("NewApi")
     @Override
     protected void onResume() {
         super.onResume();
         loadIntersAd();
         Log.d("android_log", "onResume: ");
+        if (isGotoSettings){
+            if (!PermissionUtils.permissionGranted(
+                    MainActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            )){
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q){
+                    DialogPer1.start(this);
+                    DialogPer1.listener = () -> {
+                        gotoSettings(this);
+                    };
+                }
+                else {
+                    DialogPer2.start(this);
+                    DialogPer2.listener = () -> {
+                        gotoSettings(this);
+                    };
+                }
+                return;
+            }
+            else {
+                viewModel.updateWeather(this);
+            }
+        }
+
         if (isLocationEnabled()) {
             viewModel.getCurrentLocation().observe(this, resource -> {
                 boolean updateInBackground = resource.consumeUpdatedInBackground();
@@ -1327,25 +1389,14 @@ public class MainActivity extends GeoActivity
 //                }
 
                 consumeIntentAction();
-                if (isStartApp) {
-                    refreshBackgroundViews(true, viewModel.getLocationList(), false, false);
-                    isStartApp = false;
-                }
+                refreshBackgroundViews(true, viewModel.getLocationList(), false, false);
             });
-        } else {
-            buildAlertMessageNoGps();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                DialogPer1.start(this);
-                DialogPer1.listener = () -> {
-                    gotoSettings(this);
-                };
-            } else {
-                DialogPer2.start(this);
-                DialogPer2.listener = () -> {
-                    gotoSettings(this);
-                };
+        }else {
+            if (isGotoSettings){
+                buildAlertMessageNoGps();
             }
         }
+
     }
 
     @Override
@@ -1629,6 +1680,7 @@ public class MainActivity extends GeoActivity
                         buildAlertMessageNoGps();
                     }
                 });
+
         final AlertDialog alert = builder.create();
         alert.show();
     }

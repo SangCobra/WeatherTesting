@@ -37,7 +37,7 @@
         <item name="tabSelectedTextColor">@color/colorTextTitle</item>
         <item name="tabTextColor">@color/colorTextSubtitle</item>
     </style>
-    
+
     <!-- card. -->
     <style name="material_card">
         <item name="android:layout_width">match_parent</item>

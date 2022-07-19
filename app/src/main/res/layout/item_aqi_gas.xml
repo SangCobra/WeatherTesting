@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvGasValue"
         android:textColor="@color/colorTextWhite"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/_10sdp"
         android:fontFamily="@font/montserrat_semibold"/>
 
     <TextView
