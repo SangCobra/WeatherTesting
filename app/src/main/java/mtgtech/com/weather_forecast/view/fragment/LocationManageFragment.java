@@ -50,6 +50,7 @@ public class LocationManageFragment extends Fragment
     private TextView searchTitle;
     private AppCompatImageButton currentLocationButton;
     private RecyclerView recyclerView;
+    private List<Location> listLocationBefore;
 
     private LocationAdapter adapter;
     private MainListDecoration decoration;
@@ -68,11 +69,12 @@ public class LocationManageFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location_manage, container, false);
+        listLocationBefore = readLocationList();
         initWidget(view);
         return view;
     }
 
-    private List<Location> readLocationList() {
+    public List<Location> readLocationList() {
         List<Location> locationList = DatabaseHelper.getInstance(requireActivity()).readLocationList();
         for (Location l : locationList) {
             l.setWeather(DatabaseHelper.getInstance(requireActivity()).readWeather(l));
@@ -85,6 +87,7 @@ public class LocationManageFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 //        AdmobManager.getInstance().loadBanner(requireActivity(), AdIdUtils.idBanner);
         AdmobManager.getInstance().loadNative(requireContext(), BuildConfig.native_location, view.findViewById(R.id.native_ad), R.layout.custom_native_app);
+
     }
 
     @Override
@@ -108,16 +111,18 @@ public class LocationManageFragment extends Fragment
         this.imgAddLocation = view.findViewById(R.id.imgAddLocation);
         this.imgBack = view.findViewById(R.id.imgBack);
         imgBack.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID,readLocationList().get(readLocationList().size()-1).getFormattedId());
-            intent.putExtra(MainActivity.KEY_LOCATION_INDEX, readLocationList().size()-1);
-            intent.putExtra(MainActivity.KEY_RELOAD_WEATHER, 1000);
-            requireActivity().setResult(Activity.RESULT_OK, intent);
+            if (listLocationBefore.size() < readLocationList().size()){
+                Intent intent = new Intent();
+                intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID,readLocationList().get(readLocationList().size()-1).getFormattedId());
+                intent.putExtra(MainActivity.KEY_LOCATION_INDEX, readLocationList().size()-1);
+                intent.putExtra(MainActivity.KEY_RELOAD_WEATHER, 1000);
+                requireActivity().setResult(Activity.RESULT_OK, intent);
+            }
             requireActivity().finish();
         });
         imgAddLocation.setOnClickListener(v -> {
-                    IntentHelper.startSearchActivityForResult(requireActivity(), cardView, searchRequestCode);
-                }
+            IntentHelper.startSearchActivityForResult(requireActivity(), cardView, searchRequestCode);
+        }
         );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             cardView.setTransitionName(getString(R.string.transition_activity_search_bar));

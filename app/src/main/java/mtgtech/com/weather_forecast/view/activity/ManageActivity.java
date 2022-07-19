@@ -1,6 +1,7 @@
 package mtgtech.com.weather_forecast.view.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ public class ManageActivity extends GeoActivity {
     private LocationManageFragment manageFragment;
 
     public static final int SEARCH_ACTIVITY = 1;
+    private int requestCode;
     public static final int SELECT_PROVIDER_ACTIVITY = 2;
 
     @Override
@@ -73,6 +75,7 @@ public class ManageActivity extends GeoActivity {
             case SEARCH_ACTIVITY:
                 if (resultCode == RESULT_OK) {
                     manageFragment.addLocation();
+                    this.requestCode = SEARCH_ACTIVITY;
                 }
 //                manageFragment.addLocation();
 //                manageFragment.resetLocationList();
@@ -82,6 +85,18 @@ public class ManageActivity extends GeoActivity {
                 manageFragment.resetLocationList();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (requestCode == SEARCH_ACTIVITY){
+            Intent intent = new Intent();
+            intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID,manageFragment.readLocationList().get(manageFragment.readLocationList().size()-1).getFormattedId());
+            intent.putExtra(MainActivity.KEY_LOCATION_INDEX, manageFragment.readLocationList().size()-1);
+            intent.putExtra(MainActivity.KEY_RELOAD_WEATHER, 1000);
+            setResult(Activity.RESULT_OK, intent);
+        }
+        super.onBackPressed();
     }
 
     @SuppressLint("MissingSuperCall")
