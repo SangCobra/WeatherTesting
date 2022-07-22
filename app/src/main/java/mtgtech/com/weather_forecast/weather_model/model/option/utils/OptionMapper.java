@@ -343,79 +343,80 @@ public class OptionMapper {
     }
     
     public static Language getLanguage(String value) {
-        switch (value) {
-            case "chinese":
-                return Language.CHINESE;
-
-            case "unsimplified_chinese":
-                return Language.UNSIMPLIFIED_CHINESE;
-
-            case "english_america":
-                return Language.ENGLISH_US;
-
-            case "english_britain":
-                return Language.ENGLISH_UK;
-
-            case "english_australia":
-                return Language.ENGLISH_AU;
-
-            case "turkish":
-                return Language.TURKISH;
-
-            case "french":
-                return Language.FRENCH;
-
-            case "russian":
-                return Language.RUSSIAN;
-
-            case "german":
-                return Language.GERMAN;
-
-            case "serbian":
-                return Language.SERBIAN;
-
-            case "spanish":
-                return Language.SPANISH;
-
-            case "italian":
-                return Language.ITALIAN;
-
-            case "dutch":
-                return Language.DUTCH;
-
-            case "hungarian":
-                return Language.HUNGARIAN;
-
-            case "portuguese":
-                return Language.PORTUGUESE;
-
-            case "portuguese_brazilian":
-                return Language.PORTUGUESE_BR;
-
-            case "slovenian":
-                return Language.SLOVENIAN;
-
-            case "arabic":
-                return Language.ARABIC;
-
-            case "czech":
-                return Language.CZECH;
-
-            case "polish":
-                return Language.POLISH;
-
-            case "korean":
-                return Language.KOREAN;
-
-            case "greek":
-                return Language.GREEK;
-
-            case "japanese":
-                return Language.JAPANESE;
-
-            default:
-                return Language.FOLLOW_SYSTEM;
-        }
+//        switch (value) {
+//            case "chinese":
+//                return Language.CHINESE;
+//
+//            case "unsimplified_chinese":
+//                return Language.UNSIMPLIFIED_CHINESE;
+//
+//            case "english_america":
+//                return Language.ENGLISH_US;
+//
+//            case "english_britain":
+//                return Language.ENGLISH_UK;
+//
+//            case "english_australia":
+//                return Language.ENGLISH_AU;
+//
+//            case "turkish":
+//                return Language.TURKISH;
+//
+//            case "french":
+//                return Language.FRENCH;
+//
+//            case "russian":
+//                return Language.RUSSIAN;
+//
+//            case "german":
+//                return Language.GERMAN;
+//
+//            case "serbian":
+//                return Language.SERBIAN;
+//
+//            case "spanish":
+//                return Language.SPANISH;
+//
+//            case "italian":
+//                return Language.ITALIAN;
+//
+//            case "dutch":
+//                return Language.DUTCH;
+//
+//            case "hungarian":
+//                return Language.HUNGARIAN;
+//
+//            case "portuguese":
+//                return Language.PORTUGUESE;
+//
+//            case "portuguese_brazilian":
+//                return Language.PORTUGUESE_BR;
+//
+//            case "slovenian":
+//                return Language.SLOVENIAN;
+//
+//            case "arabic":
+//                return Language.ARABIC;
+//
+//            case "czech":
+//                return Language.CZECH;
+//
+//            case "polish":
+//                return Language.POLISH;
+//
+//            case "korean":
+//                return Language.KOREAN;
+//
+//            case "greek":
+//                return Language.GREEK;
+//
+//            case "japanese":
+//                return Language.JAPANESE;
+//
+//            default:
+//                return Language.FOLLOW_SYSTEM;
+//        }
+        return Language.ENGLISH_UK;
     }
 
     public static WidgetWeekIconMode getWidgetWeekIconMode(String value) {

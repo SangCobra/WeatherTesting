@@ -3,12 +3,16 @@ package mtgtech.com.weather_forecast.main;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Icon;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,6 +47,7 @@ import com.common.control.interfaces.AdCallback;
 import com.common.control.interfaces.PermissionCallback;
 import com.common.control.interfaces.RateCallback;
 import com.common.control.manager.AdmobManager;
+import com.common.control.manager.AppOpenManager;
 import com.common.control.utils.CommonUtils;
 import com.common.control.utils.PermissionUtils;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -48,6 +55,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -58,10 +66,13 @@ import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.model.LocationResource;
+import mtgtech.com.weather_forecast.remoteviews.presenter.notification.ForecastNotificationIMP;
 import mtgtech.com.weather_forecast.utils.CmUtils;
+import mtgtech.com.weather_forecast.view.activity.SplashActivity;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.DarkMode;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.CloudCoverUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit;
@@ -172,7 +183,7 @@ public class MainActivity extends GeoActivity
     public static final String KEY_LOCATION_INDEX = "KEY_LOCATION_INDEX";
     public static final String KEY_RELOAD_WEATHER = "RELOAD_WEATHER";
     public static boolean isGotoSettings;
-    public static boolean isFirstStart;
+    public static boolean isStartAgain;
 
     private final BroadcastReceiver backgroundUpdateReceiver = new BroadcastReceiver() {
         @Override
@@ -195,6 +206,7 @@ public class MainActivity extends GeoActivity
     private int CLICK_ACTION_THRESHOLD = 200;
     private float startX;
     private float startY;
+    private String CHANNEL_ID = "CHANNEL_ID";
 
 
     @SuppressLint("NewApi")
@@ -209,6 +221,7 @@ public class MainActivity extends GeoActivity
         Log.d("android_log", "onCreate: ");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//        showNotify();
         setPermissionCallback(new PermissionCallback() {
             @Override
             public void onPermissionGranted() {
@@ -218,7 +231,7 @@ public class MainActivity extends GeoActivity
                         Manifest.permission.ACCESS_COARSE_LOCATION
                 )){
                     isGotoSettings = true;
-                    viewModel.updateWeather(MainActivity.this);
+                    isStartAgain = true;
                 }
             }
 
@@ -242,6 +255,7 @@ public class MainActivity extends GeoActivity
                             Manifest.permission.ACCESS_COARSE_LOCATION
                     )){
                         isGotoSettings = false;
+                        isStartAgain = false;
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MyUtils.requestCode);
                     }
                 }
@@ -284,7 +298,7 @@ public class MainActivity extends GeoActivity
                 new IntentFilter(ACTION_UPDATE_WEATHER_IN_BACKGROUND)
         );
         refreshBackgroundViews(true, viewModel.getLocationList(),
-                false, false);
+                false, true);
 
     }
 
@@ -333,6 +347,7 @@ public class MainActivity extends GeoActivity
                 break;
 
             case MANAGE_ACTIVITY:
+                isStartAgain = false;
                 if (resultCode == RESULT_OK) {
                     String formattedId = getLocationId(data);
                     if (TextUtils.isEmpty(formattedId)) {
@@ -347,6 +362,7 @@ public class MainActivity extends GeoActivity
                 break;
 
             case CARD_MANAGE_ACTIVITY:
+                isStartAgain = false;
                 if (resultCode == RESULT_OK) {
                     resetUIUpdateFlag();
                     viewModel.reset(this);
@@ -381,11 +397,15 @@ public class MainActivity extends GeoActivity
     protected void onStart() {
         super.onStart();
         Log.d("android_log", "onStart: ");
+        if (PermissionUtils.permissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)){
+            AppOpenManager.getInstance().enableAppResume();
+        }
 //        weatherView.setDrawable(true);
     }
 
     @Override
     protected void onStop() {
+        isStartAgain = true;
         super.onStop();
         Log.d("android_log", "onStop: ");
 
@@ -401,6 +421,7 @@ public class MainActivity extends GeoActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        isStartAgain = false;
 //        if (bp != null) {
 //            bp.release();
 //        }
@@ -421,7 +442,18 @@ public class MainActivity extends GeoActivity
         }
 
     }
+    public void loadIntersAdDailyDetails() {
+        if (AdCache.getInstance().getInterstitialAdDailyDetails() == null) {
+            AdmobManager.getInstance().loadInterAds(this, BuildConfig.inter_detail_daily, new AdCallback() {
+                @Override
+                public void onResultInterstitialAd(InterstitialAd interstitialAd) {
+                    super.onResultInterstitialAd(interstitialAd);
+                    AdCache.getInstance().setInterstitialAdDailyDetails(interstitialAd);
+                }
+            });
+        }
 
+    }
     @Override
     public View getSnackBarContainer() {
         return binding.background.background;
@@ -852,7 +884,7 @@ public class MainActivity extends GeoActivity
             });
 
 
-            binding.background.radarWebView.loadData(html, "text/html", null);
+            binding.background.radarWebView.loadData(html, "text/html; charset=UTF-8", null);
 
 
             RotateAnimation rotateAnimation = new RotateAnimation(0, 360f,
@@ -1340,6 +1372,7 @@ public class MainActivity extends GeoActivity
     protected void onResume() {
         super.onResume();
         loadIntersAd();
+        loadIntersAdDailyDetails();
         Log.d("android_log", "onResume: ");
         if (isGotoSettings){
             if (!PermissionUtils.permissionGranted(
@@ -1347,7 +1380,7 @@ public class MainActivity extends GeoActivity
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
             )){
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
                     DialogPer1.start(this);
                     DialogPer1.listener = () -> {
                         gotoSettings(this);
@@ -1361,36 +1394,25 @@ public class MainActivity extends GeoActivity
                 }
                 return;
             }
-            else {
-                viewModel.updateWeather(this);
+            getCurrentLocation();
+        }
+        else if (!isLocationEnabled()){
+            if (!PermissionUtils.permissionGranted(
+                    MainActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            )){
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, MyUtils.requestCode);
+                return;
             }
+        }
+        if (isStartAgain && location != null){
+            viewModel.updateWeather(this);
+            isStartAgain = false;
         }
 
         if (isLocationEnabled()) {
-            viewModel.getCurrentLocation().observe(this, resource -> {
-                boolean updateInBackground = resource.consumeUpdatedInBackground();
-
-                setRefreshing(resource.status == Resource.Status.LOADING);
-                drawUI(resource.data, resource.isDefaultLocation(), updateInBackground);
-
-//                if (resource.isLocateFailed()) {
-//                    SnackbarUtils.showSnackbar(
-//                            this,
-//                            getString(R.string.feedback_location_failed),
-//                            getString(R.string.help),
-//                            v -> {
-//                                if (isForeground()) {
-//                                    new LocationHelpDialog().show(getSupportFragmentManager(), null);
-//                                }
-//                            }
-//                    );
-//                } else if (resource.status == Resource.Status.ERROR) {
-//                    SnackbarUtils.showSnackbar(this, getString(R.string.feedback_get_weather_failed));
-//                }
-
-                consumeIntentAction();
-                refreshBackgroundViews(true, viewModel.getLocationList(), false, false);
-            });
+            getCurrentLocation();
         }else {
             if (isGotoSettings){
                 buildAlertMessageNoGps();
@@ -1399,14 +1421,31 @@ public class MainActivity extends GeoActivity
 
     }
 
+    private void getCurrentLocation() {
+        viewModel.getCurrentLocation().observe(this, resource -> {
+            boolean updateInBackground = resource.consumeUpdatedInBackground();
+
+            setRefreshing(resource.status == Resource.Status.LOADING);
+            drawUI(resource.data, resource.isDefaultLocation(), updateInBackground);
+
+            consumeIntentAction();
+            refreshBackgroundViews(true, viewModel.getLocationList(), false, false);
+        });
+    }
+
     @Override
     public void onRefresh() {
-        viewModel.updateWeather(this);
+        if (!isLocationEnabled()){
+            buildAlertMessageNoGps();
+        }
+        else {
+            viewModel.updateWeather(this);
+        }
     }
 
     public void showDialogSettingUnit() {
         SettingNavDialog.Companion.start(this, (key, data) -> {
-            if (key == "done") onRefresh();
+            if (Objects.equals(key, "done")) onRefresh();
         });
     }
 
@@ -1454,6 +1493,10 @@ public class MainActivity extends GeoActivity
 
     public void privacy() {
         CommonUtils.getInstance().showPolicy(this, CmUtils.POLICY_URL);
+    }
+
+    public void showNotify() {
+        refreshBackgroundViews(true, viewModel.getLocationList(), true, true);
     }
 
     // on scroll changed listener.

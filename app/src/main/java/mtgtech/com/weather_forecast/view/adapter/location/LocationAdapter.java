@@ -98,8 +98,10 @@ public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.Vie
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void update(@NonNull List<Location> newList) {
         update(newList, null);
+        notifyDataSetChanged();
     }
 
     public void update(@NonNull List<Location> newList, @Nullable String forceUpdateId) {

@@ -1,5 +1,8 @@
 package mtgtech.com.weather_forecast.view.fragment;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
+
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,10 +27,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import java.util.List;
 
+import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.main.MainActivity;
@@ -60,6 +67,15 @@ public class LocationManageFragment extends Fragment
     private ValueAnimator colorAnimator;
 
     private boolean drawerMode = false;
+    private FrameLayout frAd;
+
+    public LocationAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(LocationAdapter adapter) {
+        this.adapter = adapter;
+    }
 
     private @Nullable
     LocationManageCallback locationListChangedListener;
@@ -86,7 +102,8 @@ public class LocationManageFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        AdmobManager.getInstance().loadBanner(requireActivity(), AdIdUtils.idBanner);
-        AdmobManager.getInstance().loadNative(requireContext(), BuildConfig.native_location, view.findViewById(R.id.native_ad), R.layout.custom_native_app);
+        frAd = view.findViewById(R.id.native_ad);
+        AdmobManager.getInstance().loadNative(requireContext(), BuildConfig.native_location, frAd, R.layout.custom_native_app);
 
     }
 

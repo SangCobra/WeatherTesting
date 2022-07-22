@@ -1,5 +1,6 @@
 package mtgtech.com.weather_forecast.remoteviews;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -158,7 +159,7 @@ public class NotificationUtils {
         String time = DateFormat.getDateTimeInstance(
                 DateFormat.LONG, DateFormat.DEFAULT).format(alert.getDate());
 
-        NotificationCompat.Builder builder = getNotificationBuilder(
+        @SuppressLint("InlinedApi") NotificationCompat.Builder builder = getNotificationBuilder(
                 context,
                 R.drawable.ic_alert,
                 alert.getDescription(),

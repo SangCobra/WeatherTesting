@@ -11,9 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.search.Search;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class SearchLocationAdapter extends RecyclerView.Adapter<SearchLocationAdapter.ViewHolder> {
     private Context context;
@@ -68,6 +70,34 @@ public class SearchLocationAdapter extends RecyclerView.Adapter<SearchLocationAd
             locationName.setText(search.getLocalizedName() + ", " + search.getCountry().getLocalizedName());
             itemView.setOnClickListener(v -> {
                 listener.onClick(search.getLocalizedName(), getAdapterPosition());
+//                Location location = ((LocationHolder) viewHolder).model.location;
+//                if (location.isCurrentPosition()) {
+//                    adapter.update(
+//                            adapter.getLocationList(),
+//                            location.getFormattedId()
+//                    );
+//                    if (listener != null) {
+//                        listener.onSelectProviderActivityStarted();
+//                    }
+//                } else {
+//                    List<Location> list = adapter.getLocationList();
+//                    location = list.get(viewHolder.getAdapterPosition());
+//                    location.setResidentPosition(!location.isResidentPosition());
+//                    adapter.update(list, location.getFormattedId());
+////                    if (location.isResidentPosition()) {
+////                        SnackbarUtils.showSnackbar(
+////                                activity,
+////                                activity.getString(R.string.feedback_resident_location),
+////                                activity.getString(R.string.learn_more),
+////                                v -> new LearnMoreAboutResidentLocationDialog().show(
+////                                        activity.getSupportFragmentManager(), null)
+////                        );
+////                    }
+//
+//                    if (listener != null) {
+//                        listener.onLocationChanged(list, location);
+//                    }
+//                }
             });
         }
     }

@@ -144,8 +144,10 @@
         android:id="@+id/native_ad"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="match_parent"
+        android:background="#3B3B3B"
         android:layout_height="wrap_content">
-        <include layout="@layout/item_native_location"
+        <include
+            layout="@layout/item_native_location"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

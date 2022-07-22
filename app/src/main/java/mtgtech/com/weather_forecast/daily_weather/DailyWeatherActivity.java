@@ -1,5 +1,9 @@
 package mtgtech.com.weather_forecast.daily_weather;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
+
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -17,7 +21,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
+import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
@@ -67,6 +74,7 @@ public class DailyWeatherActivity extends GeoActivity {
 
     public static final String KEY_FORMATTED_LOCATION_ID = "FORMATTED_LOCATION_ID";
     public static final String KEY_CURRENT_DAILY_INDEX = "CURRENT_DAILY_INDEX";
+    public static final String KEY_WEATHER_FORMATTED = "KEY_WEATHER_FORMATTED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,38 +82,41 @@ public class DailyWeatherActivity extends GeoActivity {
         setContentView(R.layout.activity_weather_daily);
         initData();
         initWidget();
+        AdmobManager.getInstance().loadNative(this, BuildConfig.native_detail_daily_weather, frAd, R.layout.custom_native_app);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
     public View getSnackBarContainer() {
-        return container;
+        return null;
     }
 
     private void initData() {
-        String formattedId = getIntent().getStringExtra(KEY_FORMATTED_LOCATION_ID);
-        if (TextUtils.isEmpty(formattedId)) {
-            location = DatabaseHelper.getInstance(this).readLocationList().get(0);
-        } else {
-            location = DatabaseHelper.getInstance(this).readLocation(formattedId);
-        }
-
+        location = (Location) getIntent().getSerializableExtra(KEY_FORMATTED_LOCATION_ID);
+        position = getIntent().getIntExtra(KEY_CURRENT_DAILY_INDEX, 0);
         if (location != null) {
-            weather = DatabaseHelper.getInstance(this).readWeather(location);
+            weather = DatabaseHelper.getInstance(DailyWeatherActivity.this).readWeather(location);
             timeZone = location.getTimeZone();
         }
-        position = getIntent().getIntExtra(KEY_CURRENT_DAILY_INDEX, 0);
+
+
+
     }
 
     private void initWidget() {
         SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(this);
-        if (weather == null) {
-            finish();
-        }
-
         container = findViewById(R.id.activity_weather_daily_container);
 
         Toolbar toolbar = findViewById(R.id.activity_weather_daily_toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> {
+            isStartAgain = false;
+            finish();
+        });
 
         title = findViewById(R.id.activity_weather_daily_title);
 //        subtitle = findViewById(R.id.activity_weather_daily_subtitle);
@@ -117,141 +128,63 @@ public class DailyWeatherActivity extends GeoActivity {
 
         frAd = findViewById(R.id.fr_ad_native);
         frAd.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#3B3B3B")));
-        AdmobManager.getInstance().loadNative(this, BuildConfig.native_detail_daily_weather, frAd);
 
 
         title.setText(location.getCityName(this));
         title.setTextColor(Color.WHITE);
-        selectPage(
-                weather.getDailyForecast().get(position),
-                position,
-                weather.getDailyForecast().size()
-        );
-
-        List<View> viewList = new ArrayList<>(weather.getDailyForecast().size());
-        List<String> titleList = new ArrayList<>(weather.getDailyForecast().size());
-
-
-        for (int i = 0; i < weather.getDailyForecast().size(); i++) {
-            Daily d = weather.getDailyForecast().get(i);
-            Daily tomorrow = null;
-
-            if (i + 1 < weather.getDailyForecast().size()) {
-                tomorrow = weather.getDailyForecast().get(i + 1);
-            }
-
-            FitBottomSystemBarRecyclerView recyclerView = new FitBottomSystemBarRecyclerView(this);
-            recyclerView.setClipToPadding(false);
-            DailyWeatherAdapter dailyWeatherAdapter = new DailyWeatherAdapter(this, d, 3);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-            gridLayoutManager.setSpanSizeLookup(dailyWeatherAdapter.spanSizeLookup);
-            recyclerView.setAdapter(dailyWeatherAdapter);
-            recyclerView.setLayoutManager(gridLayoutManager);
-
-
-            FragmentDailyDetailsBinding dayDetailsBinding = FragmentDailyDetailsBinding.inflate(getLayoutInflater());
-
-
-            //Day Time Sun Moon View
-            SunMoonUtils daySunMoonUtils = new SunMoonUtils(dayDetailsBinding.daySunMoonView, location, ResourcesProviderFactory.getNewInstance(), false);
-            if (tomorrow != null) {
-                daySunMoonUtils.ensureTime(d, tomorrow, location.getTimeZone());
-            } else {
-                daySunMoonUtils.ensureTime(d, d, location.getTimeZone());
-
-            }
-            daySunMoonUtils.onEnterScreen();
-            daySunMoonUtils.setMoonDrawable();
-            daySunMoonUtils.setSunDrawable();
-            dayDetailsBinding.tvDayStartTime.setText(d.sun().getRiseTime(DailyWeatherActivity.this));
-            dayDetailsBinding.tvDayEndTime.setText(d.sun().getSetTime(DailyWeatherActivity.this));
-
-
-            //set weather icon
-            setWeatherIcon(d, dayDetailsBinding);
-
-
-            //Night Time Sun moon View
-            SunMoonUtils nightSunMoonUtils = new SunMoonUtils(dayDetailsBinding.nightSunMoonView, location, ResourcesProviderFactory.getNewInstance(), true);
-            if (tomorrow != null) {
-                nightSunMoonUtils.ensureTime(d, tomorrow, location.getTimeZone());
-            } else {
-                nightSunMoonUtils.ensureTime(d, d, location.getTimeZone());
-
-            }
-            nightSunMoonUtils.setMoonDrawable();
-            nightSunMoonUtils.setSunDrawable();
-            nightSunMoonUtils.onEnterScreen();
-
-            dayDetailsBinding.tvNightStartTime.setText(d.moon().getRiseTime(DailyWeatherActivity.this));
-            dayDetailsBinding.tvNightEndTime.setText(d.moon().getSetTime(DailyWeatherActivity.this));
-
-
-            //Day list
-            DailyDetailsAdapter dayDetailsAdapter = new DailyDetailsAdapter(this);
-            ArrayList<DailyDetailsModel> dayList = getDailyDetailsModels(d.day(), settingsOptionManager);
-            if (d.getUV().getIndex() != null) {
-                dayList.add(new DailyDetailsModel(R.drawable.ic_uv, getString(R.string.uv_index), d.getUV().getIndex().toString(), true));
-            }
-            dayDetailsBinding.rcDailyDetails.setAdapter(dayDetailsAdapter);
-            dayDetailsBinding.rcDailyDetails.setLayoutManager(new LinearLayoutManager(this));
-            dayDetailsAdapter.updateData(dayList);
-
-            //NightList
-            ArrayList<DailyDetailsModel> nightList = getDailyDetailsModels(d.night(), settingsOptionManager);
-            DailyDetailsAdapter nightDetailsAdapter = new DailyDetailsAdapter(this);
-            dayDetailsBinding.rcNightDetails.setAdapter(nightDetailsAdapter);
-            dayDetailsBinding.rcNightDetails.setLayoutManager(new LinearLayoutManager(this));
-            nightDetailsAdapter.updateData(nightList);
-
-
-            dayDetailsBinding.tvLowTempDay.setText(d.night().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
-            dayDetailsBinding.tvLowTempNight.setText(d.night().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
-            dayDetailsBinding.tvMaxTempDay.setText(d.day().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
-            dayDetailsBinding.tvMaxTemp.setText(d.day().getTemperature().getShortTemperature(this, settingsOptionManager.getTemperatureUnit()));
-            dayDetailsBinding.tvDayDailyStatus.setText(d.day().getWeatherText());
-            dayDetailsBinding.tvNightDailyStatus.setText(d.night().getWeatherText());
-            viewList.add(dayDetailsBinding.getRoot());
-
-            titleList.add(d.getDate("EEE\nd/M"));
-
-
-        }
-
         FitBottomSystemBarViewPager pager = findViewById(R.id.activity_weather_daily_pager);
+        if (weather != null) {
 
-        pager.setAdapter(new FitBottomSystemBarViewPager.FitBottomSystemBarPagerAdapter(pager, viewList, titleList));
-        pager.setPageMargin((int) DisplayUtils.dpToPx(this, 1));
+            selectPage(
+                    weather.getDailyForecast().get(position),
+                    position,
+                    weather.getDailyForecast().size()
+            );
+
+            List<View> viewList = new ArrayList<>(7);
+            List<String> titleList = new ArrayList<>(weather.getDailyForecast().size());
+
+
+            for (int i = 0; i < weather.getHourlyForecast().size(); i++) {
+                Daily d = weather.getDailyForecast().get(i);
+                titleList.add(d.getDate("EEE\nd/M"));
+            }
+
+
+            pager.setAdapter(new FitBottomSystemBarViewPager.FitBottomSystemBarPagerAdapter(this, pager, location, weather, titleList));
+            pager.setPageMargin((int) DisplayUtils.dpToPx(this, 1));
 //        pager.setPageMarginDrawable(new ColorDrawable(ThemeManager.getInstance(this).getLineColor(this)));
-        pager.setCurrentItem(position);
-        pager.setOffscreenPageLimit(30);
-        pager.clearOnPageChangeListeners();
-        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                // do nothing.
-            }
+            pager.setCurrentItem(position);
+            pager.setOffscreenPageLimit(30);
+            pager.clearOnPageChangeListeners();
+            pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    // do nothing.
+                }
 
-            @Override
-            public void onPageSelected(int position) {
-                selectPage(
-                        weather.getDailyForecast().get(position),
-                        position,
-                        weather.getDailyForecast().size()
-                );
+                @Override
+                public void onPageSelected(int position) {
+                    selectPage(
+                            weather.getDailyForecast().get(position),
+                            position,
+                            weather.getDailyForecast().size()
+                    );
 
-            }
+                }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                // do nothing.
-            }
-        });
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    // do nothing.
+                }
+            });
 
-        TabLayout tabs = findViewById(R.id.dailyTabs);
-        tabs.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
-        tabs.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
-        tabs.setupWithViewPager(pager);
+
+            TabLayout tabs = findViewById(R.id.dailyTabs);
+            tabs.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
+            tabs.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF"));
+            tabs.setupWithViewPager(pager);
+        }
     }
 
     private void setWeatherIcon(Daily d, mtgtech.com.weather_forecast.databinding.FragmentDailyDetailsBinding dayDetailsBinding) {
@@ -374,6 +307,12 @@ public class DailyWeatherActivity extends GeoActivity {
         return list;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        isStartAgain = false;
+    }
+
     @SuppressLint("SetTextI18n")
     private void selectPage(Daily daily, int position, int size) {
 
@@ -383,5 +322,35 @@ public class DailyWeatherActivity extends GeoActivity {
         } else {
             indicator.setText((position + 1) + "/" + size);
         }
+    }
+    public void showInterAd() {
+        AdmobManager.getInstance().showInterstitial(this, AdCache.getInstance().getInterstitialAd(), new AdCallback() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                AdCache.getInstance().setInterstitialAd(null);
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(TIME_LOAD_INTERS);
+                        isShowAds = false;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
+
+        });
+    }
+    public void loadIntersAd() {
+        if (AdCache.getInstance().getInterstitialAd() == null) {
+            AdmobManager.getInstance().loadInterAds(this, BuildConfig.inter_move_screen, new AdCallback() {
+                @Override
+                public void onResultInterstitialAd(InterstitialAd interstitialAd) {
+                    super.onResultInterstitialAd(interstitialAd);
+                    AdCache.getInstance().setInterstitialAd(interstitialAd);
+                }
+            });
+        }
+
     }
 }

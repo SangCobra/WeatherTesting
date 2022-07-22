@@ -4,6 +4,8 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,9 +22,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.Toast;
 
 import com.turingtechnologies.materialscrollbar.CustomIndicator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -190,13 +194,20 @@ public class SearchActivity extends GeoActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s)) {
-                    accuWeatherService.getApi().searchPlace(BuildConfig.ACCU_WEATHER_KEY, LanguageUtils.getCurrentLocale(SearchActivity.this).getLanguage(), s.toString(), true)
-                            .subscribeOn(Schedulers.newThread())
-                            .observeOn(AndroidSchedulers.mainThread()).subscribe(searches -> {
-                                listSearch = (ArrayList<Search>) searches;
-                                SearchActivity.this.adapter.setList(listSearch);
+                    if (isNetworkConnected()){
+                        accuWeatherService.getApi().searchPlace(BuildConfig.ACCU_WEATHER_KEY, LanguageUtils.getCurrentLocale(SearchActivity.this).getLanguage(), s.toString(), true)
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread()).subscribe(searches -> {
+                                    listSearch = (ArrayList<Search>) searches;
+                                    SearchActivity.this.adapter.setList(listSearch);
 //                                setState(STATE_LOADING);
-                            });
+                                });
+
+                    }
+                    else {
+                        Toast.makeText(SearchActivity.this, getString(R.string.not_have_internet), Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
 
                     binding.clearBtn.setVisibility(View.VISIBLE);
@@ -282,10 +293,18 @@ public class SearchActivity extends GeoActivity
     public void requestLocationSuccess(String query, List<Location> locationList) {
         if (locationList.get(0) != null){
             DatabaseHelper.getInstance(SearchActivity.this).writeLocation(locationList.get(0));
+            Intent intent = new Intent();
+            intent.putExtra("location", (Serializable) locationList.get(0));
+            setResult(RESULT_OK, intent);
         }
     }
 
     @Override
     public void requestLocationFailed(String query) {
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 }

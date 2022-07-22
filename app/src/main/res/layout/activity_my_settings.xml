@@ -9,11 +9,10 @@
     tools:context=".settings.activity.MySettingsActivity">
 
     <LinearLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorHomeBg"
-        android:id="@+id/appBar"
-        >
+        android:background="@color/colorHomeBg">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activitySettingsToolbar"
@@ -23,11 +22,11 @@
 
             <TextView
                 android:id="@+id/activitySettingsTitle"
+                style="@style/title_text"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
-                style="@style/title_text"
+                android:textStyle="bold"
                 tools:text="@string/action_settings" />
 
 
@@ -38,7 +37,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/gnt_white50"/>
+        android:background="@color/gnt_white50" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -52,474 +51,462 @@
             android:orientation="vertical">
 
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/theme"
-        style="@style/tvSettingsHeadingStyle"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/llThemeContainer"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/tvSettingsTextStyle"
-            android:text="@string/theme"/>
-
-        <ImageView
-            android:id="@+id/imgDarkTheme"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@color/colorPureBlack"/>
-
-        <ImageView
-            android:id="@+id/imgRegularTheme"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/cyan_theme_unselect_shape"
-            android:layout_marginStart="10dp"/>
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gnt_white50"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/precipitation"
-        style="@style/tvSettingsHeadingStyle"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/tvSettingsTextStyle"
-            android:text="@string/settings_title_precipitation_notification_switch"/>
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/switchSendPercip"
-            />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gnt_white50"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/refresh_rate"
-        style="@style/tvSettingsHeadingStyle"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:id="@+id/llRefreshRateContainer"
-        android:layout_marginBottom="15dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/tvSettingsTextStyle"
-            android:text="@string/settings_title_refresh_rate"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/tvRefreshRateValue"
-            />
-
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gnt_white50"/>
-
-
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_title_unit"
-        style="@style/tvSettingsHeadingStyle"/>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/settingsSubMenuStyle"
-        android:layout_marginTop="0dp"
-        >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/llTempContainer"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
             <TextView
-                style="@style/tvSettingsTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/settings_title_temperature_unit" />
-
-            <EditText
+                style="@style/tvSettingsHeadingStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/etTempUnit"
-                style="@style/etSettingUnitTextStyle"/>
-        </LinearLayout>
+                android:text="@string/theme" />
 
-        <View
-            style="@style/dottedDividerStyle"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/settingsSubMenuStyle">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/llPressureContainer"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/tvSettingsTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/settings_title_pressure_unit" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/etPressureUnit"
-                style="@style/etSettingUnitTextStyle"/>
-        </LinearLayout>
-
-        <View
-            style="@style/dottedDividerStyle"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layerType="software"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/settingsSubMenuStyle">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/llDistanceContainer"
-            android:layout_marginBottom="10dp"
-
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/tvSettingsTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/settings_title_distance_unit" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/etDistanceUnit"
-                style="@style/etSettingUnitTextStyle"/>
-        </LinearLayout>
-
-        <View
-            style="@style/dottedDividerStyle"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layerType="software"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/settingsSubMenuStyle">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/llPercipitationContainer"
-            android:layout_marginBottom="10dp"
-
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/tvSettingsTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/settings_title_precipitation_unit"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/etPrecipUnit"
-                style="@style/etSettingUnitTextStyle"/>
-        </LinearLayout>
-
-        <View
-            style="@style/dottedDividerStyle"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layerType="software"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/settingsSubMenuStyle">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/llSpeedContainer"
-            android:layout_marginBottom="10dp"
-
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/tvSettingsTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/settings_title_speed_unit" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/etSpeedUnit"
-                style="@style/etSettingUnitTextStyle"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/gnt_white50"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forecast"
-        style="@style/tvSettingsHeadingStyle"/>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/tvSettingsTextStyle"
-            android:text="@string/settings_title_forecast_today"/>
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/switchForecastToday"
-            />
-
-
-    </LinearLayout>
-
-            <View
-                style="@style/dottedDividerStyle"
+            <LinearLayout
+                android:id="@+id/llThemeContainer"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layerType="software"/>
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    style="@style/tvSettingsTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/theme" />
 
-    <LinearLayout
-        android:id="@+id/llTodayForecast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
+                <ImageView
+                    android:id="@+id/imgDarkTheme"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@color/colorPureBlack" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/tvSettingsTextStyle"
-            android:id="@+id/tvForecastToday"
-            android:textColor="@color/black30"
-            android:text="@string/settings_title_forecast_today_time"/>
+                <ImageView
+                    android:id="@+id/imgRegularTheme"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/cyan_theme_unselect_shape" />
+            </LinearLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/etForecastTodayValue"
-            style="@style/etSettingUnitTextStyle"/>
-
-
-    </LinearLayout>
-
-    <View
-        style="@style/dottedDividerStyle"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layerType="software"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/tvSettingsTextStyle"
-            android:text="@string/settings_title_forecast_tomorrow"/>
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/switchForecastTomorrow"
-            />
-
-
-    </LinearLayout>
 
             <View
-                style="@style/dottedDividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layerType="software"/>
-
-
-    <LinearLayout
-        android:id="@+id/llTomorrowForecast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/tvSettingsTextStyle"
-            android:textColor="@color/black30"
-            android:id="@+id/tvForecastTomorrow"
-            android:text="@string/key_forecast_tomorrow_time"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/etForecastTomorrowValue"
-            style="@style/etSettingUnitTextStyle"
-            />
-
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gnt_white50"/>
+                android:layout_height="0.5dp"
+                android:background="@color/gnt_white50" />
 
 
             <TextView
+                style="@style/tvSettingsHeadingStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/settings_category_notification"
-                style="@style/tvSettingsHeadingStyle"/>
+                android:text="@string/precipitation" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tvSettingsTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_title_precipitation_notification_switch" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchSendPercip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gnt_white50" />
+
+
+            <TextView
+                style="@style/tvSettingsHeadingStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refresh_rate" />
+
+            <LinearLayout
+                android:id="@+id/llRefreshRateContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tvSettingsTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_title_refresh_rate" />
+
+                <TextView
+                    android:id="@+id/tvRefreshRateValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gnt_white50" />
+
+
+            <TextView
+                style="@style/tvSettingsHeadingStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_title_unit" />
+
+
+            <LinearLayout
                 style="@style/settingsSubMenuStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                >
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llTempContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/tvSettingsTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_title_temperature_unit" />
+
+                    <EditText
+                        android:id="@+id/etTempUnit"
+                        style="@style/etSettingUnitTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    style="@style/dottedDividerStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/settingsSubMenuStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llPressureContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/tvSettingsTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_title_pressure_unit" />
+
+                    <EditText
+                        android:id="@+id/etPressureUnit"
+                        style="@style/etSettingUnitTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    style="@style/dottedDividerStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layerType="software" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/settingsSubMenuStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llDistanceContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/tvSettingsTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_title_distance_unit" />
+
+                    <EditText
+                        android:id="@+id/etDistanceUnit"
+                        style="@style/etSettingUnitTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    style="@style/dottedDividerStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layerType="software" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/settingsSubMenuStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llPercipitationContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/tvSettingsTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_title_precipitation_unit" />
+
+                    <EditText
+                        android:id="@+id/etPrecipUnit"
+                        style="@style/etSettingUnitTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    style="@style/dottedDividerStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layerType="software" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/settingsSubMenuStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llSpeedContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/tvSettingsTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_title_speed_unit" />
+
+                    <EditText
+                        android:id="@+id/etSpeedUnit"
+                        style="@style/etSettingUnitTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/gnt_white50" />
+
+            <TextView
+                style="@style/tvSettingsHeadingStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forecast" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tvSettingsTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_title_forecast_today" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchForecastToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
+            </LinearLayout>
+
+            <View
+                style="@style/dottedDividerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layerType="software" />
+
+
+            <LinearLayout
+                android:id="@+id/llTodayForecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvForecastToday"
+                    style="@style/tvSettingsTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_title_forecast_today_time"
+                    android:textColor="@color/black30" />
+
+                <EditText
+                    android:id="@+id/etForecastTodayValue"
+                    style="@style/etSettingUnitTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <View
+                style="@style/dottedDividerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layerType="software" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tvSettingsTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_title_forecast_tomorrow" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchForecastTomorrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
+            </LinearLayout>
+
+            <View
+                style="@style/dottedDividerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layerType="software" />
+
+
+            <LinearLayout
+                android:id="@+id/llTomorrowForecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvForecastTomorrow"
+                    style="@style/tvSettingsTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/key_forecast_tomorrow_time"
+                    android:textColor="@color/black30" />
+
+                <EditText
+                    android:id="@+id/etForecastTomorrowValue"
+                    style="@style/etSettingUnitTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gnt_white50" />
+
+
+            <TextView
+                style="@style/tvSettingsHeadingStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_category_notification" />
+
+            <LinearLayout
+                style="@style/settingsSubMenuStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -536,26 +523,25 @@
 
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchAlertNotification"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/switchAlertNotification"
-                        />
+                        android:layout_gravity="center" />
                 </LinearLayout>
 
                 <View
                     style="@style/dottedDividerStyle"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layerType="software"/>
+                    android:layerType="software" />
             </LinearLayout>
 
 
             <LinearLayout
+                style="@style/settingsSubMenuStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/settingsSubMenuStyle">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -571,260 +557,251 @@
                         android:text="@string/settings_title_notification" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchNotification"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/switchNotification"
-                        />
+                        android:layout_gravity="center" />
                 </LinearLayout>
 
                 <View
                     style="@style/dottedDividerStyle"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layerType="software"/>
+                    android:layerType="software" />
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/llNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/llNotification"
                 android:orientation="vertical">
 
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/llNotificationStyle"
-                style="@style/settingsSubMenuStyle">
-
                 <LinearLayout
+                    android:id="@+id/llNotificationStyle"
+                    style="@style/settingsSubMenuStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
 
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/tvSettingsTextStyle"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/settings_title_notification_style" />
+                        android:layout_marginBottom="10dp"
+
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/tvSettingsTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/settings_title_notification_style" />
 
 
-                    <EditText
-                        android:layout_width="wrap_content"
+                        <EditText
+                            android:id="@+id/etNotificationStyle"
+                            style="@style/etSettingUnitTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/dottedDividerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layerType="software" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/settingsSubMenuStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/etNotificationStyle"
-                        style="@style/etSettingUnitTextStyle"
-                        />
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/tvSettingsTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/settings_title_notification_temp_icon" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchTempIconEnable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+
+                    <View
+                        style="@style/dottedDividerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layerType="software" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/settingsSubMenuStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/tvSettingsTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/settings_title_notification_can_be_cleared" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchCanBeCleared"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/dottedDividerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layerType="software" />
 
                 </LinearLayout>
 
-                <View
-                    style="@style/dottedDividerStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layerType="software"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/settingsSubMenuStyle">
 
                 <LinearLayout
+                    style="@style/settingsSubMenuStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        style="@style/tvSettingsTextStyle"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/settings_title_notification_temp_icon"/>
+                        android:layout_marginBottom="10dp"
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/switchTempIconEnable"
-                        />
-                </LinearLayout>
+                        android:orientation="horizontal">
 
-                <View
-                    style="@style/dottedDividerStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layerType="software"/>
-            </LinearLayout>
+                        <TextView
+                            style="@style/tvSettingsTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/settings_title_notification_hide_icon" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/settingsSubMenuStyle">
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchHideNotificationIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    </LinearLayout>
 
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/tvSettingsTextStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/settings_title_notification_can_be_cleared" />
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/switchCanBeCleared"
-                        />
+                    <View
+                        style="@style/dottedDividerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layerType="software" />
 
                 </LinearLayout>
 
-                <View
-                    style="@style/dottedDividerStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layerType="software"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/settingsSubMenuStyle">
-
                 <LinearLayout
+                    style="@style/settingsSubMenuStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
 
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/tvSettingsTextStyle"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/settings_title_notification_hide_icon" />
+                        android:layout_marginBottom="10dp"
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/switchHideNotificationIcon"
-                        />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/tvSettingsTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/settings_title_notification_hide_in_lockScreen" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchHideInLockScreen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/dottedDividerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layerType="software" />
 
                 </LinearLayout>
 
-                <View
-                    style="@style/dottedDividerStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layerType="software"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/settingsSubMenuStyle">
-
                 <LinearLayout
+                    style="@style/settingsSubMenuStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
 
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/tvSettingsTextStyle"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/settings_title_notification_hide_in_lockScreen" />
+                        android:layout_marginBottom="10dp"
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/switchHideInLockScreen"
-                        />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/tvSettingsTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/settings_title_notification_hide_big_view" />
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchHideBigView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/dottedDividerStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layerType="software" />
 
                 </LinearLayout>
 
-                <View
-                    style="@style/dottedDividerStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layerType="software"/>
-
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/settingsSubMenuStyle">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/tvSettingsTextStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/settings_title_notification_hide_big_view" />
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:id="@+id/switchHideBigView"
-                        />
-
-                </LinearLayout>
-
-                <View
-                    style="@style/dottedDividerStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layerType="software"/>
-
-            </LinearLayout>
-
-            </LinearLayout>
-
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/gnt_white50"/>
+                android:background="@color/gnt_white50" />
 
         </LinearLayout>
 

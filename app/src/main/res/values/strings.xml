@@ -526,5 +526,6 @@
     <string name="then_turn_on_location">Then turn on \"Location\"</string>
     <string name="weather_forecast">Weather Forecast</string>
     <string name="add_location">Add location</string>
+    <string name="not_have_internet">You must turn on internet</string>
 
 </resources>

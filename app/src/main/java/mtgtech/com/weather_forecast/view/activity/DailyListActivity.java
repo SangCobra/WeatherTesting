@@ -1,18 +1,27 @@
 package mtgtech.com.weather_forecast.view.activity;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
+import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import java.util.ArrayList;
 import java.util.TimeZone;
 
+import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
@@ -68,8 +77,11 @@ public class DailyListActivity extends GeoActivity {
         dailyDayNightAdapter = new DailyDayNightAdapter(this, index -> IntentHelper.startDailyWeatherActivity(
                 this, location.getFormattedId(), index));
 
-        dailyListAdapter = new DailyListAdapter(this, index -> IntentHelper.startDailyWeatherActivity(
-                this, location.getFormattedId(), index));
+        dailyListAdapter = new DailyListAdapter(this, index -> {
+            IntentHelper.startDailyWeatherActivity(
+                    this, location.getFormattedId(), index);
+
+        });
 
         initData();
     }
@@ -79,6 +91,12 @@ public class DailyListActivity extends GeoActivity {
         return null;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadIntersAdDailyDetails();
+    }
 
     private void initData() {
         String formattedId = getIntent().getStringExtra(KEY_FORMATTED_LOCATION_ID);
@@ -123,7 +141,10 @@ public class DailyListActivity extends GeoActivity {
 //        binding.tvDailyStatus.setText(weather.getCurrent().getWeatherText());
 
         Toolbar toolbar = findViewById(R.id.activity_weather_daily_toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> {
+            isStartAgain = false;
+            finish();
+        });
 //
 //        TextView title = findViewById(R.id.activity_weather_daily_title);
 //        title.setText(location.getCityName(this));
@@ -131,4 +152,21 @@ public class DailyListActivity extends GeoActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        isStartAgain = false;
+    }
+    public void loadIntersAdDailyDetails() {
+        if (AdCache.getInstance().getInterstitialAdDailyDetails() == null) {
+            AdmobManager.getInstance().loadInterAds(this, BuildConfig.inter_detail_daily, new AdCallback() {
+                @Override
+                public void onResultInterstitialAd(InterstitialAd interstitialAd) {
+                    super.onResultInterstitialAd(interstitialAd);
+                    AdCache.getInstance().setInterstitialAdDailyDetails(interstitialAd);
+                }
+            });
+        }
+
+    }
 }

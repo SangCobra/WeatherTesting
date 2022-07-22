@@ -1,10 +1,15 @@
 package mtgtech.com.weather_forecast.daily_weather.adapter.holder;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
 import static mtgtech.com.weather_forecast.view.adapter.HourlyForecastAdapter.AD_TYPE;
 import static mtgtech.com.weather_forecast.view.adapter.HourlyForecastAdapter.NON_AD_TYPE;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +21,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
@@ -177,14 +184,15 @@ public class DailyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
         }
     }
+
     public class AdViewHolder extends RecyclerView.ViewHolder{
 
         private FrameLayout frAd;
         public AdViewHolder(@NonNull View itemView) {
             super(itemView);
             frAd = itemView.findViewById(R.id.fr_ad_native);
-
-            AdmobManager.getInstance().loadNative(context, BuildConfig.native_daily_weather, frAd, R.layout.custom_native_app);
+            frAd.setBackgroundColor(Color.parseColor("#3B3B3B"));
+            AdmobManager.getInstance().loadNative(context, BuildConfig.native_daily_weather, frAd, R.layout.custom_native_1);
         }
     }
 }

@@ -1,11 +1,15 @@
 package mtgtech.com.weather_forecast.main;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.databinding.ActivityRadarBinding;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
 
 public class RadarActivity extends GeoActivity {
 
@@ -13,6 +17,7 @@ public class RadarActivity extends GeoActivity {
     private Float longitude ;
 
     private ActivityRadarBinding binding;
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +57,18 @@ public class RadarActivity extends GeoActivity {
 //            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int)DisplayUtils.dpToPx(this,300),(int)DisplayUtils.dpToPx(this,100));
 //            binding.background.cardWebView.setLayoutParams(layoutParams);
         binding.radarWebView.getSettings().setJavaScriptEnabled(true);
-        binding.radarWebView.loadData(html, "text/html", null);
+        binding.radarWebView.loadData(html, "text/html; charset=UTF-8", null);
 
     }
 
     @Override
     public View getSnackBarContainer() {
         return null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        isStartAgain = false;
     }
 }

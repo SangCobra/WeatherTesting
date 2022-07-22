@@ -1,12 +1,19 @@
 package mtgtech.com.weather_forecast;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isGotoSettings;
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDelegate;
 
 
 import com.common.control.MyApplication;
+import com.common.control.manager.AppOpenManager;
 import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
@@ -15,6 +22,8 @@ import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Set;
 
+import mtgtech.com.weather_forecast.main.MainActivity;
+import mtgtech.com.weather_forecast.view.activity.SplashActivity;
 import okhttp3.OkHttpClient;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -150,6 +159,7 @@ public class WeatherFlow extends MyApplication {
 //
 //    }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onApplicationCreate() {
         initialize();
@@ -158,6 +168,7 @@ public class WeatherFlow extends MyApplication {
         if (processName != null && processName.equals(getPackageName())) {
             resetDayNightMode();
         }
+        AppOpenManager.getInstance().disableAppResumeWithActivity(SplashActivity.class);
     }
 
     @Override
@@ -177,12 +188,12 @@ public class WeatherFlow extends MyApplication {
 
     @Override
     public boolean enableAdsResume() {
-        return false;
+        return true;
     }
 
     @Override
     public String getOpenAppAdId() {
-        return null;
+        return BuildConfig.open_app;
     }
 
     private void initialize() {

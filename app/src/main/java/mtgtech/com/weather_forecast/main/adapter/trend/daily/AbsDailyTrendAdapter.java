@@ -20,7 +20,7 @@ public abstract class AbsDailyTrendAdapter<VH extends RecyclerView.ViewHolder> e
 
     protected void onItemClicked(int adapterPosition) {
         if (activity.isForeground()) {
-            IntentHelper.startDailyWeatherActivity(activity, formattedId, adapterPosition);
+//            IntentHelper.startDailyWeatherActivity(activity, formattedId, adapterPosition);
         }
     }
 }

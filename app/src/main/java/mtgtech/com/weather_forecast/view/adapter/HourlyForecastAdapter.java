@@ -2,6 +2,7 @@ package mtgtech.com.weather_forecast.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,7 +181,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             listDetails.add("Dew point: " + settingsOptionManager.getTemperatureUnit().getTemperatureText(context,
                     model.getDewPoint()));
             listDetails.add("Cloud cover: " + model.getCloudCover() + "%");
-            listDetails.add("Rain: " + settingsOptionManager.getPrecipitationUnit().getPrecipitationText(context, settingsOptionManager.getPrecipitationUnit().getPrecipitation(model.getPrecipitation().getRain())));
+            listDetails.add("Rain: " + model.getPrecipitation().getRain() + "mm");
             listDetails.add("Visibility: " + settingsOptionManager.getDistanceUnit().getDistanceText(context, settingsOptionManager.getDistanceUnit().getDistance(model.getVisibility())));
             listDetails.add("Cloud Ceiling: " + model.getCeiling() + " m");
             weatherAttributesAdapter.setList(listDetails);
@@ -224,8 +225,8 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public AdViewHolder(@NonNull View itemView) {
             super(itemView);
             frAd = itemView.findViewById(R.id.fr_ad_native);
-
-            AdmobManager.getInstance().loadNative(context, BuildConfig.native_hourly_weather, frAd, R.layout.custom_native_app);
+            frAd.setBackgroundColor(Color.parseColor("#3B3B3B"));
+            AdmobManager.getInstance().loadNative(context, BuildConfig.native_hourly_weather, frAd, R.layout.custom_native_1);
         }
     }
 

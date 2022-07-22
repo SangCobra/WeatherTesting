@@ -1,7 +1,9 @@
 package mtgtech.com.weather_forecast.view.fragment;
 
+import static com.common.control.utils.LanguageUtils.changeLanguage;
 import static mtgtech.com.weather_forecast.main.MainActivity.MANAGE_ACTIVITY;
 import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
+import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,6 +11,8 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,7 +41,10 @@ import java.util.Locale;
 
 import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
+import mtgtech.com.weather_forecast.utils.LanguageUtils;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.CloudCoverUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
@@ -67,7 +74,7 @@ import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 
 public class HomeFragment extends Fragment {
 
-    private static final long TIME_LOAD_INTERS = 18000;
+    public static final long TIME_LOAD_INTERS = 18000;
     private Location location;
     private FragmentHomeBinding binding;
     private ResourceProvider resourceProvider;
@@ -81,6 +88,7 @@ public class HomeFragment extends Fragment {
     private DailyAdapter dailyAdapter;
     private SunMoonUtils sunMoonUtils;
     private SettingsOptionManager settingsOptionManager;
+    private Location locationAnother;
 
 
     @Override
@@ -88,6 +96,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for requireActivity() fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
@@ -112,7 +121,12 @@ public class HomeFragment extends Fragment {
 //                    }
 //                });
 
-
+        if (TextUtils.isEmpty(location.getFormattedId())) {
+            locationAnother = DatabaseHelper.getInstance(requireContext()).readLocationList().get(0);
+        } else {
+            locationAnother = DatabaseHelper.getInstance(requireContext()).readLocation(location.getFormattedId());
+        }
+        Weather weather = DatabaseHelper.getInstance(requireContext()).readWeather(locationAnother);
 //        todayForecastAdapter = new TodayForecastAdapter(requireActivity());
         dailyForecastAdapter = new DailyForecastAdapter(requireActivity(), index -> IntentHelper.startDailyWeatherActivity(
                 requireActivity(), location.getFormattedId(), index));
@@ -144,7 +158,6 @@ public class HomeFragment extends Fragment {
 //        DisplayUtils.disableEditText(binding.tvSeeMoreRadar);
 
         clickListeners();
-
 
 
         try {
@@ -183,15 +196,13 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        ((MainActivity) requireActivity()).setCityName(location.getCityName(requireActivity()));
-
-
     }
 
     @SuppressLint({"SetTextI18n", "SetJavaScriptEnabled", "ClickableViewAccessibility"})
     private void resetUI(Location location) {
 
         SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(requireActivity());
+        settingsOptionManager.setLanguage(Language.ENGLISH_UK);
         if (location.getWeather() != null) {
             setWeatherImage(location.getWeather(), binding.imgWeather, settingsOptionManager.isWeatherBgEnabled());
 
@@ -326,10 +337,7 @@ public class HomeFragment extends Fragment {
 
             binding.tvSeeMoreRadar.setOnClickListener(view -> {
                 sendToRadar(location);
-                if (!isShowAds) {
-                    isShowAds = true;
-                    showInterAd();
-                }
+                showInterAd();
             });
 
 
@@ -354,7 +362,7 @@ public class HomeFragment extends Fragment {
             binding.radarWebView.setOnClickListener(view -> {
 
             });
-            binding.radarWebView.loadData(html, "text/html", null);
+            binding.radarWebView.loadData(html, "text/html; charset=UTF-8", null);
 
 
             RotateAnimation rotateAnimation = new RotateAnimation(0, 360f,
@@ -393,8 +401,9 @@ public class HomeFragment extends Fragment {
 
 
 //            binding.tvPressureValue.setText(settingsOptionManager.getPressureUnit().getPressureText(requireActivity(), location.getWeather().getCurrent().getPressure()));
+            String cityName = location.getCity();
 
-            binding.tvCityName.setText(location.getCityName(requireActivity()) + ", " + location.getCountry());
+            binding.tvCityName.setText(cityName + ", " + LanguageUtils.traditionalToSimplified(location.getCountry()));
             @SuppressLint("SimpleDateFormat") SimpleDateFormat fommater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZ", Locale.ENGLISH);
             try {
 //                Date parsed = fommater.parse(location.getWeather().getDailyForecast().get(0).getDate().toString());
@@ -494,20 +503,16 @@ public class HomeFragment extends Fragment {
 
     private void clickListeners() {
         binding.tv24Hours.setOnClickListener(view -> {
+            Log.d("android_log", "isShowAds: " + isShowAds);
             IntentHelper.startHourlyWeatherActivity(requireActivity(), location.getFormattedId(), 0);
-            if (!isShowAds) {
-                isShowAds = true;
-                showInterAd();
-            }
+            showInterAd();
         });
 //
         binding.tv25Days.setOnClickListener(view -> {
+            Log.d("android_log", "isShowAds: " + isShowAds);
             IntentHelper.startDailyListActivity(
                     requireActivity(), location.getFormattedId(), 0);
-            if (!isShowAds) {
-                isShowAds = true;
-                showInterAd();
-            }
+            showInterAd();
         });
 
 //        binding.refreshLayout.setOnRefreshListener(requireActivity());
@@ -516,39 +521,31 @@ public class HomeFragment extends Fragment {
             ((MainActivity) requireActivity()).toggleDrawerLayout();
         });
         binding.tvAirQuality.setOnClickListener(v -> {
+            Log.d("android_log", "isShowAds: " + isShowAds);
             startActivity(new Intent(requireActivity(), AirQualityActivity.class));
-            if (!isShowAds) {
-                isShowAds = true;
-                showInterAd();
-            }
+            showInterAd();
         });
 
         binding.addCity.setOnClickListener(view -> {
+            Log.d("android_log", "isShowAds: " + isShowAds);
             IntentHelper.startManageActivityForResult(requireActivity(), MANAGE_ACTIVITY);
-            if (!isShowAds) {
-                isShowAds = true;
-                showInterAd();
-            }
+            showInterAd();
         });
 
     }
 
     private void showInterAd() {
-        AdmobManager.getInstance().showInterstitial(requireActivity(), AdCache.getInstance().getInterstitialAd(), new AdCallback() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                AdCache.getInstance().setInterstitialAd(null);
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(TIME_LOAD_INTERS);
-                        isShowAds = false;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-            }
-        });
+        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS) {
+            AdmobManager.getInstance().showInterstitial(requireActivity(), AdCache.getInstance().getInterstitialAd(), new AdCallback() {
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    AdCache.getInstance().setInterstitialAd(null);
+                    currentTime = System.currentTimeMillis();
+                }
+            });
+        }
+
     }
 
 

@@ -66,7 +66,7 @@ public abstract class ForegroundUpdateService extends UpdateService {
 
     public NotificationCompat.Builder getForegroundNotification(int index, int total) {
         return new NotificationCompat.Builder(this, WeatherFlow.NOTIFICATION_CHANNEL_ID_BACKGROUND)
-                .setSmallIcon(R.drawable.ic_running_in_background)
+                .setSmallIcon(R.drawable.icon_app)
                 .setContentTitle(getString(R.string.weather_flow))
                 .setContentText(getString(R.string.feedback_updating_weather_data) + " (" + index + "/" + total + ")")
                 .setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)

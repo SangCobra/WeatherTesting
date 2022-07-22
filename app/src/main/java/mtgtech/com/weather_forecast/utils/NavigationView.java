@@ -2,14 +2,24 @@ package mtgtech.com.weather_forecast.utils;
 
 import androidx.core.view.GravityCompat;
 
+import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
 import mtgtech.com.weather_forecast.databinding.ActivityMainBinding;
 import mtgtech.com.weather_forecast.main.MainActivity;
+import mtgtech.com.weather_forecast.remoteviews.presenter.notification.ForecastNotificationIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.settings.activity.MySettingsActivity;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 
 import static mtgtech.com.weather_forecast.main.MainActivity.MANAGE_ACTIVITY;
+import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
+
+import android.app.Activity;
+
+import com.common.control.interfaces.AdCallback;
+import com.common.control.manager.AdmobManager;
 
 public class NavigationView {
 
@@ -24,7 +34,7 @@ public class NavigationView {
         clickListeners(mainActivity, binding);
 //
 //        binding.navLayout.switchNavAlertNotification.setChecked(settingsOptionManager.isNotificationEnabled());
-        binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isNotificationEnabled());
+        binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isPrecipitationPushEnabled());
         binding.navLayout.isLockScreen.setChecked(settingsOptionManager.isNotificationHideInLockScreenEnabled());
         binding.navLayout.changeTermType.setChecked(!settingsOptionManager.isTermChange());
 //        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
@@ -44,6 +54,7 @@ public class NavigationView {
         binding.navLayout.weatherRadar.setOnClickListener(v -> {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             mainActivity.goToMap();
+            showIntersAd(mainActivity);
         });
         binding.navLayout.navShare.setOnClickListener(v -> {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -96,6 +107,7 @@ public class NavigationView {
         binding.navLayout.tvEditLocation.setOnClickListener(view -> {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             IntentHelper.startManageActivityForResult(mainActivity, MANAGE_ACTIVITY);
+            showIntersAd(mainActivity);
         });
 
 //        binding.navLayout.tvNavCurrentLocation.setOnClickListener(view -> {
@@ -112,6 +124,19 @@ public class NavigationView {
 //            binding.drawerLayout.closeDrawer(GravityCompat.START);
 //            mainActivity.shareToFriend();
 //        });
+    }
+
+    private void showIntersAd(Activity activity) {
+        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS){
+            AdmobManager.getInstance().showInterstitial(activity, AdCache.getInstance().getInterstitialAd(), new AdCallback() {
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    AdCache.getInstance().setInterstitialAd(null);
+                    currentTime = System.currentTimeMillis();
+                }
+            });
+        }
     }
 
     private void changeListeners(MainActivity mainActivity, mtgtech.com.weather_forecast.databinding.ActivityMainBinding binding, SettingsOptionManager settingsOptionManager) {
@@ -133,7 +158,7 @@ public class NavigationView {
 //                settingsOptionManager.setPrecipitationPushEnabled(b);
 //            }
             if (compoundButton.isPressed()) {
-                settingsOptionManager.setNotificationEnabled(b);
+                settingsOptionManager.setPrecipitationPushEnabled(b);
                 if (b) { // open notification.
                     PollingManager.resetNormalBackgroundTask(mainActivity, true);
                 } else { // close notification.
@@ -145,7 +170,7 @@ public class NavigationView {
         }));
         binding.navLayout.isLockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(buttonView.isPressed()){
-                settingsOptionManager.setNotificationHideInLockScreenEnabled(!isChecked);
+                settingsOptionManager.setNotificationHideInLockScreenEnabled(isChecked);
                 PollingManager.resetNormalBackgroundTask(mainActivity, true);
             }
         });

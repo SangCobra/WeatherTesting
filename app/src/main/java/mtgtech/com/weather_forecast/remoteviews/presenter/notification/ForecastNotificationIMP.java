@@ -82,15 +82,12 @@ public class ForecastNotificationIMP extends AbstractRemoteViewsPresenter {
         }
 
         // set small icon.
-        builder.setSmallIcon(
-                ResourceHelper.getDefaultMinimalXmlIconId(weatherCode, daytime));
+        builder.setSmallIcon(R.drawable.ads_icon);
 
         // large icon.
-        builder.setLargeIcon(
-                drawableToBitmap(
-                        ResourceHelper.getWeatherIcon(provider, weatherCode, daytime)
-                )
-        );
+//        builder.setLargeIcon(
+//                R.drawable.ads_icon
+//        );
 
         // sub text.
         if (today) {

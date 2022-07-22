@@ -1,5 +1,8 @@
 package mtgtech.com.weather_forecast.utils.helpter;
 
+import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.WallpaperManager;
@@ -18,12 +21,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
+
+import android.text.TextUtils;
 import android.view.View;
 
-import java.util.ArrayList;
+import com.common.control.interfaces.AdCallback;
+import com.common.control.manager.AdmobManager;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.background.polling.basic.AwakeForegroundUpdateService;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
@@ -50,12 +62,15 @@ import mtgtech.com.weather_forecast.settings.activity.SettingsActivity;
 
 public class IntentHelper {
 
+    public static List<Location> locationList;
+
     public static void startMainActivity(Context context) {
         context.startActivity(
                 new Intent(MainActivity.ACTION_MAIN)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         );
+        locationList = DatabaseHelper.getInstance(context).readLocationList();
     }
 
     public static Intent buildMainActivityIntent(@Nullable Location location) {
@@ -103,11 +118,46 @@ public class IntentHelper {
 
     public static void startDailyWeatherActivity(Activity activity, String formattedId, int index) {
         Intent intent = new Intent(activity, DailyWeatherActivity.class);
-        intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, formattedId);
-        intent.putExtra(DailyWeatherActivity.KEY_CURRENT_DAILY_INDEX, index);
-        activity.startActivity(intent);
-    }
+        Location location;
+        if (TextUtils.isEmpty(formattedId)) {
+            location = locationList.get(0);
+        } else {
+            location = DatabaseHelper.getInstance(activity).readLocation(formattedId);
+        }
 
+        intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, (Serializable) location);
+        intent.putExtra(DailyWeatherActivity.KEY_CURRENT_DAILY_INDEX, index);
+        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS){
+            AdmobManager.getInstance().showInterstitial(activity, AdCache.getInstance().getInterstitialAdDailyDetails(), new AdCallback() {
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    AdCache.getInstance().setInterstitialAdDailyDetails(null);
+                    currentTime = System.currentTimeMillis();
+                }
+            });
+        }
+        activity.startActivity(intent);
+
+    }
+//    public static void startDailyWeatherActivity(Activity activity, Location location, Weather weather, int index) {
+//        Intent intent = new Intent(activity, DailyWeatherActivity.class);
+//        intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, (Serializable) location);
+//        intent.putExtra(DailyWeatherActivity.KEY_CURRENT_DAILY_INDEX, index);
+//        intent.putExtra(DailyWeatherActivity.KEY_WEATHER_FORMATTED, weather);
+//        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS){
+//            AdmobManager.getInstance().showInterstitial(activity, AdCache.getInstance().getInterstitialAdDailyDetails(), new AdCallback() {
+//                @Override
+//                public void onAdClosed() {
+//                    super.onAdClosed();
+//                    AdCache.getInstance().setInterstitialAdDailyDetails(null);
+//                    currentTime = System.currentTimeMillis();
+//                }
+//            });
+//        }
+//        activity.startActivity(intent);
+//
+//    }
     public static void startDailyListActivity(Activity activity, String formattedId, int index) {
         Intent intent = new Intent(activity, DailyListActivity.class);
         intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, formattedId);

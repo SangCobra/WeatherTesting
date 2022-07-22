@@ -1,5 +1,7 @@
 package mtgtech.com.weather_forecast.view.activity;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +12,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 
+import com.common.control.interfaces.AdCallback;
+import com.common.control.manager.AdmobManager;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+
+import mtgtech.com.weather_forecast.AdCache;
+import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.main.MainActivity;
@@ -98,7 +106,6 @@ public class ManageActivity extends GeoActivity {
         }
         super.onBackPressed();
     }
-
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {

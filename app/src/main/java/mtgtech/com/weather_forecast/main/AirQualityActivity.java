@@ -1,6 +1,9 @@
 package mtgtech.com.weather_forecast.main;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
+
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -16,8 +19,9 @@ import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.main.adapter.AriQualityAdapter;
 import mtgtech.com.weather_forecast.models.AirQualityModel;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
-public class AirQualityActivity extends AppCompatActivity {
+public class AirQualityActivity extends GeoActivity {
     private RecyclerView recyclerView;
     private ImageView backHome;
     private AriQualityAdapter adapter;
@@ -62,9 +66,29 @@ public class AirQualityActivity extends AppCompatActivity {
             listAdapter.add(new AirQualityModel(listColor[i], listAdjust[i], listNumber[i]));
         }
         adapter = new AriQualityAdapter(this, listAdapter);
-        backHome.setOnClickListener(v -> finish());
+        backHome.setOnClickListener(v -> {
+            isStartAgain = false;
+            finish();
+
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        isStartAgain = false;
+    }
+
+    @Override
+    public View getSnackBarContainer() {
+        return null;
     }
 }

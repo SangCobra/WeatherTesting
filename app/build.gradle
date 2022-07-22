@@ -75,6 +75,7 @@ android {
 
             addConstantTo(owner, "inter_splash", "ca-app-pub-3270179691816977/6472624913")
             addConstantTo(owner, "inter_move_screen", "ca-app-pub-3270179691816977/8715644873")
+            addConstantTo(owner, "inter_detail_daily", "ca-app-pub-3270179691816977/7782826835")
 
             addConstantTo(owner, "native_hourly_weather", "ca-app-pub-3270179691816977/2150236529")
             addConstantTo(owner, "native_daily_weather", "ca-app-pub-3270179691816977/7210991514")
@@ -220,7 +221,7 @@ dependencies {
 
     //native templates
     implementation project(':nativetemplates')
-    implementation 'com.github.MTGLibs:CommonLibs:1.1.8'
+    implementation 'com.github.MTGLibs:CommonLibs:1.2.2'
 
     //billing
 //    implementation 'com.anjlab.android.iab.v3:library:1.1.0'

@@ -19,10 +19,10 @@ class App : MyApplication() {
     }
 
     override fun enableAdsResume(): Boolean {
-        return false
+        return true
     }
 
     override fun getOpenAppAdId(): String {
-        return ""
+        return BuildConfig.open_app
     }
 }

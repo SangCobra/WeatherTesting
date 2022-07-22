@@ -48,6 +48,7 @@ public class AccuWeatherService extends WeatherService {
     private static final String KEY_OLD_CITY = "OLD_CITY";
     private static final String KEY_OLD_PROVINCE = "OLD_PROVINCE";
     private static final String KEY_OLD_KEY = "OLD_KEY";
+    String languageCode = "en";
 
     private class CacheLocationRequestCallback implements RequestLocationCallback {
 
@@ -128,7 +129,7 @@ public class AccuWeatherService extends WeatherService {
 
     @Override
     public void requestWeather(Context context, Location location, @NonNull RequestWeatherCallback callback) {
-        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
+//        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
 
         Observable<List<AccuCurrentResult>> realtime = api.getCurrent(
                 location.getCityId(), BuildConfig.ACCU_CURRENT_KEY, languageCode, true);
@@ -199,7 +200,7 @@ public class AccuWeatherService extends WeatherService {
     @Override
     @NonNull
     public List<Location> requestLocation(Context context, String query) {
-        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
+//        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
         List<AccuLocationResult> resultList = null;
         try {
             resultList = api.callWeatherLocation(
@@ -255,7 +256,7 @@ public class AccuWeatherService extends WeatherService {
                 .putString(KEY_OLD_PROVINCE, location.getProvince())
                 .apply();
 
-        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
+//        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
         final CacheLocationRequestCallback finalCallback = new CacheLocationRequestCallback(context, callback);
 
         api.getWeatherLocationByGeoPosition(
@@ -287,7 +288,7 @@ public class AccuWeatherService extends WeatherService {
 
     public void requestLocation(Context context, String query,
                                 @NonNull RequestLocationCallback callback) {
-        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
+//        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
         String zipCode = query.matches("[a-zA-Z0-9]") ? query : null;
 
         api.getWeatherLocation("Always", BuildConfig.ACCU_WEATHER_KEY, query, languageCode)

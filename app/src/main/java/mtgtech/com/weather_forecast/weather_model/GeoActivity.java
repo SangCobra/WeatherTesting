@@ -1,6 +1,9 @@
 package mtgtech.com.weather_forecast.weather_model;
 
 import static mtgtech.com.weather_forecast.main.MainActivity.isGotoSettings;
+import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,9 +21,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.provider.Settings;
 import android.view.View;
 
+import com.common.control.interfaces.AdCallback;
 import com.common.control.interfaces.PermissionCallback;
+import com.common.control.manager.AdmobManager;
+import com.common.control.manager.AppOpenManager;
 import com.common.control.utils.PermissionUtils;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 
+import mtgtech.com.weather_forecast.AdCache;
+import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.main.dialog.DialogPer1;
@@ -107,7 +116,9 @@ public abstract class GeoActivity extends AppCompatActivity {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
         intent.setData(uri);
+        isStartAgain = true;
         activity.startActivity(intent);
+        AppOpenManager.getInstance().disableAppResume();
     }
 
     @SuppressLint("NewApi")
@@ -116,7 +127,7 @@ public abstract class GeoActivity extends AppCompatActivity {
                                            @NonNull String[] permission, @NonNull int[] grantResult) {
         super.onRequestPermissionsResult(requestCode, permission, grantResult);
         MyUtils.requestCode = requestCode;
-        if (Build.VERSION.SDK_INT >Build.VERSION_CODES.Q){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
             for (int j : grantResult) {
                 if (j != PackageManager.PERMISSION_GRANTED && requestCode == 1) {
                     DialogPer1.start(this);
@@ -126,6 +137,13 @@ public abstract class GeoActivity extends AppCompatActivity {
                     return;
                 }
 
+            }
+            if (PermissionUtils.permissionGranted(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            )){
+                isGotoSettings = true;
             }
         }
         else {
@@ -164,6 +182,7 @@ public abstract class GeoActivity extends AppCompatActivity {
             permissionsListener = null;
         }
     }
+
 
     public interface OnRequestPermissionsResultListener {
         void onRequestPermissionsResult(int requestCode,

@@ -16,6 +16,15 @@ public class AdCache {
 
     }
     private InterstitialAd interstitialAd;
+    private InterstitialAd interstitialAdDailyDetails;
+
+    public InterstitialAd getInterstitialAdDailyDetails() {
+        return interstitialAdDailyDetails;
+    }
+
+    public void setInterstitialAdDailyDetails(InterstitialAd interstitialAdDailyDetails) {
+        this.interstitialAdDailyDetails = interstitialAdDailyDetails;
+    }
 
     public InterstitialAd getInterstitialAd() {
         return interstitialAd;

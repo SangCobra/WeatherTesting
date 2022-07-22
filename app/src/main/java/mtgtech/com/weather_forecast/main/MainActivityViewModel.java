@@ -20,6 +20,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import mtgtech.com.weather_forecast.main.dialog.BackgroundLocationDialog;
 import mtgtech.com.weather_forecast.utils.MyUtils;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
@@ -255,21 +256,21 @@ public class MainActivityViewModel extends ViewModel
                                 }
                             }
                             // check background location permissions.
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                                List<String> backgroundPermissionList = getDeniedPermissionList(activity, true);
-//                                if (backgroundPermissionList.size() != 0) {
-////                                    BackgroundLocationDialog dialog = new BackgroundLocationDialog();
-////                                    dialog.setOnSetButtonClickListener(() ->
-////                                            activity.requestPermissions(
-////                                                    backgroundPermissionList.toArray(new String[0]),
-////                                                    0,
-////                                                    null
-////                                            )
-////                                    );
-////                                    dialog.show(activity.getSupportFragmentManager(), null);
-//
-//                                }
-//                            }
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                List<String> backgroundPermissionList = getDeniedPermissionList(activity, true);
+                                if (backgroundPermissionList.size() != 0) {
+                                    BackgroundLocationDialog dialog = new BackgroundLocationDialog();
+                                    dialog.setOnSetButtonClickListener(() ->
+                                            activity.requestPermissions(
+                                                    backgroundPermissionList.toArray(new String[0]),
+                                                    0,
+                                                    null
+                                            )
+                                    );
+                                    dialog.show(activity.getSupportFragmentManager(), null);
+
+                                }
+                            }
 
 
                             repository.getWeather(activity, currentLocation, lockableLocationList, true, this);

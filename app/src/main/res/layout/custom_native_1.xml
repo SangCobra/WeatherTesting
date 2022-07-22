@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/_12sdp"
         android:background="@drawable/shape_border"
-        android:backgroundTint="#40000000">
+        android:backgroundTint="@android:color/transparent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
             android:layout_marginLeft="@dimen/_16sdp"
             android:layout_marginRight="@dimen/_16sdp"
             android:background="@drawable/shape_border"
-            android:backgroundTint="#FFA800"
+            android:backgroundTint="#262626"
             android:gravity="center"
             android:text="Install"
             android:textColor="@color/colorWhite"
