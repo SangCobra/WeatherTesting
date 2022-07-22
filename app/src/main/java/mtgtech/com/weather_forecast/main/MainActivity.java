@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.common.control.dialog.RateAppDialog;
 import com.common.control.interfaces.AdCallback;
@@ -184,6 +185,7 @@ public class MainActivity extends GeoActivity
     public static final String KEY_RELOAD_WEATHER = "RELOAD_WEATHER";
     public static boolean isGotoSettings;
     public static boolean isStartAgain;
+    public LoadLocation loadLocation;
 
     private final BroadcastReceiver backgroundUpdateReceiver = new BroadcastReceiver() {
         @Override
@@ -222,6 +224,7 @@ public class MainActivity extends GeoActivity
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 //        showNotify();
+        loadLocation = formattedId -> viewModel.init(MainActivity.this, formattedId);
         setPermissionCallback(new PermissionCallback() {
             @Override
             public void onPermissionGranted() {
@@ -299,6 +302,23 @@ public class MainActivity extends GeoActivity
         );
         refreshBackgroundViews(true, viewModel.getLocationList(),
                 false, true);
+        binding.background.mainPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                index = position;
+                binding.background.mainPager.setCurrentItem(index);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 
@@ -356,6 +376,9 @@ public class MainActivity extends GeoActivity
                     viewModel.init(this, formattedId);
                     if (data != null) {
                         index = data.getIntExtra(MainActivity.KEY_LOCATION_INDEX, 0);
+                    }
+                    else {
+                        index = viewModel.getLocationList().size()-1;
                     }
                     binding.background.mainPager.setCurrentItem(index);
                 }
@@ -478,7 +501,7 @@ public class MainActivity extends GeoActivity
     }
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "ObsoleteSdkInt"})
     private void initView() {
 
         new NavigationView().setUp(this, binding);
@@ -926,7 +949,7 @@ public class MainActivity extends GeoActivity
             binding.background.tvPressureValue.setText(settingsOptionManager.getPressureUnit().getPressureText(MainActivity.this, location.getWeather().getCurrent().getPressure()));
 
 
-            MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), viewModel.getLocationList());
+            MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), viewModel.getLocationList(), loadLocation);
             binding.background.mainPager.setAdapter(mainPagerAdapter);
             int size = viewModel.getLocationList().size();
             binding.background.mainPager.setOffscreenPageLimit(viewModel.getLocationList().size() - 1);
@@ -1729,4 +1752,7 @@ public class MainActivity extends GeoActivity
     }
 
 
+    public interface LoadLocation{
+        void load(String formattedId);
+    }
 }

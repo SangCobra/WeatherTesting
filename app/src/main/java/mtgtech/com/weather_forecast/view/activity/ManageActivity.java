@@ -31,10 +31,15 @@ public class ManageActivity extends GeoActivity {
 
     private CoordinatorLayout container;
     private LocationManageFragment manageFragment;
+    private MainActivity.LoadLocation loadLocation;
 
     public static final int SEARCH_ACTIVITY = 1;
     private int requestCode;
     public static final int SELECT_PROVIDER_ACTIVITY = 2;
+
+    public void setLoadLocation(MainActivity.LoadLocation loadLocation) {
+        this.loadLocation = loadLocation;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,7 @@ public class ManageActivity extends GeoActivity {
             }
         });
 
+        manageFragment.setLoadLocation(loadLocation);
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

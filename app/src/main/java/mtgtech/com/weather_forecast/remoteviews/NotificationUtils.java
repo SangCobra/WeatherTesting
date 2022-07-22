@@ -48,6 +48,7 @@ public class NotificationUtils {
 
     // notification.
 
+    @SuppressLint("NewApi")
     public static void updateNotificationIfNecessary(Context context, @NonNull Location location) {
         if (NormalNotificationIMP.isEnable(context)) {
             NormalNotificationIMP.buildNotificationAndSendIt(context, location);

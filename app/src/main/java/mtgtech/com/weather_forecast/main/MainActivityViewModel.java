@@ -256,21 +256,21 @@ public class MainActivityViewModel extends ViewModel
                                 }
                             }
                             // check background location permissions.
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                List<String> backgroundPermissionList = getDeniedPermissionList(activity, true);
-                                if (backgroundPermissionList.size() != 0) {
-                                    BackgroundLocationDialog dialog = new BackgroundLocationDialog();
-                                    dialog.setOnSetButtonClickListener(() ->
-                                            activity.requestPermissions(
-                                                    backgroundPermissionList.toArray(new String[0]),
-                                                    0,
-                                                    null
-                                            )
-                                    );
-                                    dialog.show(activity.getSupportFragmentManager(), null);
-
-                                }
-                            }
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                                List<String> backgroundPermissionList = getDeniedPermissionList(activity, true);
+//                                if (backgroundPermissionList.size() != 0) {
+//                                    BackgroundLocationDialog dialog = new BackgroundLocationDialog();
+//                                    dialog.setOnSetButtonClickListener(() ->
+//                                            activity.requestPermissions(
+//                                                    backgroundPermissionList.toArray(new String[0]),
+//                                                    0,
+//                                                    null
+//                                            )
+//                                    );
+//                                    dialog.show(activity.getSupportFragmentManager(), null);
+//
+//                                }
+//                            }
 
 
                             repository.getWeather(activity, currentLocation, lockableLocationList, true, this);

@@ -23,7 +23,9 @@ import static mtgtech.com.weather_forecast.main.MainActivity.MANAGE_ACTIVITY;
 import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
 import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -36,20 +38,23 @@ public class NavigationView extends AbstractSettingsFragment {
 
     public void setUp(MainActivity mainActivity, ActivityMainBinding binding) {
 
-
         SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(mainActivity);
+        settingsOptionManager.setNotificationStyle("geometric");
+        settingsOptionManager.setNotificationCustomColorEnabled(true);
+        settingsOptionManager.setNotificationBackgroundColor(Color.CYAN);
+        settingsOptionManager.setNotificationCanBeClearedEnabled(true);
 
+        settingsOptionManager.setNotificationMinimalIconEnabled(true);
+        settingsOptionManager.setNotificationTemperatureIconEnabled(false);
 
         clickListeners(mainActivity, binding);
 //
 //        binding.navLayout.switchNavAlertNotification.setChecked(settingsOptionManager.isNotificationEnabled());
-        binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isPrecipitationPushEnabled());
-        binding.navLayout.isLockScreen.setChecked(settingsOptionManager.isNotificationHideInLockScreenEnabled());
+        binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isNotificationEnabled());
+//        binding.navLayout.isLockScreen.setChecked(settingsOptionManager.isNotificationHideInLockScreenEnabled());
         binding.navLayout.changeTermType.setChecked(!settingsOptionManager.isTermChange());
 //        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
         binding.navLayout.switchWeatherBackground.setChecked(settingsOptionManager.isWeatherBgEnabled());
-
-        initNotificationPart(mainActivity, settingsOptionManager);
 
         changeListeners(mainActivity,binding, settingsOptionManager);
 
@@ -168,8 +173,10 @@ public class NavigationView extends AbstractSettingsFragment {
 //                settingsOptionManager.setPrecipitationPushEnabled(b);
 //            }
             if (compoundButton.isPressed()) {
-                settingsOptionManager.setPrecipitationPushEnabled(b);
+                settingsOptionManager.setNotificationEnabled(b);
+
                 if (b) { // open notification.
+
                     PollingManager.resetNormalBackgroundTask(mainActivity, true);
                 } else { // close notification.
                     NormalNotificationIMP.cancelNotification(mainActivity);
@@ -178,12 +185,12 @@ public class NavigationView extends AbstractSettingsFragment {
 //                toggleNotificationItems(binding.llNotification);
             }
         }));
-        binding.navLayout.isLockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(buttonView.isPressed()){
-                settingsOptionManager.setNotificationHideInLockScreenEnabled(isChecked);
-                PollingManager.resetNormalBackgroundTask(mainActivity, true);
-            }
-        });
+//        binding.navLayout.isLockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if(buttonView.isPressed()){
+//                settingsOptionManager.setNotificationHideInLockScreenEnabled(!isChecked);
+//                PollingManager.resetNormalBackgroundTask(mainActivity, isChecked);
+//            }
+//        });
         binding.navLayout.changeTermType.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (buttonView.isPressed()){
                 settingsOptionManager.setTermChange(!isChecked);
@@ -211,8 +218,8 @@ public class NavigationView extends AbstractSettingsFragment {
         // notification enabled.
         findPreference(mainActivity.getString(R.string.key_notification)).setOnPreferenceChangeListener((preference, newValue) -> {
             boolean enabled = (boolean) newValue;
-            settingsOptionManager.setNotificationEnabled(enabled);
-            initNotificationPart(mainActivity, settingsOptionManager);
+            getSettingsOptionManager().setNotificationEnabled(enabled);
+            initNotificationPart(mainActivity, getSettingsOptionManager());
             if (enabled) { // open notification.
                 PollingManager.resetNormalBackgroundTask(mainActivity, true);
             } else { // close notification.
@@ -223,92 +230,83 @@ public class NavigationView extends AbstractSettingsFragment {
         });
 
         // notification style.
-        ListPreference notificationStyle = findPreference(mainActivity.getString(R.string.key_notification_style));
-        notificationStyle.setSummary(
-                settingsOptionManager.getNotificationStyle().getNotificationStyleName(mainActivity)
-        );
-        notificationStyle.setOnPreferenceChangeListener((preference, newValue) -> {
-            settingsOptionManager.setNotificationStyle((String) newValue);
-            initNotificationPart(mainActivity, settingsOptionManager);
-            preference.setSummary(
-                    settingsOptionManager.getNotificationStyle().getNotificationStyleName(mainActivity)
-            );
-            PollingManager.resetNormalBackgroundTask(mainActivity, true);
-            return true;
-        });
+//        ListPreference notificationStyle = findPreference(mainActivity.getString(R.string.key_notification_style));
+//        notificationStyle.setSummary(
+//                getSettingsOptionManager().getNotificationStyle().getNotificationStyleName(mainActivity)
+//        );
+//        notificationStyle.setOnPreferenceChangeListener((preference, newValue) -> {
+//            getSettingsOptionManager().setNotificationStyle((String) newValue);
+//            initNotificationPart(mainActivity, getSettingsOptionManager());
+//            preference.setSummary(
+//                    getSettingsOptionManager().getNotificationStyle().getNotificationStyleName(mainActivity)
+//            );
+//            PollingManager.resetNormalBackgroundTask(mainActivity, true);
+//            return true;
+//        });
 
         // notification minimal icon.
-        CheckBoxPreference notificationMinimalIcon = findPreference(mainActivity.getString(R.string.key_notification_minimal_icon));
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-            notificationMinimalIcon.setVisible(false);
-        }
-        notificationMinimalIcon.setOnPreferenceChangeListener((preference, newValue) -> {
-            settingsOptionManager.setNotificationMinimalIconEnabled((Boolean) newValue);
-            PollingManager.resetNormalBackgroundTask(mainActivity, true);
-            return true;
-        });
-
-        // notification temp icon.
-        CheckBoxPreference notificationTempIcon = findPreference(mainActivity.getString(R.string.key_notification_temp_icon));
-        notificationTempIcon.setOnPreferenceChangeListener((preference, newValue) -> {
-            settingsOptionManager.setNotificationTemperatureIconEnabled((Boolean) newValue);
-            PollingManager.resetNormalBackgroundTask(mainActivity, true);
-            return true;
-        });
-
-        // notification color.
-        Preference notificationColor = findPreference(mainActivity.getString(R.string.key_notification_color));
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-            notificationColor.setVisible(false);
-        }
-        notificationColor.setOnPreferenceClickListener(preference -> {
-            pushFragment(new NotificationColorSettingsFragment(), preference.getKey());
-            return true;
-        });
-
-        // notification can be cleared.
-        CheckBoxPreference notificationClearFlag = findPreference(mainActivity.getString(R.string.key_notification_can_be_cleared));
-        notificationClearFlag.setOnPreferenceChangeListener((preference, newValue) -> {
-            settingsOptionManager.setNotificationCanBeClearedEnabled((Boolean) newValue);
-            PollingManager.resetNormalBackgroundTask(mainActivity, true);
-            return true;
-        });
-
-        // notification hide icon.
-        CheckBoxPreference hideNotificationIcon = findPreference(mainActivity.getString(R.string.key_notification_hide_icon));
-        hideNotificationIcon.setOnPreferenceChangeListener((preference, newValue) -> {
-            settingsOptionManager.setNotificationHideIconEnabled((Boolean) newValue);
-            PollingManager.resetNormalBackgroundTask(mainActivity, true);
-            return true;
-        });
+//        CheckBoxPreference notificationMinimalIcon = findPreference(mainActivity.getString(R.string.key_notification_minimal_icon));
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+//            notificationMinimalIcon.setVisible(false);
+//        }
+//        notificationMinimalIcon.setOnPreferenceChangeListener((preference, newValue) -> {
+//            getSettingsOptionManager().setNotificationMinimalIconEnabled((Boolean) newValue);
+//            PollingManager.resetNormalBackgroundTask(mainActivity, true);
+//            return true;
+//        });
+//
+//        // notification temp icon.
+//        CheckBoxPreference notificationTempIcon = findPreference(mainActivity.getString(R.string.key_notification_temp_icon));
+//        notificationTempIcon.setOnPreferenceChangeListener((preference, newValue) -> {
+//            getSettingsOptionManager().setNotificationTemperatureIconEnabled((Boolean) newValue);
+//            PollingManager.resetNormalBackgroundTask(mainActivity, true);
+//            return true;
+//        });
+//
+//        // notification color.
+//        Preference notificationColor = findPreference(mainActivity.getString(R.string.key_notification_color));
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+//            notificationColor.setVisible(false);
+//        }
+//        notificationColor.setOnPreferenceClickListener(preference -> {
+//            pushFragment(new NotificationColorSettingsFragment(), preference.getKey());
+//            return true;
+//        });
+//
+//        // notification can be cleared.
+//        CheckBoxPreference notificationClearFlag = findPreference(mainActivity.getString(R.string.key_notification_can_be_cleared));
+//        notificationClearFlag.setOnPreferenceChangeListener((preference, newValue) -> {
+//            getSettingsOptionManager().setNotificationCanBeClearedEnabled((Boolean) newValue);
+//            PollingManager.resetNormalBackgroundTask(mainActivity, true);
+//            return true;
+//        });
+//
+//        // notification hide icon.
+//        CheckBoxPreference hideNotificationIcon = findPreference(mainActivity.getString(R.string.key_notification_hide_icon));
+//        hideNotificationIcon.setOnPreferenceChangeListener((preference, newValue) -> {
+//            getSettingsOptionManager().setNotificationHideIconEnabled((Boolean) newValue);
+//            PollingManager.resetNormalBackgroundTask(mainActivity, true);
+//            return true;
+//        });
 
         // notification hide in lock screen.
         CheckBoxPreference hideNotificationInLockScreen = findPreference(mainActivity.getString(R.string.key_notification_hide_in_lockScreen));
         hideNotificationInLockScreen.setOnPreferenceChangeListener((preference, newValue) -> {
-            settingsOptionManager.setNotificationHideInLockScreenEnabled((Boolean) newValue);
+            getSettingsOptionManager().setNotificationHideInLockScreenEnabled((Boolean) newValue);
             PollingManager.resetNormalBackgroundTask(mainActivity, true);
             return true;
         });
 
         // notification hide big view.
-        CheckBoxPreference notificationHideBigView = findPreference(mainActivity.getString(R.string.key_notification_hide_big_view));
-        notificationHideBigView.setOnPreferenceChangeListener((preference, newValue) -> {
-            settingsOptionManager.setNotificationHideBigViewEnabled((Boolean) newValue);
-            PollingManager.resetNormalBackgroundTask(mainActivity, true);
-            return true;
-        });
+//        CheckBoxPreference notificationHideBigView = findPreference(mainActivity.getString(R.string.key_notification_hide_big_view));
+//        notificationHideBigView.setOnPreferenceChangeListener((preference, newValue) -> {
+//            getSettingsOptionManager().setNotificationHideBigViewEnabled((Boolean) newValue);
+//            PollingManager.resetNormalBackgroundTask(mainActivity, true);
+//            return true;
+//        });
 
-        boolean sendNotification = settingsOptionManager.isNotificationEnabled();
-        boolean nativeNotification = settingsOptionManager.getNotificationStyle() == NotificationStyle.NATIVE;
-        boolean androidL = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-        notificationStyle.setEnabled(sendNotification);
-        notificationMinimalIcon.setEnabled(sendNotification && !nativeNotification);
-        notificationTempIcon.setEnabled(sendNotification);
-        notificationColor.setEnabled(sendNotification && !nativeNotification);
-        notificationClearFlag.setEnabled(sendNotification);
-        hideNotificationIcon.setEnabled(sendNotification);
-        hideNotificationInLockScreen.setEnabled(sendNotification && androidL);
-        notificationHideBigView.setEnabled(sendNotification && !nativeNotification);
+
+//        notificationHideBigView.setEnabled(sendNotification && !nativeNotification);
     }
 
     @Override

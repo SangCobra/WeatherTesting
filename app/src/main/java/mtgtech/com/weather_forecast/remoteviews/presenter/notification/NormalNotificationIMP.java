@@ -1,5 +1,6 @@
 package mtgtech.com.weather_forecast.remoteviews.presenter.notification;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,16 +10,21 @@ import android.graphics.drawable.Icon;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.IconCompat;
 
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.util.Date;
+import java.util.Objects;
 
 import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.utils.MyUtils;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.NotificationStyle;
 import mtgtech.com.weather_forecast.weather_model.model.option.NotificationTextColor;
@@ -41,6 +47,8 @@ import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
 
+    @SuppressLint("RestrictedApi")
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public static void buildNotificationAndSendIt(Context context, @NonNull Location location) {
         Weather weather = location.getWeather();
         if (weather == null) {
@@ -101,14 +109,13 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                             WeatherFlow.NOTIFICATION_CHANNEL_ID_NORMALLY
                     ),
                     hideNotificationIcon
-                            ? NotificationManager.IMPORTANCE_MIN
-                            : NotificationManager.IMPORTANCE_LOW
+                            ? NotificationManager.IMPORTANCE_DEFAULT
+                            : NotificationManager.IMPORTANCE_HIGH
             );
-            channel.setShowBadge(false);
+            channel.setShowBadge(true);
             channel.setImportance(hideNotificationIcon
                     ? NotificationManager.IMPORTANCE_UNSPECIFIED : NotificationManager.IMPORTANCE_HIGH);
-            channel.setLockscreenVisibility(hideNotificationInLockScreen
-                    ? NotificationCompat.VISIBILITY_SECRET : NotificationCompat.VISIBILITY_PUBLIC);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             manager.createNotificationChannel(channel);
         }
 
@@ -121,21 +128,11 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                 ? NotificationCompat.PRIORITY_MIN : NotificationCompat.PRIORITY_MAX);
 
         // set notification visibility.
-        builder.setVisibility(hideNotificationInLockScreen
-                ? NotificationCompat.VISIBILITY_SECRET : NotificationCompat.VISIBILITY_PUBLIC);
+        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
         // set small icon.
         builder.setSmallIcon(
-                tempIcon ? ResourceHelper.getTempIconId(
-                        context,
-                        temperatureUnit.getTemperature(
-                                weather.getCurrent().getTemperature().getTemperature()
-
-                        )
-                ) : ResourceHelper.getDefaultMinimalXmlIconId(
-                        weather.getCurrent().getWeatherCode(),
-                        dayTime
-                )
+                Objects.requireNonNull(IconCompat.createFromIcon(Icon.createWithResource(context, R.drawable.icon_app)))
         );
 
         // build base view.
@@ -184,6 +181,7 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
 
         // set only alert once.
         builder.setOnlyAlertOnce(true);
+        builder.setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL);
 
         Notification notification = builder.build();
         if (!tempIcon && Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -192,8 +190,7 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                         .getMethod("setSmallIcon", Icon.class)
                         .invoke(
                                 notification,
-                                ResourceHelper.getMinimalIcon(
-                                        provider, weather.getCurrent().getWeatherCode(), dayTime)
+                                R.drawable.icon_app
                         );
             } catch (Exception ignore) {
                 // do nothing.
@@ -216,11 +213,9 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
             return views;
         }
 
-        views.setImageViewUri(
+        views.setImageViewResource(
                 R.id.notification_base_icon,
-                ResourceHelper.getWidgetNotificationIconUri(
-                        provider, weather.getCurrent().getWeatherCode(), dayTime, minimalIcon, textColor
-                )
+                getWeatherRes(location)
         );
 
         views.setTextViewText(
@@ -320,15 +315,9 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                         temperatureUnit
                 )
         );
-        views.setImageViewUri( // set icon 1.
+        views.setImageViewResource( // set icon 1.
                 R.id.notification_big_icon_1,
-                ResourceHelper.getWidgetNotificationIconUri(
-                        provider,
-                        weekIconDaytime
-                                ? weather.getDailyForecast().get(0).day().getWeatherCode()
-                                : weather.getDailyForecast().get(0).night().getWeatherCode(),
-                        weekIconDaytime, minimalIcon, textColor
-                )
+                getWeatherRes(location, 1)
         );
         // 2
         views.setTextViewText( // set week 2.
@@ -344,15 +333,9 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                         temperatureUnit
                 )
         );
-        views.setImageViewUri( // set icon 2.
+        views.setImageViewResource( // set icon 2.
                 R.id.notification_big_icon_2,
-                ResourceHelper.getWidgetNotificationIconUri( // get icon 2 resource id.
-                        provider,
-                        weekIconDaytime
-                                ? weather.getDailyForecast().get(1).day().getWeatherCode()
-                                : weather.getDailyForecast().get(1).night().getWeatherCode(),
-                        weekIconDaytime, minimalIcon, textColor
-                )
+                getWeatherRes(location, 2)
         );
         // 3
         views.setTextViewText( // set week 3.
@@ -368,15 +351,9 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                         temperatureUnit
                 )
         );
-        views.setImageViewUri( // set icon 3.
+        views.setImageViewResource( // set icon 3.
                 R.id.notification_big_icon_3,
-                ResourceHelper.getWidgetNotificationIconUri( // get icon 3 resource id.
-                        provider,
-                        weekIconDaytime
-                                ? weather.getDailyForecast().get(2).day().getWeatherCode()
-                                : weather.getDailyForecast().get(2).night().getWeatherCode(),
-                        weekIconDaytime, minimalIcon, textColor
-                )
+                getWeatherRes(location, 3)
         );
         // 4
         views.setTextViewText( // set week 4.
@@ -392,15 +369,9 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                         temperatureUnit
                 )
         );
-        views.setImageViewUri( // set icon 4.
+        views.setImageViewResource( // set icon 4.
                 R.id.notification_big_icon_4,
-                ResourceHelper.getWidgetNotificationIconUri( // get icon 4 resource id.
-                        provider,
-                        weekIconDaytime
-                                ? weather.getDailyForecast().get(3).day().getWeatherCode()
-                                : weather.getDailyForecast().get(3).night().getWeatherCode(),
-                        weekIconDaytime, minimalIcon, textColor
-                )
+                getWeatherRes(location, 4)
         );
         // 5
         views.setTextViewText( // set week 5.
@@ -416,15 +387,9 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                         temperatureUnit
                 )
         );
-        views.setImageViewUri( // set icon 5.
+        views.setImageViewResource( // set icon 5.
                 R.id.notification_big_icon_5,
-                ResourceHelper.getWidgetNotificationIconUri( // get icon 5 resource id.
-                        provider,
-                        weekIconDaytime
-                                ? weather.getDailyForecast().get(4).day().getWeatherCode()
-                                : weather.getDailyForecast().get(4).night().getWeatherCode(),
-                        weekIconDaytime, minimalIcon, textColor
-                )
+                getWeatherRes(location, 5)
         );
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
@@ -447,6 +412,85 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
         }
 
         return views;
+    }
+
+    private static int getWeatherRes(Location location, int day) {
+        switch (location.getWeather().getDailyForecast().get(day-1).day().getWeatherCode()){
+            case CLEAR:
+                if (MyUtils.isNight()) {
+                    return R.drawable.img_moon;
+                } else {
+                    return R.drawable.img_sun_cloudy;
+                }
+            case PARTLY_CLOUDY:
+            case CLOUDY:
+                if (MyUtils.isNight()) {
+                    return R.drawable.img_cloudy_moon;
+                } else {
+                    return R.drawable.img_sun_cloudy;
+
+
+                }
+            case RAIN:
+
+                return R.drawable.img_rain;
+            case SNOW:
+            case SLEET:
+
+                return R.drawable.img_snow;
+            case HAIL:
+            case FOG:
+            case HAZE:
+                return R.drawable.img_fog;
+            case WIND:
+
+                return R.drawable.img_wind;
+
+            case THUNDER:
+            case THUNDERSTORM:
+                return R.drawable.img_thunder;
+
+        }
+        return -1;
+    }
+    private static int getWeatherRes(Location location) {
+        switch (location.getWeather().getCurrent().getWeatherCode()){
+            case CLEAR:
+                if (MyUtils.isNight()) {
+                    return R.drawable.img_moon;
+                } else {
+                    return R.drawable.img_sun_cloudy;
+                }
+            case PARTLY_CLOUDY:
+            case CLOUDY:
+                if (MyUtils.isNight()) {
+                    return R.drawable.img_cloudy_moon;
+                } else {
+                    return R.drawable.img_sun_cloudy;
+
+
+                }
+            case RAIN:
+
+                return R.drawable.img_rain;
+            case SNOW:
+            case SLEET:
+
+                return R.drawable.img_snow;
+            case HAIL:
+            case FOG:
+            case HAZE:
+                return R.drawable.img_fog;
+            case WIND:
+
+                return R.drawable.img_wind;
+
+            case THUNDER:
+            case THUNDERSTORM:
+                return R.drawable.img_thunder;
+
+        }
+        return -1;
     }
 
     public static void cancelNotification(Context context) {

@@ -32,6 +32,7 @@ import java.util.List;
 
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.main.MainActivityViewModel;
 import mtgtech.com.weather_forecast.utils.LanguageUtils;
 import mtgtech.com.weather_forecast.view.adapter.location.LocationAdapter;
 import mtgtech.com.weather_forecast.view.adapter.location.LocationTouchCallback;
@@ -59,6 +60,7 @@ public class SearchActivity extends GeoActivity
 
     private SearchLocationAdapter adapter;
     private WeatherHelper weatherHelper;
+    private MainActivityViewModel mainActivityViewModel;
 
     private List<Location> currentList;
     private List<Location> locationList;
@@ -120,7 +122,7 @@ public class SearchActivity extends GeoActivity
         this.binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         listSearch = new ArrayList<>();
-
+        mainActivityViewModel = new MainActivityViewModel();
         boolean lightTheme = !DisplayUtils.isDarkMode(this);
         DisplayUtils.setSystemBarStyle(this, getWindow(),
                 true, lightTheme, true, lightTheme);
@@ -296,6 +298,7 @@ public class SearchActivity extends GeoActivity
             Intent intent = new Intent();
             intent.putExtra("location", (Serializable) locationList.get(0));
             setResult(RESULT_OK, intent);
+            mainActivityViewModel.init(SearchActivity.this, locationList.get(0).getFormattedId());
         }
     }
 

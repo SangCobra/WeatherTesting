@@ -89,7 +89,11 @@ public class HomeFragment extends Fragment {
     private SunMoonUtils sunMoonUtils;
     private SettingsOptionManager settingsOptionManager;
     private Location locationAnother;
+    private MainActivity.LoadLocation loadLocation;
 
+    public void setLoadLocation(MainActivity.LoadLocation loadLocation) {
+        this.loadLocation = loadLocation;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -528,7 +532,7 @@ public class HomeFragment extends Fragment {
 
         binding.addCity.setOnClickListener(view -> {
             Log.d("android_log", "isShowAds: " + isShowAds);
-            IntentHelper.startManageActivityForResult(requireActivity(), MANAGE_ACTIVITY);
+            IntentHelper.startManageActivityForResult(requireActivity(), MANAGE_ACTIVITY, loadLocation);
             showInterAd();
         });
 

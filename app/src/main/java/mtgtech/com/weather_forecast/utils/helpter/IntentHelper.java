@@ -193,7 +193,11 @@ public class IntentHelper {
     public static void startManageActivityForResult(Activity activity, int requestCode) {
         activity.startActivityForResult(new Intent(activity, ManageActivity.class), requestCode);
     }
-
+    public static void startManageActivityForResult(Activity activity, int requestCode, MainActivity.LoadLocation loadLocation) {
+        ManageActivity manageActivity = new ManageActivity();
+        manageActivity.setLoadLocation(loadLocation);
+        activity.startActivityForResult(new Intent(activity, manageActivity.getClass()), requestCode);
+    }
     public static void startSearchActivityForResult(Activity activity, View bar, int requestCode) {
         Intent intent = new Intent(activity, SearchActivity.class);
 

@@ -2,6 +2,71 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/action_settings">
+    <PreferenceCategory>
+
+        <CheckBoxPreference
+            android:title="@string/settings_title_notification"
+            android:key="@string/key_notification"
+            android:summaryOn="@string/on"
+            android:summaryOff="@string/off"
+            android:icon="@drawable/ic_send_notification"/>
+
+        <ListPreference
+            android:title="@string/settings_title_notification_style"
+            android:key="@string/key_notification_style"
+            android:entries="@array/notification_styles"
+            android:entryValues="@array/notification_style_values"
+            android:dialogTitle="@string/settings_title_notification_style"
+            android:icon="@drawable/ic_notification_style"
+            android:defaultValue="geometric" />
+
+        <CheckBoxPreference
+            android:title="@string/settings_title_minimal_icon"
+            android:key="@string/key_notification_minimal_icon"
+            android:summaryOn="@string/on"
+            android:summaryOff="@string/off"
+            android:icon="@drawable/ic_minimal_icons"/>
+
+        <CheckBoxPreference
+            android:title="@string/settings_title_notification_temp_icon"
+            android:key="@string/key_notification_temp_icon"
+            android:summaryOn="@string/on"
+            android:summaryOff="@string/off"
+            android:icon="@drawable/ic_temperature_statusbar"/>
+
+        <Preference
+            android:title="@string/settings_title_notification_color"
+            android:key="@string/key_notification_color" />
+
+        <CheckBoxPreference
+            android:title="@string/settings_title_notification_can_be_cleared"
+            android:key="@string/key_notification_can_be_cleared"
+            android:summaryOn="@string/settings_notification_can_be_cleared_on"
+            android:summaryOff="@string/settings_notification_can_be_cleared_off"
+            android:icon="@drawable/ic_can_be_cleared"/>
+
+        <CheckBoxPreference
+            android:title="@string/settings_title_notification_hide_icon"
+            android:key="@string/key_notification_hide_icon"
+            android:summaryOn="@string/settings_notification_hide_icon_on"
+            android:summaryOff="@string/settings_notification_hide_icon_off"
+            android:icon="@drawable/ic_hide_notification"/>
+
+        <CheckBoxPreference
+            android:title="@string/settings_title_notification_hide_in_lockScreen"
+            android:key="@string/key_notification_hide_in_lockScreen"
+            android:summaryOn="@string/settings_notification_hide_in_lockScreen_on"
+            android:summaryOff="@string/settings_notification_hide_in_lockScreen_off"
+            android:icon="@drawable/ic_hide_lockscreen"/>
+
+        <CheckBoxPreference
+            android:title="@string/settings_title_notification_hide_big_view"
+            android:key="@string/key_notification_hide_big_view"
+            android:summaryOn="@string/settings_notification_hide_big_view_on"
+            android:summaryOff="@string/settings_notification_hide_big_view_off"
+            android:icon="@drawable/ic_extended_style"/>
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/settings_category_basic">
@@ -186,71 +251,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/settings_category_notification">
 
-        <CheckBoxPreference
-            android:title="@string/settings_title_notification"
-            android:key="@string/key_notification"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_send_notification"/>
-
-        <ListPreference
-            android:title="@string/settings_title_notification_style"
-            android:key="@string/key_notification_style"
-            android:entries="@array/notification_styles"
-            android:entryValues="@array/notification_style_values"
-            android:dialogTitle="@string/settings_title_notification_style"
-            android:icon="@drawable/ic_notification_style"
-            android:defaultValue="geometric" />
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_minimal_icon"
-            android:key="@string/key_notification_minimal_icon"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_minimal_icons"/>
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_notification_temp_icon"
-            android:key="@string/key_notification_temp_icon"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_temperature_statusbar"/>
-
-        <Preference
-            android:title="@string/settings_title_notification_color"
-            android:key="@string/key_notification_color" />
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_notification_can_be_cleared"
-            android:key="@string/key_notification_can_be_cleared"
-            android:summaryOn="@string/settings_notification_can_be_cleared_on"
-            android:summaryOff="@string/settings_notification_can_be_cleared_off"
-            android:icon="@drawable/ic_can_be_cleared"/>
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_notification_hide_icon"
-            android:key="@string/key_notification_hide_icon"
-            android:summaryOn="@string/settings_notification_hide_icon_on"
-            android:summaryOff="@string/settings_notification_hide_icon_off"
-            android:icon="@drawable/ic_hide_notification"/>
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_notification_hide_in_lockScreen"
-            android:key="@string/key_notification_hide_in_lockScreen"
-            android:summaryOn="@string/settings_notification_hide_in_lockScreen_on"
-            android:summaryOff="@string/settings_notification_hide_in_lockScreen_off"
-            android:icon="@drawable/ic_hide_lockscreen"/>
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_notification_hide_big_view"
-            android:key="@string/key_notification_hide_big_view"
-            android:summaryOn="@string/settings_notification_hide_big_view_on"
-            android:summaryOff="@string/settings_notification_hide_big_view_off"
-            android:icon="@drawable/ic_extended_style"/>
-
-    </PreferenceCategory>
 
 </PreferenceScreen>
