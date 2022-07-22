@@ -14,6 +14,7 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.notification.ForecastN
 import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.settings.activity.MySettingsActivity;
+import mtgtech.com.weather_forecast.settings.fragment.AbstractSettingsFragment;
 import mtgtech.com.weather_forecast.settings.fragment.NotificationColorSettingsFragment;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.weather_model.model.option.NotificationStyle;
@@ -24,11 +25,12 @@ import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_
 
 import android.app.Activity;
 import android.os.Build;
+import android.os.Bundle;
 
 import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
 
-public class NavigationView {
+public class NavigationView extends AbstractSettingsFragment {
 
 
 
@@ -47,6 +49,7 @@ public class NavigationView {
 //        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
         binding.navLayout.switchWeatherBackground.setChecked(settingsOptionManager.isWeatherBgEnabled());
 
+        initNotificationPart(mainActivity, settingsOptionManager);
 
         changeListeners(mainActivity,binding, settingsOptionManager);
 
@@ -246,7 +249,7 @@ public class NavigationView {
         });
 
         // notification temp icon.
-        CheckBoxPreference notificationTempIcon = findPreference(mainActivity.mainActivity.getString(R.string.key_notification_temp_icon));
+        CheckBoxPreference notificationTempIcon = findPreference(mainActivity.getString(R.string.key_notification_temp_icon));
         notificationTempIcon.setOnPreferenceChangeListener((preference, newValue) -> {
             settingsOptionManager.setNotificationTemperatureIconEnabled((Boolean) newValue);
             PollingManager.resetNormalBackgroundTask(mainActivity, true);
@@ -306,5 +309,10 @@ public class NavigationView {
         hideNotificationIcon.setEnabled(sendNotification);
         hideNotificationInLockScreen.setEnabled(sendNotification && androidL);
         notificationHideBigView.setEnabled(sendNotification && !nativeNotification);
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+
     }
 }
