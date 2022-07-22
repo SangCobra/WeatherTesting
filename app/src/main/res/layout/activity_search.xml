@@ -54,8 +54,8 @@
                     android:hint="@string/feedback_search_location"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
-                    android:textColor="@color/gnt_white"
-                    android:textColorHint="@color/gnt_white50"
+                    android:textColor="@color/white"
+                    android:textColorHint="#80FFFFFF"
                     android:textCursorDrawable="@color/white"
                     android:textSize="@dimen/title_text_size"
                     tools:ignore="TouchTargetSizeCheck" />

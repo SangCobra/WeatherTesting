@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="@color/gnt_white"
+            android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/montserrat_medium"
             tools:ignore="RtlHardcoded"
@@ -76,7 +76,7 @@
 <!--            android:layout_marginEnd="40dp"-->
 <!--            android:includeFontPadding="false"-->
 <!--            android:lineSpacingExtra="0dp"-->
-<!--            android:textColor="@color/gnt_white"-->
+<!--            android:textColor="@color/white"-->
 <!--            android:textSize="25sp"-->
 <!--            app:layout_constraintBottom_toBottomOf="parent"-->
 <!--            app:layout_constraintEnd_toEndOf="parent"-->
@@ -97,7 +97,7 @@
 <!--            android:layout_marginStart="7dp"-->
 <!--            android:layout_marginBottom="5dp"-->
 <!--            android:text="C"-->
-<!--            android:textColor="@color/gnt_white"-->
+<!--            android:textColor="@color/white"-->
 <!--            android:textSize="14sp"-->
 <!--            app:layout_constraintBottom_toBottomOf="@id/tvTemperatureLocation"-->
 <!--            app:layout_constraintStart_toEndOf="@id/tvTemperatureLocation" />-->
@@ -109,7 +109,7 @@
 <!--            android:layout_marginBottom="10dp"-->
 <!--            android:gravity="center"-->
 <!--            android:text="Hazy"-->
-<!--            android:textColor="@color/gnt_white50"-->
+<!--            android:textColor="#80FFFFFF"-->
 <!--            app:layout_constraintBottom_toBottomOf="parent"-->
 <!--            app:layout_constraintEnd_toEndOf="@id/tvTempScale"-->
 <!--            app:layout_constraintStart_toStartOf="@id/tvTemperatureLocation"-->
@@ -187,7 +187,7 @@
     <!--                android:ellipsize="end"-->
     <!--                android:maxLines="1"-->
     <!--                android:textAlignment="viewStart"-->
-    <!--                android:textColor="@color/gnt_white"-->
+    <!--                android:textColor="@color/white"-->
     <!--                android:textSize="@dimen/title_text_size"-->
     <!--                android:textStyle="bold"-->
     <!--                tools:ignore="RtlHardcoded"-->

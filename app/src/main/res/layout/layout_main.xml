@@ -28,7 +28,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/locationContainer"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/locationContainer"
-                app:tint="@color/gnt_white" />
+                app:tint="@color/white" />
 
             <LinearLayout
                 android:id="@+id/locationContainer"
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/gnt_white"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="3dp"
                     android:format12Hour="EEE hh:mm a"
-                    android:textColor="@color/gnt_white" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <ImageView
@@ -71,7 +71,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/locationContainer"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/locationContainer"
-                app:tint="@color/gnt_white" />
+                app:tint="@color/white" />
 
 
             <androidx.core.widget.NestedScrollView
@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/gnt_white"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,7 +128,7 @@
                                 android:id="@+id/tvTempStatus"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/gnt_white"
+                                android:textColor="@color/white"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toTopOf="@id/tvTemperature"
                                 app:layout_constraintStart_toStartOf="@id/tvTemperature" />
@@ -140,7 +140,7 @@
                                 android:layout_marginStart="15dp"
                                 android:includeFontPadding="false"
                                 android:lineSpacingExtra="0dp"
-                                android:textColor="@color/gnt_white"
+                                android:textColor="@color/white"
                                 android:textSize="80sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +162,7 @@
                                 android:layout_marginStart="15dp"
                                 android:layout_marginBottom="10dp"
                                 android:text="C"
-                                android:textColor="@color/gnt_white"
+                                android:textColor="@color/white"
                                 android:textSize="30sp"
                                 app:layout_constraintBottom_toBottomOf="@id/tvTemperature"
                                 app:layout_constraintStart_toEndOf="@id/tvTemperature" />
@@ -184,7 +184,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="28"
-                                android:textColor="@color/gnt_white"
+                                android:textColor="@color/white"
                                 android:textSize="14sp"
                                 app:layout_constraintStart_toEndOf="@id/imgDownArrow"
                                 app:layout_constraintTop_toTopOf="@id/imgDownArrow" />
@@ -216,7 +216,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="28"
-                                android:textColor="@color/gnt_white"
+                                android:textColor="@color/white"
                                 android:textSize="14sp"
                                 app:layout_constraintStart_toEndOf="@id/imgUpArrow"
                                 app:layout_constraintTop_toTopOf="@id/imgDownArrow" />
@@ -260,13 +260,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:backgroundTint="@color/gnt_white"
+                            android:backgroundTint="@color/white"
                             android:paddingStart="10dp"
                             android:paddingTop="0dp"
                             android:paddingEnd="10dp"
                             android:paddingBottom="7dp"
                             android:text="@string/_72_hours"
-                            android:textColor="@color/gnt_white"
+                            android:textColor="@color/white"
                             android:textSize="14sp" />
 
 
@@ -330,13 +330,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="end"
-                            android:backgroundTint="@color/gnt_white"
+                            android:backgroundTint="@color/white"
                             android:paddingStart="10dp"
                             android:paddingTop="0dp"
                             android:paddingEnd="10dp"
                             android:paddingBottom="7dp"
                             android:text="@string/_15_days"
-                            android:textColor="@color/gnt_white"
+                            android:textColor="@color/white"
                             android:textSize="14sp" />
 
 
@@ -359,13 +359,13 @@
                             android:layout_gravity="center"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:textColor="@color/gnt_white"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/gnt_white" />
+                            android:background="@color/white" />
 
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -597,7 +597,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/pressureData"
-                            android:background="@color/gnt_white50"
+                            android:background="#80FFFFFF"
                             android:layout_marginEnd="40dp"/>
 
 

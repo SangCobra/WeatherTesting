@@ -93,7 +93,7 @@
 
             <TextView
                 android:id="@+id/primary"
-                android:background="@color/gnt_white"
+                android:background="@color/white"
                 android:textStyle="bold"
                 android:textSize="@dimen/gnt_text_size_large"
                 android:textColor="@color/gnt_gray"
@@ -141,7 +141,7 @@
             </TextView>
             <RatingBar
                 android:id="@+id/rating_bar"
-                android:background="@color/gnt_white"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="@dimen/gnt_text_size_small"
@@ -160,7 +160,7 @@
             </RatingBar>
             <TextView
                 android:id="@+id/secondary"
-                android:background="@color/gnt_white"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="top"
@@ -203,7 +203,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/gnt_blue"
-            android:textColor="@color/gnt_white"
+            android:textColor="@color/white"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:lines="1"

@@ -35,7 +35,7 @@
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="@dimen/_24sdp"
                         android:src="@drawable/ic_menu"
-                        app:tint="@color/gnt_white" />
+                        app:tint="@color/white" />
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="@dimen/_24sdp"
                         android:src="@drawable/ic_add"
-                        app:tint="@color/gnt_white" />
+                        app:tint="@color/white" />
 
                 </LinearLayout>
 
@@ -132,7 +132,7 @@
 <!--                    android:layout_width="wrap_content"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:layout_gravity="center"-->
-<!--                    android:textColor="@color/gnt_white"-->
+<!--                    android:textColor="@color/white"-->
 <!--                    android:textSize="18sp"-->
 <!--                    android:textStyle="bold" />-->
 
@@ -143,7 +143,7 @@
 <!--                    android:layout_gravity="center"-->
 <!--                    android:layout_marginTop="3dp"-->
 <!--                    android:format12Hour="EEE hh:mm a"-->
-<!--                    android:textColor="@color/gnt_white" />-->
+<!--                    android:textColor="@color/white" />-->
 <!--            </LinearLayout>-->
 
 
@@ -322,7 +322,7 @@
 <!--                                android:id="@+id/tvTempStatus"-->
 <!--                                android:layout_width="wrap_content"-->
 <!--                                android:layout_height="wrap_content"-->
-<!--                                android:textColor="@color/gnt_white"-->
+<!--                                android:textColor="@color/white"-->
 <!--                                android:textSize="18sp"-->
 <!--                                app:layout_constraintBottom_toTopOf="@id/tvTemperature"-->
 <!--                                app:layout_constraintStart_toStartOf="@id/tvTemperature" />-->
@@ -334,7 +334,7 @@
 <!--                                android:layout_marginStart="15dp"-->
 <!--                                android:includeFontPadding="false"-->
 <!--                                android:lineSpacingExtra="0dp"-->
-<!--                                android:textColor="@color/gnt_white"-->
+<!--                                android:textColor="@color/white"-->
 <!--                                android:textSize="80sp"-->
 <!--                                app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                                app:layout_constraintStart_toStartOf="parent"-->
@@ -356,7 +356,7 @@
 <!--                                android:layout_marginStart="15dp"-->
 <!--                                android:layout_marginBottom="10dp"-->
 <!--                                android:text="C"-->
-<!--                                android:textColor="@color/gnt_white"-->
+<!--                                android:textColor="@color/white"-->
 <!--                                android:textSize="30sp"-->
 <!--                                app:layout_constraintBottom_toBottomOf="@id/tvTemperature"-->
 <!--                                app:layout_constraintStart_toEndOf="@id/tvTemperature" />-->
@@ -377,7 +377,7 @@
 <!--                                android:id="@+id/tvLowTemp"-->
 <!--                                android:layout_width="wrap_content"-->
 <!--                                android:layout_height="wrap_content"-->
-<!--                                android:textColor="@color/gnt_white"-->
+<!--                                android:textColor="@color/white"-->
 <!--                                android:textSize="14sp"-->
 <!--                                app:layout_constraintStart_toEndOf="@id/imgDownArrow"-->
 <!--                                app:layout_constraintTop_toTopOf="@id/imgDownArrow" />-->
@@ -399,7 +399,7 @@
 <!--                                android:id="@+id/tvMaxTemp"-->
 <!--                                android:layout_width="wrap_content"-->
 <!--                                android:layout_height="wrap_content"-->
-<!--                                android:textColor="@color/gnt_white"-->
+<!--                                android:textColor="@color/white"-->
 <!--                                android:textSize="14sp"-->
 <!--                                app:layout_constraintStart_toEndOf="@id/imgUpArrow"-->
 <!--                                app:layout_constraintTop_toTopOf="@id/imgDownArrow" />-->
@@ -421,7 +421,7 @@
 <!--                                android:id="@+id/tvRealFeelTemp"-->
 <!--                                android:layout_width="wrap_content"-->
 <!--                                android:layout_height="wrap_content"-->
-<!--                                android:textColor="@color/gnt_white"-->
+<!--                                android:textColor="@color/white"-->
 <!--                                android:textSize="14sp"-->
 <!--                                android:layout_marginStart="5dp"-->
 <!--                                app:layout_constraintStart_toEndOf="@id/imgRealFeel"-->
@@ -468,7 +468,7 @@
 <!--                                android:layout_width="wrap_content"-->
 <!--                                android:layout_height="wrap_content"-->
 <!--                                android:layout_gravity="end"-->
-<!--                                android:backgroundTint="@color/gnt_white"-->
+<!--                                android:backgroundTint="@color/white"-->
 <!--                                android:paddingStart="@dimen/_10sdp"-->
 <!--                                android:paddingTop="0dp"-->
 <!--                                android:paddingEnd="@dimen/_10sdp"-->
@@ -588,13 +588,13 @@
 <!--                            android:layout_width="wrap_content"-->
 <!--                            android:layout_height="match_parent"-->
 <!--                            android:layout_gravity="end"-->
-<!--                            android:backgroundTint="@color/gnt_white"-->
+<!--                            android:backgroundTint="@color/white"-->
 <!--                            android:paddingStart="10dp"-->
 <!--                            android:paddingTop="0dp"-->
 <!--                            android:paddingEnd="10dp"-->
 <!--                            android:paddingBottom="7dp"-->
 <!--                            android:text="@string/_15_days"-->
-<!--                            android:textColor="@color/gnt_white"-->
+<!--                            android:textColor="@color/white"-->
 <!--                            android:textSize="14sp" />-->
 
 
@@ -617,13 +617,13 @@
 <!--                            android:layout_gravity="center"-->
 <!--                            android:paddingTop="10dp"-->
 <!--                            android:paddingBottom="10dp"-->
-<!--                            android:textColor="@color/gnt_white"-->
+<!--                            android:textColor="@color/white"-->
 <!--                            android:textSize="18sp" />-->
 
 <!--                        <View-->
 <!--                            android:layout_width="match_parent"-->
 <!--                            android:layout_height="1dp"-->
-<!--                            android:background="@color/gnt_white" />-->
+<!--                            android:background="@color/white" />-->
 
 
 <!--                        <androidx.recyclerview.widget.RecyclerView-->
@@ -827,13 +827,13 @@
 <!--                            android:layout_height="wrap_content"-->
 <!--                            android:layout_gravity="end"-->
 <!--                            android:fontFamily="@font/montserrat_regular"-->
-<!--                            android:backgroundTint="@color/gnt_white"-->
+<!--                            android:backgroundTint="@color/white"-->
 <!--                            android:paddingStart="@dimen/_10sdp"-->
 <!--                            android:paddingTop="0dp"-->
 <!--                            android:paddingEnd="@dimen/_10sdp"-->
 <!--                            android:paddingBottom="@dimen/_7sdp"-->
 <!--                            android:text="@string/see_more"-->
-<!--                            android:textColor="@color/gnt_white"-->
+<!--                            android:textColor="@color/white"-->
 <!--                            android:textSize="@dimen/_14sdp" />-->
 
 
@@ -1005,7 +1005,7 @@
 <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                            app:layout_constraintEnd_toStartOf="@id/pressureData"-->
 <!--                            app:layout_constraintStart_toEndOf="@+id/windData"-->
-<!--                            android:background="@color/gnt_white50"-->
+<!--                            android:background="#80FFFFFF"-->
 <!--                            />-->
 
 

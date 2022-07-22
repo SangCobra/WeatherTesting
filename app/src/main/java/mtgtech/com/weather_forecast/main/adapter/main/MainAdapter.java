@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.ads.nativetemplates.TemplateView;
+//import com.google.android.ads.nativetemplates.TemplateView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -131,9 +131,6 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
             case ViewType.DETAILS:
                 return new DetailsViewHolder(parent);
 
-                case ViewType.AD:
-                    return new AdViewHolder(parent);
-
             default: // FOOTER.
                 return new FooterViewHolder(parent);
         }
@@ -150,40 +147,27 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
                     itemAnimationEnabled,
                     firstCardPosition != null && firstCardPosition == position
             );
-        }else if(holder instanceof AdViewHolder){
-            holder.onBindView(activity, location, provider, listAnimationEnabled, itemAnimationEnabled);
-
-//            WeatherFlow.adUtil().loadNativeAd(new OnNativeAdListener() {
-//
-//                @NotNull
-//                @Override
-//                public TemplateView onTemplateView() {
-//
-//                    ((AdViewHolder)holder).adTemplateView.setVisibility(View.VISIBLE);
-//                    return ((AdViewHolder) holder).adTemplateView;
-//                }
-//            });
         }
         else {
             holder.onBindView(activity, location, provider, listAnimationEnabled, itemAnimationEnabled);
         }
     }
 
-     class AdViewHolder extends AbstractMainViewHolder {
-         public AdViewHolder(ViewGroup parent) {
-             super(LayoutInflater.from(parent.getContext()).inflate(
-                     R.layout.item_adview, parent, false));
-
-
-         }
-
-         @Override
-         public void onBindView(Context context, @NonNull Location location, @NonNull ResourceProvider provider, boolean listAnimationEnabled, boolean itemAnimationEnabled) {
-             super.onBindView(context, location, provider, listAnimationEnabled, itemAnimationEnabled);
-         }
-
-         TemplateView adTemplateView  = itemView.findViewById(R.id.nativeTemplate);
-    }
+//     class AdViewHolder extends AbstractMainViewHolder {
+//         public AdViewHolder(ViewGroup parent) {
+//             super(LayoutInflater.from(parent.getContext()).inflate(
+//                     R.layout.item_adview, parent, false));
+//
+//
+//         }
+//
+//         @Override
+//         public void onBindView(Context context, @NonNull Location location, @NonNull ResourceProvider provider, boolean listAnimationEnabled, boolean itemAnimationEnabled) {
+//             super.onBindView(context, location, provider, listAnimationEnabled, itemAnimationEnabled);
+//         }
+//
+////         TemplateView adTemplateView  = itemView.findViewById(R.id.nativeTemplate);
+//    }
 
     @Override
     public void onViewRecycled(@NonNull AbstractMainViewHolder holder) {

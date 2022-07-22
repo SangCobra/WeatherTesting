@@ -45,7 +45,7 @@ android {
 
             addConstantTo(owner, "inter_splash", "ca-app-pub-3940256099942544/8691691433")
             addConstantTo(owner, "inter_move_screen", "ca-app-pub-3940256099942544/1033173712")
-
+            addConstantTo(owner, "inter_detail_daily", "ca-app-pub-3270179691816977/7782826835")
             addConstantTo(owner, "native_hourly_weather", "ca-app-pub-3940256099942544/2247696110")
             addConstantTo(owner, "native_daily_weather", "ca-app-pub-3940256099942544/2247696110")
             addConstantTo(owner, "native_location", "ca-app-pub-3940256099942544/2247696110")
@@ -220,7 +220,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
     //native templates
-    implementation project(':nativetemplates')
+//    implementation project(':nativetemplates')
     implementation 'com.github.MTGLibs:CommonLibs:1.2.2'
 
     //billing

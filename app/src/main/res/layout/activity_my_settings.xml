@@ -37,7 +37,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/gnt_white50" />
+        android:background="#80FFFFFF" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/gnt_white50" />
+                android:background="#80FFFFFF" />
 
 
             <TextView
@@ -127,7 +127,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/gnt_white50" />
+                android:background="#80FFFFFF" />
 
 
             <TextView
@@ -165,7 +165,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/gnt_white50" />
+                android:background="#80FFFFFF" />
 
 
             <TextView
@@ -349,7 +349,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/gnt_white50" />
+                android:background="#80FFFFFF" />
 
             <TextView
                 style="@style/tvSettingsHeadingStyle"
@@ -492,7 +492,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/gnt_white50" />
+                android:background="#80FFFFFF" />
 
 
             <TextView
@@ -801,7 +801,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/gnt_white50" />
+                android:background="#80FFFFFF" />
 
         </LinearLayout>
 

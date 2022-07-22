@@ -50,7 +50,7 @@
         <!--    <TextView-->
         <!--        android:layout_width="wrap_content"-->
         <!--        android:layout_height="wrap_content"-->
-        <!--        android:textColor="@color/gnt_white"-->
+        <!--        android:textColor="@color/white"-->
         <!--        android:textSize="14sp"-->
         <!--        android:id="@+id/tvDailyValue"-->
         <!--        app:layout_constraintEnd_toEndOf="parent"-->
@@ -63,7 +63,7 @@
         <!--        android:layout_width="wrap_content"-->
         <!--        android:layout_height="wrap_content"-->
         <!--        android:textSize="16sp"-->
-        <!--        android:textColor="@color/gnt_white"-->
+        <!--        android:textColor="@color/white"-->
         <!--        app:layout_constraintTop_toTopOf="parent"-->
         <!--        app:layout_constraintBottom_toBottomOf="parent"-->
         <!--        app:layout_constraintStart_toEndOf="@+id/imgDailyDetails"-->
