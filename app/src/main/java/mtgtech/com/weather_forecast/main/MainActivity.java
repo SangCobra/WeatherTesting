@@ -186,6 +186,7 @@ public class MainActivity extends GeoActivity
     public static boolean isGotoSettings;
     public static boolean isStartAgain;
     public LoadLocation loadLocation;
+    public List<Location> listBeforeGotoManageLocation;
 
     private final BroadcastReceiver backgroundUpdateReceiver = new BroadcastReceiver() {
         @Override
@@ -224,6 +225,7 @@ public class MainActivity extends GeoActivity
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 //        showNotify();
+
         loadLocation = formattedId -> viewModel.init(MainActivity.this, formattedId);
         setPermissionCallback(new PermissionCallback() {
             @Override
@@ -295,7 +297,7 @@ public class MainActivity extends GeoActivity
         initModel();
         initView();
 
-
+        listBeforeGotoManageLocation = DatabaseHelper.getInstance(this).readLocationList();
         registerReceiver(
                 backgroundUpdateReceiver,
                 new IntentFilter(ACTION_UPDATE_WEATHER_IN_BACKGROUND)
@@ -328,6 +330,19 @@ public class MainActivity extends GeoActivity
         this.pendingIntentAction(intent);
         resetUIUpdateFlag();
         viewModel.init(this, getLocationId(intent));
+    }
+    private void initReceiver(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("reload");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (Objects.equals(action, "reload")){
+                    viewModel.updateWeather(MainActivity.this);
+                }
+            }
+        }, intentFilter);
     }
 
 
@@ -367,7 +382,6 @@ public class MainActivity extends GeoActivity
                 break;
 
             case MANAGE_ACTIVITY:
-                isStartAgain = false;
                 if (resultCode == RESULT_OK) {
                     String formattedId = getLocationId(data);
                     if (TextUtils.isEmpty(formattedId)) {
@@ -382,10 +396,10 @@ public class MainActivity extends GeoActivity
                     }
                     binding.background.mainPager.setCurrentItem(index);
                 }
+                onRefresh();
                 break;
 
             case CARD_MANAGE_ACTIVITY:
-                isStartAgain = false;
                 if (resultCode == RESULT_OK) {
                     resetUIUpdateFlag();
                     viewModel.reset(this);
@@ -444,7 +458,7 @@ public class MainActivity extends GeoActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isStartAgain = false;
+        isStartAgain = true;
 //        if (bp != null) {
 //            bp.release();
 //        }
@@ -507,6 +521,8 @@ public class MainActivity extends GeoActivity
         new NavigationView().setUp(this, binding);
         todayForecastAdapter = new TodayForecastAdapter(this);
         settingsOptionManager = SettingsOptionManager.getInstance(this);
+        settingsOptionManager.setNotificationTemperatureIconEnabled(true);
+
 
         hourlyTrendAdapter = new HourlyTrendAdapter();
 //        binding.background.todayForecastList.setAdapter(todayForecastAdapter);

@@ -230,7 +230,7 @@ public class SettingsOptionManager {
 
         language = OptionMapper.getLanguage(
                 sharedPreferences.getString(
-                        context.getString(R.string.key_language), "follow_system")
+                        context.getString(R.string.key_language), "english_britain")
         );
 
         // forecast.
@@ -295,7 +295,7 @@ public class SettingsOptionManager {
                 context.getString(R.string.key_notification_hide_icon), false);
 
         notificationHideInLockScreenEnabled = sharedPreferences.getBoolean(
-                context.getString(R.string.key_notification_hide_in_lockScreen), false);
+                context.getString(R.string.key_notification_hide_in_lockScreen), true);
 
         notificationHideBigViewEnabled = sharedPreferences.getBoolean(
                 context.getString(R.string.key_notification_hide_big_view), false);

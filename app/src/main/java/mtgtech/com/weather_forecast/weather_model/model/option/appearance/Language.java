@@ -14,12 +14,12 @@ import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMappe
 
 public enum Language {
 
-    FOLLOW_SYSTEM(
-            "follow_system",
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-                    ? Resources.getSystem().getConfiguration().getLocales().get(0)
-                    : Resources.getSystem().getConfiguration().locale
-    ),
+//    FOLLOW_SYSTEM(
+//            "follow_system",
+//            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+//                    ? Resources.getSystem().getConfiguration().getLocales().get(0)
+//                    : Resources.getSystem().getConfiguration().locale
+//    ),
     CHINESE("chinese", new Locale("zh", "CN")),
     UNSIMPLIFIED_CHINESE("unsimplified_chinese", new Locale("zh", "TW")),
     ENGLISH_US("english_america", new Locale("en", "US")),

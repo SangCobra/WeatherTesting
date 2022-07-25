@@ -21,6 +21,7 @@ import android.text.TextUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -194,7 +195,7 @@ public class AndroidLocationService extends LocationService {
 
         List<Address> addressList = null;
         try {
-            addressList = new Geocoder(context, LanguageUtils.getCurrentLocale(context))
+            addressList = new Geocoder(context, new Locale("en", "GB"))
                     .getFromLocation(
                             location.getLatitude(),
                             location.getLongitude(),

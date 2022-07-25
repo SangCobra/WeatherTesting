@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import mtgtech.com.weather_forecast.main.MainActivity;
@@ -207,7 +208,7 @@ public class WeatherFlow extends MyApplication {
         rxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create();
 
         LanguageUtils.setLanguage(
-                this, SettingsOptionManager.getInstance(this).getLanguage().getLocale());
+                this, new Locale("en", "GB"));
 
 //        admobUtil = new AdmobUtil(this);
 //        if (!PurchaseUtils.isPurchased(this))

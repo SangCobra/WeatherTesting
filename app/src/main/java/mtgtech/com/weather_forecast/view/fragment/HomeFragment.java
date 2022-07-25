@@ -104,6 +104,7 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -191,7 +192,7 @@ public class HomeFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        binding.tvCityName.setText(location.getCity() + ", " + location.getCountry());
         resetUI(location);
 
     }
@@ -223,7 +224,7 @@ public class HomeFragment extends Fragment {
 
             binding.humidityCurrent.setText(RelativeHumidityUnit.PERCENT.getRelativeHumidityText(
                     location.getWeather().getCurrent().getRelativeHumidity()));
-            binding.realFeelCurrent.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(requireContext(), location.getWeather().getCurrent().getTemperature().getTemperature()));
+            binding.realFeelCurrent.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(requireContext(), location.getWeather().getCurrent().getTemperature().getRealFeelTemperature()));
             if (location.getWeather().getHourlyForecast().get(0).getPrecipitationProbability().getRain() != null) {
                 binding.percentRainCurrent.setText(Math.round(location.getWeather().getHourlyForecast().get(0).getPrecipitation().getRain()) + "%");
             }
@@ -407,7 +408,7 @@ public class HomeFragment extends Fragment {
 //            binding.tvPressureValue.setText(settingsOptionManager.getPressureUnit().getPressureText(requireActivity(), location.getWeather().getCurrent().getPressure()));
             String cityName = location.getCity();
 
-            binding.tvCityName.setText(cityName + ", " + LanguageUtils.traditionalToSimplified(location.getCountry()));
+//            binding.tvCityName.setText(cityName + ", " + LanguageUtils.traditionalToSimplified(location.getCountry()));
             @SuppressLint("SimpleDateFormat") SimpleDateFormat fommater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZ", Locale.ENGLISH);
             try {
 //                Date parsed = fommater.parse(location.getWeather().getDailyForecast().get(0).getDate().toString());

@@ -148,7 +148,7 @@ public class ResourceHelper {
         }
         builder.append(Math.abs(temp));
 
-        int id = ResourceUtils.getResId(context, builder.toString(), "drawable");
+        int id = ResourceUtils.getResId(context, String.valueOf(builder), "drawable");
         if (id == 0) {
             return R.drawable.notif_temp_0;
         } else {

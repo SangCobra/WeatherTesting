@@ -20,6 +20,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import mtgtech.com.weather_forecast.WeatherFlow;
@@ -59,7 +60,7 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
 
         LanguageUtils.setLanguage(
                 context,
-                SettingsOptionManager.getInstance(context).getLanguage().getLocale()
+                new Locale("en", "GB")
         );
 
         // get sp & realTimeWeather.
@@ -115,7 +116,7 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
             channel.setShowBadge(true);
             channel.setImportance(hideNotificationIcon
                     ? NotificationManager.IMPORTANCE_UNSPECIFIED : NotificationManager.IMPORTANCE_HIGH);
-            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.setLockscreenVisibility(hideNotificationInLockScreen ? NotificationCompat.VISIBILITY_SECRET : NotificationCompat.VISIBILITY_PUBLIC);
             manager.createNotificationChannel(channel);
         }
 
@@ -123,17 +124,20 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, WeatherFlow.NOTIFICATION_CHANNEL_ID_NORMALLY);
 
+        builder.setDefaults(Notification.DEFAULT_ALL);
         // set notification level.
         builder.setPriority(hideNotificationIcon
-                ? NotificationCompat.PRIORITY_MIN : NotificationCompat.PRIORITY_MAX);
+                ? NotificationCompat.PRIORITY_MIN : NotificationCompat.PRIORITY_HIGH);
 
         // set notification visibility.
-        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        builder.setVisibility(hideNotificationInLockScreen ? NotificationCompat.VISIBILITY_SECRET : NotificationCompat.VISIBILITY_PUBLIC);
 
+        IconCompat iconCompat = getIconCompat(tempIcon, context, temperatureUnit, weather, dayTime);
         // set small icon.
         builder.setSmallIcon(
-                Objects.requireNonNull(IconCompat.createFromIcon(Icon.createWithResource(context, R.drawable.icon_app)))
+                IconCompat.createWithResource(context, R.drawable.icon_app)
         );
+
 
         // build base view.
         builder.setContent(
@@ -182,23 +186,36 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
         // set only alert once.
         builder.setOnlyAlertOnce(true);
         builder.setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL);
+        builder.setAutoCancel(true);
 
         Notification notification = builder.build();
-        if (!tempIcon && Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            try {
-                notification.getClass()
-                        .getMethod("setSmallIcon", Icon.class)
-                        .invoke(
-                                notification,
-                                R.drawable.icon_app
-                        );
-            } catch (Exception ignore) {
-                // do nothing.
-            }
-        }
+//        if (!tempIcon && Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//            try {
+//                notification.getClass()
+//                        .getMethod("setSmallIcon", Icon.class)
+//                        .invoke(
+//                                notification,
+//                                R.drawable.icon_app
+//                        );
+//            } catch (Exception ignore) {
+//                // do nothing.
+//            }
+//        }
 
         // commit.
         manager.notify(WeatherFlow.NOTIFICATION_ID_NORMALLY, notification);
+    }
+
+    private static IconCompat getIconCompat(boolean tempIcon, Context context, TemperatureUnit temperatureUnit, Weather weather, boolean dayTime) {
+        return tempIcon ? IconCompat.createWithResource(context, ResourceHelper.getTempIconId(
+                context,
+                temperatureUnit.getTemperature(
+                        weather.getCurrent().getTemperature().getTemperature()
+
+                ))) : IconCompat.createWithResource(context, ResourceHelper.getDefaultMinimalXmlIconId(
+                weather.getCurrent().getWeatherCode(),
+                dayTime)
+        );
     }
 
     private static RemoteViews buildBaseView(Context context, RemoteViews views,
@@ -420,7 +437,7 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                 if (MyUtils.isNight()) {
                     return R.drawable.img_moon;
                 } else {
-                    return R.drawable.img_sun_cloudy;
+                    return R.drawable.img_clear;
                 }
             case PARTLY_CLOUDY:
             case CLOUDY:
@@ -459,7 +476,7 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
                 if (MyUtils.isNight()) {
                     return R.drawable.img_moon;
                 } else {
-                    return R.drawable.img_sun_cloudy;
+                    return R.drawable.img_clear;
                 }
             case PARTLY_CLOUDY:
             case CLOUDY:

@@ -2,6 +2,7 @@ package mtgtech.com.weather_forecast.view.adapter.location;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -157,6 +158,7 @@ public class LocationHolder extends RecyclerView.ViewHolder {
                     List<Location> list = adapter.getLocationList();
                     Location location = list.remove(getAdapterPosition());
                     location.setWeather(DatabaseHelper.getInstance(itemView.getContext()).readWeather(location));
+//                    DatabaseHelper.getInstance(itemView.getContext()).deleteWeather(model.location);
                     adapter.update(list, location.getFormattedId());
                     listenerChange.onLocationRemoved(locationList, model.location);
                 }

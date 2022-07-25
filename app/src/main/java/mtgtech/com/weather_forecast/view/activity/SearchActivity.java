@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.turingtechnologies.materialscrollbar.CustomIndicator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
@@ -163,6 +165,7 @@ public class SearchActivity extends GeoActivity
 
     @SuppressLint("NewApi")
     private void initWidget() {
+        binding.editText.setFocusedByDefault(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             binding.searchBar.setTransitionName(getString(R.string.transition_activity_search_bar));
         }
@@ -174,7 +177,10 @@ public class SearchActivity extends GeoActivity
 
         binding.clearBtn.setOnClickListener(v -> binding.editText.setText(""));
         binding.editText.setOnClickListener(v -> {
-            binding.editText.setCursorVisible(true);
+            if (binding.editText.hasFocus()){
+                binding.editText.setCursorVisible(true);
+            }
+            binding.editText.setFocusable(true);
         });
         this.adapter = new SearchLocationAdapter(
                 this,
@@ -244,6 +250,7 @@ public class SearchActivity extends GeoActivity
         }
     }
 
+
     // control.
 
     private void finishSelf(boolean selected) {
@@ -297,6 +304,7 @@ public class SearchActivity extends GeoActivity
             DatabaseHelper.getInstance(SearchActivity.this).writeLocation(locationList.get(0));
             Intent intent = new Intent();
             intent.putExtra("location", (Serializable) locationList.get(0));
+            Objects.requireNonNull(DatabaseHelper.getInstance(SearchActivity.this).readLocation(locationList.get(0))).setWeather(DatabaseHelper.getInstance(SearchActivity.this).readWeather(locationList.get(0)));
             setResult(RESULT_OK, intent);
             mainActivityViewModel.init(SearchActivity.this, locationList.get(0).getFormattedId());
         }

@@ -1,6 +1,7 @@
 package mtgtech.com.weather_forecast.view.fragment;
 
 import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
+import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
 import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
 import android.animation.ValueAnimator;
@@ -136,11 +137,11 @@ public class LocationManageFragment extends Fragment
         this.imgAddLocation = view.findViewById(R.id.imgAddLocation);
         this.imgBack = view.findViewById(R.id.imgBack);
         imgBack.setOnClickListener(v -> {
-            if (listLocationBefore.size() < readLocationList().size()) {
+            isStartAgain = true;
+            if (listLocationBefore.size() < readLocationList().size()){
                 Intent intent = new Intent();
                 intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID, readLocationList().get(readLocationList().size() - 1).getFormattedId());
                 intent.putExtra(MainActivity.KEY_LOCATION_INDEX, readLocationList().size() - 1);
-                intent.putExtra(MainActivity.KEY_RELOAD_WEATHER, 1000);
                 requireActivity().setResult(Activity.RESULT_OK, intent);
             }
             requireActivity().finish();

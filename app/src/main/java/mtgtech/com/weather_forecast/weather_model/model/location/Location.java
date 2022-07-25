@@ -258,15 +258,14 @@ public class Location
         List<Location> result = new ArrayList<>(list.size());
         if (currentLocation == null) {
             result.addAll(list);
-            return result;
         } else {
             for (Location l : list) {
                 if (!l.isResidentPosition() || !l.isCloseTo(context, currentLocation)) {
                     result.add(l);
                 }
             }
-            return result;
         }
+        return result;
     }
 
     private boolean isCloseTo(Context c, Location location) {

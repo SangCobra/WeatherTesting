@@ -186,6 +186,7 @@ public abstract class AbstractRemoteViewsPresenter {
         }
     }
 
+    @SuppressLint("InlinedApi")
     public static PendingIntent getWeatherPendingIntent(Context context,
                                                         @Nullable Location location, int requestCode) {
         return PendingIntent.getActivity(

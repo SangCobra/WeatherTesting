@@ -14,9 +14,9 @@ public class ResourceUtils {
     public static int getResId(Context context, String resName, String type) {
         try {
             return context.getClassLoader()
-                    .loadClass(context.getPackageName() + ".R$" + type)
+                    .loadClass("mtgtech.com.weather_forecast" + ".R$" + type)
                     .getField(resName)
-                    .getInt(null);
+                    .getInt(resName);
         } catch (Exception e) {
             return 0;
         }

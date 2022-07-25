@@ -45,13 +45,12 @@ public class NavigationView extends AbstractSettingsFragment {
         settingsOptionManager.setNotificationCanBeClearedEnabled(true);
 
         settingsOptionManager.setNotificationMinimalIconEnabled(true);
-        settingsOptionManager.setNotificationTemperatureIconEnabled(false);
 
         clickListeners(mainActivity, binding);
 //
 //        binding.navLayout.switchNavAlertNotification.setChecked(settingsOptionManager.isNotificationEnabled());
         binding.navLayout.switchNavPrecipitation.setChecked(settingsOptionManager.isNotificationEnabled());
-//        binding.navLayout.isLockScreen.setChecked(settingsOptionManager.isNotificationHideInLockScreenEnabled());
+        binding.navLayout.isLockScreen.setChecked(!settingsOptionManager.isNotificationHideInLockScreenEnabled());
         binding.navLayout.changeTermType.setChecked(!settingsOptionManager.isTermChange());
 //        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
         binding.navLayout.switchWeatherBackground.setChecked(settingsOptionManager.isWeatherBgEnabled());
@@ -185,12 +184,12 @@ public class NavigationView extends AbstractSettingsFragment {
 //                toggleNotificationItems(binding.llNotification);
             }
         }));
-//        binding.navLayout.isLockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            if(buttonView.isPressed()){
-//                settingsOptionManager.setNotificationHideInLockScreenEnabled(!isChecked);
-//                PollingManager.resetNormalBackgroundTask(mainActivity, isChecked);
-//            }
-//        });
+        binding.navLayout.isLockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(buttonView.isPressed()){
+                settingsOptionManager.setNotificationHideInLockScreenEnabled(!isChecked);
+                PollingManager.resetNormalBackgroundTask(mainActivity, isChecked);
+            }
+        });
         binding.navLayout.changeTermType.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (buttonView.isPressed()){
                 settingsOptionManager.setTermChange(!isChecked);

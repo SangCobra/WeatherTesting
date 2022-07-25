@@ -28,6 +28,8 @@ import com.common.control.manager.AppOpenManager;
 import com.common.control.utils.PermissionUtils;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 
+import java.util.Locale;
+
 import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.WeatherFlow;
@@ -68,7 +70,7 @@ public abstract class GeoActivity extends AppCompatActivity {
 
         LanguageUtils.setLanguage(
                 this,
-                SettingsOptionManager.getInstance(this).getLanguage().getLocale()
+                new Locale("en", "GB")
         );
 
         boolean darkMode = DisplayUtils.isDarkMode(this);
