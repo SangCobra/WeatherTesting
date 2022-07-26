@@ -9,39 +9,39 @@
     tools:ignore="UnusedAttribute">
 
     <View
-        android:background="@color/colorLine"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        android:background="@color/colorLine" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:src="@drawable/ic_plus"
-            android:layout_margin="@dimen/normal_margin"
-            android:layout_gravity="center"
             style="@style/material_icon"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/normal_margin"
+            android:src="@drawable/ic_plus"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:text="@string/get_more"
-            android:layout_marginEnd="@dimen/normal_margin"
+            style="@style/content_text"
             android:layout_gravity="center"
-            style="@style/content_text" />
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:text="@string/get_more" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:orientation="horizontal"
         tools:ignore="UselessParent">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -51,7 +51,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/normal_margin"
             android:background="@drawable/selectable_item_background_borderless"
-            tools:src="@drawable/ic_play_store"/>
+            tools:src="@drawable/ic_play_store" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/item_icon_provider_get_more_gitHub"
@@ -59,10 +59,10 @@
             android:layout_height="@dimen/material_icon_size"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
             android:background="@drawable/selectable_item_background_borderless"
-            tools:src="@drawable/ic_github_dark"/>
+            tools:src="@drawable/ic_github_dark" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/item_icon_provider_get_more_chronus"
@@ -70,10 +70,10 @@
             android:layout_height="@dimen/material_icon_size"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
             android:background="@drawable/selectable_item_background_borderless"
-            tools:src="@drawable/ic_chronus"/>
+            tools:src="@drawable/ic_chronus" />
 
     </LinearLayout>
 

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/border_wind"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/bg_dialog"
+        android:backgroundTint="#fff"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="Choose Wind Speed Unit"
+                android:textColor="#262626"
+                android:textSize="16dp" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/bg_unitType1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
+                    <RadioButton
+                        android:id="@+id/unitType1"
+                        android:layout_width="28dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent" />
+
+                    <TextView
+                        android:layout_width="308dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="km/h"
+                        android:textColor="#3C3C3C"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bg_unitType2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
+                    <RadioButton
+                        android:id="@+id/unitType2"
+                        android:layout_width="28dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="m/s"
+                        android:textColor="#3C3C3C"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bg_unitType3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
+                    <RadioButton
+                        android:id="@+id/unitType3"
+                        android:layout_width="28dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="kn"
+                        android:textColor="#3C3C3C"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bg_unitType4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
+                    <RadioButton
+                        android:id="@+id/unitType4"
+                        android:layout_width="28dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="mph"
+                        android:textColor="#3C3C3C"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bg_unitType5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
+                    <RadioButton
+                        android:id="@+id/unitType5"
+                        android:layout_width="28dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="ft/s"
+                        android:textColor="#3C3C3C"
+                        android:textSize="16dp" />
+                </LinearLayout>
+            </RadioGroup>
+
+            <FrameLayout
+                android:id="@+id/btn_cancel_wind"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_171sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|right"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_32sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Cancel"
+                    android:textAllCaps="true"
+                    android:textColor="#FFA800" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

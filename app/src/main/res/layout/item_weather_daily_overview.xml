@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
     android:foreground="@drawable/selectable_item_background_borderless"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     tools:ignore="UnusedAttribute">
 
-    <anaxxes.com.weatherFlow.ui.widget.AnimatableIconView
+    <mtgtech.com.weather_forecast.view.weather_widget.AnimatableIconView
         android:id="@+id/item_weather_daily_overview_icon"
         android:layout_width="@dimen/little_weather_icon_container_size"
         android:layout_height="@dimen/little_weather_icon_container_size"
@@ -19,12 +19,12 @@
 
     <TextView
         android:id="@+id/item_weather_daily_overview_text"
+        style="@style/title_text"
         android:layout_marginEnd="@dimen/normal_margin"
         android:gravity="start"
         android:textAlignment="gravity"
         android:textStyle="bold"
-        style="@style/title_text"
-        tools:text="晴 2℃"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        tools:text="晴 2℃" />
 
 </LinearLayout>

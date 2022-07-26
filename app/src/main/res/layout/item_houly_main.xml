@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/_6sdp"
+    android:paddingEnd="@dimen/_6sdp">
+
+    <TextView
+        android:id="@+id/time_in_day"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_border_text"
+        android:backgroundTint="#fff"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"
+        android:text="NOW"
+        android:textSize="@dimen/_11sdp" />
+
+    <ImageView
+        android:id="@+id/icon_weather_in_day"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:src="@drawable/sun_cloudy" />
+
+    <TextView
+        android:id="@+id/percent_rain_down_in_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="80%"
+        android:textColor="#5DCEFF"
+        android:textSize="@dimen/_10sdp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/percent_in_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="20"
+            android:textColor="#fff"
+            android:textSize="@dimen/_14sdp" />
+    </LinearLayout>
+
+
+</LinearLayout>

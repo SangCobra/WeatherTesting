@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<anaxxes.com.weatherFlow.ui.widget.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<mtgtech.com.weather_forecast.view.weather_widget.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_weather_icon"
     android:layout_width="match_parent"
@@ -11,9 +11,9 @@
         android:id="@+id/item_weather_icon_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/large_margin"
         android:layout_centerInParent="true"
-        tools:src="@drawable/weather_clear_day"
-        tools:ignore="ContentDescription" />
+        android:layout_margin="@dimen/large_margin"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/weather_clear_day" />
 
-</anaxxes.com.weatherFlow.ui.widget.SquareFrameLayout>
+</mtgtech.com.weather_forecast.view.weather_widget.SquareFrameLayout>

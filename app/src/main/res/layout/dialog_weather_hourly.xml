@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_weather_hourly_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,35 +14,35 @@
 
         <TextView
             android:id="@+id/dialog_weather_hourly_title"
+            style="@style/title_text"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:textStyle="bold"
-            style="@style/title_text"
             tools:text="13时" />
 
         <TextView
             android:id="@+id/dialog_weather_hourly_subtitle"
+            style="@style/subtitle_text"
             android:layout_width="match_parent"
-            android:layout_marginTop="2dp"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/normal_margin"
-            style="@style/subtitle_text"
-            tools:text="11月13日"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded"
+            tools:text="11月13日" />
 
         <LinearLayout
             android:id="@+id/dialog_weather_hourly_weatherContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:foreground="@drawable/selectable_item_background_borderless"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             tools:ignore="UnusedAttribute">
 
-            <anaxxes.com.weatherFlow.ui.widget.AnimatableIconView
+            <mtgtech.com.weather_forecast.view.weather_widget.AnimatableIconView
                 android:id="@+id/dialog_weather_hourly_icon"
                 android:layout_width="@dimen/standard_weather_icon_container_size"
                 android:layout_height="@dimen/standard_weather_icon_container_size"
@@ -53,13 +52,13 @@
 
             <TextView
                 android:id="@+id/dialog_weather_hourly_text"
+                style="@style/title_text"
                 android:layout_marginEnd="@dimen/normal_margin"
                 android:gravity="start"
                 android:textAlignment="gravity"
                 android:textStyle="bold"
-                style="@style/title_text"
-                tools:text="晴 9℃\n东北风3-4级"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"
+                tools:text="晴 9℃\n东北风3-4级" />
 
         </LinearLayout>
 

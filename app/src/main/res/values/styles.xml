@@ -1,49 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- app theme -->
-    <style name="WeatherFlowTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="WeatherFlowTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowBackground">@drawable/download</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="WeatherFlowTheme.Main" parent="WeatherFlowTheme">
-        <item name="colorAccent">@android:color/transparent</item>
     </style>
 
     <style name="WeatherFlowTheme.Search" parent="WeatherFlowTheme" />
 
-    <style name="WeatherFlowTheme.AppbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="WeatherFlowTheme.AppbarTheme" parent="WeatherFlowTheme">
         <item name="elevation">2dp</item>
     </style>
-    <style name="WeatherFlowTheme.AppbarPopupTheme" parent="ThemeOverlay.AppCompat.Light" >
+
+    <style name="WeatherFlowTheme.AppbarPopupTheme" parent="WeatherFlowTheme">
 
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="WeatherFlowTheme.AppbarTheme.Light" parent="ThemeOverlay.AppCompat.Light">
-        <item name="elevation">2dp</item>
-    </style>
-    <style name="WeatherFlowTheme.AppbarPopupTheme.Light" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="WeatherFlowTheme.AppbarTheme.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="elevation">2dp</item>
-    </style>
-    <style name="WeatherFlowTheme.AppbarPopupTheme.Dark" parent="ThemeOverlay.AppCompat.Dark" />
-
-    <style name="WeatherFlowTheme.TabLayoutTheme" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorHeight">3dp</item>
-        <item name="tabIndicatorColor">@color/colorTextTitle</item>
-        <item name="tabSelectedTextColor">@color/colorTextTitle</item>
-        <item name="tabTextColor">@color/colorTextSubtitle</item>
-    </style>
-    
     <!-- card. -->
     <style name="material_card">
         <item name="android:layout_width">match_parent</item>
@@ -68,33 +42,8 @@
     </style>
 
     <!-- Popup window. -->
-    <style name="PopupWindowAnimation.Top.Left" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/popup_show_top_left</item>
-        <item name="android:windowExitAnimation">@anim/popup_hide</item>
-    </style>
-
-    <style name="PopupWindowAnimation.Top.Right" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/popup_show_top_right</item>
-        <item name="android:windowExitAnimation">@anim/popup_hide</item>
-    </style>
-
-    <style name="PopupWindowAnimation.Bottom.Left" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/popup_show_bottom_left</item>
-        <item name="android:windowExitAnimation">@anim/popup_hide</item>
-    </style>
-
-    <style name="PopupWindowAnimation.Bottom.Right" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/popup_show_bottom_right</item>
-        <item name="android:windowExitAnimation">@anim/popup_hide</item>
-    </style>
 
     <!-- view. -->
-    <style name="week_weather_week_info">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">96dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:foreground">@drawable/selectable_item_background</item>
-    </style>
 
     <!-- image. -->
     <style name="material_icon">
@@ -105,13 +54,6 @@
         <item name="android:layout_marginRight">@dimen/normal_margin</item>
         <item name="android:layout_marginBottom">@dimen/normal_margin</item>
         <item name="android:tint">@color/colorTextContent</item>
-    </style>
-
-    <style name="widget_week_icon">
-        <item name="android:layout_width">36dp</item>
-        <item name="android:layout_height">36dp</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:src">@drawable/weather_cloudy</item>
     </style>
 
     <!-- text. -->
@@ -190,12 +132,6 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
-    <style name="activity_create_widget_done_button" parent="material_button">
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:text">@string/done</item>
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
-
     <style name="material_image_button">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
@@ -240,7 +176,9 @@
         <item name="android:hand_minute">@drawable/clock_minute_light</item>
         <item name="android:dial">@drawable/clock_dial_light</item>
     </style>
+
     <style name="widget_text_clock_analog.Light" parent="widget_text_clock_analog" />
+
     <style name="widget_text_clock_analog.Dark" parent="widget_text_clock_analog">
         <item name="android:hand_hour">@drawable/clock_hour_dark</item>
         <item name="android:hand_minute">@drawable/clock_minute_dark</item>
@@ -256,35 +194,15 @@
         <item name="android:indeterminateTint" tools:ignore="NewApi">@color/lightPrimary_5</item>
     </style>
 
-    <style name="Toolbar.TitleText" parent="WeatherFlowTheme.AppbarTheme">
-        <item name="android:textSize">25sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="homeHeadingStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/gnt_white</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="tvTodayForecastStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/gnt_white</item>
-    </style>
-
-    <style name="tvNavBarStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/gnt_white</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:drawableTint">@color/gnt_white</item>
-        <item name="android:layout_marginTop">15dp</item>
-        <item name="android:layout_marginBottom">15dp</item>
-        <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
-    </style>
-
-    <style name="navBarDividerStyle">
-        <item name="android:background">@color/colorDivider</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="dottedDividerStyle">
@@ -302,14 +220,15 @@
     <style name="tvSettingsTextStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorTextWhite</item>
-        <item name="android:drawableTint">@color/colorTextWhite</item>
+        <item name="android:drawableTint" tools:ignore="NewApi">@color/colorTextWhite</item>
         <item name="android:drawablePadding">10dp</item>
 
     </style>
+
     <style name="etSettingUnitTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorSkyBlue</item>
-        <item name="android:backgroundTint">@color/colorSkyBlue</item>
+        <item name="android:backgroundTint" tools:ignore="NewApi">@color/colorSkyBlue</item>
         <item name="android:layout_gravity">center</item>
 
     </style>
@@ -321,6 +240,15 @@
 
     </style>
 
-
+    <style name="Transparent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:screenOrientation">unspecified</item>
+    </style>
 
 </resources>

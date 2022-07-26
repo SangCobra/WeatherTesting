@@ -2,20 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_main_sun_moon"
-    android:layout_margin="0dp"
-    style="@style/material_card">
+    style="@style/material_card"
+    android:layout_margin="0dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/normal_margin">
 
-            <anaxxes.com.weatherFlow.ui.widget.astro.MoonPhaseView
+            <mtgtech.com.weather_forecast.view.weather_widget.astro.MoonPhaseView
                 android:id="@+id/container_main_sun_moon_phaseView"
                 android:layout_width="@dimen/material_icon_size"
                 android:layout_height="@dimen/material_icon_size"
@@ -24,28 +24,28 @@
 
             <TextView
                 android:id="@+id/container_main_sun_moon_phaseText"
+                style="@style/content_text"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="2dp"
                 android:layout_toStartOf="@id/container_main_sun_moon_phaseView"
-                style="@style/content_text"
-                tools:text="上弦月"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"
+                tools:text="上弦月" />
 
             <TextView
                 android:id="@+id/container_main_sun_moon_title"
+                style="@style/content_text"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/container_main_sun_moon_phaseText"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@string/sunrise_sunset"
                 android:textSize="@dimen/title_text_size"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/container_main_sun_moon_phaseText"
-                android:maxLines="1"
-                android:ellipsize="end"
-                style="@style/content_text" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
-        <anaxxes.com.weatherFlow.ui.widget.astro.SunMoonView
+        <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
             android:id="@+id/container_main_sun_moon_controlView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -59,31 +59,31 @@
                 android:id="@+id/container_main_sun_moon_sunContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normal_margin"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/normal_margin"
                 tools:ignore="RtlHardcoded">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/container_main_sun_moon_sun_icon"
+                    style="@style/material_icon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/weather_clear_day_mini_xml"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="0dp"
+                    android:src="@drawable/weather_clear_day_mini_xml"
                     android:tint="@color/colorTextSubtitle"
-                    style="@style/material_icon"
                     tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/container_main_sun_moon_sunrise_sunset"
-                    android:layout_toEndOf="@id/container_main_sun_moon_sun_icon"
+                    style="@style/subtitle_text"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="4dp"
-                    style="@style/subtitle_text"
-                    tools:text="05:45↑\n17:45↓"
-                    tools:ignore="RtlHardcoded" />
+                    android:layout_toEndOf="@id/container_main_sun_moon_sun_icon"
+                    tools:ignore="RtlHardcoded"
+                    tools:text="05:45↑\n17:45↓" />
 
             </RelativeLayout>
 
@@ -91,32 +91,32 @@
                 android:id="@+id/container_main_sun_moon_moonContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/normal_margin"
                 tools:ignore="RtlHardcoded">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/container_main_sun_moon_moon_icon"
+                    style="@style/material_icon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/weather_clear_night_mini_xml"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="0dp"
+                    android:src="@drawable/weather_clear_night_mini_xml"
                     android:tint="@color/colorTextSubtitle"
-                    style="@style/material_icon"
                     tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/container_main_sun_moon_moonrise_moonset"
-                    android:layout_toEndOf="@id/container_main_sun_moon_moon_icon"
+                    style="@style/subtitle_text"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="4dp"
+                    android:layout_toEndOf="@id/container_main_sun_moon_moon_icon"
                     android:textAlignment="viewEnd"
-                    style="@style/subtitle_text"
-                    tools:text="05:45↑\n17:45↓"
-                    tools:ignore="RtlHardcoded" />
+                    tools:ignore="RtlHardcoded"
+                    tools:text="05:45↑\n17:45↓" />
 
             </RelativeLayout>
 

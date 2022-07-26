@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_card_display_manage_container"
-    android:background="@color/colorRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorRoot">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+        <LinearLayout
             android:id="@+id/activity_card_display_manage_appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:fitsSystemWindows="true"
+
             app:theme="@style/WeatherFlowTheme.AppbarTheme">
 
             <androidx.appcompat.widget.Toolbar
@@ -25,18 +24,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:title="@string/settings_title_card_display"
-                app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />
+                app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme"
+                app:title="@string/settings_title_card_display" />
 
-        </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_card_display_manage_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/activity_card_display_manage_appBar"
-            android:paddingBottom="64dp"
-            android:clipToPadding="false" />
+            android:clipToPadding="false"
+            android:paddingBottom="64dp" />
 
         <FrameLayout
             android:id="@+id/activity_card_display_manage_bottomBar"
@@ -45,7 +44,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/colorRoot"
             android:elevation="2dp"
-            android:fitsSystemWindows="true"
+
             tools:ignore="UnusedAttribute">
 
             <androidx.recyclerview.widget.RecyclerView

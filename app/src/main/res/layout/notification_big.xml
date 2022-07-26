@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/notification_big"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,9 +15,9 @@
     </FrameLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="92dp"
+        android:orientation="horizontal"
         tools:ignore="DisableBaselineAlignment">
 
         <RelativeLayout
@@ -27,32 +27,32 @@
 
             <TextView
                 android:id="@+id/notification_big_week_1"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="周二" />
 
             <TextView
                 android:id="@+id/notification_big_temp_1"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="3/9°" />
 
             <ImageView
                 android:id="@+id/notification_big_icon_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/notification_big_week_1"
                 android:layout_above="@id/notification_big_temp_1"
+                android:layout_below="@id/notification_big_week_1"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                tools:src="@drawable/weather_cloudy"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/weather_cloudy" />
 
         </RelativeLayout>
 
@@ -63,32 +63,32 @@
 
             <TextView
                 android:id="@+id/notification_big_week_2"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="周二" />
 
             <TextView
                 android:id="@+id/notification_big_temp_2"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="3/9°" />
 
             <ImageView
                 android:id="@+id/notification_big_icon_2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/notification_big_week_2"
                 android:layout_above="@id/notification_big_temp_2"
+                android:layout_below="@id/notification_big_week_2"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                tools:src="@drawable/weather_cloudy"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/weather_cloudy" />
 
         </RelativeLayout>
 
@@ -99,32 +99,32 @@
 
             <TextView
                 android:id="@+id/notification_big_week_3"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="周二" />
 
             <TextView
                 android:id="@+id/notification_big_temp_3"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="3/9°" />
 
             <ImageView
                 android:id="@+id/notification_big_icon_3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/notification_big_week_3"
                 android:layout_above="@id/notification_big_temp_3"
+                android:layout_below="@id/notification_big_week_3"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                tools:src="@drawable/weather_cloudy"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/weather_cloudy" />
 
         </RelativeLayout>
 
@@ -135,32 +135,32 @@
 
             <TextView
                 android:id="@+id/notification_big_week_4"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="周二" />
 
             <TextView
                 android:id="@+id/notification_big_temp_4"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="3/9°" />
 
             <ImageView
                 android:id="@+id/notification_big_icon_4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/notification_big_week_4"
                 android:layout_above="@id/notification_big_temp_4"
+                android:layout_below="@id/notification_big_week_4"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                tools:src="@drawable/weather_cloudy"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/weather_cloudy" />
 
         </RelativeLayout>
 
@@ -171,32 +171,32 @@
 
             <TextView
                 android:id="@+id/notification_big_week_5"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="周二" />
 
             <TextView
                 android:id="@+id/notification_big_temp_5"
-                android:textSize="@dimen/content_text_size"
+                style="@style/notification_content_text"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="@dimen/little_margin"
-                style="@style/notification_content_text"
+                android:textSize="@dimen/content_text_size"
                 tools:text="3/9°" />
 
             <ImageView
                 android:id="@+id/notification_big_icon_5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/notification_big_week_5"
                 android:layout_above="@id/notification_big_temp_5"
+                android:layout_below="@id/notification_big_week_5"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                tools:src="@drawable/weather_cloudy"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/weather_cloudy" />
 
         </RelativeLayout>
 

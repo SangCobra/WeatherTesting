@@ -3,13 +3,14 @@
 
     <!-- theme. -->
 
+    <color name="gnt_white">#FFFFFF</color>
+    <color name="gnt_white50">#80FFFFFF</color>
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#1a1a1a</color>
     <color name="colorAccent">@color/colorAccent_light</color>
 
     <color name="colorLine">@color/colorLine_light</color>
     <color name="colorRoot">@color/colorRoot_light</color>
-    <color name="colorRootDark">@color/colorRootDark_light</color>
     <color name="colorTextTitle">@color/colorTextTitle_light</color>
     <color name="colorTextContent">@color/colorTextContent_light</color>
     <color name="colorTextSubtitle">@color/colorTextSubtitle_light</color>
@@ -19,7 +20,6 @@
     <!-- repository. -->
 
     <color name="colorAccent_light">#212121</color>
-    <color name="colorAccent_dark">#fafafa</color>
 
     <color name="lightPrimary_1">#cfebf0</color>
     <color name="lightPrimary_2">#b6e3e7</color>
@@ -34,19 +34,13 @@
     <color name="darkPrimary_5">#1a1b22</color>
 
     <color name="colorLine_light">#f1f1f1</color>
-    <color name="colorLine_dark">#363636</color>
 
     <color name="colorRoot_light">#fafafa</color>
     <color name="colorRoot_dark">#292929</color>
 
-    <color name="colorRootDark_light">#f5f5f5</color>
-    <color name="colorRootDark_dark">#212121</color>
-
     <color name="colorSearchBarBackground_light">@color/colorRoot_light</color>
-    <color name="colorSearchBarBackground_dark">@color/colorRoot_dark</color>
 
     <color name="colorTextTitle_light">@color/colorTextDark</color>
-    <color name="colorTextTitle_dark">@color/colorTextLight</color>
 
     <color name="colorTextContent_light">@color/colorTextDark2nd</color>
     <color name="colorTextContent_dark">@color/colorTextLight2nd</color>
@@ -81,16 +75,10 @@
     <color name="notification_background_rootDark">#292929</color>
     <color name="notification_background_primary">#212121</color>
 
-    <color name="weather_source_accu">#ef5823</color>
-    <color name="weather_source_cn">#033566</color>
-    <color name="weather_source_caiyun">#5ebb8e</color>
 
-
-<!---    Custome Colors-->
+    <!---    Custome Colors-->
     <color name="colorHomeBg">#3c92b1</color>
     <color name="colorHomeBgRegular">#3c92b1</color>
-    <color name="colorDivider">#3c92b1</color>
-    <color name="colorPureRed">#ff0000</color>
     <color name="black20">#662F7189</color>
     <color name="black30">#4D000000</color>
     <color name="transparent80">#CC2F7189</color>
@@ -100,6 +88,7 @@
     <color name="colorPureBlack">#000000</color>
     <color name="colorActualBlack">#000000</color>
     <color name="colorYellow">#dbb123</color>
+    <color name="white">#FFFFFF</color>
 
 
 </resources>

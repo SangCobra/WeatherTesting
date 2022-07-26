@@ -13,10 +13,10 @@
 
     <LinearLayout
         android:id="@+id/widget_multi_city_horizontal_weather"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:orientation="horizontal"
         tools:ignore="DisableBaselineAlignment">
 
         <LinearLayout
@@ -24,20 +24,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center_horizontal"
+            android:orientation="vertical"
             tools:ignore="RtlHardcoded">
 
             <TextView
                 android:id="@+id/widget_multi_city_horizontal_title_1"
-                android:text="@string/ellipsis"
-                android:textColor="@color/colorTextLight"
+                style="@style/title_text"
+                android:layout_margin="@dimen/normal_margin"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:layout_margin="@dimen/normal_margin"
-                style="@style/title_text"
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
                 tools:text="青岛" />
 
             <ImageView
@@ -51,14 +51,14 @@
 
             <TextView
                 android:id="@+id/widget_multi_city_horizontal_content_1"
-                android:text="@string/ellipsis"
-                android:textColor="@color/colorTextLight"
+                style="@style/content_text"
+                android:layout_margin="@dimen/normal_margin"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:layout_margin="@dimen/normal_margin"
-                style="@style/content_text"
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
                 tools:text="1°/9°" />
 
         </LinearLayout>
@@ -68,20 +68,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center_horizontal"
+            android:orientation="vertical"
             tools:ignore="RtlHardcoded">
 
             <TextView
                 android:id="@+id/widget_multi_city_horizontal_title_2"
-                android:text="@string/ellipsis"
-                android:textColor="@color/colorTextLight"
+                style="@style/title_text"
+                android:layout_margin="@dimen/normal_margin"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:layout_margin="@dimen/normal_margin"
-                style="@style/title_text"
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
                 tools:text="青岛" />
 
             <ImageView
@@ -95,14 +95,14 @@
 
             <TextView
                 android:id="@+id/widget_multi_city_horizontal_content_2"
-                android:text="@string/ellipsis"
-                android:textColor="@color/colorTextLight"
+                style="@style/content_text"
+                android:layout_margin="@dimen/normal_margin"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:layout_margin="@dimen/normal_margin"
-                style="@style/content_text"
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
                 tools:text="1°/9°" />
 
         </LinearLayout>
@@ -112,20 +112,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center_horizontal"
+            android:orientation="vertical"
             tools:ignore="RtlHardcoded">
 
             <TextView
                 android:id="@+id/widget_multi_city_horizontal_title_3"
-                android:text="@string/ellipsis"
-                android:textColor="@color/colorTextLight"
+                style="@style/title_text"
+                android:layout_margin="@dimen/normal_margin"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:layout_margin="@dimen/normal_margin"
-                style="@style/title_text"
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
                 tools:text="青岛" />
 
             <ImageView
@@ -139,14 +139,14 @@
 
             <TextView
                 android:id="@+id/widget_multi_city_horizontal_content_3"
-                android:text="@string/ellipsis"
-                android:textColor="@color/colorTextLight"
+                style="@style/content_text"
+                android:layout_margin="@dimen/normal_margin"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:layout_margin="@dimen/normal_margin"
-                style="@style/content_text"
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
                 tools:text="1°/9°" />
 
         </LinearLayout>

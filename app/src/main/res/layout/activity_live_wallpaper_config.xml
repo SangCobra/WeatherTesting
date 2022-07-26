@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_live_wallpaper_config"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorRoot">
+    android:background="@color/colorRoot"
+    android:orientation="vertical">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:theme="@style/WeatherFlowTheme.AppbarTheme" >
+
+        app:theme="@style/WeatherFlowTheme.AppbarTheme">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_live_wallpaper_config_toolbar"
@@ -21,26 +21,26 @@
             android:background="@color/colorPrimary"
             app:title="@string/settings_title_live_wallpaper" />
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/activity_live_wallpaper_config_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarNestedScrollView
+        <mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView
             android:id="@+id/activity_live_wallpaper_config_scrollView"
-            android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:id="@+id/activity_live_wallpaper_config_scrollContainer"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/activity_live_wallpaper_config_weatherKindContainer"
@@ -62,12 +62,12 @@
                         android:id="@+id/activity_live_wallpaper_config_weatherKindSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        android:layout_toEndOf="@id/activity_live_wallpaper_config_weatherKindTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
+                        android:layout_toEndOf="@id/activity_live_wallpaper_config_weatherKindTitle"
+                        android:spinnerMode="dropdown"
                         app:theme="@style/spinner_item"
                         tools:ignore="RtlHardcoded" />
 
@@ -80,22 +80,22 @@
 
                     <TextView
                         android:id="@+id/activity_live_wallpaper_config_dayNightTypeTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_live_wallpaper_day_night_type"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_live_wallpaper_day_night_type" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/activity_live_wallpaper_config_dayNightTypeSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        android:layout_toEndOf="@id/activity_live_wallpaper_config_dayNightTypeTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
+                        android:layout_toEndOf="@id/activity_live_wallpaper_config_dayNightTypeTitle"
+                        android:spinnerMode="dropdown"
                         app:theme="@style/spinner_item"
                         tools:ignore="RtlHardcoded" />
 
@@ -103,22 +103,22 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/activity_live_wallpaper_config_doneButton"
-                        android:layout_margin="@dimen/normal_margin"
+                        style="@style/material_button"
                         android:layout_alignParentEnd="true"
+                        android:layout_margin="@dimen/normal_margin"
                         android:text="@string/done"
                         android:textColor="@color/colorAccent"
-                        style="@style/material_button"
                         tools:ignore="RtlHardcoded" />
 
                 </RelativeLayout>
 
             </LinearLayout>
 
-        </anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarNestedScrollView>
+        </mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

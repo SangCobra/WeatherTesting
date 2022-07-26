@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="mtgtech.com.weather_forecast.remoteviews.config.WeekWidgetConfigActivity"
+    android:initialLayout="@layout/widget_week"
     android:minWidth="@dimen/widget_grid_4"
     android:minHeight="@dimen/widget_grid_1"
     android:minResizeWidth="@dimen/widget_grid_3"
     android:minResizeHeight="@dimen/widget_grid_1"
-    android:updatePeriodMillis="0"
-    android:initialLayout="@layout/widget_week"
     android:previewImage="@drawable/widget_week"
     android:resizeMode="horizontal|vertical"
-    android:configure="anaxxes.com.weatherFlow.remoteviews.config.WeekWidgetConfigActivity"
+    android:updatePeriodMillis="0"
     android:widgetCategory="home_screen|keyguard" />

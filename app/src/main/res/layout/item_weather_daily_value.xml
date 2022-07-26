@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:foreground="@drawable/selectable_item_background_borderless"
-    android:paddingTop="@dimen/little_margin"
+    android:orientation="vertical"
     android:paddingStart="@dimen/normal_margin"
+    android:paddingTop="@dimen/little_margin"
     android:paddingEnd="@dimen/normal_margin"
     tools:ignore="UnusedAttribute">
 
@@ -17,8 +17,8 @@
 
     <TextView
         android:id="@+id/item_weather_daily_value_value"
-        android:textStyle="bold"
         style="@style/title_text"
+        android:textStyle="bold"
         tools:text="35℃" />
 
 </LinearLayout>

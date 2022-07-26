@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "41802520531",
+    "project_id": "weather-dd3e6",
+    "storage_bucket": "weather-dd3e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41802520531:android:87fd4fb303d0be4a9dc126",
+        "android_client_info": {
+          "package_name": "com.dailyweather.accuweather.forecast.thermometer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41802520531-m9c1v7840lj9ffqoof59rfe1gnm06iim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBokhzRqC5lIKPMDBkdPEH5LeESfRtmsuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41802520531-m9c1v7840lj9ffqoof59rfe1gnm06iim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

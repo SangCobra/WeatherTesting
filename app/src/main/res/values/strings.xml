@@ -1,43 +1,34 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- app. -->
-    <string name="app_name">Weather Flow</string>
-    <string name="weather_flow">Weather App</string>
-    <string name="package_name">anaxxes.com.weatherFlow</string><!-- Do not translate. -->
+    <string name="weather_flow">Weather Forecast</string>
+    <!-- Do not translate. -->
     <string name="version_code">v1.0</string><!-- Do not translate. -->
-    <string name="version">Version</string><!-- Do not translate. -->
+    <!-- Do not translate. -->
 
     <!-- keyword. -->
     <string name="current_location">Current location</string>
     <string name="resident_location">Resident location</string>
-    <string name="default_location">default location</string>
     <string name="live">Live</string>
     <string name="today">Today</string>
     <string name="refresh_at">Refresh at</string>
-    <string name="local_time">Local time</string>
-    <string name="precipitation">Precipitation</string>
+    <string name="precipitation">PRECIPITATION</string>
     <string name="precipitation_probability">Precipitation probability</string>
     <string name="precipitation_duration">Precipitation duration</string>
-    <string name="maxi_temp">daytime</string>
-    <string name="mini_temp">nighttime</string>
-    <string name="time">time</string>
     <string name="dayTime">daytime</string>
     <string name="nightTime">nighttime</string>
     <string name="day">Day</string>
     <string name="night">Night</string>
     <string name="temperature">Temperature</string>
     <string name="wind">Wind</string>
-    <string name="wind_direction">Wind direction</string>
-    <string name="wind_speed">Wind speed</string>
-    <string name="wind_level">Wind gauge</string>
-    <string name="sensible_temp">Sensible temp</string>
+    <string name="wind_direction">WIND DIRECTION</string>
+    <string name="wind_speed">WIND SPEED</string>
+    <string name="wind_level">WIND GAUGE</string>
     <string name="humidity">Humidity</string>
-    <string name="uv_index">UV index</string>
+    <string name="uv_index">UV INDEX</string>
     <string name="hours_of_sun">Hours of sun</string>
     <string name="forecast">Forecast</string>
-    <string name="briefings">Briefings</string>
     <string name="daytime">Daytime</string>
     <string name="nighttime">Nighttime</string>
-    <string name="publish_at">Publish at</string>
     <string name="feels_like">Feels like</string>
     <string name="follow_system">Follow system</string>
     <string name="background_information">Background information</string>
@@ -49,17 +40,13 @@
     <string name="cloud_cover">Cloud cover</string>
     <string name="ceiling">Ceiling</string>
     <string name="get_more">Get more</string>
-    <string name="get_more_store">Get more from app store</string>
-    <string name="get_more_github">Get more from GitHub</string>
     <string name="refresh">Refresh</string>
-    <string name="restart">Restart</string>
     <string name="edit">Edit</string>
 
     <!-- The following set of strings should be as short as possible. -->
     <string name="of_clock">:00</string>
     <string name="yesterday">yday</string>
     <string name="tomorrow">tmw</string>
-    <string name="week">week</string>
     <string name="week_1">Mon</string>
     <string name="week_2">Tue</string>
     <string name="week_3">Wed</string>
@@ -68,7 +55,7 @@
     <string name="week_6">Sat</string>
     <string name="week_7">Sun</string>
 
-    <string name="real_feel_temperature">Real feel</string>
+    <string name="real_feel_temperature">FEELS LIKE</string>
     <string name="real_feel_shader_temperature">Real feel shader</string>
     <string name="apparent_temperature">Apparent</string>
     <string name="wind_chill_temperature">Wind chill</string>
@@ -76,7 +63,7 @@
     <string name="degree_day_temperature">Degree day</string>
 
     <string name="total">Total</string>
-    <string name="thunderstorm">Thunderstorm</string>
+    <string name="thunderstorm">THUNDERSTORM</string>
     <string name="rain">Rain</string>
     <string name="snow">Snow</string>
     <string name="ice">Ice</string>
@@ -96,9 +83,7 @@
     <string name="wind_12">Hurricane/Typhoon</string>
 
     <string name="precipitation_light">Drizzle</string>
-    <string name="precipitation_middle">Rain</string>
     <string name="precipitation_heavy">Heavy rain</string>
-    <string name="precipitation_rainstorm">Rainstorm</string>
 
     <string name="aqi_1">Fresh air</string>
     <string name="aqi_2">Clear air</string>
@@ -123,24 +108,19 @@
 
     <string name="daily_overview">Daily forecast</string>
     <string name="hourly_overview">Hourly forecast</string>
-    <string name="minutely_overview">Minutely forecast</string>
     <string name="precipitation_overview">Precipitation forecast</string>
-    <string name="air_quality">Air quality</string>
+    <string name="air_quality">Air Quality</string>
     <string name="allergen">Allergen</string>
     <string name="life_details">Details</string>
     <string name="sunrise_sunset">Sun &amp; moon</string>
 
-    <string name="next">NEXT</string>
     <string name="done">DONE</string>
-    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="cancel" tools:ignore="ButtonCase">Cancel</string>
     <string name="on">Enabled</string>
     <string name="off">Disabled</string>
     <string name="go_to_set">SET</string>
-    <string name="help">HELP</string>
-    <string name="learn_more">LEARN MORE</string>
 
     <string name="about_app">ABOUT APP</string>
-    <string name="introduce">introduce</string>
     <string name="email">E-mail</string>
     <string name="donate">Donate</string>
     <string name="gitHub">GitHub</string>
@@ -173,8 +153,6 @@
     <string name="about_retrofit">Type-safe HTTP client for Android and Java by Square, Inc.</string>
     <string name="glide">Glide</string>
     <string name="about_glide">An image loading and caching library for Android focused on smooth scrolling.</string>
-    <string name="gson">Gson</string>
-    <string name="about_gson">A Java serialization/deserialization library that can convert Java Objects into JSON and back.</string>
     <string name="greenDAO">GreenDAO</string>
     <string name="about_greenDAO">greenDAO is a light and fast ORM solution for Android that maps objects to SQLite databases.</string>
     <string name="page_indicator">InkPageIndicator</string>
@@ -183,14 +161,9 @@
     <string name="about_circular_progress_view">Material style circular progress bar for Android.</string>
 
     <!-- feedback. -->
-    <string name="feedback_request_permission">Permissions</string>
     <string name="feedback_request_location">Location</string>
     <string name="feedback_request_location_in_background">Locating in background</string>
-    <string name="feedback_request_location_permission_success">Location permissions request success</string>
-    <string name="feedback_request_location_permission_failed">Location permissions request failed</string>
 
-    <string name="feedback_location_failed">Location failed</string>
-    <string name="feedback_get_weather_failed">Request weather data failed</string>
     <string name="feedback_location_help_title">Cannot get location correctly?</string>
     <string name="feedback_check_location_permission">Check location permissions</string>
     <string name="feedback_enable_location_information">Enable Location Information</string>
@@ -256,53 +229,27 @@
     <string name="feedback_live_wallpaper_weather_kind">Weather</string>
     <string name="feedback_live_wallpaper_day_night_type">Time</string>
 
-    <string name="feedback_click_toggle">Press chart to toggle data</string>
-    <string name="feedback_no_data">NO DATA</string>
-
-    <string name="feedback_collect_failed">This location already exists</string>
-    <string name="feedback_collect_succeed">Add location success</string>
-    <string name="feedback_delete_succeed">Delete location success</string>
-    <string name="feedback_location_list_cannot_be_null">Location list cannot be empty</string>
-
     <string name="feedback_search_location">Search a location…</string>
     <string name="feedback_not_yet_location">No location yet…</string>
-    <string name="feedback_search_nothing">No locations found</string>
-    <string name="feedback_initializing">Initializing…</string>
-
-    <string name="feedback_refresh_notification_after_back">Changes will take effect when you return to the home page</string>
-    <string name="feedback_refresh_notification_now">Refresh now</string>
-    <string name="feedback_refresh_ui_after_refresh">Changes will take effect when data is refreshed</string>
-    <string name="feedback_restart">Changes will take effect after restart</string>
-    <string name="feedback_readd_location">Please re-add locations</string>
-    <string name="feedback_readd_location_after_changing_source">Please re-add locations after changing data source</string>
 
     <string name="feedback_running_in_background">Running in background to keep updating</string>
     <string name="feedback_updating_weather_data">Updating weather data</string>
-    <string name="feedback_updated_in_background">Updated in background</string>
 
     <!-- there should be a "\" before single or double quotes. -->
     <!-- Correct : ... after turning off \'Background free\', ... After turning off \"Free background\" ... -->
     <!-- Wrong   : ... after turning off 'Background free', ... After turning off "Free background" ... -->
-    <string name="feedback_interpret_background_notification_content">In some devices, after turning off \'Background free\', there might be a notification that cannot be cleared in the notification bar.</string>
     <string name="feedback_interpret_notification_group_title">Block notification group</string>
     <string name="feedback_interpret_notification_group_content">After turning off \"Free background\", a notification indicating that background service is running will appear in the notification bar. You can turn off the Background Information Channel in the app\'s information page to block this notifications.</string>
 
     <string name="feedback_ignore_battery_optimizations_title">Ignore battery optimization</string>
     <string name="feedback_ignore_battery_optimizations_content">In order to ensure that the background services can continue to work, please ignore the battery optimization for GeometricWeather.</string>
 
-    <string name="feedback_cannot_start_live_wallpaper_activity">Unable to start live wallpaper preview context</string>
-
-    <string name="feedback_unusable_geocoder">This device does not contain a valid geocoder. The location provider has been changed to Baidu Location.</string>
-    <string name="feedback_about_geocoder">Geocoder is a component that converts the location result from lat-lon format to a format like \'XX city, YY province \'. In the absence of this component, you can only get weather data through AccuWeather when using the native API as location provider.</string>
-
     <string name="feedback_today_precipitation_alert">There may be precipitation today.</string>
     <string name="feedback_short_term_precipitation_alert">Precipitation may occur in the next few hours.</string>
 
-    <string name="feedback_resident_location">Set as a resident city</string>
     <string name="feedback_resident_location_description">GeometricWeather will automatically show and hide resident cities based on your current location.\nFor example, you can set your hometown as a resident city. You can check the weather in your hometown while you are traveling. When you get home, the weather in your hometown will be hidden and replaced by the weather for your current location.</string>
 
     <string name="feedback_click_to_get_more">Click to get more…</string>
-    <string name="feedback_click_again_to_exit">Click again to exit</string>
 
     <!-- action -->
     <string name="action_alert">Alert</string>
@@ -348,7 +295,6 @@
     <string name="settings_title_daily_trend_display">Display daily trend</string>
     <string name="settings_title_trend_horizontal_line_switch">Horizontal lines in trend</string>
     <string name="settings_title_exchange_day_night_temp_switch">Exchange day night temperature</string>
-    <string name="settings_title_card_order">Card order</string>
     <string name="settings_title_gravity_sensor_switch">Gravity sensor</string>
     <string name="settings_title_list_animation_switch">List animation</string>
     <string name="settings_title_item_animation_switch">Item animation</string>
@@ -360,13 +306,9 @@
     <string name="settings_title_precipitation_unit">Precipitation unit</string>
     <string name="settings_title_pressure_unit">Pressure unit</string>
     <string name="settings_title_speed_unit">Speed unit</string>
-    <string name="settings_title_remove_ads">Remove ADS</string>
     <string name="settings_title_refresh_rate">Automatic refresh rate</string>
     <string name="settings_title_alert_notification_switch">Send Alert Notification</string>
     <string name="settings_title_precipitation_notification_switch">Send Precipitation Forecast</string>
-    <string name="settings_title_show_night_info_switch">Show Night Info</string>
-    <string name="settings_title_weather_background">Weather background</string>
-    <string name="settings_title_permanent_service">Permanent service</string>
     <string name="settings_category_forecast">Forecast</string>
     <string name="settings_title_forecast_today">Forecast for today</string>
     <string name="settings_title_forecast_today_time">Forecast time for today</string>
@@ -423,6 +365,7 @@
     <string name="key_hide_lunar">hide_lunar</string>
 
     <!-- Do not translate the following set of strings. -->
+    <string name="key_check_time_start_app">first_time</string>
     <string name="key_background_free">background_free_3</string>
     <string name="key_live_wallpaper">live_wallpaper</string>
     <string name="key_service_provider">service_provider</string>
@@ -442,6 +385,7 @@
     <string name="key_language">language</string>
     <string name="key_unit">unit</string>
     <string name="key_weather_background">weather_background</string>
+    <string name="key_term_change">term_change</string>
     <string name="key_temperature_unit">temperature_unit</string>
     <string name="key_distance_unit">distance_unit</string>
     <string name="key_precipitation_unit">precipitation_unit</string>
@@ -458,7 +402,6 @@
     <string name="key_week_icon_mode">week_icon_mode</string>
     <string name="key_widget_minimal_icon">widget_minimal_icon</string>
     <string name="key_click_widget_to_refresh">click_widget_to_refresh</string>
-    <string name="key_widget_config">widget_config</string>
     <string name="key_widget_day">widget_day</string>
     <string name="key_widget_week">widget_week</string>
     <string name="key_widget_day_week">widget_day_week</string>
@@ -486,24 +429,33 @@
     <!-- transition. -->
     <!-- Do not translate the following set of strings. -->
     <string name="transition_activity_search_bar">activity_search_bar</string>
-    <string name="transition_activity_search_txt">activity_search_txt</string>
-    <string name="purchase">Purchase</string>
-    <string name="edit_locations">Edit Locations</string>
-    <string name="share_to_friends">Share to friends</string>
-    <string name="privacy_policy">Privacy Policy</string>
-    <string name="city_management">City Management</string>
+    <string name="city_management">Location</string>
     <string name="_15_days">25 Days</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="theme">Theme</string>
     <string name="refresh_rate">Refresh rate</string>
-    <string name="hourly">Hourly</string>
-    <string name="_72_hours">72 Hours</string>
+    <string name="_72_hours"><u>Details</u></string>
     <string name="today_forecast">Today Forecast</string>
     <string name="daily_forecast">Daily Forecast</string>
     <string name="sun_moon">SUN/MOON</string>
-    <string name="radar">Radar</string>
-    <string name="see_more">See more</string>
+    <string name="see_more"><u>See more</u></string>
     <string name="wind_pressure">Wind/Pressure</string>
+    <string name="may_16_2022">May 16 2022</string>
+    <string name="mon">Mon\t</string>
+    <string name="hanoi_vietnam">Hà Nội, Việt Nam</string>
+    <string name="do_you_want_to_delete_this_address">Do you want to delete this address</string>
+    <string name="delete">Delete</string>
+    <string name="wind_chill">Wind chill</string>
+    <string name="now">Now</string>
+    <string name="details"><u>Details</u></string>
+    <string name="touch_a_day_to_see_forecast_by_day_and_night">Touch a day to see forecast</string>
+    <string name="set_location_to_always">Location Permission</string>
+    <string name="in_settings_select_permission">In Settings, select \"Permission\"</string>
+    <string name="then_turn_on_allow_all_the_time">Then choose \"Allow\"</string>
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="then_turn_on_location">Then turn on \"Location\"</string>
+    <string name="weather_forecast">Weather Forecast</string>
+    <string name="add_location">Add location</string>
+    <string name="not_have_internet">You must turn on internet</string>
 
 </resources>

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="sun" value="anaxxes.com.weatherFlow.ui.image.SunDrawable" />
-    <item name="moon" value="anaxxes.com.weatherFlow.ui.image.MoonDrawable" />
+    <item
+        name="sun"
+        value="mtgtech.com.weather_forecast.view.image.SunDrawable" />
+    <item
+        name="moon"
+        value="mtgtech.com.weather_forecast.view.image.MoonDrawable" />
 
 </resources>

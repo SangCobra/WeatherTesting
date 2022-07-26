@@ -16,10 +16,10 @@
 #   public *;
 #}
 
--keep class anaxxes.com.weatherFlow.basic.model.** { *; }
--keep class anaxxes.com.weatherFlow.weather.json.** { *; }
--keep class anaxxes.com.weatherFlow.db.entity.** { *; }
--keep class anaxxes.com.weatherFlow.location.service.ip.** { *; }
+-keep class mtgtech.com.weather_forecast.weather_model.model.** { *; }
+-keep class mtgtech.com.weather_forecast.weather_forecast.json.** { *; }
+-keep class mtgtech.com.weather_forecast.db.entity.** { *; }
+-keep class mtgtech.com.weather_forecast.location_service.service.ip.** { *; }
 
 -dontskipnonpubliclibraryclassmembers
 -printconfiguration

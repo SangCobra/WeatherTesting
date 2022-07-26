@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<anaxxes.com.weatherFlow.ui.widget.weatherView.circularSkyView.WeatherIconControlView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<mtgtech.com.weather_forecast.view.weather_widget.weatherView.circularSkyView.WeatherIconControlView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/controller"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <anaxxes.com.weatherFlow.ui.widget.weatherView.circularSkyView.CircleView
+    <mtgtech.com.weather_forecast.view.weather_widget.weatherView.circularSkyView.CircleView
         android:id="@+id/circular_sky"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -35,13 +34,13 @@
 
     </FrameLayout>
 
-    <anaxxes.com.weatherFlow.ui.widget.AnimatableIconView
+    <mtgtech.com.weather_forecast.view.weather_widget.AnimatableIconView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:inner_margins="@dimen/normal_margin"
         tools:background="@drawable/weather_cloudy"
-        tools:layout_width="80dp"
-        tools:layout_height="80dp" />
+        tools:layout_height="80dp"
+        tools:layout_width="80dp" />
 
-</anaxxes.com.weatherFlow.ui.widget.weatherView.circularSkyView.WeatherIconControlView>
+</mtgtech.com.weather_forecast.view.weather_widget.weatherView.circularSkyView.WeatherIconControlView>

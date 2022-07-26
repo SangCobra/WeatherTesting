@@ -10,20 +10,20 @@
         android:id="@+id/widget_day_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_centerInParent="true"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         tools:ignore="UselessParent">
 
         <TextClock
             android:id="@+id/widget_day_title"
-            android:textSize="@dimen/widget_large_title_text_size"
-            android:format24Hour="@string/date_format_widget_oreo_style"
-            android:format12Hour="@string/date_format_widget_oreo_style"
-            android:fontFamily="@font/google_sans"
             style="@style/widget_text_clock"
-            tools:text="11月14日星期六 │ "
-            tools:ignore="RelativeOverlap,RtlHardcoded" />
+            android:fontFamily="@font/google_sans"
+            android:format12Hour="@string/date_format_widget_oreo_style"
+            android:format24Hour="@string/date_format_widget_oreo_style"
+            android:textSize="@dimen/widget_large_title_text_size"
+            tools:ignore="RelativeOverlap,RtlHardcoded"
+            tools:text="11月14日星期六 │ " />
 
         <ImageView
             android:id="@+id/widget_day_icon"
@@ -34,17 +34,17 @@
 
         <TextView
             android:id="@+id/widget_day_subtitle"
+            style="@style/content_text"
             android:layout_marginStart="@dimen/little_margin"
-            android:textSize="@dimen/widget_large_title_text_size"
-            android:textColor="@color/colorTextLight"
+            android:fontFamily="@font/google_sans"
             android:shadowColor="@color/colorTextDark2nd"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="1"
-            android:fontFamily="@font/google_sans"
-            style="@style/content_text"
-            tools:text="24 ℃"
-            tools:ignore="RelativeOverlap,RtlHardcoded" />
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/widget_large_title_text_size"
+            tools:ignore="RelativeOverlap,RtlHardcoded"
+            tools:text="24 ℃" />
 
     </LinearLayout>
 

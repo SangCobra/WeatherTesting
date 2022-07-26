@@ -1,9 +1,0 @@
-package anaxxes.com.weatherFlow.background.receiver.widget;
-
-/**
- * Widget clock day horizontal provider.
- * */
-
-public class WidgetClockDayHorizontalProvider extends AbstractWidgetProvider {
-
-}

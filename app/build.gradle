@@ -1,6 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.gms.google-services'
+}
 android {
     configurations.all {
         resolutionStrategy {
@@ -8,42 +12,112 @@ android {
         }
     }
 
-    compileSdkVersion 30
+    compileSdkVersion 32
     defaultConfig {
-        applicationId "anaxxes.com.weatherFlow"
-        minSdkVersion 19
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.dailyweather.accuweather.forecast.thermometer"
+        minSdkVersion 22
+        targetSdkVersion 32
+        versionCode 100
+        versionName "1.0.0"
         multiDexEnabled true
         ndk {
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+
+        def formattedDate = new Date().format('hh.mm.MM.dd.yyyy')
+        archivesBaseName = "WeatherForecast_V${versionName}_Time${formattedDate}"
+    }
+    signingConfigs {
+        release {
+            storeFile file('key/release.jks')
+            storePassword 'com.dailyweather.accuweather.forecast.thermometer'
+            keyAlias 'release'
+            keyPassword 'com.dailyweather.accuweather.forecast.thermometer'
+        }
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
-            debuggable false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "WeatherFlow ${variant.versionName}.apk"
-                }
-            }
+            signingConfig signingConfigs.release
         }
     }
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
+
+    flavorDimensions "dimen"
+    productFlavors {
+        vDevelop_ {
+            applicationId "com.example.develop.weatherforecast.test"
+            buildConfigField "boolean", "TEST_AD", "false"
+            buildConfigField "boolean", "PURCHASED", "false"
+            dimension "dimen"
+            versionName "develop"
+
+
+            def addConstantTo = { target, constantName, constantValue ->
+                target.manifestPlaceholders += [(constantName): constantValue]
+                target.buildConfigField "String", "${constantName}", "\"${constantValue}\""
+            }
+            addConstantTo(owner, "APP_ID", "ca-app-pub-3940256099942544~3347511713")
+
+            addConstantTo(owner, "inter_splash", "ca-app-pub-3940256099942544/8691691433")
+            addConstantTo(owner, "inter_move_screen", "ca-app-pub-3940256099942544/1033173712")
+            addConstantTo(owner, "inter_detail_daily", "ca-app-pub-3270179691816977/7782826835")
+            addConstantTo(owner, "native_hourly_weather", "ca-app-pub-3940256099942544/2247696110")
+            addConstantTo(owner, "native_daily_weather", "ca-app-pub-3940256099942544/2247696110")
+            addConstantTo(owner, "native_location", "ca-app-pub-3940256099942544/2247696110")
+            addConstantTo(owner, "native_detail_daily_weather", "ca-app-pub-3940256099942544/2247696110")
+
+            addConstantTo(owner, "open_app", "ca-app-pub-3940256099942544/3419835294")
+
+            addConstantTo(owner, "banner_main", "ca-app-pub-3940256099942544/6300978111")
+            addConstantTo(owner, "banner_aqi", "ca-app-pub-3940256099942544/6300978111")
+            addConstantTo(owner, "banner_hourly_weather", "ca-app-pub-3940256099942544/6300978111")
+            addConstantTo(owner, "banner_daily_weather", "ca-app-pub-3940256099942544/6300978111")
+
+        }
+
+        vOfficial_ {
+            applicationId "com.dailyweather.accuweather.forecast.thermometer"
+
+            buildConfigField "boolean", "TEST_AD", "false"
+            buildConfigField "boolean", "PURCHASED", "false"
+            dimension "dimen"
+
+            def addConstantTo = { target, constantName, constantValue ->
+                target.manifestPlaceholders += [(constantName): constantValue]
+                target.buildConfigField "String", "${constantName}", "\"${constantValue}\""
+            }
+            addConstantTo(owner, "APP_ID", "ca-app-pub-3270179691816977~5638071308")
+
+            addConstantTo(owner, "inter_splash", "ca-app-pub-3270179691816977/6472624913")
+            addConstantTo(owner, "inter_move_screen", "ca-app-pub-3270179691816977/8715644873")
+            addConstantTo(owner, "inter_detail_daily", "ca-app-pub-3270179691816977/7782826835")
+
+            addConstantTo(owner, "native_hourly_weather", "ca-app-pub-3270179691816977/2150236529")
+            addConstantTo(owner, "native_daily_weather", "ca-app-pub-3270179691816977/7210991514")
+            addConstantTo(owner, "native_location", "ca-app-pub-3270179691816977/9166252775")
+            addConstantTo(owner, "native_detail_daily_weather", "ca-app-pub-3270179691816977/5706338152")
+
+            addConstantTo(owner, "open_app", "ca-app-pub-3270179691816977/6827848130")
+
+            addConstantTo(owner, "banner_main", "ca-app-pub-3270179691816977/9262439782")
+            addConstantTo(owner, "banner_aqi", "ca-app-pub-3270179691816977/3722354408")
+            addConstantTo(owner, "banner_hourly_weather", "ca-app-pub-3270179691816977/2409272739")
+            addConstantTo(owner, "banner_daily_weather", "ca-app-pub-3270179691816977/7757786425")
+        }
     }
+
+//    lintOptions {
+//        checkReleaseBuilds false
+//        abortOnError false
+//    }
     buildTypes.each {
         it.buildConfigField 'String', 'ACCU_WEATHER_BASE_URL', ACCU_WEATHER_BASE_URL
         it.buildConfigField 'String', 'ACCU_WEATHER_KEY', ACCU_WEATHER_KEY
         it.buildConfigField 'String', 'ACCU_CURRENT_KEY', ACCU_CURRENT_KEY
         it.buildConfigField 'String', 'ACCU_AQI_KEY', ACCU_AQI_KEY
+        it.buildConfigField 'String', 'ACCU_WEATHERBIT_BASE_URL', ACCU_WEATHERBIT_BASE_URL
+        it.buildConfigField 'String', 'ACCU_WEATHERBIT_KEY', ACCU_WEATHERBIT_KEY
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -55,7 +129,7 @@ android {
 
     configurations {
         cleanedAnnotations
-        compile.exclude group: 'org.jetbrains' , module:'annotations'
+        compile.exclude group: 'org.jetbrains', module: 'annotations'
     }
 }
 
@@ -76,9 +150,9 @@ greendao {
     generateTests false
 }
 dependencies {
-    implementation 'org.greenrobot:greendao:3.2.0'
+    implementation 'org.greenrobot:greendao:3.3.0'
     implementation "androidx.core:core-ktx:+"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
@@ -94,14 +168,14 @@ dependencies {
     // android architect.
     implementation "androidx.work:work-runtime:2.3.4"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-runtime:2.4.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //noinspection LifecycleAnnotationProcessorWithJava8
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:2.4.1"
 
     // multi dex.
     implementation 'com.android.support:multidex:1.0.3'
@@ -141,20 +215,23 @@ dependencies {
     // utils.
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'com.github.XhinLiang:LunarCalendar:3.0.0'
+    implementation 'com.airbnb.android:lottie:5.0.3'
 //    implementation 'com.github.didikee:AndroidDonate:0.1.0'
 
     //ads
-    implementation 'com.google.android.gms:play-services-ads:19.5.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 
-    //native templates
-    implementation project(':nativetemplates')
+    implementation 'com.github.MTGLibs:CommonLibs:1.2.2'
 
-    //billing
-    implementation 'com.anjlab.android.iab.v3:library:1.1.0'
-
-    //Volley
     implementation 'com.android.volley:volley:1.1.1'
 
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:29.0.1')
+//    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+//    implementation 'com.google.firebase:firebase-config-ktx'
 }
 repositories {
     mavenCentral()

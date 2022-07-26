@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_about_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorRoot">
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:theme="@style/WeatherFlowTheme.AppbarTheme" >
+        app:theme="@style/WeatherFlowTheme.AppbarTheme">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_about_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/action_about"
-            app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />
+            app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme"
+            app:title="@string/action_about" />
 
-    </anaxxes.com.weatherFlow.ui.widget.insets.FitTopSystemBarAppBarLayout>
+    </LinearLayout>
 
-    <anaxxes.com.weatherFlow.ui.widget.insets.FitBottomSystemBarRecyclerView
+    <mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarRecyclerView
         android:id="@+id/activity_about_recyclerView"
-        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:fitsSystemWindows="true"
+        android:scrollbars="none"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

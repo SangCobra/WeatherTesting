@@ -2,255 +2,250 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/action_settings">
-
-    <PreferenceCategory
-        android:title="@string/settings_category_basic">
+    <PreferenceCategory>
 
         <CheckBoxPreference
-            android:title="@string/settings_title_background_free"
-            android:key="@string/key_background_free"
-            android:summaryOn="@string/settings_summary_background_free_on"
-            android:summaryOff="@string/settings_summary_background_free_off"
-            android:icon="@drawable/ic_ic_background_free"
-            android:defaultValue="true" />
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_alert_notification_switch"
-            android:key="@string/key_alert_notification_switch"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_alert_notification"
-            android:defaultValue="true" />
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_precipitation_notification_switch"
-            android:key="@string/key_precipitation_notification_switch"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_precipitation_forecast"
-            android:defaultValue="false" />
-
-        <ListPreference
-            android:title="@string/settings_title_refresh_rate"
-            android:key="@string/key_refresh_rate"
-            android:entries="@array/automatic_refresh_rates"
-            android:entryValues="@array/automatic_refresh_rate_values"
-            android:dialogTitle="@string/settings_title_refresh_rate"
-            android:icon="@drawable/ic_refresh_rate"
-            android:defaultValue="1:30" />
-
-        <ListPreference
-            android:title="@string/settings_title_dark_mode"
-            android:key="@string/key_dark_mode"
-            android:entries="@array/dark_modes"
-            android:entryValues="@array/dark_mode_values"
-            android:dialogTitle="@string/settings_title_dark_mode"
-            android:icon="@drawable/ic_dark_mode"
-            android:defaultValue="auto" />
-
-        <Preference
-            android:title="@string/settings_title_live_wallpaper"
-            android:key="@string/key_live_wallpaper"
-            app:isPreferenceVisible="false"
-            android:summary="@string/settings_summary_live_wallpaper" />
-
-        <Preference
-            android:title="@string/settings_title_service_provider"
-            android:key="@string/key_service_provider"
-            android:icon="@drawable/ic_service_provider"
-            android:summary="@string/settings_summary_service_provider" />
-
-        <Preference
-            android:title="@string/settings_title_unit"
-            android:key="@string/key_unit"
-            android:summary="@string/settings_summary_unit"
-            />
-
-        <Preference
-            android:title="@string/settings_title_appearance"
-            android:key="@string/key_appearance"
-            android:icon="@drawable/ic_appearance"
-            android:summary="@string/settings_summary_appearance" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/settings_category_forecast">
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_forecast_today"
-            android:key="@string/key_forecast_today"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_forecast_daily"/>
-
-        <Preference
-            android:title="@string/settings_title_forecast_today_time"
-            android:key="@string/key_forecast_today_time"
-            android:icon="@drawable/ic_forecast_time_today"/>
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_forecast_tomorrow"
-            android:key="@string/key_forecast_tomorrow"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_forecast_tommorow"/>
-
-        <Preference
-            android:title="@string/settings_title_forecast_tomorrow_time"
-            android:icon="@drawable/ic_forecast_time_tommorow"
-            android:key="@string/key_forecast_tomorrow_time" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/settings_category_widget">
-
-        <ListPreference
-            android:title="@string/settings_title_week_icon_mode"
-            android:key="@string/key_week_icon_mode"
-            android:entries="@array/week_icon_modes"
-            android:entryValues="@array/week_icon_mode_values"
-            android:dialogTitle="@string/settings_title_week_icon_mode"
-            android:icon="@drawable/ic_weekly_icons"
-            android:defaultValue="auto" />
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_minimal_icon"
-            android:key="@string/key_widget_minimal_icon"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_minimal_icons"/>
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_click_widget_to_refresh"
-            android:key="@string/key_click_widget_to_refresh"
-            android:summaryOn="@string/on"
-            android:summaryOff="@string/off"
-            android:icon="@drawable/ic_refresh_on_click"/>
-
-        <Preference
-            android:title="@string/widget_day"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_day" />
-
-        <Preference
-            android:title="@string/widget_week"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_week" />
-
-        <Preference
-            android:title="@string/widget_day_week"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_day_week" />
-
-        <Preference
-            android:title="@string/widget_clock_day_horizontal"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_clock_day_horizontal" />
-
-        <Preference
-            android:title="@string/widget_clock_day_details"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_clock_day_details" />
-
-        <Preference
-            android:title="@string/widget_clock_day_vertical"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_clock_day_vertical" />
-
-        <Preference
-            android:title="@string/widget_clock_day_week"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_clock_day_week" />
-
-        <Preference
-            android:title="@string/widget_text"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_text" />
-
-        <Preference
-            android:title="@string/widget_trend_daily"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_trend_daily" />
-
-        <Preference
-            android:title="@string/widget_trend_hourly"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_trend_hourly" />
-
-        <Preference
-            android:title="@string/widget_multi_city"
-            android:summary="@string/settings_title_widget_config"
-            android:key="@string/key_widget_multi_city" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/settings_category_notification">
-
-        <CheckBoxPreference
-            android:title="@string/settings_title_notification"
+            android:icon="@drawable/ic_send_notification"
             android:key="@string/key_notification"
-            android:summaryOn="@string/on"
             android:summaryOff="@string/off"
-            android:icon="@drawable/ic_send_notification"/>
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_notification" />
 
         <ListPreference
-            android:title="@string/settings_title_notification_style"
-            android:key="@string/key_notification_style"
+            android:defaultValue="geometric"
+            android:dialogTitle="@string/settings_title_notification_style"
             android:entries="@array/notification_styles"
             android:entryValues="@array/notification_style_values"
-            android:dialogTitle="@string/settings_title_notification_style"
             android:icon="@drawable/ic_notification_style"
-            android:defaultValue="geometric" />
+            android:key="@string/key_notification_style"
+            android:title="@string/settings_title_notification_style" />
 
         <CheckBoxPreference
-            android:title="@string/settings_title_minimal_icon"
+            android:icon="@drawable/ic_minimal_icons"
             android:key="@string/key_notification_minimal_icon"
-            android:summaryOn="@string/on"
             android:summaryOff="@string/off"
-            android:icon="@drawable/ic_minimal_icons"/>
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_minimal_icon" />
 
         <CheckBoxPreference
-            android:title="@string/settings_title_notification_temp_icon"
+            android:icon="@drawable/ic_temperature_statusbar"
             android:key="@string/key_notification_temp_icon"
-            android:summaryOn="@string/on"
             android:summaryOff="@string/off"
-            android:icon="@drawable/ic_temperature_statusbar"/>
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_notification_temp_icon" />
 
         <Preference
-            android:title="@string/settings_title_notification_color"
-            android:key="@string/key_notification_color" />
+            android:key="@string/key_notification_color"
+            android:title="@string/settings_title_notification_color" />
 
         <CheckBoxPreference
-            android:title="@string/settings_title_notification_can_be_cleared"
+            android:icon="@drawable/ic_can_be_cleared"
             android:key="@string/key_notification_can_be_cleared"
-            android:summaryOn="@string/settings_notification_can_be_cleared_on"
             android:summaryOff="@string/settings_notification_can_be_cleared_off"
-            android:icon="@drawable/ic_can_be_cleared"/>
+            android:summaryOn="@string/settings_notification_can_be_cleared_on"
+            android:title="@string/settings_title_notification_can_be_cleared" />
 
         <CheckBoxPreference
-            android:title="@string/settings_title_notification_hide_icon"
+            android:icon="@drawable/ic_hide_notification"
             android:key="@string/key_notification_hide_icon"
-            android:summaryOn="@string/settings_notification_hide_icon_on"
             android:summaryOff="@string/settings_notification_hide_icon_off"
-            android:icon="@drawable/ic_hide_notification"/>
+            android:summaryOn="@string/settings_notification_hide_icon_on"
+            android:title="@string/settings_title_notification_hide_icon" />
 
         <CheckBoxPreference
-            android:title="@string/settings_title_notification_hide_in_lockScreen"
+            android:icon="@drawable/ic_hide_lockscreen"
             android:key="@string/key_notification_hide_in_lockScreen"
-            android:summaryOn="@string/settings_notification_hide_in_lockScreen_on"
             android:summaryOff="@string/settings_notification_hide_in_lockScreen_off"
-            android:icon="@drawable/ic_hide_lockscreen"/>
+            android:summaryOn="@string/settings_notification_hide_in_lockScreen_on"
+            android:title="@string/settings_title_notification_hide_in_lockScreen" />
 
         <CheckBoxPreference
-            android:title="@string/settings_title_notification_hide_big_view"
+            android:icon="@drawable/ic_extended_style"
             android:key="@string/key_notification_hide_big_view"
-            android:summaryOn="@string/settings_notification_hide_big_view_on"
             android:summaryOff="@string/settings_notification_hide_big_view_off"
-            android:icon="@drawable/ic_extended_style"/>
+            android:summaryOn="@string/settings_notification_hide_big_view_on"
+            android:title="@string/settings_title_notification_hide_big_view" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_category_basic">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/ic_ic_background_free"
+            android:key="@string/key_background_free"
+            android:summaryOff="@string/settings_summary_background_free_off"
+            android:summaryOn="@string/settings_summary_background_free_on"
+            android:title="@string/settings_title_background_free" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/ic_alert_notification"
+            android:key="@string/key_alert_notification_switch"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_alert_notification_switch" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_precipitation_forecast"
+            android:key="@string/key_precipitation_notification_switch"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_precipitation_notification_switch" />
+
+        <ListPreference
+            android:defaultValue="1:30"
+            android:dialogTitle="@string/settings_title_refresh_rate"
+            android:entries="@array/automatic_refresh_rates"
+            android:entryValues="@array/automatic_refresh_rate_values"
+            android:icon="@drawable/ic_refresh_rate"
+            android:key="@string/key_refresh_rate"
+            android:title="@string/settings_title_refresh_rate" />
+
+        <ListPreference
+            android:defaultValue="auto"
+            android:dialogTitle="@string/settings_title_dark_mode"
+            android:entries="@array/dark_modes"
+            android:entryValues="@array/dark_mode_values"
+            android:icon="@drawable/ic_dark_mode"
+            android:key="@string/key_dark_mode"
+            android:title="@string/settings_title_dark_mode" />
+
+        <Preference
+            android:key="@string/key_live_wallpaper"
+            android:summary="@string/settings_summary_live_wallpaper"
+            android:title="@string/settings_title_live_wallpaper"
+            app:isPreferenceVisible="false" />
+
+        <Preference
+            android:icon="@drawable/ic_service_provider"
+            android:key="@string/key_service_provider"
+            android:summary="@string/settings_summary_service_provider"
+            android:title="@string/settings_title_service_provider" />
+
+        <Preference
+            android:key="@string/key_unit"
+            android:summary="@string/settings_summary_unit"
+            android:title="@string/settings_title_unit" />
+
+        <Preference
+            android:icon="@drawable/ic_appearance"
+            android:key="@string/key_appearance"
+            android:summary="@string/settings_summary_appearance"
+            android:title="@string/settings_title_appearance" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_category_forecast">
+
+        <CheckBoxPreference
+            android:icon="@drawable/ic_forecast_daily"
+            android:key="@string/key_forecast_today"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_forecast_today" />
+
+        <Preference
+            android:icon="@drawable/ic_forecast_time_today"
+            android:key="@string/key_forecast_today_time"
+            android:title="@string/settings_title_forecast_today_time" />
+
+        <CheckBoxPreference
+            android:icon="@drawable/ic_forecast_tommorow"
+            android:key="@string/key_forecast_tomorrow"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_forecast_tomorrow" />
+
+        <Preference
+            android:icon="@drawable/ic_forecast_time_tommorow"
+            android:key="@string/key_forecast_tomorrow_time"
+            android:title="@string/settings_title_forecast_tomorrow_time" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_category_widget">
+
+        <ListPreference
+            android:defaultValue="auto"
+            android:dialogTitle="@string/settings_title_week_icon_mode"
+            android:entries="@array/week_icon_modes"
+            android:entryValues="@array/week_icon_mode_values"
+            android:icon="@drawable/ic_weekly_icons"
+            android:key="@string/key_week_icon_mode"
+            android:title="@string/settings_title_week_icon_mode" />
+
+        <CheckBoxPreference
+            android:icon="@drawable/ic_minimal_icons"
+            android:key="@string/key_widget_minimal_icon"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_minimal_icon" />
+
+        <CheckBoxPreference
+            android:icon="@drawable/ic_refresh_on_click"
+            android:key="@string/key_click_widget_to_refresh"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/settings_title_click_widget_to_refresh" />
+
+        <Preference
+            android:key="@string/key_widget_day"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_day" />
+
+        <Preference
+            android:key="@string/key_widget_week"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_week" />
+
+        <Preference
+            android:key="@string/key_widget_day_week"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_day_week" />
+
+        <Preference
+            android:key="@string/key_widget_clock_day_horizontal"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_clock_day_horizontal" />
+
+        <Preference
+            android:key="@string/key_widget_clock_day_details"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_clock_day_details" />
+
+        <Preference
+            android:key="@string/key_widget_clock_day_vertical"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_clock_day_vertical" />
+
+        <Preference
+            android:key="@string/key_widget_clock_day_week"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_clock_day_week" />
+
+        <Preference
+            android:key="@string/key_widget_text"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_text" />
+
+        <Preference
+            android:key="@string/key_widget_trend_daily"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_trend_daily" />
+
+        <Preference
+            android:key="@string/key_widget_trend_hourly"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_trend_hourly" />
+
+        <Preference
+            android:key="@string/key_widget_multi_city"
+            android:summary="@string/settings_title_widget_config"
+            android:title="@string/widget_multi_city" />
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

@@ -6,30 +6,29 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/item_about_header_appIcon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/material_icon_size"
         android:layout_width="@dimen/standard_weather_icon_size"
         android:layout_height="@dimen/standard_weather_icon_size"
-        tools:src="@drawable/ic_launcher"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/material_icon_size"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/item_about_header_appName"
+        style="@style/large_title_text"
+        android:layout_below="@id/item_about_header_appIcon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/material_icon_size"
         android:text="@string/weather_flow"
         android:textColor="@color/colorTextTitle"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/item_about_header_appIcon"
-        android:layout_marginTop="@dimen/material_icon_size"
-        style="@style/large_title_text" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/item_about_header_appVersion"
-        android:text="@string/version_code"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
+        style="@style/title_text"
         android:layout_below="@id/item_about_header_appName"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/little_margin"
-        style="@style/title_text" />
+        android:text="@string/version_code"
+        android:textStyle="bold" />
 
 </RelativeLayout>
