@@ -21,6 +21,12 @@ public class DialogSettingBegin extends AppCompatActivity {
 
     public static OnActionCallback callbackDialog;
     public static MainActivity activityMain;
+    private FrameLayout borderLayout;
+    private LinearLayout insideLayout;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private Switch changeTerm, changeTime, lockScreen, notify, status;
+    private Button done;
+    private SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(this);
 
     public static void start(Context context, OnActionCallback onActionCallback, MainActivity activity) {
         Intent starter = new Intent(context, DialogSettingBegin.class);
@@ -28,12 +34,6 @@ public class DialogSettingBegin extends AppCompatActivity {
         callbackDialog = onActionCallback;
         activityMain = activity;
     }
-    private FrameLayout borderLayout;
-    private LinearLayout insideLayout;
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private Switch changeTerm, changeTime, lockScreen, notify, status;
-    private Button done;
-    private SettingsOptionManager settingsOptionManager = SettingsOptionManager.getInstance(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +56,10 @@ public class DialogSettingBegin extends AppCompatActivity {
         borderLayout.setOnClickListener(v -> {
             finish();
         });
-        insideLayout.setOnClickListener(v -> {});
+        insideLayout.setOnClickListener(v -> {
+        });
         changeTerm.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (buttonView.isPressed()){
+            if (buttonView.isPressed()) {
                 settingsOptionManager.setTermChange(isChecked);
             }
         });
@@ -66,12 +67,12 @@ public class DialogSettingBegin extends AppCompatActivity {
             callbackDialog.callback("changeTime_" + isChecked);
         });
         lockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (buttonView.isPressed()){
+            if (buttonView.isPressed()) {
                 settingsOptionManager.setNotificationHideInLockScreenEnabled(!isChecked);
             }
         });
         notify.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (buttonView.isPressed()){
+            if (buttonView.isPressed()) {
                 settingsOptionManager.setNotificationEnabled(isChecked);
             }
         });

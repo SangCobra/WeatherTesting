@@ -9,7 +9,7 @@ import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 
 /**
  * Main receiver.
- * */
+ */
 
 public class MainReceiver extends BroadcastReceiver {
 

@@ -1,7 +1,5 @@
 package mtgtech.com.weather_forecast.settings.dialog
 
-import mtgtech.com.weather_forecast.OnActionCallback
-import mtgtech.com.weather_forecast.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,38 +7,43 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import mtgtech.com.weather_forecast.OnActionCallback
+import mtgtech.com.weather_forecast.R
 
-class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure) : AppCompatActivity(contentLayoutId) {
-    companion object{
+class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure) :
+    AppCompatActivity(contentLayoutId) {
+    companion object {
         var callback: OnActionCallback? = null
         fun start(context: Context, onActionCallback: OnActionCallback) {
             callback = onActionCallback
             context.startActivity(Intent(context, SetPressureDialog::class.java))
         }
-        const val Type1=0
-        const val Type2=1
-        const val Type3=2
-        const val Type4=3
+
+        const val Type1 = 0
+        const val Type2 = 1
+        const val Type3 = 2
+        const val Type4 = 3
         const val Type5 = 4
         const val Type6 = 5
         const val Type7 = 6
-        var cur=0
+        var cur = 0
     }
-    private var unitType1 : RadioButton? = null
-    private var unitType2 : RadioButton? = null
-    private var unitType3 : RadioButton? = null
-    private var unitType4 : RadioButton? = null
-    private var unitType5 : RadioButton? = null
-    private var unitType6 : RadioButton? = null
-    private var unitType7 : RadioButton? = null
-    private var borderPressureDialog : ConstraintLayout? = null
-    private var bgUnitType1 : LinearLayout? = null
-    private var bgUnitType2 : LinearLayout? = null
-    private var bgUnitType3 : LinearLayout? = null
-    private var bgUnitType4 : LinearLayout? = null
-    private var bgUnitType5 : LinearLayout? = null
-    private var bgUnitType6 : LinearLayout? = null
-    private var bgUnitType7 : LinearLayout? = null
+
+    private var unitType1: RadioButton? = null
+    private var unitType2: RadioButton? = null
+    private var unitType3: RadioButton? = null
+    private var unitType4: RadioButton? = null
+    private var unitType5: RadioButton? = null
+    private var unitType6: RadioButton? = null
+    private var unitType7: RadioButton? = null
+    private var borderPressureDialog: ConstraintLayout? = null
+    private var bgUnitType1: LinearLayout? = null
+    private var bgUnitType2: LinearLayout? = null
+    private var bgUnitType3: LinearLayout? = null
+    private var bgUnitType4: LinearLayout? = null
+    private var bgUnitType5: LinearLayout? = null
+    private var bgUnitType6: LinearLayout? = null
+    private var bgUnitType7: LinearLayout? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,7 +137,7 @@ class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure)
             finish()
         }
         unitType1!!.setOnCheckedChangeListener { compoundButton, b ->
-            if (b){
+            if (b) {
                 callback?.callback(pressureUnitsValues[Type1])
                 cur = Type1
                 finish()
@@ -142,7 +145,7 @@ class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure)
 
         }
         unitType2!!.setOnCheckedChangeListener { compoundButton, b ->
-            if (b){
+            if (b) {
                 callback?.callback(pressureUnitsValues[Type2])
                 cur = Type2
                 finish()
@@ -150,7 +153,7 @@ class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure)
 
         }
         unitType3!!.setOnCheckedChangeListener { compoundButton, b ->
-            if (b){
+            if (b) {
                 callback?.callback(pressureUnitsValues[Type3])
                 cur = Type3
                 finish()
@@ -158,7 +161,7 @@ class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure)
 
         }
         unitType4!!.setOnCheckedChangeListener { compoundButton, b ->
-            if (b){
+            if (b) {
                 callback?.callback(pressureUnitsValues[Type4])
                 cur = Type4
                 finish()
@@ -166,7 +169,7 @@ class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure)
 
         }
         unitType5!!.setOnCheckedChangeListener { compoundButton, b ->
-            if (b){
+            if (b) {
                 callback?.callback(pressureUnitsValues[Type5])
                 cur = Type5
                 finish()
@@ -174,7 +177,7 @@ class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure)
 
         }
         unitType6!!.setOnCheckedChangeListener { compoundButton, b ->
-            if (b){
+            if (b) {
                 callback?.callback(pressureUnitsValues[Type6])
                 cur = Type6
                 finish()
@@ -182,7 +185,7 @@ class SetPressureDialog(contentLayoutId: Int = R.layout.dialog_setting_pressure)
 
         }
         unitType7!!.setOnCheckedChangeListener { compoundButton, b ->
-            if (b){
+            if (b) {
                 callback?.callback(pressureUnitsValues[Type7])
                 cur = Type7
                 finish()

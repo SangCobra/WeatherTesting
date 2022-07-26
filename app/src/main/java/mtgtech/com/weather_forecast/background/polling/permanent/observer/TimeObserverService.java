@@ -10,16 +10,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
+import android.text.TextUtils;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import android.text.TextUtils;
 
 import java.util.Calendar;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.polling.permanent.update.ForegroundNormalUpdateService;
 import mtgtech.com.weather_forecast.background.polling.permanent.update.ForegroundTodayForecastUpdateService;
 import mtgtech.com.weather_forecast.background.polling.permanent.update.ForegroundTomorrowForecastUpdateService;
@@ -27,43 +28,43 @@ import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 
 /**
  * Time observer service.
- * */
+ */
 
 public class TimeObserverService extends Service {
-
-    private static TimeTickReceiver receiver;
-
-    private static float pollingRate;
-    private static long lastUpdateNormalViewTime;
-    private static String todayForecastTime;
-    private static String tomorrowForecastTime;
 
     public static final String KEY_CONFIG_CHANGED = "config_changed";
     public static final String KEY_POLLING_FAILED = "polling_failed";
     public static final String KEY_POLLING_RATE = "polling_rate";
     public static final String KEY_TODAY_FORECAST_TIME = "today_forecast_time";
     public static final String KEY_TOMORROW_FORECAST_TIME = "tomorrow_forecast_time";
+    private static TimeTickReceiver receiver;
+    private static float pollingRate;
+    private static long lastUpdateNormalViewTime;
+    private static String todayForecastTime;
+    private static String tomorrowForecastTime;
 
-    private class TimeTickReceiver extends BroadcastReceiver {
+    public static Notification getForegroundNotification(Context context, boolean setIcon) {
+        return new NotificationCompat.Builder(context, WeatherFlow.NOTIFICATION_CHANNEL_ID_BACKGROUND)
+                .setSmallIcon(setIcon ? R.drawable.ic_running_in_background : 0)
+                .setContentTitle(context.getString(R.string.weather_flow))
+                .setContentText(context.getString(R.string.feedback_running_in_background))
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
+                .setPriority(NotificationCompat.PRIORITY_MIN)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setAutoCancel(true)
+                .build();
+    }
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action == null) {
-                return;
-            }
-            switch (action) {
-                case Intent.ACTION_TIME_TICK:
-                    doRefreshWork();
-                    break;
-
-                case Intent.ACTION_TIME_CHANGED:
-                case Intent.ACTION_TIMEZONE_CHANGED:
-                    lastUpdateNormalViewTime = -1;
-                    doRefreshWork();
-                    break;
-            }
-        }
+    private static boolean isForecastTime(String time) {
+        int[] realTimes = new int[]{
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
+                Calendar.getInstance().get(Calendar.MINUTE)
+        };
+        int[] setTimes = new int[]{
+                Integer.parseInt(time.split(":")[0]),
+                Integer.parseInt(time.split(":")[1])
+        };
+        return realTimes[0] == setTimes[0] && realTimes[1] == setTimes[1];
     }
 
     @Nullable
@@ -193,31 +194,29 @@ public class TimeObserverService extends Service {
         }
     }
 
-    public static Notification getForegroundNotification(Context context, boolean setIcon) {
-        return new NotificationCompat.Builder(context, WeatherFlow.NOTIFICATION_CHANNEL_ID_BACKGROUND)
-                .setSmallIcon(setIcon ? R.drawable.ic_running_in_background : 0)
-                .setContentTitle(context.getString(R.string.weather_flow))
-                .setContentText(context.getString(R.string.feedback_running_in_background))
-                .setBadgeIconType(NotificationCompat.BADGE_ICON_NONE)
-                .setPriority(NotificationCompat.PRIORITY_MIN)
-                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                .setAutoCancel(true)
-                .build();
-    }
-
     private long getPollingInterval() {
         return (long) (pollingRate * 1000 * 60 * 60);
     }
 
-    private static boolean isForecastTime(String time) {
-        int[] realTimes = new int[]{
-                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
-                Calendar.getInstance().get(Calendar.MINUTE)
-        };
-        int[] setTimes = new int[]{
-                Integer.parseInt(time.split(":")[0]),
-                Integer.parseInt(time.split(":")[1])
-        };
-        return realTimes[0] == setTimes[0] && realTimes[1] == setTimes[1];
+    private class TimeTickReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action == null) {
+                return;
+            }
+            switch (action) {
+                case Intent.ACTION_TIME_TICK:
+                    doRefreshWork();
+                    break;
+
+                case Intent.ACTION_TIME_CHANGED:
+                case Intent.ACTION_TIMEZONE_CHANGED:
+                    lastUpdateNormalViewTime = -1;
+                    doRefreshWork();
+                    break;
+            }
+        }
     }
 }

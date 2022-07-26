@@ -12,7 +12,26 @@ public class Constants {
     public static final String META_DATA_ANIMATOR_FILTER = "com.wangdaye.geometricweather.ANIMATOR_FILTER";
     public static final String META_DATA_SHORTCUT_FILTER = "com.wangdaye.geometricweather.SHORTCUT_FILTER";
     public static final String META_DATA_SUN_MOON_FILTER = "com.wangdaye.geometricweather.SUN_MOON_FILTER";
-
+    public static final String RESOURCES_SUN = "sun";
+    public static final String RESOURCES_MOON = "moon";
+    public static final String DAY = "day";
+    public static final String NIGHT = "night";
+    public static final String MINI = "mini";
+    public static final String LIGHT = "light";
+    public static final String GREY = "grey";
+    public static final String DARK = "dark";
+    public static final String XML = "xml";
+    public static final String FOREGROUND = "foreground";
+    public static final String SEPARATOR = "_";
+    static final String FILTER_TAG_ITEM = "item";
+    static final String FILTER_TAG_NAME = "name";
+    static final String FILTER_TAG_VALUE = "value";
+    static final String FILTER_TAG_CONFIG = "config";
+    static final String CONFIG_HAS_WEATHER_ICONS = "hasWeatherIcons";
+    static final String CONFIG_HAS_WEATHER_ANIMATORS = "hasWeatherAnimators";
+    static final String CONFIG_HAS_MINIMAL_ICONS = "hasMinimalIcons";
+    static final String CONFIG_HAS_SHORTCUT_ICONS = "hasShortcutIcons";
+    static final String CONFIG_HAS_SUN_MOON_DRAWABLES = "hasSunMoonDrawables";
     private static final String RESOURCES_CLEAR = "weather_clear";
     private static final String RESOURCES_PARTLY_CLOUDY = "weather_partly_cloudy";
     private static final String RESOURCES_CLOUDY = "weather_cloudy";
@@ -25,10 +44,6 @@ public class Constants {
     private static final String RESOURCES_HAIL = "weather_hail";
     private static final String RESOURCES_THUNDER = "weather_thunder";
     private static final String RESOURCES_THUNDERSTORM = "weather_thunderstorm";
-
-    public static final String RESOURCES_SUN = "sun";
-    public static final String RESOURCES_MOON = "moon";
-
     private static final String SHORTCUTS_CLEAR = "shortcuts_clear";
     private static final String SHORTCUTS_PARTLY_CLOUDY = "shortcuts_partly_cloudy";
     private static final String SHORTCUTS_CLOUDY = "shortcuts_cloudy";
@@ -41,27 +56,6 @@ public class Constants {
     private static final String SHORTCUTS_HAIL = "shortcuts_hail";
     private static final String SHORTCUTS_THUNDER = "shortcuts_thunder";
     private static final String SHORTCUTS_THUNDERSTORM = "shortcuts_thunderstorm";
-
-    public static final String DAY = "day";
-    public static final String NIGHT = "night";
-    public static final String MINI = "mini";
-    public static final String LIGHT = "light";
-    public static final String GREY = "grey";
-    public static final String DARK = "dark";
-    public static final String XML = "xml";
-    public static final String FOREGROUND = "foreground";
-    public static final String SEPARATOR = "_";
-
-    static final String FILTER_TAG_ITEM = "item";
-    static final String FILTER_TAG_NAME = "name";
-    static final String FILTER_TAG_VALUE = "value";
-    static final String FILTER_TAG_CONFIG = "config";
-
-    static final String CONFIG_HAS_WEATHER_ICONS = "hasWeatherIcons";
-    static final String CONFIG_HAS_WEATHER_ANIMATORS = "hasWeatherAnimators";
-    static final String CONFIG_HAS_MINIMAL_ICONS = "hasMinimalIcons";
-    static final String CONFIG_HAS_SHORTCUT_ICONS = "hasShortcutIcons";
-    static final String CONFIG_HAS_SUN_MOON_DRAWABLES = "hasSunMoonDrawables";
 
     public static String getResourcesName(WeatherCode code) {
         switch (code) {

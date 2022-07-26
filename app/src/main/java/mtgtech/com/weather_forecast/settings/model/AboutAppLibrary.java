@@ -9,7 +9,7 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * About app library.
- * */
+ */
 
 public class AboutAppLibrary {
 

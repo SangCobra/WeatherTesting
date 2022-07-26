@@ -14,17 +14,19 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * UV.
- * */
+ */
 public class UV implements Serializable {
-
-    @Nullable private Integer index;
-    @Nullable private String level;
-    @Nullable private String description;
 
     public static final int UV_INDEX_LOW = 2;
     public static final int UV_INDEX_MIDDLE = 5;
     public static final int UV_INDEX_HIGH = 7;
     public static final int UV_INDEX_EXCESSIVE = 10;
+    @Nullable
+    private Integer index;
+    @Nullable
+    private String level;
+    @Nullable
+    private String description;
 
     public UV(@Nullable Integer index, @Nullable String level, @Nullable String description) {
         this.index = index;

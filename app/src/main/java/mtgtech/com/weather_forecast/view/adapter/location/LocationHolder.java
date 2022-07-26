@@ -2,7 +2,6 @@ package mtgtech.com.weather_forecast.view.adapter.location;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -14,19 +13,18 @@ import java.util.List;
 import java.util.Objects;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.utils.MyUtils;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.databinding.ItemLocation2Binding;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.dialog.DeleteDialog;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class LocationHolder extends RecyclerView.ViewHolder {
 
-    private ItemLocation2Binding binding;
     protected LocationModel model;
+    private ItemLocation2Binding binding;
     private ThemeManager themeManager;
     private int direction;
     private @ColorInt
@@ -36,7 +34,7 @@ public class LocationHolder extends RecyclerView.ViewHolder {
                              LocationAdapter.OnLocationItemClickListener listener) {
         super(binding.container);
         this.binding = binding;
-        binding.container.setOnClickListener(v -> listener.onClick(v, model.location.getFormattedId(),getAdapterPosition()));
+        binding.container.setOnClickListener(v -> listener.onClick(v, model.location.getFormattedId(), getAdapterPosition()));
     }
 
     @SuppressLint("SetTextI18n")
@@ -45,12 +43,12 @@ public class LocationHolder extends RecyclerView.ViewHolder {
         direction = 0;
         swipeEndColor = ContextCompat.getColor(context,
                 model.location.isCurrentPosition() ? R.color.colorPrimary : R.color.colorTextAlert);
-        if (getAdapterPosition() == 0){
+        if (getAdapterPosition() == 0) {
             binding.deleteLocation.setVisibility(View.GONE);
         }
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        int sideMargins = (int) DisplayUtils.dpToPx(context,10);
-        params.setMargins(0,0,0,sideMargins);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int sideMargins = (int) DisplayUtils.dpToPx(context, 10);
+        params.setMargins(0, 0, 0, sideMargins);
 
         binding.container.setLayoutParams(params);
 
@@ -64,20 +62,18 @@ public class LocationHolder extends RecyclerView.ViewHolder {
             weatherText = model.location.getWeather().getCurrent().getWeatherText();
             switch (model.location.getWeather().getCurrent().getWeatherCode()) {
                 case CLEAR:
-                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()){
+                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()) {
                         binding.imgCityLocation.setImageResource(R.drawable.img_clear);
-                    }
-                    else {
+                    } else {
                         binding.imgCityLocation.setImageResource(R.drawable.img_moon);
                     }
                     binding.geoPosition.setText("Clear");
 
                     break;
                 case PARTLY_CLOUDY:
-                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()){
+                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()) {
                         binding.imgCityLocation.setImageResource(R.drawable.img_partly_cloudy);
-                    }
-                    else {
+                    } else {
                         binding.imgCityLocation.setImageResource(R.drawable.img_cloudy_moon);
 
                     }
@@ -85,10 +81,9 @@ public class LocationHolder extends RecyclerView.ViewHolder {
 
                     break;
                 case CLOUDY:
-                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()){
+                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()) {
                         binding.imgCityLocation.setImageResource(R.drawable.img_sun_cloudy);
-                    }
-                    else {
+                    } else {
                         binding.imgCityLocation.setImageResource(R.drawable.img_cloudy_moon);
                     }
                     binding.geoPosition.setText("Cloudy");
@@ -131,10 +126,9 @@ public class LocationHolder extends RecyclerView.ViewHolder {
                     break;
                 case THUNDER:
                 case THUNDERSTORM:
-                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()){
+                    if (model.location.getWeather().getHourlyForecast().get(0).isDaylight()) {
                         binding.imgCityLocation.setImageResource(R.drawable.img_thunder_rain);
-                    }
-                    else {
+                    } else {
                         binding.imgCityLocation.setImageResource(R.drawable.img_thunder_night);
 
                     }
@@ -154,7 +148,7 @@ public class LocationHolder extends RecyclerView.ViewHolder {
     public void deleteLocation(LocationModel model, LocationAdapter adapter, List<Location> locationList, LocationTouchCallback.OnLocationListChangedListener listenerChange) {
         binding.deleteLocation.setOnClickListener(v -> {
             DeleteDialog.Companion.start(itemView.getContext(), (key, data) -> {
-                if (Objects.equals(key, "delete")){
+                if (Objects.equals(key, "delete")) {
                     List<Location> list = adapter.getLocationList();
                     Location location = list.remove(getAdapterPosition());
                     location.setWeather(DatabaseHelper.getInstance(itemView.getContext()).readWeather(location));
@@ -169,9 +163,9 @@ public class LocationHolder extends RecyclerView.ViewHolder {
 
     public void drawDrag(Context context, boolean elevate) {
         binding.container.setElevation(DisplayUtils.dpToPx(context, elevate ? 10 : 0));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        int sideMargins = (int) DisplayUtils.dpToPx(context,10);
-        params.setMargins(0,0,0,sideMargins);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int sideMargins = (int) DisplayUtils.dpToPx(context, 10);
+        params.setMargins(0, 0, 0, sideMargins);
 
         binding.container.setLayoutParams(params);
     }

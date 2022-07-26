@@ -56,8 +56,8 @@ public class ResourcesProviderFactory {
         // chronus icon pack.
         List<ChronusResourceProvider> chronusIconPackList
                 = ChronusResourceProvider.getProviderList(context, defaultProvider);
-        for (int i = chronusIconPackList.size() - 1; i >= 0; i --) {
-            for (int j = 0; j < providerList.size(); j ++) {
+        for (int i = chronusIconPackList.size() - 1; i >= 0; i--) {
+            for (int j = 0; j < providerList.size(); j++) {
                 if (chronusIconPackList.get(i).equals(providerList.get(j))) {
                     chronusIconPackList.remove(i);
                     break;

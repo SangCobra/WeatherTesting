@@ -18,8 +18,10 @@ import mtgtech.com.weather_forecast.R;
 
 public class AnimatableIconView extends FrameLayout {
 
-    @Size(3) private AppCompatImageView[] iconImageViews;
-    @Size(3) private Animator[] iconAnimators;
+    @Size(3)
+    private AppCompatImageView[] iconImageViews;
+    @Size(3)
+    private Animator[] iconAnimators;
 
     public AnimatableIconView(@NonNull Context context) {
         this(context, null);
@@ -45,14 +47,14 @@ public class AnimatableIconView extends FrameLayout {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.setMargins(innerMargin, innerMargin, innerMargin, innerMargin);
 
-        iconImageViews = new AppCompatImageView[] {
+        iconImageViews = new AppCompatImageView[]{
                 new AppCompatImageView(getContext()),
                 new AppCompatImageView(getContext()),
                 new AppCompatImageView(getContext())
         };
-        iconAnimators = new Animator[] {null, null, null};
+        iconAnimators = new Animator[]{null, null, null};
 
-        for (int i = iconImageViews.length - 1; i >= 0; i --) {
+        for (int i = iconImageViews.length - 1; i >= 0; i--) {
             addView(iconImageViews[i], params);
         }
     }
@@ -60,7 +62,7 @@ public class AnimatableIconView extends FrameLayout {
     public void setAnimatableIcon(@NonNull @Size(3) Drawable[] drawables,
                                   @NonNull @Size(3) Animator[] animators) {
         endAnimators();
-        for (int i = 0; i < drawables.length; i ++) {
+        for (int i = 0; i < drawables.length; i++) {
             iconImageViews[i].setImageDrawable(drawables[i]);
             iconImageViews[i].setVisibility(drawables[i] == null ? GONE : VISIBLE);
 
@@ -78,7 +80,7 @@ public class AnimatableIconView extends FrameLayout {
                 return;
             }
         }
-        for (int i = 0; i < iconAnimators.length; i ++) {
+        for (int i = 0; i < iconAnimators.length; i++) {
             if (iconAnimators[i] != null && iconImageViews[i].getVisibility() == VISIBLE) {
                 iconAnimators[i].start();
             }
@@ -86,7 +88,7 @@ public class AnimatableIconView extends FrameLayout {
     }
 
     private void endAnimators() {
-        for (int i = 0; i < iconImageViews.length; i ++) {
+        for (int i = 0; i < iconImageViews.length; i++) {
             if (iconAnimators[i] != null && iconAnimators[i].isStarted()) {
                 iconAnimators[i].cancel();
             }

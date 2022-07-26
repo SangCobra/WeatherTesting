@@ -1,9 +1,5 @@
 package mtgtech.com.weather_forecast.settings.dialog
 
-import mtgtech.com.weather_forecast.OnActionCallback
-import mtgtech.com.weather_forecast.R
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager
-import mtgtech.com.weather_forecast.utils.DisplayUtils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -13,9 +9,14 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+import mtgtech.com.weather_forecast.OnActionCallback
+import mtgtech.com.weather_forecast.R
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager
+import mtgtech.com.weather_forecast.utils.DisplayUtils
 
-class SettingNavDialog(contentLayoutId: Int  = R.layout.dialog_setting_nav) : AppCompatActivity(contentLayoutId) {
-    companion object{
+class SettingNavDialog(contentLayoutId: Int = R.layout.dialog_setting_nav) :
+    AppCompatActivity(contentLayoutId) {
+    companion object {
 
         var callback: OnActionCallback? = null
         fun start(context: Context, onActionCallback: OnActionCallback) {
@@ -26,14 +27,15 @@ class SettingNavDialog(contentLayoutId: Int  = R.layout.dialog_setting_nav) : Ap
     }
 
     private var settingsOptionManager: SettingsOptionManager? = null
-    private var borderSetNav : LinearLayout? = null
-    private var doneButton : Button? = null
-    private var borderDetails : LinearLayout? = null
+    private var borderSetNav: LinearLayout? = null
+    private var doneButton: Button? = null
+    private var borderDetails: LinearLayout? = null
+
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private var switchChangeTime : Switch? = null
-    private var tvPrep : EditText? = null
-    private var tvPressure : EditText? = null
-    private var tvtypeWind : EditText? = null
+    private var switchChangeTime: Switch? = null
+    private var tvPrep: EditText? = null
+    private var tvPressure: EditText? = null
+    private var tvtypeWind: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +108,7 @@ class SettingNavDialog(contentLayoutId: Int  = R.layout.dialog_setting_nav) : Ap
         findViewById<LinearLayout>(R.id.llNavSpeedUnit).setOnClickListener {
             showSpeedUnitDialog()
         }
-        
+
     }
     // Convert temperature
 
@@ -187,7 +189,6 @@ class SettingNavDialog(contentLayoutId: Int  = R.layout.dialog_setting_nav) : Ap
 
         })
     }
-
 
 
 }

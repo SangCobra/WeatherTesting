@@ -11,19 +11,18 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.view.adapter.DailyPollenAdapter;
 import mtgtech.com.weather_forecast.view.decotarion.ListDecoration;
 import mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarRecyclerView;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class AllergenActivity extends GeoActivity {
-    
-    private CoordinatorLayout container;
 
-    private Location location;
     public static final String KEY_ALLERGEN_ACTIVITY_LOCATION_FORMATTED_ID = "ALLERGEN_ACTIVITY_LOCATION_FORMATTED_ID";
+    private CoordinatorLayout container;
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

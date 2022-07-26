@@ -23,7 +23,71 @@ public class WeatherIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     // item.
 
-    public interface Item {}
+    public WeatherIconAdapter(GeoActivity activity, List<Item> itemList) {
+        this.activity = activity;
+        this.itemList = itemList;
+    }
+
+    public static GridLayoutManager.SpanSizeLookup getSpanSizeLookup(int columnCount,
+                                                                     List<WeatherIconAdapter.Item> itemList) {
+        return new SpanSizeLookup(columnCount, itemList);
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == 1) {
+            return new TitleHolder(
+                    LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item_weather_icon_title, parent, false)
+            );
+        }
+        if (viewType == -1) {
+            return new LineHolder(
+                    LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item_line, parent, false)
+            );
+        }
+        return new IconHolder(
+                LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_weather_icon, parent, false)
+        );
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof LineHolder) {
+            return;
+        }
+        if (holder instanceof TitleHolder) {
+            ((TitleHolder) holder).onBindView();
+        } else {
+            ((IconHolder) holder).onBindView();
+        }
+    }
+
+    // holder.
+
+    @Override
+    public int getItemCount() {
+        return itemList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (itemList.get(position) instanceof Title) {
+            return 1;
+        }
+        if (itemList.get(position) instanceof Line) {
+            return -1;
+        }
+        return 0;
+    }
+
+    public interface Item {
+    }
+
+    // adapter.
 
     public static class Title implements Item {
 
@@ -41,9 +105,8 @@ public class WeatherIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public abstract void onItemClicked(GeoActivity activity);
     }
 
-    public static class Line implements Item {}
-
-    // holder.
+    public static class Line implements Item {
+    }
 
     class TitleHolder extends RecyclerView.ViewHolder {
 
@@ -84,67 +147,6 @@ public class WeatherIconAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         LineHolder(@NonNull View itemView) {
             super(itemView);
         }
-    }
-
-    // adapter.
-
-    public WeatherIconAdapter(GeoActivity activity, List<Item> itemList) {
-        this.activity = activity;
-        this.itemList = itemList;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 1) {
-            return new TitleHolder(
-                    LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_weather_icon_title, parent, false)
-            );
-        }
-        if (viewType == -1) {
-            return new LineHolder(
-                    LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_line, parent, false)
-            );
-        }
-        return new IconHolder(
-                LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_weather_icon, parent, false)
-        );
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof LineHolder) {
-            return;
-        }
-        if (holder instanceof TitleHolder) {
-            ((TitleHolder) holder).onBindView();
-        } else {
-            ((IconHolder) holder).onBindView();
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemList.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (itemList.get(position) instanceof Title) {
-            return 1;
-        }
-        if (itemList.get(position) instanceof Line) {
-            return -1;
-        }
-        return 0;
-    }
-
-    public static GridLayoutManager.SpanSizeLookup getSpanSizeLookup(int columnCount,
-                                                                     List<WeatherIconAdapter.Item> itemList) {
-        return new SpanSizeLookup(columnCount, itemList);
     }
 }
 

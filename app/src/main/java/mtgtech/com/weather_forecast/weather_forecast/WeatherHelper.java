@@ -1,6 +1,7 @@
 package mtgtech.com.weather_forecast.weather_forecast;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -8,24 +9,26 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.weather_forecast.observer.BaseObserver;
 import mtgtech.com.weather_forecast.weather_forecast.observer.ObserverContainer;
 import mtgtech.com.weather_forecast.weather_forecast.service.AccuWeatherService;
 import mtgtech.com.weather_forecast.weather_forecast.service.WeatherService;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 /**
  * Weather helper.
- * */
+ */
 
 public class WeatherHelper {
 
-    @Nullable private WeatherService weatherService;
+    @Nullable
+    private WeatherService weatherService;
 
-    @Nullable private WeatherService[] searchServices;
+    @Nullable
+    private WeatherService[] searchServices;
     private CompositeDisposable compositeDisposable;
 
     public WeatherHelper() {
@@ -70,7 +73,7 @@ public class WeatherHelper {
     }
 
     public void requestLocation(Context context, String query, @NonNull final OnRequestLocationListener l) {
-        searchServices = new WeatherService[] {
+        searchServices = new WeatherService[]{
                 getWeatherService(WeatherSource.ACCU)
         };
 
@@ -113,11 +116,13 @@ public class WeatherHelper {
 
     public interface OnRequestWeatherListener {
         void requestWeatherSuccess(@NonNull Location requestLocation);
+
         void requestWeatherFailed(@NonNull Location requestLocation);
     }
 
     public interface OnRequestLocationListener {
         void requestLocationSuccess(String query, List<Location> locationList);
+
         void requestLocationFailed(String query);
     }
 }

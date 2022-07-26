@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MainLayoutManager extends RecyclerView.LayoutManager {
 
-    private @Px int scrollOffset;
-    private @Px int measuredHeight;
+    private @Px
+    int scrollOffset;
+    private @Px
+    int measuredHeight;
     private boolean dataSetChanged;
 
     public MainLayoutManager() {
@@ -69,7 +71,7 @@ public class MainLayoutManager extends RecyclerView.LayoutManager {
 
         int childHeight;
         ViewGroup.MarginLayoutParams params;
-        for (int i = 0; i < getItemCount(); i ++) {
+        for (int i = 0; i < getItemCount(); i++) {
             View child = recycler.getViewForPosition(i);
             addView(child);
 

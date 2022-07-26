@@ -1,7 +1,5 @@
 package mtgtech.com.weather_forecast.settings.dialog
 
-import mtgtech.com.weather_forecast.OnActionCallback
-import mtgtech.com.weather_forecast.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,26 +7,31 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import mtgtech.com.weather_forecast.OnActionCallback
+import mtgtech.com.weather_forecast.R
 
-class SetPrecipitationDialog(contentLayoutId: Int = R.layout.dialog_setting_precipitation) : AppCompatActivity(contentLayoutId) {
-    companion object{
+class SetPrecipitationDialog(contentLayoutId: Int = R.layout.dialog_setting_precipitation) :
+    AppCompatActivity(contentLayoutId) {
+    companion object {
         var callback: OnActionCallback? = null
         fun start(context: Context, onActionCallback: OnActionCallback) {
             callback = onActionCallback
             context.startActivity(Intent(context, SetPrecipitationDialog::class.java))
         }
-        const val Type1=0
-        const val Type2=1
-        const val Type3=2
-        var cur=0
+
+        const val Type1 = 0
+        const val Type2 = 1
+        const val Type3 = 2
+        var cur = 0
     }
-    private var unitType1 : RadioButton? = null
-    private var unitType2 : RadioButton? = null
-    private var unitType3 : RadioButton? = null
-    private var borderPrecipitationDialog : ConstraintLayout? = null
-    private var bgUnitType1 : LinearLayout ? = null
-    private var bgUnitType2 : LinearLayout ? = null
-    private var bgUnitType3 : LinearLayout ? = null
+
+    private var unitType1: RadioButton? = null
+    private var unitType2: RadioButton? = null
+    private var unitType3: RadioButton? = null
+    private var borderPrecipitationDialog: ConstraintLayout? = null
+    private var bgUnitType1: LinearLayout? = null
+    private var bgUnitType2: LinearLayout? = null
+    private var bgUnitType3: LinearLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +65,7 @@ class SetPrecipitationDialog(contentLayoutId: Int = R.layout.dialog_setting_prec
             finish()
         }
         unitType1!!.setOnCheckedChangeListener { _, b ->
-            if (b){
+            if (b) {
                 callback?.callback(unitsValues[Type1])
                 cur = Type1
 
@@ -71,7 +74,7 @@ class SetPrecipitationDialog(contentLayoutId: Int = R.layout.dialog_setting_prec
 
         }
         unitType2!!.setOnCheckedChangeListener { _, b ->
-            if (b){
+            if (b) {
                 callback?.callback(unitsValues[Type2])
                 cur = Type2
                 finish()
@@ -79,7 +82,7 @@ class SetPrecipitationDialog(contentLayoutId: Int = R.layout.dialog_setting_prec
 
         }
         unitType3!!.setOnCheckedChangeListener { _, b ->
-            if (b){
+            if (b) {
                 callback?.callback(unitsValues[Type3])
                 cur = Type3
                 finish()

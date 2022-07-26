@@ -11,9 +11,9 @@
         android:id="@+id/item_weather_icon_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/large_margin"
         android:layout_centerInParent="true"
-        tools:src="@drawable/weather_clear_day"
-        tools:ignore="ContentDescription" />
+        android:layout_margin="@dimen/large_margin"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/weather_clear_day" />
 
 </mtgtech.com.weather_forecast.view.weather_widget.SquareFrameLayout>

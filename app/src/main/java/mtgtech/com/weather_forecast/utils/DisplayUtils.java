@@ -11,6 +11,11 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.media.ThumbnailUtils;
 import android.os.Build;
+import android.text.InputType;
+import android.view.View;
+import android.view.Window;
+import android.widget.EditText;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Px;
@@ -18,16 +23,11 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
-import android.text.InputType;
-import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
-
 import mtgtech.com.weather_forecast.R;
 
 /**
  * Display utils.
- * */
+ */
 
 public class DisplayUtils {
 
@@ -210,7 +210,7 @@ public class DisplayUtils {
         );
     }
 
-    public static void disableEditText(EditText editText){
+    public static void disableEditText(EditText editText) {
         editText.setClickable(true);
         editText.setFocusable(false);
         editText.setInputType(InputType.TYPE_NULL);

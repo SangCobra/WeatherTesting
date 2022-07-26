@@ -3,16 +3,11 @@ package mtgtech.com.weather_forecast.main;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Icon;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,8 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -65,31 +58,13 @@ import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
-import mtgtech.com.weather_forecast.main.model.LocationResource;
-import mtgtech.com.weather_forecast.remoteviews.presenter.notification.ForecastNotificationIMP;
-import mtgtech.com.weather_forecast.utils.CmUtils;
-import mtgtech.com.weather_forecast.view.activity.SplashActivity;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.DarkMode;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.CloudCoverUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
-import mtgtech.com.weather_forecast.weather_model.model.resource.Resource;
-import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.databinding.ActivityMainBinding;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.adapter.MainPagerAdapter;
 import mtgtech.com.weather_forecast.main.adapter.main.MainAdapter;
 import mtgtech.com.weather_forecast.main.adapter.trend.HourlyTrendAdapter;
 import mtgtech.com.weather_forecast.main.dialog.DialogPer1;
 import mtgtech.com.weather_forecast.main.dialog.DialogPer2;
-import mtgtech.com.weather_forecast.settings.dialog.SettingNavDialog;
 import mtgtech.com.weather_forecast.main.layout.TrendHorizontalLinearLayoutManager;
 import mtgtech.com.weather_forecast.models.AQIGasModel;
 import mtgtech.com.weather_forecast.models.TodayForecastModel;
@@ -99,10 +74,8 @@ import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.settings.SharePreferenceUtils;
-import mtgtech.com.weather_forecast.view.adapter.DailyForecastAdapter;
-import mtgtech.com.weather_forecast.view.adapter.TodayForecastAdapter;
-import mtgtech.com.weather_forecast.view.fragment.LocationManageFragment;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
+import mtgtech.com.weather_forecast.settings.dialog.SettingNavDialog;
+import mtgtech.com.weather_forecast.utils.CmUtils;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.MyUtils;
 import mtgtech.com.weather_forecast.utils.NavigationView;
@@ -112,6 +85,22 @@ import mtgtech.com.weather_forecast.utils.manager.ShortcutsManager;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 import mtgtech.com.weather_forecast.utils.manager.ThreadManager;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.view.adapter.DailyForecastAdapter;
+import mtgtech.com.weather_forecast.view.adapter.TodayForecastAdapter;
+import mtgtech.com.weather_forecast.view.fragment.LocationManageFragment;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.DarkMode;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.CloudCoverUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
+import mtgtech.com.weather_forecast.weather_model.model.resource.Resource;
+import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 
 /**
@@ -121,73 +110,37 @@ import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 public class MainActivity extends GeoActivity
         implements SwipeRefreshLayout.OnRefreshListener {
 
-    private MainActivityViewModel viewModel;
-    private ActivityMainBinding binding;
-    public static boolean isShowAds;
-
-
-//    private BillingProcessor bp;
-
-    @Nullable
-    private String pendingAction;
-    @Nullable
-    private HashMap<String, Object> pendingExtraMap;
-
-    @Nullable
-    private LocationManageFragment manageFragment;
-    private WeatherView weatherView;
-    @Nullable
-    private MainAdapter adapter;
-    @Nullable
-    private AnimatorSet recyclerViewAnimator;
-
-    private ResourceProvider resourceProvider;
-    private ThemeManager themeManager;
-
-    private TodayForecastAdapter todayForecastAdapter;
-    private DailyForecastAdapter dailyForecastAdapter;
-    private HourlyTrendAdapter hourlyTrendAdapter;
-    private SunMoonUtils sunMoonUtils;
-
-    private int index = 0;
-    private Location location = null;
-
-    @Nullable
-    public String currentLocationFormattedId;
-    @Nullable
-    private WeatherSource currentWeatherSource;
-    private long currentWeatherTimeStamp;
-    private SettingsOptionManager settingsOptionManager;
-
     public static final int SETTINGS_ACTIVITY = 1;
     public static final int MANAGE_ACTIVITY = 2;
     public static final int CARD_MANAGE_ACTIVITY = 3;
+
+
+//    private BillingProcessor bp;
     public static final int SEARCH_ACTIVITY = 4;
     public static final int SELECT_PROVIDER_ACTIVITY = 5;
-
-    private static final long INVALID_CURRENT_WEATHER_TIME_STAMP = -1;
-
     public static final String ACTION_MAIN = "com.wangdaye.geometricweather.Main";
     public static final String KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID
             = "MAIN_ACTIVITY_LOCATION_FORMATTED_ID";
-
     public static final String ACTION_UPDATE_WEATHER_IN_BACKGROUND
             = "com.wangdaye.geomtricweather.ACTION_UPDATE_WEATHER_IN_BACKGROUND";
     public static final String KEY_LOCATION_FORMATTED_ID = "LOCATION_FORMATTED_ID";
-
     public static final String ACTION_SHOW_ALERTS
             = "com.wangdaye.geomtricweather.ACTION_SHOW_ALERTS";
-
     public static final String ACTION_SHOW_DAILY_FORECAST
             = "com.wangdaye.geomtricweather.ACTION_SHOW_DAILY_FORECAST";
     public static final String KEY_DAILY_INDEX = "DAILY_INDEX";
     public static final String KEY_LOCATION_INDEX = "KEY_LOCATION_INDEX";
     public static final String KEY_RELOAD_WEATHER = "RELOAD_WEATHER";
+    private static final long INVALID_CURRENT_WEATHER_TIME_STAMP = -1;
+    public static boolean isShowAds;
     public static boolean isGotoSettings;
     public static boolean isStartAgain;
+    @Nullable
+    public String currentLocationFormattedId;
     public LoadLocation loadLocation;
     public List<Location> listBeforeGotoManageLocation;
-
+    private MainActivityViewModel viewModel;
+    private ActivityMainBinding binding;
     private final BroadcastReceiver backgroundUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -205,12 +158,34 @@ public class MainActivity extends GeoActivity
             }
         }
     };
-
+    @Nullable
+    private String pendingAction;
+    @Nullable
+    private HashMap<String, Object> pendingExtraMap;
+    @Nullable
+    private LocationManageFragment manageFragment;
+    private WeatherView weatherView;
+    @Nullable
+    private MainAdapter adapter;
+    @Nullable
+    private AnimatorSet recyclerViewAnimator;
+    private ResourceProvider resourceProvider;
+    private ThemeManager themeManager;
+    private TodayForecastAdapter todayForecastAdapter;
+    private DailyForecastAdapter dailyForecastAdapter;
+    private HourlyTrendAdapter hourlyTrendAdapter;
+    private SunMoonUtils sunMoonUtils;
+    private int index = 0;
+    private Location location = null;
+    @Nullable
+    private WeatherSource currentWeatherSource;
+    private long currentWeatherTimeStamp;
+    private SettingsOptionManager settingsOptionManager;
     private int CLICK_ACTION_THRESHOLD = 200;
     private float startX;
     private float startY;
     private String CHANNEL_ID = "CHANNEL_ID";
-
+    private boolean doubleBackToExitPressedOnce = false;
 
     @SuppressLint("NewApi")
     @Override
@@ -234,7 +209,7 @@ public class MainActivity extends GeoActivity
                         MainActivity.this,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION
-                )){
+                )) {
                     isGotoSettings = true;
                     isStartAgain = true;
                 }
@@ -253,12 +228,11 @@ public class MainActivity extends GeoActivity
                         DialogPer2.listener = () -> {
                             gotoSettings(MainActivity.this);
                         };
-                    }
-                    else if (!PermissionUtils.permissionGranted(
+                    } else if (!PermissionUtils.permissionGranted(
                             MainActivity.this,
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION
-                    )){
+                    )) {
                         isGotoSettings = false;
                         isStartAgain = false;
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MyUtils.requestCode);
@@ -331,20 +305,20 @@ public class MainActivity extends GeoActivity
         resetUIUpdateFlag();
         viewModel.init(this, getLocationId(intent));
     }
-    private void initReceiver(){
+
+    private void initReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("reload");
         registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
-                if (Objects.equals(action, "reload")){
+                if (Objects.equals(action, "reload")) {
                     viewModel.updateWeather(MainActivity.this);
                 }
             }
         }, intentFilter);
     }
-
 
     @SuppressLint("NewApi")
     @Override
@@ -390,9 +364,8 @@ public class MainActivity extends GeoActivity
                     viewModel.init(this, formattedId);
                     if (data != null) {
                         index = data.getIntExtra(MainActivity.KEY_LOCATION_INDEX, 0);
-                    }
-                    else {
-                        index = viewModel.getLocationList().size()-1;
+                    } else {
+                        index = viewModel.getLocationList().size() - 1;
                     }
                     binding.background.mainPager.setCurrentItem(index);
                 }
@@ -434,7 +407,7 @@ public class MainActivity extends GeoActivity
     protected void onStart() {
         super.onStart();
         Log.d("android_log", "onStart: ");
-        if (PermissionUtils.permissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)){
+        if (PermissionUtils.permissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
             AppOpenManager.getInstance().enableAppResume();
         }
 //        weatherView.setDrawable(true);
@@ -477,8 +450,8 @@ public class MainActivity extends GeoActivity
                 }
             });
         }
-
     }
+
     public void loadIntersAdDailyDetails() {
         if (AdCache.getInstance().getInterstitialAdDailyDetails() == null) {
             AdmobManager.getInstance().loadInterAds(this, BuildConfig.inter_detail_daily, new AdCallback() {
@@ -491,12 +464,13 @@ public class MainActivity extends GeoActivity
         }
 
     }
+
+    // init.
+
     @Override
     public View getSnackBarContainer() {
         return binding.background.background;
     }
-
-    // init.
 
     private void initModel() {
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
@@ -513,7 +487,6 @@ public class MainActivity extends GeoActivity
         }
         return intent.getStringExtra(KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID);
     }
-
 
     @SuppressLint({"ClickableViewAccessibility", "ObsoleteSdkInt"})
     private void initView() {
@@ -670,6 +643,8 @@ public class MainActivity extends GeoActivity
 
     }
 
+    // control.
+
     public void toggleDrawerLayout() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -678,9 +653,6 @@ public class MainActivity extends GeoActivity
         }
     }
 
-    // control.
-
-
     @Override
     public void onBackPressed() {
         if (SharePreferenceUtils.shouldShowRatePopup(this)) {
@@ -688,8 +660,6 @@ public class MainActivity extends GeoActivity
         }
         executeBack();
     }
-
-    private boolean doubleBackToExitPressedOnce = false;
 
     private void executeBack() {
         if (doubleBackToExitPressedOnce) {
@@ -1263,12 +1233,12 @@ public class MainActivity extends GeoActivity
 
         if (updateRemoteViews) {
             Observable.create(emitter -> {
-                        if (defaultLocationChanged) {
-                            WidgetUtils.updateWidgetIfNecessary(this, locationList.get(0));
-                            NotificationUtils.updateNotificationIfNecessary(this, locationList.get(0));
-                        }
-                        WidgetUtils.updateWidgetIfNecessary(this, locationList);
-                    }).subscribeOn(Schedulers.io())
+                if (defaultLocationChanged) {
+                    WidgetUtils.updateWidgetIfNecessary(this, locationList.get(0));
+                    NotificationUtils.updateNotificationIfNecessary(this, locationList.get(0));
+                }
+                WidgetUtils.updateWidgetIfNecessary(this, locationList);
+            }).subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
                     .delay(1, TimeUnit.SECONDS)
                     .subscribe();
@@ -1413,19 +1383,18 @@ public class MainActivity extends GeoActivity
         loadIntersAd();
         loadIntersAdDailyDetails();
         Log.d("android_log", "onResume: ");
-        if (isGotoSettings){
+        if (isGotoSettings) {
             if (!PermissionUtils.permissionGranted(
                     MainActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
-            )){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            )) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     DialogPer1.start(this);
                     DialogPer1.listener = () -> {
                         gotoSettings(this);
                     };
-                }
-                else {
+                } else {
                     DialogPer2.start(this);
                     DialogPer2.listener = () -> {
                         gotoSettings(this);
@@ -1434,26 +1403,25 @@ public class MainActivity extends GeoActivity
                 return;
             }
             getCurrentLocation();
-        }
-        else if (!isLocationEnabled()){
+        } else if (!isLocationEnabled()) {
             if (!PermissionUtils.permissionGranted(
                     MainActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
-            )){
+            )) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, MyUtils.requestCode);
                 return;
             }
         }
-        if (isStartAgain && location != null){
+        if (isStartAgain && location != null) {
             viewModel.updateWeather(this);
             isStartAgain = false;
         }
 
         if (isLocationEnabled()) {
             getCurrentLocation();
-        }else {
-            if (isGotoSettings){
+        } else {
+            if (isGotoSettings) {
                 buildAlertMessageNoGps();
             }
         }
@@ -1474,10 +1442,9 @@ public class MainActivity extends GeoActivity
 
     @Override
     public void onRefresh() {
-        if (!isLocationEnabled()){
+        if (!isLocationEnabled()) {
             buildAlertMessageNoGps();
-        }
-        else {
+        } else {
             viewModel.updateWeather(this);
         }
     }
@@ -1540,83 +1507,8 @@ public class MainActivity extends GeoActivity
 
     // on scroll changed listener.
 
-    private class OnScrollListener extends RecyclerView.OnScrollListener {
-
-        private @Nullable
-        Boolean topChanged;
-        private boolean topOverlap;
-
-        private int firstCardMarginTop;
-
-        private int scrollY;
-        private float lastAppBarTranslationY;
-
-        OnScrollListener() {
-            super();
-
-            this.topChanged = null;
-            this.topOverlap = false;
-
-            this.firstCardMarginTop = 0;
-
-            this.scrollY = 0;
-            this.lastAppBarTranslationY = 0;
-        }
-
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//            if (recyclerView.getChildCount() > 0) {
-//                firstCardMarginTop = recyclerView.getChildAt(0).getMeasuredHeight();
-//            } else {
-//                firstCardMarginTop = -1;
-//            }
-//
-//            scrollY = recyclerView.computeVerticalScrollOffset();
-//            lastAppBarTranslationY = binding.appBar.getTranslationY();
-//
-//            weatherView.onScroll(scrollY);
-//            if (adapter != null) {
-//                adapter.onScroll(recyclerView);
-//            }
-//
-//            // set translation y of toolbar.
-//            if (adapter != null && firstCardMarginTop > 0) {
-//                if (firstCardMarginTop
-//                        >= binding.appBar.getMeasuredHeight() + adapter.getCurrentTemperatureTextHeight(recyclerView)) {
-//                    if (scrollY < firstCardMarginTop
-//                            - binding.appBar.getMeasuredHeight()
-//                            - adapter.getCurrentTemperatureTextHeight(recyclerView)) {
-//                        binding.appBar.setTranslationY(0);
-//                    } else if (scrollY > firstCardMarginTop - binding.appBar.getY()) {
-//                        binding.appBar.setTranslationY(-binding.appBar.getMeasuredHeight());
-//                    } else {
-//                        binding.appBar.setTranslationY(
-//                                firstCardMarginTop
-//                                        - adapter.getCurrentTemperatureTextHeight(recyclerView)
-//                                        - scrollY
-//                                        - binding.appBar.getMeasuredHeight()
-//                        );
-//                    }
-//                } else {
-//                    binding.appBar.setTranslationY(-scrollY);
-//                }
-//            }
-//
-//            // set system bar style.
-//            if (firstCardMarginTop <= 0) {
-//                topChanged = true;
-//                topOverlap = false;
-//            } else {
-//                topChanged = (binding.appBar.getTranslationY() != 0) != (lastAppBarTranslationY != 0);
-//                topOverlap = binding.appBar.getTranslationY() != 0;
-//            }
-//
-//            if (topChanged) {
-//                weatherView.setSystemBarColor(MainActivity.this, getWindow(),
-//                        topOverlap, false, true, false);
-//            }
-//        }
-        }
+    public void setCityName(String cityName) {
+        binding.background.tvCityName.setText(cityName);
     }
 
 
@@ -1726,10 +1618,6 @@ public class MainActivity extends GeoActivity
 //    }
 //
 
-    public void setCityName(String cityName) {
-        binding.background.tvCityName.setText(cityName);
-    }
-
     public void shareToFriend() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -1767,8 +1655,86 @@ public class MainActivity extends GeoActivity
         alert.show();
     }
 
-
-    public interface LoadLocation{
+    public interface LoadLocation {
         void load(String formattedId);
+    }
+
+    private class OnScrollListener extends RecyclerView.OnScrollListener {
+
+        private @Nullable
+        Boolean topChanged;
+        private boolean topOverlap;
+
+        private int firstCardMarginTop;
+
+        private int scrollY;
+        private float lastAppBarTranslationY;
+
+        OnScrollListener() {
+            super();
+
+            this.topChanged = null;
+            this.topOverlap = false;
+
+            this.firstCardMarginTop = 0;
+
+            this.scrollY = 0;
+            this.lastAppBarTranslationY = 0;
+        }
+
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//            if (recyclerView.getChildCount() > 0) {
+//                firstCardMarginTop = recyclerView.getChildAt(0).getMeasuredHeight();
+//            } else {
+//                firstCardMarginTop = -1;
+//            }
+//
+//            scrollY = recyclerView.computeVerticalScrollOffset();
+//            lastAppBarTranslationY = binding.appBar.getTranslationY();
+//
+//            weatherView.onScroll(scrollY);
+//            if (adapter != null) {
+//                adapter.onScroll(recyclerView);
+//            }
+//
+//            // set translation y of toolbar.
+//            if (adapter != null && firstCardMarginTop > 0) {
+//                if (firstCardMarginTop
+//                        >= binding.appBar.getMeasuredHeight() + adapter.getCurrentTemperatureTextHeight(recyclerView)) {
+//                    if (scrollY < firstCardMarginTop
+//                            - binding.appBar.getMeasuredHeight()
+//                            - adapter.getCurrentTemperatureTextHeight(recyclerView)) {
+//                        binding.appBar.setTranslationY(0);
+//                    } else if (scrollY > firstCardMarginTop - binding.appBar.getY()) {
+//                        binding.appBar.setTranslationY(-binding.appBar.getMeasuredHeight());
+//                    } else {
+//                        binding.appBar.setTranslationY(
+//                                firstCardMarginTop
+//                                        - adapter.getCurrentTemperatureTextHeight(recyclerView)
+//                                        - scrollY
+//                                        - binding.appBar.getMeasuredHeight()
+//                        );
+//                    }
+//                } else {
+//                    binding.appBar.setTranslationY(-scrollY);
+//                }
+//            }
+//
+//            // set system bar style.
+//            if (firstCardMarginTop <= 0) {
+//                topChanged = true;
+//                topOverlap = false;
+//            } else {
+//                topChanged = (binding.appBar.getTranslationY() != 0) != (lastAppBarTranslationY != 0);
+//                topOverlap = binding.appBar.getTranslationY() != 0;
+//            }
+//
+//            if (topChanged) {
+//                weatherView.setSystemBarColor(MainActivity.this, getWindow(),
+//                        topOverlap, false, true, false);
+//            }
+//        }
+        }
     }
 }

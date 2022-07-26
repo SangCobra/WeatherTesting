@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Accu realtime result.
- * */
+ */
 
 public class AccuCurrentResult {
 

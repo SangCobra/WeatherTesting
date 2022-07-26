@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.view.fragment.DailyDetailsFragment;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class DailyPagerAdapter extends FragmentStatePagerAdapter {
 
     private Location location;
+
     public DailyPagerAdapter(@NonNull FragmentManager fm, Location location) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.location = location;
@@ -23,8 +24,8 @@ public class DailyPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Bundle bundle = new Bundle();
-        bundle.putInt("position",position);
-        bundle.putParcelable("location",location);
+        bundle.putInt("position", position);
+        bundle.putParcelable("location", location);
         DailyDetailsFragment fragment = new DailyDetailsFragment();
         fragment.setArguments(bundle);
         return fragment;

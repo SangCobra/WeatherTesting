@@ -8,10 +8,10 @@ import android.widget.TextView;
 import androidx.core.graphics.ColorUtils;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
 import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.DailyAirQuality;
 import mtgtech.com.weather_forecast.view.weather_widget.RoundProgress;
+import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
 
 public class AirQualityHolder extends DailyWeatherAdapter.ViewHolder {
 

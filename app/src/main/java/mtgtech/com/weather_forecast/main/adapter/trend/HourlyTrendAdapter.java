@@ -7,18 +7,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import mtgtech.com.weather_forecast.main.adapter.trend.hourly.AbsHourlyTrendAdapter;
+import mtgtech.com.weather_forecast.main.adapter.trend.hourly.HourlyPrecipitationAdapter;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
-import mtgtech.com.weather_forecast.main.adapter.trend.hourly.AbsHourlyTrendAdapter;
-import mtgtech.com.weather_forecast.main.adapter.trend.hourly.HourlyPrecipitationAdapter;
 
-public class HourlyTrendAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HourlyTrendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private @Nullable AbsHourlyTrendAdapter adapter;
+    private @Nullable
+    AbsHourlyTrendAdapter adapter;
 
     public HourlyTrendAdapter() {
         adapter = null;

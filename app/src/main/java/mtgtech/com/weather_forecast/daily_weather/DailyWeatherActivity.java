@@ -1,14 +1,11 @@
 package mtgtech.com.weather_forecast.daily_weather;
 
-import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
 import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
-import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -17,13 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
-import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,26 +25,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
+import mtgtech.com.weather_forecast.models.DailyDetailsModel;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarViewPager;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.weather_model.model.weather.HalfDay;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
-import mtgtech.com.weather_forecast.databinding.FragmentDailyDetailsBinding;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
-import mtgtech.com.weather_forecast.models.DailyDetailsModel;
-import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.view.adapter.DailyDetailsAdapter;
-import mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarRecyclerView;
-import mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarViewPager;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
-import mtgtech.com.weather_forecast.utils.SunMoonUtils;
 
 /**
  * Daily weather activity.
@@ -59,22 +45,20 @@ import mtgtech.com.weather_forecast.utils.SunMoonUtils;
 
 public class DailyWeatherActivity extends GeoActivity {
 
+    public static final String KEY_FORMATTED_LOCATION_ID = "FORMATTED_LOCATION_ID";
+    public static final String KEY_CURRENT_DAILY_INDEX = "CURRENT_DAILY_INDEX";
+    public static final String KEY_WEATHER_FORMATTED = "KEY_WEATHER_FORMATTED";
     private CoordinatorLayout container;
     private TextView title;
     //    private TextView subtitle;
     private TextView indicator;
     private FrameLayout frAd;
-
     private @Nullable
     Weather weather;
     private @Nullable
     TimeZone timeZone;
     private Location location;
     private int position;
-
-    public static final String KEY_FORMATTED_LOCATION_ID = "FORMATTED_LOCATION_ID";
-    public static final String KEY_CURRENT_DAILY_INDEX = "CURRENT_DAILY_INDEX";
-    public static final String KEY_WEATHER_FORMATTED = "KEY_WEATHER_FORMATTED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +87,6 @@ public class DailyWeatherActivity extends GeoActivity {
             weather = DatabaseHelper.getInstance(DailyWeatherActivity.this).readWeather(location);
             timeZone = location.getTimeZone();
         }
-
 
 
     }
@@ -226,7 +209,7 @@ public class DailyWeatherActivity extends GeoActivity {
                 break;
 
         }
-        switch (d.night().getWeatherCode()){
+        switch (d.night().getWeatherCode()) {
             case CLEAR:
                 dayDetailsBinding.imgNightIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.img_moon));
 
@@ -322,35 +305,5 @@ public class DailyWeatherActivity extends GeoActivity {
         } else {
             indicator.setText((position + 1) + "/" + size);
         }
-    }
-    public void showInterAd() {
-        AdmobManager.getInstance().showInterstitial(this, AdCache.getInstance().getInterstitialAd(), new AdCallback() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                AdCache.getInstance().setInterstitialAd(null);
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(TIME_LOAD_INTERS);
-                        isShowAds = false;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-            }
-
-        });
-    }
-    public void loadIntersAd() {
-        if (AdCache.getInstance().getInterstitialAd() == null) {
-            AdmobManager.getInstance().loadInterAds(this, BuildConfig.inter_move_screen, new AdCallback() {
-                @Override
-                public void onResultInterstitialAd(InterstitialAd interstitialAd) {
-                    super.onResultInterstitialAd(interstitialAd);
-                    AdCache.getInstance().setInterstitialAd(interstitialAd);
-                }
-            });
-        }
-
     }
 }

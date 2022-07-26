@@ -2,11 +2,11 @@ package mtgtech.com.weather_forecast.db.converter;
 
 import androidx.annotation.Nullable;
 
+import mtgtech.com.weather_forecast.db.entity.HistoryEntity;
+import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.weather_model.model.weather.History;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.db.entity.HistoryEntity;
-import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 
 public class HistoryEntityConverter {
 

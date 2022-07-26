@@ -52,14 +52,16 @@ public class AriQualityAdapter extends RecyclerView.Adapter<AriQualityAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         private View colorView;
         private TextView adjustText, numberText;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             colorView = itemView.findViewById(R.id.viewColor);
             adjustText = itemView.findViewById(R.id.adjustAqi);
             numberText = itemView.findViewById(R.id.numberRange);
         }
+
         @SuppressLint("ResourceAsColor")
-        public void setData(AirQualityModel airQualityModel){
+        public void setData(AirQualityModel airQualityModel) {
             colorView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, airQualityModel.getColor())));
             adjustText.setText(airQualityModel.getAdjustAir());
             numberText.setText(airQualityModel.getNumberRange());

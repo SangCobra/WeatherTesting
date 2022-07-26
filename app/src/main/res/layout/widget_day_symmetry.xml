@@ -13,10 +13,10 @@
 
     <LinearLayout
         android:id="@+id/widget_day_weather"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -34,36 +34,36 @@
 
             <TextView
                 android:id="@+id/widget_day_title"
+                style="@style/content_text"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@id/widget_day_icon"
-                android:text="@string/ellipsis"
-                android:textSize="@dimen/widget_content_text_size"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/colorTextLight"
                 android:maxLines="2"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                style="@style/content_text"
-                tools:text="San Francisco\n21℃"
-                tools:ignore="RtlHardcoded" />
+                android:text="@string/ellipsis"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/widget_content_text_size"
+                tools:ignore="RtlHardcoded"
+                tools:text="San Francisco\n21℃" />
 
             <TextView
                 android:id="@+id/widget_day_subtitle"
+                style="@style/content_text"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/widget_day_icon"
-                android:text="@string/ellipsis"
-                android:textSize="@dimen/widget_content_text_size"
-                android:textColor="@color/colorTextLight"
                 android:maxLines="2"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                style="@style/content_text"
-                tools:text="Partly Could\n17/23°"
-                tools:ignore="RtlHardcoded" />
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/widget_content_text_size"
+                tools:ignore="RtlHardcoded"
+                tools:text="Partly Could\n17/23°" />
 
         </RelativeLayout>
 
@@ -73,9 +73,9 @@
 
             <FrameLayout
                 android:id="@+id/widget_day_center"
-                android:layout_centerInParent="true"
                 android:layout_width="@dimen/widget_current_weather_icon_size"
-                android:layout_height="1dp" />
+                android:layout_height="1dp"
+                android:layout_centerInParent="true" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -85,17 +85,17 @@
 
                 <TextView
                     android:id="@+id/widget_day_time"
-                    android:text="@string/wait_refresh"
-                    android:textColor="@color/colorTextLight"
-                    android:textSize="@dimen/widget_time_text_size"
+                    style="@style/content_text"
+                    android:layout_centerInParent="true"
                     android:shadowColor="@color/colorTextDark2nd"
                     android:shadowDx="1"
                     android:shadowDy="1"
                     android:shadowRadius="1"
-                    android:layout_centerInParent="true"
-                    style="@style/content_text"
-                    tools:text="WEN 17:00"
-                    tools:ignore="RtlHardcoded" />
+                    android:text="@string/wait_refresh"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/widget_time_text_size"
+                    tools:ignore="RtlHardcoded"
+                    tools:text="WEN 17:00" />
 
             </RelativeLayout>
 

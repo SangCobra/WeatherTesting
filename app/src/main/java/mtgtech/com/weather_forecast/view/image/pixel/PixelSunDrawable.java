@@ -16,7 +16,8 @@ public class PixelSunDrawable extends Drawable {
 
     private Paint paint;
 
-    @ColorInt private int color;
+    @ColorInt
+    private int color;
 
     private float alpha;
     private Rect bounds;

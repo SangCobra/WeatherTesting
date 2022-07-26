@@ -11,9 +11,9 @@ import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 /**
  * Base.
- *
+ * <p>
  * All properties are {@link androidx.annotation.NonNull}.
- * */
+ */
 public class Base implements Serializable {
 
     private String cityId;
@@ -34,6 +34,15 @@ public class Base implements Serializable {
         this.publishTime = publishTime;
         this.updateDate = updateDate;
         this.updateTime = updateTime;
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String getTime(Context c, Date date) {
+        if (TimeManager.is12Hour(c)) {
+            return new SimpleDateFormat("h:mm aa").format(date);
+        } else {
+            return new SimpleDateFormat("HH:mm").format(date);
+        }
     }
 
     public String getCityId() {
@@ -58,14 +67,5 @@ public class Base implements Serializable {
 
     public long getUpdateTime() {
         return updateTime;
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public static String getTime(Context c, Date date) {
-        if (TimeManager.is12Hour(c)) {
-            return new SimpleDateFormat("h:mm aa").format(date);
-        } else {
-            return new SimpleDateFormat("HH:mm").format(date);
-        }
     }
 }

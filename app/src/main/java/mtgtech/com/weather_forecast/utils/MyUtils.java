@@ -3,12 +3,13 @@ package mtgtech.com.weather_forecast.utils;
 import java.util.Calendar;
 
 public class MyUtils {
+    public static int requestCode;
+
     public static Boolean isNight() {
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
-        return  hour < 6 || hour > 18;
+        return hour < 6 || hour > 18;
     }
-    public static int requestCode;
 
 // switch (model.getWeatherCode()){
 //        case CLEAR:

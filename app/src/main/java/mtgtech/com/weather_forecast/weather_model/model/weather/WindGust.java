@@ -5,7 +5,8 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class WindGust implements Serializable {
-    @NonNull private Float speed;
+    @NonNull
+    private Float speed;
 
     public WindGust(@NonNull Float speed) {
         this.speed = speed;

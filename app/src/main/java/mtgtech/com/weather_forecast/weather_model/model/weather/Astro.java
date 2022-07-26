@@ -13,11 +13,13 @@ import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 /**
  * Astro.
- * */
+ */
 public class Astro implements Serializable {
 
-    @Nullable private Date riseDate;
-    @Nullable private Date setDate;
+    @Nullable
+    private Date riseDate;
+    @Nullable
+    private Date setDate;
 
     public Astro(@Nullable Date riseDate, @Nullable Date setDate) {
         this.riseDate = riseDate;

@@ -11,12 +11,12 @@ import org.greenrobot.greendao.query.WhereCondition;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.db.entity.ChineseCityEntityDao;
 import mtgtech.com.weather_forecast.db.entity.ChineseCityEntity;
+import mtgtech.com.weather_forecast.db.entity.ChineseCityEntityDao;
 import mtgtech.com.weather_forecast.db.entity.DaoSession;
 
 public class ChineseCityEntityController extends AbsEntityController<ChineseCityEntity> {
-    
+
     public ChineseCityEntityController(DaoSession session) {
         super(session);
     }
@@ -123,7 +123,7 @@ public class ChineseCityEntityController extends AbsEntityController<ChineseCity
         List<ChineseCityEntity> entityList = selectChineseCityEntityList();
         int minIndex = -1;
         double minDistance = Double.MAX_VALUE;
-        for (int i = 0; i < entityList.size(); i ++) {
+        for (int i = 0; i < entityList.size(); i++) {
             double distance = Math.pow(latitude - Double.parseDouble(entityList.get(i).latitude), 2)
                     + Math.pow(longitude - Double.parseDouble(entityList.get(i).longitude), 2);
             if (distance < minDistance) {

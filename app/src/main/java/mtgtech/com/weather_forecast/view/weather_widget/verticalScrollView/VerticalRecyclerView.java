@@ -11,7 +11,7 @@ import mtgtech.com.weather_forecast.view.weather_widget.insets.FitSystemBarRecyc
 
 /**
  * Vertical Recycler view.
- * */
+ */
 
 public class VerticalRecyclerView extends FitSystemBarRecyclerView {
 

@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/settings_title_unit" >
+    android:title="@string/settings_title_unit">
 
     <ListPreference
-        android:title="@string/settings_title_temperature_unit"
-        android:key="@string/key_temperature_unit"
+        android:defaultValue="c"
+        android:dialogTitle="@string/settings_title_temperature_unit"
         android:entries="@array/temperature_units"
         android:entryValues="@array/temperature_unit_values"
-        android:dialogTitle="@string/settings_title_temperature_unit"
-        android:defaultValue="c" />
+        android:key="@string/key_temperature_unit"
+        android:title="@string/settings_title_temperature_unit" />
 
     <ListPreference
-        android:title="@string/settings_title_distance_unit"
-        android:key="@string/key_distance_unit"
+        android:defaultValue="km"
+        android:dialogTitle="@string/settings_title_distance_unit"
         android:entries="@array/distance_units"
         android:entryValues="@array/distance_unit_values"
-        android:dialogTitle="@string/settings_title_distance_unit"
-        android:defaultValue="km" />
+        android:key="@string/key_distance_unit"
+        android:title="@string/settings_title_distance_unit" />
 
     <ListPreference
-        android:title="@string/settings_title_precipitation_unit"
-        android:key="@string/key_precipitation_unit"
+        android:defaultValue="mm"
+        android:dialogTitle="@string/settings_title_precipitation_unit"
         android:entries="@array/precipitation_units"
         android:entryValues="@array/precipitation_unit_values"
-        android:dialogTitle="@string/settings_title_precipitation_unit"
-        android:defaultValue="mm" />
+        android:key="@string/key_precipitation_unit"
+        android:title="@string/settings_title_precipitation_unit" />
 
     <ListPreference
-        android:title="@string/settings_title_pressure_unit"
-        android:key="@string/key_pressure_unit"
+        android:defaultValue="mb"
+        android:dialogTitle="@string/settings_title_pressure_unit"
         android:entries="@array/pressure_units"
         android:entryValues="@array/pressure_unit_values"
-        android:dialogTitle="@string/settings_title_pressure_unit"
-        android:defaultValue="mb" />
+        android:key="@string/key_pressure_unit"
+        android:title="@string/settings_title_pressure_unit" />
 
     <ListPreference
-        android:title="@string/settings_title_speed_unit"
-        android:key="@string/key_speed_unit"
+        android:defaultValue="mps"
+        android:dialogTitle="@string/settings_title_speed_unit"
         android:entries="@array/speed_units"
         android:entryValues="@array/speed_unit_values"
-        android:dialogTitle="@string/settings_title_speed_unit"
-        android:defaultValue="mps" />
+        android:key="@string/key_speed_unit"
+        android:title="@string/settings_title_speed_unit" />
 
 </PreferenceScreen>

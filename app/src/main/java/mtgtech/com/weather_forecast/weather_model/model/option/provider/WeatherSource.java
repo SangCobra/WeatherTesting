@@ -12,7 +12,8 @@ public enum WeatherSource {
     ACCU("accu", 0xffef5823, "accuweather.com");
 
     private String sourceId;
-    @ColorInt private int sourceColor;
+    @ColorInt
+    private int sourceColor;
     private String sourceUrl;
 
     WeatherSource(String id, @ColorInt int color, String url) {

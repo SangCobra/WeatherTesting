@@ -19,7 +19,7 @@ public class DailyDetailsAdapter extends RecyclerView.Adapter<DailyDetailsAdapte
     private ArrayList<DailyDetailsModel> list;
     private Context context;
 
-    public DailyDetailsAdapter(Context context){
+    public DailyDetailsAdapter(Context context) {
         this.context = context;
     }
 
@@ -39,6 +39,11 @@ public class DailyDetailsAdapter extends RecyclerView.Adapter<DailyDetailsAdapte
         return list.size();
     }
 
+    public void updateData(ArrayList<DailyDetailsModel> newList) {
+        list = newList;
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ItemDailyDetailsBinding binding;
@@ -49,26 +54,21 @@ public class DailyDetailsAdapter extends RecyclerView.Adapter<DailyDetailsAdapte
         }
 
         public void setData(DailyDetailsModel model) {
-            if(model.getVisible()){
+            if (model.getVisible()) {
                 binding.getRoot().setVisibility(View.VISIBLE);
                 binding.tvDailyDetails.setText(model.getDailyDetailsHeading());
                 binding.tvDailyValue.setText(model.getDailyDetailsValue());
-                binding.imgDailyDetails.setImageDrawable(ContextCompat.getDrawable(context,model.getImageId()));
+                binding.imgDailyDetails.setImageDrawable(ContextCompat.getDrawable(context, model.getImageId()));
 //                if (list.indexOf(model) == list.size() - 1){
 //                    binding.divider.setVisibility(View.GONE);
 //                }
 //                else {
 //                    binding.divider.setVisibility(View.VISIBLE);
 //                }
-            }else{
+            } else {
                 binding.getRoot().setVisibility(View.GONE);
             }
 
         }
-    }
-
-    public void updateData(ArrayList<DailyDetailsModel> newList) {
-        list = newList;
-        notifyDataSetChanged();
     }
 }

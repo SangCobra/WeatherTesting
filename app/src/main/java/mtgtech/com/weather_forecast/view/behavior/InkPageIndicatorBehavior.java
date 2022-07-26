@@ -1,19 +1,20 @@
 package mtgtech.com.weather_forecast.view.behavior;
 
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.snackbar.Snackbar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import mtgtech.com.weather_forecast.view.weather_widget.InkPageIndicator;
 
 /**
  * Ink page indicator behavior.
- * */
+ */
 
 public class InkPageIndicatorBehavior<V extends InkPageIndicator> extends CoordinatorLayout.Behavior<V> {
 

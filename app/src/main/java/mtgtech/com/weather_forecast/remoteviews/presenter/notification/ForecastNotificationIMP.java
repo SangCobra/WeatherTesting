@@ -10,24 +10,24 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.remoteviews.presenter.AbstractRemoteViewsPresenter;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
 import mtgtech.com.weather_forecast.utils.LanguageUtils;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 /**
  * Forecast notification utils.
- * */
+ */
 
 public class ForecastNotificationIMP extends AbstractRemoteViewsPresenter {
 
@@ -43,7 +43,7 @@ public class ForecastNotificationIMP extends AbstractRemoteViewsPresenter {
                 context,
                 SettingsOptionManager.getInstance(context).getLanguage().getLocale()
         );
-        
+
         // create channel.
         NotificationManagerCompat manager = NotificationManagerCompat.from(context);
 
@@ -73,12 +73,12 @@ public class ForecastNotificationIMP extends AbstractRemoteViewsPresenter {
         boolean daytime;
         if (today) {
             daytime = TimeManager.isDaylight(location);
-            weatherCode = daytime 
-                    ? weather.getDailyForecast().get(0).day().getWeatherCode() 
+            weatherCode = daytime
+                    ? weather.getDailyForecast().get(0).day().getWeatherCode()
                     : weather.getDailyForecast().get(0).night().getWeatherCode();
         } else {
             daytime = true;
-            weatherCode = weather.getDailyForecast().get(1).day().getWeatherCode() ;
+            weatherCode = weather.getDailyForecast().get(1).day().getWeatherCode();
         }
 
         // set small icon.

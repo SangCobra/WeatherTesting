@@ -1,7 +1,7 @@
 package mtgtech.com.weather_forecast.daily_weather.adapter.model;
 
-import mtgtech.com.weather_forecast.weather_model.model.weather.HalfDay;
 import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
+import mtgtech.com.weather_forecast.weather_model.model.weather.HalfDay;
 
 public class Overview implements DailyWeatherAdapter.ViewModel {
 
@@ -11,6 +11,10 @@ public class Overview implements DailyWeatherAdapter.ViewModel {
     public Overview(HalfDay halfDay, boolean daytime) {
         this.halfDay = halfDay;
         this.daytime = daytime;
+    }
+
+    public static boolean isCode(int code) {
+        return code == 1;
     }
 
     public HalfDay getHalfDay() {
@@ -27,10 +31,6 @@ public class Overview implements DailyWeatherAdapter.ViewModel {
 
     public void setDaytime(boolean daytime) {
         this.daytime = daytime;
-    }
-
-    public static boolean isCode(int code) {
-        return code == 1;
     }
 
     @Override

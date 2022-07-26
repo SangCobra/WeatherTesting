@@ -1,9 +1,7 @@
 package mtgtech.com.weather_forecast.weather_model;
 
 import static mtgtech.com.weather_forecast.main.MainActivity.isGotoSettings;
-import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
 import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
-import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,46 +10,38 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.View;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.provider.Settings;
-import android.view.View;
-
-import com.common.control.interfaces.AdCallback;
 import com.common.control.interfaces.PermissionCallback;
-import com.common.control.manager.AdmobManager;
 import com.common.control.manager.AppOpenManager;
 import com.common.control.utils.PermissionUtils;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import java.util.Locale;
 
-import mtgtech.com.weather_forecast.AdCache;
-import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.WeatherFlow;
-import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.main.dialog.DialogPer1;
-import mtgtech.com.weather_forecast.main.dialog.DialogPer2;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.LanguageUtils;
 import mtgtech.com.weather_forecast.utils.MyUtils;
 
 /**
  * Geometric weather activity.
- * */
+ */
 
 public abstract class GeoActivity extends AppCompatActivity {
 
-    private boolean foreground;
-
-    @Nullable private OnRequestPermissionsResultListener permissionsListener;
-    private boolean denyPermission = false;
     public PermissionCallback permissionCallback;
+    private boolean foreground;
+    @Nullable
+    private OnRequestPermissionsResultListener permissionsListener;
+    private boolean denyPermission = false;
 
     public PermissionCallback getPermissionCallback() {
         return permissionCallback;
@@ -129,7 +119,7 @@ public abstract class GeoActivity extends AppCompatActivity {
                                            @NonNull String[] permission, @NonNull int[] grantResult) {
         super.onRequestPermissionsResult(requestCode, permission, grantResult);
         MyUtils.requestCode = requestCode;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             for (int j : grantResult) {
                 if (j != PackageManager.PERMISSION_GRANTED && requestCode == 1) {
                     DialogPer1.start(this);
@@ -144,11 +134,10 @@ public abstract class GeoActivity extends AppCompatActivity {
                     this,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION
-            )){
+            )) {
                 isGotoSettings = true;
             }
-        }
-        else {
+        } else {
 //            boolean isPermissionDeny = false;
 //            for (int j : grantResult) {
 //                if (j != PackageManager.PERMISSION_GRANTED) {
@@ -167,12 +156,11 @@ public abstract class GeoActivity extends AppCompatActivity {
 //                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, requestCode);
 //                }
 //            }
-            if (permissionCallback != null){
-                if (PermissionUtils.permissionGranted(this, permission)){
+            if (permissionCallback != null) {
+                if (PermissionUtils.permissionGranted(this, permission)) {
 //                    isGotoSettings = true;
                     permissionCallback.onPermissionGranted();
-                }
-                else {
+                } else {
                     permissionCallback.onPermissionDenied();
 //                    onRequestPermissionsResult(requestCode, permission, grantResult);
                 }

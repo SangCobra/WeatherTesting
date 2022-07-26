@@ -11,124 +11,97 @@ import androidx.preference.PreferenceManager;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.option.WidgetWeekIconMode;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.DailyTrendDisplay;
-import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.CardDisplay;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
+import mtgtech.com.weather_forecast.weather_model.model.option.DarkMode;
 import mtgtech.com.weather_forecast.weather_model.model.option.NotificationStyle;
 import mtgtech.com.weather_forecast.weather_model.model.option.NotificationTextColor;
+import mtgtech.com.weather_forecast.weather_model.model.option.UpdateInterval;
+import mtgtech.com.weather_forecast.weather_model.model.option.WidgetWeekIconMode;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.CardDisplay;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.DailyTrendDisplay;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
 import mtgtech.com.weather_forecast.weather_model.model.option.appearance.UIStyle;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.LocationProvider;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.weather_model.model.option.DarkMode;
-import mtgtech.com.weather_forecast.weather_model.model.option.UpdateInterval;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.DistanceUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.PressureUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 
 public class SettingsOptionManager {
 
-    private static volatile SettingsOptionManager instance;
-
-    public static SettingsOptionManager getInstance(Context context) {
-        if (instance == null) {
-            synchronized (SettingsOptionManager.class) {
-                if (instance == null) {
-                    instance = new SettingsOptionManager(context);
-                }
-            }
-        }
-        return instance;
-    }
-
-    // basic.
-    private boolean isFirstTime;
-
-
-
-    private boolean backgroundFree;
-    private boolean alertPushEnabled;
-    private boolean precipitationPushEnabled;
-    private boolean showNightInfoEnabled;
-    private boolean isWeatherBgEnabled;
-    private boolean isTermChange;
-
-
-    private UpdateInterval updateInterval;
-    private DarkMode darkMode;
-
-    // service provider.
-    private WeatherSource weatherSource;
-    private LocationProvider locationProvider;
-
-    // unit.
-    private TemperatureUnit temperatureUnit;
-    private DistanceUnit distanceUnit;
-    private PrecipitationUnit precipitationUnit;
-    private PressureUnit pressureUnit;
-    private SpeedUnit speedUnit;
-
-    // appearance.
-    private UIStyle uiStyle;
-    private String iconProvider;
-    private List<CardDisplay> cardDisplayList;
+    public static final String DEFAULT_TODAY_FORECAST_TIME = "07:00";
+    public static final String DEFAULT_TOMORROW_FORECAST_TIME = "21:00";
     private static final String DEFAULT_CARD_DISPLAY = "daily_overview"
             + "&hourly_overview"
             + "&air_quality"
             + "&allergen"
             + "&sunrise_sunset"
             + "&life_details";
-    private List<DailyTrendDisplay> dailyTrendDisplayList;
     private static final String DEFAULT_DAILY_TREND_DISPLAY = "temperature"
             + "&air_quality"
             + "&wind"
             + "&uv_index"
             + "&precipitation";
-
+    private static volatile SettingsOptionManager instance;
+    // basic.
+    private boolean isFirstTime;
+    private boolean backgroundFree;
+    private boolean alertPushEnabled;
+    private boolean precipitationPushEnabled;
+    private boolean showNightInfoEnabled;
+    private boolean isWeatherBgEnabled;
+    private boolean isTermChange;
+    private UpdateInterval updateInterval;
+    private DarkMode darkMode;
+    // service provider.
+    private WeatherSource weatherSource;
+    private LocationProvider locationProvider;
+    // unit.
+    private TemperatureUnit temperatureUnit;
+    private DistanceUnit distanceUnit;
+    private PrecipitationUnit precipitationUnit;
+    private PressureUnit pressureUnit;
+    private SpeedUnit speedUnit;
+    // appearance.
+    private UIStyle uiStyle;
+    private String iconProvider;
+    private List<CardDisplay> cardDisplayList;
+    private List<DailyTrendDisplay> dailyTrendDisplayList;
     private boolean trendHorizontalLinesEnabled;
     private boolean exchangeDayNightTempEnabled;
     private boolean gravitySensorEnabled;
     private boolean listAnimationEnabled;
     private boolean itemAnimationEnabled;
     private Language language;
-
     // forecast.
     private boolean todayForecastEnabled;
     private String todayForecastTime;
-    public static final String DEFAULT_TODAY_FORECAST_TIME = "07:00";
-
     private boolean tomorrowForecastEnabled;
     private String tomorrowForecastTime;
-    public static final String DEFAULT_TOMORROW_FORECAST_TIME = "21:00";
-
     // widget.
     private WidgetWeekIconMode widgetWeekIconMode;
     private boolean widgetMinimalIconEnabled;
     private boolean widgetClickToRefreshEnabled;
-
     // notification.
     private boolean notificationEnabled;
     private NotificationStyle notificationStyle;
     private boolean notificationMinimalIconEnabled;
     private boolean notificationTemperatureIconEnabled;
     private boolean notificationCustomColorEnabled;
-    @ColorInt private int notificationBackgroundColor;
+    @ColorInt
+    private int notificationBackgroundColor;
     private NotificationTextColor notificationTextColor;
     private boolean notificationCanBeClearedEnabled;
     private boolean notificationHideIconEnabled;
     private boolean notificationHideInLockScreenEnabled;
     private boolean notificationHideBigViewEnabled;
-
-
     private SharedPreferences sharedPreferences;
     private Context context;
-
     private SettingsOptionManager(Context context) {
-       sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-       this.context = context;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.context = context;
 
         // basic.
         isFirstTime = sharedPreferences.getBoolean(context.getString(R.string.key_check_time_start_app), true);
@@ -141,9 +114,9 @@ public class SettingsOptionManager {
         precipitationPushEnabled = sharedPreferences.getBoolean(
                 context.getString(R.string.key_precipitation_notification_switch), false);
 
-        showNightInfoEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_show_night_info_switch),false);
-        isWeatherBgEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_weather_background),true);
-        isTermChange =sharedPreferences.getBoolean(context.getString(R.string.key_term_change), true);
+        showNightInfoEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_show_night_info_switch), false);
+        isWeatherBgEnabled = sharedPreferences.getBoolean(context.getString(R.string.key_weather_background), true);
+        isTermChange = sharedPreferences.getBoolean(context.getString(R.string.key_term_change), true);
 
         updateInterval = OptionMapper.getUpdateInterval(
                 sharedPreferences.getString(
@@ -300,6 +273,18 @@ public class SettingsOptionManager {
         notificationHideBigViewEnabled = sharedPreferences.getBoolean(
                 context.getString(R.string.key_notification_hide_big_view), false);
     }
+
+    public static SettingsOptionManager getInstance(Context context) {
+        if (instance == null) {
+            synchronized (SettingsOptionManager.class) {
+                if (instance == null) {
+                    instance = new SettingsOptionManager(context);
+                }
+            }
+        }
+        return instance;
+    }
+
     public boolean isFirstTime() {
         return isFirstTime;
     }
@@ -309,6 +294,7 @@ public class SettingsOptionManager {
         sharedPreferences.edit().putBoolean(context.getString(R.string.key_check_time_start_app), firstTime).apply();
         isFirstTime = firstTime;
     }
+
     public boolean isBackgroundFree() {
         return backgroundFree;
     }
@@ -322,7 +308,7 @@ public class SettingsOptionManager {
     }
 
     public void setAlertPushEnabled(boolean alertPushEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_alert_notification_switch),alertPushEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_alert_notification_switch), alertPushEnabled).apply();
         this.alertPushEnabled = alertPushEnabled;
     }
 
@@ -331,7 +317,7 @@ public class SettingsOptionManager {
     }
 
     public void setPrecipitationPushEnabled(boolean precipitationPushEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_precipitation_notification_switch),precipitationPushEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_precipitation_notification_switch), precipitationPushEnabled).apply();
         this.precipitationPushEnabled = precipitationPushEnabled;
 
     }
@@ -343,19 +329,19 @@ public class SettingsOptionManager {
     public void setTermChange(boolean termChange) {
         sharedPreferences.edit().putBoolean(context.getString(R.string.key_term_change), termChange).apply();
         this.isTermChange = termChange;
-        if (termChange){
+        if (termChange) {
             this.setTemperatureUnit("c");
-        }
-        else{
+        } else {
             this.setTemperatureUnit("f");
         }
     }
+
     public boolean isShowNightInfoEnabled() {
         return showNightInfoEnabled;
     }
 
     public void setShowNightInfoEnabled(boolean showNightInfoEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_show_night_info_switch),showNightInfoEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_show_night_info_switch), showNightInfoEnabled).apply();
         this.showNightInfoEnabled = showNightInfoEnabled;
     }
 
@@ -364,9 +350,9 @@ public class SettingsOptionManager {
     }
 
     public void setUpdateInterval(String updateIntervalValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_refresh_rate),updateIntervalValue).apply();
+        sharedPreferences.edit().putString(context.getString(R.string.key_refresh_rate), updateIntervalValue).apply();
 
-        this.updateInterval = OptionMapper.getUpdateInterval( updateIntervalValue);
+        this.updateInterval = OptionMapper.getUpdateInterval(updateIntervalValue);
     }
 
     public DarkMode getDarkMode() {
@@ -374,7 +360,7 @@ public class SettingsOptionManager {
     }
 
     public void setDarkMode(String darkModeValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_dark_mode),darkModeValue).apply();
+        sharedPreferences.edit().putString(context.getString(R.string.key_dark_mode), darkModeValue).apply();
 
         this.darkMode = OptionMapper.getDarkMode((String) darkModeValue);
     }
@@ -400,7 +386,7 @@ public class SettingsOptionManager {
     }
 
     public void setTemperatureUnit(String temperatureUnitValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_temperature_unit),temperatureUnitValue).apply();
+        sharedPreferences.edit().putString(context.getString(R.string.key_temperature_unit), temperatureUnitValue).apply();
         this.temperatureUnit = OptionMapper.getTemperatureUnit(temperatureUnitValue);
     }
 
@@ -409,7 +395,7 @@ public class SettingsOptionManager {
     }
 
     public void setDistanceUnit(String distanceUnitValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_distance_unit),distanceUnitValue).apply();
+        sharedPreferences.edit().putString(context.getString(R.string.key_distance_unit), distanceUnitValue).apply();
         this.distanceUnit = OptionMapper.getDistanceUnit(distanceUnitValue);
     }
 
@@ -418,7 +404,7 @@ public class SettingsOptionManager {
     }
 
     public void setPrecipitationUnit(String precipitationUnitValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_precipitation_unit),precipitationUnitValue).apply();
+        sharedPreferences.edit().putString(context.getString(R.string.key_precipitation_unit), precipitationUnitValue).apply();
         this.precipitationUnit = OptionMapper.getPrecipitationUnit(precipitationUnitValue);
     }
 
@@ -427,8 +413,8 @@ public class SettingsOptionManager {
     }
 
     public void setPressureUnit(String pressureUnitValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_pressure_unit),pressureUnitValue).apply();
-        this.pressureUnit = OptionMapper.getPressureUnit( pressureUnitValue);
+        sharedPreferences.edit().putString(context.getString(R.string.key_pressure_unit), pressureUnitValue).apply();
+        this.pressureUnit = OptionMapper.getPressureUnit(pressureUnitValue);
     }
 
     public SpeedUnit getSpeedUnit() {
@@ -436,8 +422,8 @@ public class SettingsOptionManager {
     }
 
     public void setSpeedUnit(String speedUnitValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_speed_unit),speedUnitValue).apply();
-        this.speedUnit = OptionMapper.getSpeedUnit( speedUnitValue);
+        sharedPreferences.edit().putString(context.getString(R.string.key_speed_unit), speedUnitValue).apply();
+        this.speedUnit = OptionMapper.getSpeedUnit(speedUnitValue);
     }
 
     public UIStyle getUiStyle() {
@@ -525,7 +511,7 @@ public class SettingsOptionManager {
     }
 
     public void setTodayForecastEnabled(boolean todayForecastEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_forecast_today),todayForecastEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_forecast_today), todayForecastEnabled).apply();
         this.todayForecastEnabled = todayForecastEnabled;
     }
 
@@ -582,7 +568,7 @@ public class SettingsOptionManager {
     }
 
     public void setNotificationEnabled(boolean notificationEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification),notificationEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification), notificationEnabled).apply();
         this.notificationEnabled = notificationEnabled;
     }
 
@@ -591,7 +577,7 @@ public class SettingsOptionManager {
     }
 
     public void setNotificationStyle(String notificationStyleValue) {
-        sharedPreferences.edit().putString(context.getString(R.string.key_notification_style),notificationStyleValue).apply();
+        sharedPreferences.edit().putString(context.getString(R.string.key_notification_style), notificationStyleValue).apply();
         this.notificationStyle = OptionMapper.getNotificationStyle((String) notificationStyleValue);
     }
 
@@ -608,7 +594,7 @@ public class SettingsOptionManager {
     }
 
     public void setNotificationTemperatureIconEnabled(boolean notificationTemperatureIconEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_temp_icon),notificationTemperatureIconEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_temp_icon), notificationTemperatureIconEnabled).apply();
         this.notificationTemperatureIconEnabled = notificationTemperatureIconEnabled;
     }
 
@@ -641,7 +627,7 @@ public class SettingsOptionManager {
     }
 
     public void setNotificationCanBeClearedEnabled(boolean notificationCanBeClearedEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_can_be_cleared),notificationCanBeClearedEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_can_be_cleared), notificationCanBeClearedEnabled).apply();
         this.notificationCanBeClearedEnabled = notificationCanBeClearedEnabled;
     }
 
@@ -650,7 +636,7 @@ public class SettingsOptionManager {
     }
 
     public void setNotificationHideIconEnabled(boolean notificationHideIconEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_hide_icon),notificationHideInLockScreenEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_hide_icon), notificationHideInLockScreenEnabled).apply();
         this.notificationHideIconEnabled = notificationHideIconEnabled;
     }
 
@@ -659,7 +645,7 @@ public class SettingsOptionManager {
     }
 
     public void setNotificationHideInLockScreenEnabled(boolean notificationHideInLockScreenEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_hide_in_lockScreen),notificationHideInLockScreenEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_hide_in_lockScreen), notificationHideInLockScreenEnabled).apply();
         this.notificationHideInLockScreenEnabled = notificationHideInLockScreenEnabled;
     }
 
@@ -668,7 +654,7 @@ public class SettingsOptionManager {
     }
 
     public void setNotificationHideBigViewEnabled(boolean notificationHideBigViewEnabled) {
-        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_hide_big_view),notificationHideBigViewEnabled).apply();
+        sharedPreferences.edit().putBoolean(context.getString(R.string.key_notification_hide_big_view), notificationHideBigViewEnabled).apply();
         this.notificationHideBigViewEnabled = notificationHideBigViewEnabled;
     }
 

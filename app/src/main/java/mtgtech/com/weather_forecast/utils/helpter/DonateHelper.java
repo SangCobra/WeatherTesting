@@ -5,7 +5,7 @@ package mtgtech.com.weather_forecast.utils.helpter;
 
 /**
  * Donate helper.
- * */
+ */
 
 public class DonateHelper {
 //

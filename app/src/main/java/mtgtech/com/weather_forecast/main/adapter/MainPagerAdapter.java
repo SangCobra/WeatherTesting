@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.main.MainActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.view.fragment.HomeFragment;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -32,7 +32,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
         HomeFragment homeFragment = new HomeFragment();
         homeFragment.setLoadLocation(loadLocation);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("location",list.get(position));
+        bundle.putParcelable("location", list.get(position));
         homeFragment.setArguments(bundle);
         return homeFragment;
     }

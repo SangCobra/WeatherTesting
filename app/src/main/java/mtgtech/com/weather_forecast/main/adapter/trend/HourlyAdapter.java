@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
 
 public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder> {
+    private final SettingsOptionManager settingsOptionManager;
     private Context context;
     private ArrayList<Hourly> list;
-    private final SettingsOptionManager settingsOptionManager;
 
     public HourlyAdapter(Context context) {
         this.context = context;
@@ -32,7 +32,7 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateList(ArrayList<Hourly> list){
+    public void updateList(ArrayList<Hourly> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -47,13 +47,12 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Hourly hourly = list.get(position);
-        if (position == 0){
+        if (position == 0) {
             holder.tvHour.setText("NOW");
             holder.tvHour.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
             holder.tvHour.setBackgroundResource(R.drawable.shape_border_text);
             holder.tvHour.setTextColor(Color.BLACK);
-        }
-        else {
+        } else {
             holder.tvHour.setText(hourly.getHour(context));
             holder.tvHour.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
             holder.tvHour.setBackgroundResource(0);
@@ -131,6 +130,7 @@ public class HourlyAdapter extends RecyclerView.Adapter<HourlyAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvHour, tvPercentRain, tvTerm;
         private ImageView iconWeather;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHour = itemView.findViewById(R.id.time_in_day);

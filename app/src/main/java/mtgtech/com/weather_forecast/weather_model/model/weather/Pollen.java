@@ -12,24 +12,36 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * DailyPollen.
- * */
+ */
 public class Pollen implements Serializable {
 
-    @Nullable private Integer grassIndex;
-    @Nullable private Integer grassLevel;
-    @Nullable private String grassDescription;
+    @Nullable
+    private Integer grassIndex;
+    @Nullable
+    private Integer grassLevel;
+    @Nullable
+    private String grassDescription;
 
-    @Nullable private Integer moldIndex;
-    @Nullable private Integer moldLevel;
-    @Nullable private String moldDescription;
+    @Nullable
+    private Integer moldIndex;
+    @Nullable
+    private Integer moldLevel;
+    @Nullable
+    private String moldDescription;
 
-    @Nullable private Integer ragweedIndex;
-    @Nullable private Integer ragweedLevel;
-    @Nullable private String ragweedDescription;
+    @Nullable
+    private Integer ragweedIndex;
+    @Nullable
+    private Integer ragweedLevel;
+    @Nullable
+    private String ragweedDescription;
 
-    @Nullable private Integer treeIndex;
-    @Nullable private Integer treeLevel;
-    @Nullable private String treeDescription;
+    @Nullable
+    private Integer treeIndex;
+    @Nullable
+    private Integer treeLevel;
+    @Nullable
+    private String treeDescription;
 
     public Pollen(@Nullable Integer grassIndex, @Nullable Integer grassLevel, @Nullable String grassDescription,
                   @Nullable Integer moldIndex, @Nullable Integer moldLevel, @Nullable String moldDescription,
@@ -47,6 +59,25 @@ public class Pollen implements Serializable {
         this.treeIndex = treeIndex;
         this.treeLevel = treeLevel;
         this.treeDescription = treeDescription;
+    }
+
+    @ColorInt
+    public static int getPollenColor(Context context, Integer level) {
+        if (level == null) {
+            return ContextCompat.getColor(context, R.color.colorLevel_1);
+        } else if (level <= 1) {
+            return ContextCompat.getColor(context, R.color.colorLevel_1);
+        } else if (level <= 2) {
+            return ContextCompat.getColor(context, R.color.colorLevel_2);
+        } else if (level <= 3) {
+            return ContextCompat.getColor(context, R.color.colorLevel_3);
+        } else if (level <= 4) {
+            return ContextCompat.getColor(context, R.color.colorLevel_4);
+        } else if (level <= 5) {
+            return ContextCompat.getColor(context, R.color.colorLevel_5);
+        } else {
+            return ContextCompat.getColor(context, R.color.colorLevel_6);
+        }
     }
 
     @Nullable
@@ -114,24 +145,5 @@ public class Pollen implements Serializable {
                 || (moldIndex != null && moldIndex > 0 && moldLevel != null)
                 || (ragweedIndex != null && ragweedIndex > 0 && ragweedLevel != null)
                 || (treeIndex != null && treeIndex > 0 && treeLevel != null);
-    }
-
-    @ColorInt
-    public static int getPollenColor(Context context, Integer level) {
-        if (level == null) {
-            return ContextCompat.getColor(context, R.color.colorLevel_1);
-        } else if (level <= 1) {
-            return ContextCompat.getColor(context, R.color.colorLevel_1);
-        } else if (level <= 2) {
-            return ContextCompat.getColor(context, R.color.colorLevel_2);
-        } else if (level <= 3) {
-            return ContextCompat.getColor(context, R.color.colorLevel_3);
-        } else if (level <= 4) {
-            return ContextCompat.getColor(context, R.color.colorLevel_4);
-        } else if (level <= 5) {
-            return ContextCompat.getColor(context, R.color.colorLevel_5);
-        } else {
-            return ContextCompat.getColor(context, R.color.colorLevel_6);
-        }
     }
 }

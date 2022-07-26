@@ -15,7 +15,8 @@ public enum DailyTrendDisplay {
     TAG_PRECIPITATION("precipitation", R.string.precipitation);
 
     private String value;
-    private @StringRes int nameId;
+    private @StringRes
+    int nameId;
 
     DailyTrendDisplay(String value, int nameId) {
         this.value = value;

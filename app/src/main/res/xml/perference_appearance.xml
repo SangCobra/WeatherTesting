@@ -3,64 +3,64 @@
     android:title="@string/settings_title_appearance">
 
     <ListPreference
-        android:title="@string/settings_title_ui_style"
-        android:key="@string/key_ui_style"
+        android:defaultValue="material"
+        android:dialogTitle="@string/settings_title_ui_style"
         android:entries="@array/ui_styles"
         android:entryValues="@array/ui_style_values"
-        android:dialogTitle="@string/settings_title_ui_style"
-        android:defaultValue="material" />
+        android:key="@string/key_ui_style"
+        android:title="@string/settings_title_ui_style" />
 
     <Preference
-        android:title="@string/settings_title_icon_provider"
-        android:key="@string/key_icon_provider" />
+        android:key="@string/key_icon_provider"
+        android:title="@string/settings_title_icon_provider" />
 
     <Preference
-        android:title="@string/settings_title_card_display"
-        android:key="@string/key_card_display" />
+        android:key="@string/key_card_display"
+        android:title="@string/settings_title_card_display" />
 
     <Preference
-        android:title="@string/settings_title_daily_trend_display"
-        android:key="@string/key_daily_trend_display" />
+        android:key="@string/key_daily_trend_display"
+        android:title="@string/settings_title_daily_trend_display" />
 
     <CheckBoxPreference
-        android:title="@string/settings_title_trend_horizontal_line_switch"
+        android:defaultValue="true"
         android:key="@string/key_trend_horizontal_line_switch"
-        android:summaryOn="@string/on"
         android:summaryOff="@string/off"
-        android:defaultValue="true" />
+        android:summaryOn="@string/on"
+        android:title="@string/settings_title_trend_horizontal_line_switch" />
 
     <CheckBoxPreference
-        android:title="@string/settings_title_exchange_day_night_temp_switch"
+        android:defaultValue="false"
         android:key="@string/key_exchange_day_night_temp_switch"
-        android:defaultValue="false" />
+        android:title="@string/settings_title_exchange_day_night_temp_switch" />
 
     <CheckBoxPreference
-        android:title="@string/settings_title_gravity_sensor_switch"
+        android:defaultValue="true"
         android:key="@string/key_gravity_sensor_switch"
-        android:summaryOn="@string/on"
         android:summaryOff="@string/off"
-        android:defaultValue="true" />
+        android:summaryOn="@string/on"
+        android:title="@string/settings_title_gravity_sensor_switch" />
 
     <CheckBoxPreference
-        android:title="@string/settings_title_list_animation_switch"
+        android:defaultValue="true"
         android:key="@string/key_list_animation_switch"
-        android:summaryOn="@string/on"
         android:summaryOff="@string/off"
-        android:defaultValue="true" />
+        android:summaryOn="@string/on"
+        android:title="@string/settings_title_list_animation_switch" />
 
     <CheckBoxPreference
-        android:title="@string/settings_title_item_animation_switch"
+        android:defaultValue="true"
         android:key="@string/key_item_animation_switch"
-        android:summaryOn="@string/on"
         android:summaryOff="@string/off"
-        android:defaultValue="true" />
+        android:summaryOn="@string/on"
+        android:title="@string/settings_title_item_animation_switch" />
 
     <ListPreference
-        android:title="@string/settings_language"
-        android:key="@string/key_language"
+        android:defaultValue="follow_system"
+        android:dialogTitle="@string/settings_language"
         android:entries="@array/languages"
         android:entryValues="@array/language_values"
-        android:dialogTitle="@string/settings_language"
-        android:defaultValue="follow_system" />
+        android:key="@string/key_language"
+        android:title="@string/settings_language" />
 
 </PreferenceScreen>

@@ -13,15 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.widget.NestedScrollView;
-
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +31,14 @@ import android.widget.RemoteViews;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -47,17 +46,17 @@ import com.xw.repo.BubbleSeekBar;
 
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView;
+import mtgtech.com.weather_forecast.weather_forecast.WeatherHelper;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
-import mtgtech.com.weather_forecast.weather_forecast.WeatherHelper;
 
 /**
  * Abstract widget config activity.
- * */
+ */
 
 public abstract class AbstractWidgetConfigActivity extends GeoActivity
         implements WeatherHelper.OnRequestWeatherListener {
@@ -77,45 +76,32 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
     protected RelativeLayout textSizeContainer;
     protected RelativeLayout clockFontContainer;
     protected RelativeLayout hideLunarContainer;
-
+    protected Location locationNow;
+    protected WeatherHelper weatherHelper;
+    protected boolean destroyed;
+    protected String viewTypeValueNow;
+    protected String[] viewTypes;
+    protected String[] viewTypeValues;
+    protected String cardStyleValueNow;
+    protected String[] cardStyles;
+    protected String[] cardStyleValues;
+    protected int cardAlpha;
+    protected boolean hideSubtitle;
+    protected String subtitleDataValueNow;
+    protected String[] subtitleData;
+    protected String[] subtitleDataValues;
+    protected String textColorValueNow;
+    protected String[] textColors;
+    protected String[] textColorValues;
+    protected int textSize;
+    protected String clockFontValueNow;
+    protected String[] clockFonts;
+    protected String[] clockFontValues;
+    protected boolean hideLunar;
     private BottomSheetBehavior bottomSheetBehavior;
     private FitBottomSystemBarNestedScrollView bottomSheetScrollView;
     private TextInputLayout subtitleInputLayout;
     private TextInputEditText subtitleInputter;
-
-    protected Location locationNow;
-
-    protected WeatherHelper weatherHelper;
-    protected boolean destroyed;
-
-    protected String viewTypeValueNow;
-    protected String[] viewTypes;
-    protected String[] viewTypeValues;
-
-    protected String cardStyleValueNow;
-    protected String[] cardStyles;
-    protected String[] cardStyleValues;
-
-    protected int cardAlpha;
-
-    protected boolean hideSubtitle;
-
-    protected String subtitleDataValueNow;
-    protected String[] subtitleData;
-    protected String[] subtitleDataValues;
-
-    protected String textColorValueNow;
-    protected String[] textColors;
-    protected String[] textColorValues;
-
-    protected int textSize;
-
-    protected String clockFontValueNow;
-    protected String[] clockFonts;
-    protected String[] clockFontValues;
-
-    protected boolean hideLunar;
-
     private long lastBackPressedTime = -1;
 
     @Override
@@ -201,9 +187,9 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
 
         weatherHelper = new WeatherHelper();
         destroyed = false;
-        
+
         Resources res = getResources();
-        
+
         this.viewTypeValueNow = "rectangle";
         this.viewTypes = res.getStringArray(R.array.widget_styles);
         this.viewTypeValues = res.getStringArray(R.array.widget_style_values);
@@ -220,17 +206,17 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
         String[] data = res.getStringArray(R.array.subtitle_data);
         String[] dataValues = res.getStringArray(R.array.subtitle_data_values);
         if (SettingsOptionManager.getInstance(this).getLanguage().isChinese()) {
-            this.subtitleData = new String[] {
+            this.subtitleData = new String[]{
                     data[0], data[1], data[2], data[3], data[4], data[5]
             };
-            this.subtitleDataValues = new String[] {
+            this.subtitleDataValues = new String[]{
                     dataValues[0], dataValues[1], dataValues[2], dataValues[3], dataValues[4], dataValues[5]
             };
         } else {
-            this.subtitleData = new String[] {
+            this.subtitleData = new String[]{
                     data[0], data[1], data[2], data[3], data[5]
             };
-            this.subtitleDataValues = new String[] {
+            this.subtitleDataValues = new String[]{
                     dataValues[0], dataValues[1], dataValues[2], dataValues[3], dataValues[5]
             };
         }
@@ -484,11 +470,11 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
     public Location getLocationNow() {
         return locationNow;
     }
-    
+
     public abstract String getSharedPreferencesName();
 
     private int indexValue(String[] values, String current) {
-        for (int i = 0; i < values.length; i ++) {
+        for (int i = 0; i < values.length; i++) {
             if (values[i].equals(current)) {
                 return i;
             }
@@ -628,8 +614,8 @@ public abstract class AbstractWidgetConfigActivity extends GeoActivity
 
     /**
      * @return true : already got permissions.
-     *         false: request permissions.
-     * */
+     * false: request permissions.
+     */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean checkPermissions(@NonNull OnRequestPermissionsResultListener l) {
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)

@@ -18,10 +18,13 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Minutely;
 
 public class PrecipitationBar extends View {
 
-    @Nullable private List<Minutely> minutelyList;
+    @Nullable
+    private List<Minutely> minutelyList;
     private Paint paint;
-    @ColorInt private int precipitationColor;
-    @ColorInt private int backgroundColor;
+    @ColorInt
+    private int precipitationColor;
+    @ColorInt
+    private int backgroundColor;
 
     public PrecipitationBar(Context context) {
         this(context, null);

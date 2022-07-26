@@ -12,11 +12,11 @@ import androidx.work.impl.utils.futures.SettableFuture;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.background.polling.PollingUpdateHelper;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.remoteviews.NotificationUtils;
 import mtgtech.com.weather_forecast.utils.manager.ShortcutsManager;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public abstract class AsyncUpdateWorker extends AsyncWorker
         implements PollingUpdateHelper.OnPollingUpdateListener {
@@ -52,7 +52,7 @@ public abstract class AsyncUpdateWorker extends AsyncWorker
 
     /**
      * Call {@link SettableFuture#set(Object)} here.
-     * */
+     */
     public abstract void handleUpdateResult(SettableFuture<Result> future, boolean failed);
 
     // interface.
@@ -62,7 +62,7 @@ public abstract class AsyncUpdateWorker extends AsyncWorker
     @Override
     public void onUpdateCompleted(@NonNull Location location, @Nullable Weather old,
                                   boolean succeed, int index, int total) {
-        for (int i = 0; i < locationList.size(); i ++) {
+        for (int i = 0; i < locationList.size(); i++) {
             if (locationList.get(i).equals(location)) {
                 locationList.set(i, location);
                 if (i == 0) {

@@ -27,10 +27,13 @@ public class TagView extends AppCompatTextView {
     private Paint paint;
 
     private boolean checked;
-    private @Px float strokeWidth;
+    private @Px
+    float strokeWidth;
 
-    private @ColorInt int checkedBackgroundColor;
-    private @ColorInt int uncheckedBackgroundColor;
+    private @ColorInt
+    int checkedBackgroundColor;
+    private @ColorInt
+    int uncheckedBackgroundColor;
 
     public TagView(Context context) {
         this(context, null);

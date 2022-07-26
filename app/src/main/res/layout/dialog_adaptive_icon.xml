@@ -14,12 +14,12 @@
 
         <TextView
             android:id="@+id/dialog_adaptive_icon_title"
+            style="@style/large_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/normal_margin"
             android:textColor="@color/colorTextTitle"
             android:textStyle="bold"
-            android:padding="@dimen/normal_margin"
-            style="@style/large_title_text"
             tools:text="SHORTCUT_CLEAR_DAY" />
 
         <james.adaptiveicon.AdaptiveIconView
@@ -27,11 +27,10 @@
             android:layout_width="108dp"
             android:layout_height="108dp"
             android:layout_below="@id/dialog_adaptive_icon_title"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginBottom="40dp"
-            android:layout_centerHorizontal="true"
-            tools:background="@drawable/shortcuts_clear_day"
-            />
+            tools:background="@drawable/shortcuts_clear_day" />
 
     </RelativeLayout>
 

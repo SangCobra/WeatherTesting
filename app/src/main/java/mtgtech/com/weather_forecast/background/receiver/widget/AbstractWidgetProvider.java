@@ -8,7 +8,7 @@ import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 
 /**
  * Abstract widget provider.
- * */
+ */
 public class AbstractWidgetProvider extends AppWidgetProvider {
 
     @Override

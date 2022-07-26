@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 /**
  * WindDegree.
- *
+ * <p>
  * All properties are {@link androidx.annotation.NonNull}.
- * */
+ */
 public class WindDegree implements Serializable {
 
     private float degree;

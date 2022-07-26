@@ -18,10 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class FooterViewHolder extends AbstractMainViewHolder {
 

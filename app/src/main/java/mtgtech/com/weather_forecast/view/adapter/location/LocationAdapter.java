@@ -3,6 +3,9 @@ package mtgtech.com.weather_forecast.view.adapter.location;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -11,35 +14,28 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.turingtechnologies.materialscrollbar.ICustomAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.databinding.ItemLocation2Binding;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 
 /**
  * Location adapter.
- * */
+ */
 
 public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.ViewHolder>
         implements ICustomAdapter {
 
     private final Context context;
-    private LocationTouchCallback.OnLocationListChangedListener listenerChange;
-    private OnLocationItemClickListener listener = null;
-    private boolean isLocationActivity;
     private @NonNull
     final ThemeManager themeManager;
     private @NonNull
@@ -48,6 +44,9 @@ public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.Vie
     final WeatherSource defaultSource;
     private @NonNull
     final TemperatureUnit temperatureUnit;
+    private LocationTouchCallback.OnLocationListChangedListener listenerChange;
+    private OnLocationItemClickListener listener = null;
+    private boolean isLocationActivity;
     private List<Location> list;
 
     public LocationAdapter(Context context, List<Location> locationList, OnLocationItemClickListener l, boolean isLocationActivity) {
@@ -73,7 +72,8 @@ public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.Vie
         update(list);
 
     }
-    public void setListenerChange(LocationTouchCallback.OnLocationListChangedListener listenerChange){
+
+    public void setListenerChange(LocationTouchCallback.OnLocationListChangedListener listenerChange) {
         this.listenerChange = listenerChange;
     }
 
@@ -90,7 +90,7 @@ public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.Vie
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof LocationHolder){
+        if (holder instanceof LocationHolder) {
             LocationHolder locationHolder = (LocationHolder) holder;
             locationHolder.onBindView(context, getItem(position), resourceProvider, isLocationActivity);
             locationHolder.deleteLocation(getItem(position), this, getLocationList(getCurrentList()), listenerChange);
@@ -107,7 +107,7 @@ public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.Vie
     public void update(@NonNull List<Location> newList, @Nullable String forceUpdateId) {
         List<LocationModel> modelList = new ArrayList<>(newList.size());
         for (Location l : newList) {
-            if (l != null){
+            if (l != null) {
                 modelList.add(
                         new LocationModel(
                                 context,
@@ -155,15 +155,9 @@ public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.Vie
 
     // interface.
 
-    public interface OnLocationItemClickListener {
-        void onClick(View view, String formattedId,int index);
-    }
-
-    private void setOnLocationItemClickListener(OnLocationItemClickListener l){
+    private void setOnLocationItemClickListener(OnLocationItemClickListener l) {
         this.listener = l;
     }
-
-    // I custom adapter.
 
     @Override
     public String getCustomStringForElement(int element) {
@@ -171,5 +165,11 @@ public class LocationAdapter extends ListAdapter<LocationModel, RecyclerView.Vie
             return "";
         }
         return getItem(element).weatherSource.getSourceUrl();
+    }
+
+    // I custom adapter.
+
+    public interface OnLocationItemClickListener {
+        void onClick(View view, String formattedId, int index);
     }
 }

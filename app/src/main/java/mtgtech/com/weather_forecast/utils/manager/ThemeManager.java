@@ -12,12 +12,23 @@ import androidx.core.content.ContextCompat;
 
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.resource.ResourceUtils;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
 
 public class ThemeManager {
 
     private static volatile ThemeManager instance;
+    private @Nullable
+    WeatherView weatherView;
+    private boolean daytime;
+    private boolean lightTheme;
+//    private DarkMode darkMode;
+
+    public ThemeManager(Context context) {
+        this.weatherView = null;
+        update(context);
+    }
+
     public static ThemeManager getInstance(Context context) {
         if (instance == null) {
             synchronized (ThemeManager.class) {
@@ -25,17 +36,6 @@ public class ThemeManager {
             }
         }
         return instance;
-    }
-
-    private @Nullable WeatherView weatherView;
-    private boolean daytime;
-//    private DarkMode darkMode;
-
-    private boolean lightTheme;
-
-    public ThemeManager(Context context) {
-        this.weatherView = null;
-        update(context);
     }
 
     public void update(Context context) {
@@ -99,18 +99,18 @@ public class ThemeManager {
 
     /**
      * @return colors[] {
-     *     theme color,
-     *     color of daytime chart line,
-     *     color of nighttime chart line
+     * theme color,
+     * color of daytime chart line,
+     * color of nighttime chart line
      * }
-     *
-     * */
-    @ColorInt @Size(3)
+     */
+    @ColorInt
+    @Size(3)
     public int[] getWeatherThemeColors() {
         if (weatherView != null) {
             return weatherView.getThemeColors(lightTheme);
         }
-        return new int[] {Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT};
+        return new int[]{Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT};
     }
 
     @ColorInt

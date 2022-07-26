@@ -29,7 +29,7 @@ import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureU
 
 /**
  * Option mapper.
- * */
+ */
 public class OptionMapper {
 
     @Nullable
@@ -38,7 +38,7 @@ public class OptionMapper {
         String[] names = context.getResources().getStringArray(nameArrayId);
         String[] values = context.getResources().getStringArray(valueArrayId);
 
-        for (int i = 0; i < values.length; i ++) {
+        for (int i = 0; i < values.length; i++) {
             if (values[i].equals(value)) {
                 return names[i];
             }
@@ -114,7 +114,7 @@ public class OptionMapper {
                 return DarkMode.AUTO;
         }
     }
-    
+
     public static TemperatureUnit getTemperatureUnit(String value) {
         switch (value) {
             case "f":
@@ -122,7 +122,7 @@ public class OptionMapper {
 
             case "k":
                 return TemperatureUnit.K;
-                
+
             default:
                 return TemperatureUnit.C;
         }
@@ -203,12 +203,12 @@ public class OptionMapper {
                 return SpeedUnit.KPH;
         }
     }
-    
+
     public static UIStyle getUIStyle(String value) {
         switch (value) {
-            case  "circular":
+            case "circular":
                 return UIStyle.CIRCULAR;
-                
+
             default:
                 return UIStyle.MATERIAL;
         }
@@ -341,7 +341,7 @@ public class OptionMapper {
         }
         return builder.toString().replace(",", ", ");
     }
-    
+
     public static Language getLanguage(String value) {
 //        switch (value) {
 //            case "chinese":

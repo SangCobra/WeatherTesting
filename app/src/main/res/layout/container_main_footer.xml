@@ -7,22 +7,22 @@
 
     <Button
         android:id="@+id/container_main_footer_editButton"
-        android:text="@string/edit"
-        android:textColor="@color/colorTextLight2nd"
-        android:layout_centerVertical="true"
+        style="@style/material_button"
         android:layout_alignParentEnd="true"
-        style="@style/material_button" />
+        android:layout_centerVertical="true"
+        android:text="@string/edit"
+        android:textColor="@color/colorTextLight2nd" />
 
     <TextView
         android:id="@+id/container_main_footer_title"
+        style="@style/subtitle_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/container_main_footer_editButton"
-        android:textColor="@color/colorTextLight2nd"
         android:layout_margin="@dimen/normal_margin"
+        android:layout_toStartOf="@id/container_main_footer_editButton"
         android:textAlignment="viewStart"
-        style="@style/subtitle_text"
+        android:textColor="@color/colorTextLight2nd"
         tools:text="Powered by AccuWeather.com" />
 
 </RelativeLayout>

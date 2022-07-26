@@ -2,6 +2,9 @@ package mtgtech.com.weather_forecast.db.converter;
 
 import androidx.annotation.Nullable;
 
+import mtgtech.com.weather_forecast.db.entity.HistoryEntity;
+import mtgtech.com.weather_forecast.db.entity.WeatherEntity;
+import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
@@ -12,9 +15,6 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.weather_model.model.weather.UV;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Wind;
-import mtgtech.com.weather_forecast.db.entity.HistoryEntity;
-import mtgtech.com.weather_forecast.db.entity.WeatherEntity;
-import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 
 public class WeatherEntityConverter {
 

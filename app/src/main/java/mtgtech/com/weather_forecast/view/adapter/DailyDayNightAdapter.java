@@ -13,9 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.databinding.ItemDailyDayNightBinding;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 
 public class DailyDayNightAdapter extends RecyclerView.Adapter<DailyDayNightAdapter.DailyDayNightViewHolder> {
 
@@ -42,6 +42,11 @@ public class DailyDayNightAdapter extends RecyclerView.Adapter<DailyDayNightAdap
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void updateData(ArrayList<Daily> newList) {
+        list = newList;
+        notifyDataSetChanged();
     }
 
     class DailyDayNightViewHolder extends RecyclerView.ViewHolder {
@@ -161,10 +166,5 @@ public class DailyDayNightAdapter extends RecyclerView.Adapter<DailyDayNightAdap
             }
 
         }
-    }
-
-    public void updateData(ArrayList<Daily> newList) {
-        list = newList;
-        notifyDataSetChanged();
     }
 }

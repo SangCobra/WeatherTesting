@@ -27,21 +27,18 @@ public class LocationModel {
     WeatherSource weatherSource;
     public boolean currentPosition;
     public boolean residentPosition;
-    private TemperatureUnit temperatureUnit;
-
     public @NonNull
     String title;
     public @NonNull
     String subtitle;
+    public @Nullable
+    String alerts;
 
     // public float latitude;
     // public float longitude;
     // public TimeZone timeZone;
-
-    public @Nullable
-    String alerts;
-
     public boolean lightTheme;
+    private TemperatureUnit temperatureUnit;
     private boolean forceUpdate;
 
     public LocationModel(Context context, Location location, TemperatureUnit unit, WeatherSource defaultSource,
@@ -123,6 +120,14 @@ public class LocationModel {
         this.forceUpdate = forceUpdate;
     }
 
+    private static boolean isSameString(String a, String b) {
+        if (!TextUtils.isEmpty(a) && !TextUtils.isEmpty(b)) {
+            return a.equals(b);
+        } else {
+            return TextUtils.isEmpty(a) && TextUtils.isEmpty(b);
+        }
+    }
+
     public boolean areItemsTheSame(@NonNull LocationModel newItem) {
         return location.equals(newItem.location);
     }
@@ -140,14 +145,6 @@ public class LocationModel {
                 // && timeZone.getID().equals(newItem.timeZone.getID())
                 && lightTheme == newItem.lightTheme
                 && !newItem.forceUpdate;
-    }
-
-    private static boolean isSameString(String a, String b) {
-        if (!TextUtils.isEmpty(a) && !TextUtils.isEmpty(b)) {
-            return a.equals(b);
-        } else {
-            return TextUtils.isEmpty(a) && TextUtils.isEmpty(b);
-        }
     }
 
     public TemperatureUnit getTemperatureUnit() {

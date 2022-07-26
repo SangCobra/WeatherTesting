@@ -7,16 +7,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.circularSkyView.CircularSkyWeatherView;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeatherView.MaterialWeatherView;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 /**
  * Weather view controller.
- * */
+ */
 
 public class WeatherViewController {
 
@@ -113,14 +113,15 @@ public class WeatherViewController {
                 return WeatherView.WEATHER_KIND_THUNDERSTORM;
         }
         return WeatherView.WEATHER_KIND_CLEAR;
-    }/**
+    }
+
+    /**
      * @return colors[] {
-     *     theme color,
-     *     color of daytime chart line,
-     *     color of nighttime chart line
+     * theme color,
+     * color of daytime chart line,
+     * color of nighttime chart line
      * }
-     *
-     * */
+     */
     @ColorInt
     @Size(3)
     public static int[] getThemeColors(Context context, @NonNull Weather weather, boolean lightTheme) {

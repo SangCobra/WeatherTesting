@@ -42,6 +42,11 @@ public class TodayForecastAdapter extends RecyclerView.Adapter<TodayForecastAdap
         return list.size();
     }
 
+    public void updateData(ArrayList<TodayForecastModel> newList) {
+        list = newList;
+        notifyDataSetChanged();
+    }
+
     class TodayForecastViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView todayImage;
@@ -58,14 +63,9 @@ public class TodayForecastAdapter extends RecyclerView.Adapter<TodayForecastAdap
             todayImage = itemView.findViewById(R.id.imgToday);
             tvHeading = itemView.findViewById(R.id.tvTodayHeading);
             tvValue = itemView.findViewById(R.id.tvTodayValue);
-            todayImage.setImageDrawable(ContextCompat.getDrawable(context,model.getTodayForecastImage()));
+            todayImage.setImageDrawable(ContextCompat.getDrawable(context, model.getTodayForecastImage()));
             tvHeading.setText(model.getTodayForecastHeading());
             tvValue.setText(model.getTodayForecastValue());
         }
-    }
-
-    public void updateData(ArrayList<TodayForecastModel> newList) {
-        list = newList;
-        notifyDataSetChanged();
     }
 }

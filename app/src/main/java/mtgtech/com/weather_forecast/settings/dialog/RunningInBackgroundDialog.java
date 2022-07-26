@@ -5,20 +5,20 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 /**
  * Running in background dialog.
- * */
+ */
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class RunningInBackgroundDialog extends DialogFragment {
 

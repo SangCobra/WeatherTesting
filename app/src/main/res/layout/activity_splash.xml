@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/sun_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,12 +41,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginBottom="@dimen/_60sdp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
+
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loading_image"
             android:layout_width="@dimen/_64sdp"
@@ -56,6 +57,7 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading"
             app:lottie_speed="2" />
+
         <TextView
             android:id="@+id/tv_contain_ad"
             android:layout_width="wrap_content"

@@ -14,6 +14,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
 import android.provider.Settings;
+import android.text.TextUtils;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -21,9 +23,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
-
-import android.text.TextUtils;
-import android.view.View;
 
 import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
@@ -35,30 +34,30 @@ import java.util.List;
 import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.background.polling.basic.AwakeForegroundUpdateService;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.daily_weather.DailyWeatherActivity;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.HourlyListActivity;
+import mtgtech.com.weather_forecast.main.MainActivity;
+import mtgtech.com.weather_forecast.settings.activity.AboutActivity;
 import mtgtech.com.weather_forecast.settings.activity.CardDisplayManageActivity;
 import mtgtech.com.weather_forecast.settings.activity.DailyTrendDisplayManageActivity;
 import mtgtech.com.weather_forecast.settings.activity.MySettingsActivity;
+import mtgtech.com.weather_forecast.settings.activity.PreviewIconActivity;
+import mtgtech.com.weather_forecast.settings.activity.SelectProviderActivity;
+import mtgtech.com.weather_forecast.settings.activity.SettingsActivity;
+import mtgtech.com.weather_forecast.view.activity.AlertActivity;
 import mtgtech.com.weather_forecast.view.activity.AllergenActivity;
 import mtgtech.com.weather_forecast.view.activity.DailyListActivity;
-import mtgtech.com.weather_forecast.weather_wallpaper.material.MaterialLiveWallpaperService;
-import mtgtech.com.weather_forecast.settings.activity.AboutActivity;
-import mtgtech.com.weather_forecast.view.activity.AlertActivity;
-import mtgtech.com.weather_forecast.settings.activity.SelectProviderActivity;
-import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.view.activity.ManageActivity;
-import mtgtech.com.weather_forecast.settings.activity.PreviewIconActivity;
 import mtgtech.com.weather_forecast.view.activity.SearchActivity;
-import mtgtech.com.weather_forecast.settings.activity.SettingsActivity;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import mtgtech.com.weather_forecast.weather_wallpaper.material.MaterialLiveWallpaperService;
 
 /**
  * Intent helper.
- * */
+ */
 
 public class IntentHelper {
 
@@ -127,7 +126,7 @@ public class IntentHelper {
 
         intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, (Serializable) location);
         intent.putExtra(DailyWeatherActivity.KEY_CURRENT_DAILY_INDEX, index);
-        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS){
+        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS) {
             AdmobManager.getInstance().showInterstitial(activity, AdCache.getInstance().getInterstitialAdDailyDetails(), new AdCallback() {
                 @Override
                 public void onAdClosed() {
@@ -140,7 +139,8 @@ public class IntentHelper {
         activity.startActivity(intent);
 
     }
-//    public static void startDailyWeatherActivity(Activity activity, Location location, Weather weather, int index) {
+
+    //    public static void startDailyWeatherActivity(Activity activity, Location location, Weather weather, int index) {
 //        Intent intent = new Intent(activity, DailyWeatherActivity.class);
 //        intent.putExtra(DailyWeatherActivity.KEY_FORMATTED_LOCATION_ID, (Serializable) location);
 //        intent.putExtra(DailyWeatherActivity.KEY_CURRENT_DAILY_INDEX, index);
@@ -193,11 +193,13 @@ public class IntentHelper {
     public static void startManageActivityForResult(Activity activity, int requestCode) {
         activity.startActivityForResult(new Intent(activity, ManageActivity.class), requestCode);
     }
+
     public static void startManageActivityForResult(Activity activity, int requestCode, MainActivity.LoadLocation loadLocation) {
         ManageActivity manageActivity = new ManageActivity();
         manageActivity.setLoadLocation(loadLocation);
         activity.startActivityForResult(new Intent(activity, manageActivity.getClass()), requestCode);
     }
+
     public static void startSearchActivityForResult(Activity activity, View bar, int requestCode) {
         Intent intent = new Intent(activity, SearchActivity.class);
 
@@ -220,6 +222,7 @@ public class IntentHelper {
     public static void startSettingsActivityForResult(Activity activity, int requestCode) {
         activity.startActivityForResult(new Intent(activity, SettingsActivity.class), requestCode);
     }
+
     public static void startMySettingsActivityForResult(Activity activity, int requestCode) {
         activity.startActivityForResult(new Intent(activity, MySettingsActivity.class), requestCode);
     }

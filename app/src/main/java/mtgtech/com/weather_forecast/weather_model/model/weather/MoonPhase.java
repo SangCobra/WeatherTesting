@@ -11,11 +11,13 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * Moon phase.
- * */
+ */
 public class MoonPhase implements Serializable {
 
-    @Nullable private Integer angle;
-    @Nullable private String description;
+    @Nullable
+    private Integer angle;
+    @Nullable
+    private String description;
 
     public MoonPhase(@Nullable Integer angle, @Nullable String description) {
         this.angle = angle;

@@ -12,8 +12,10 @@ import mtgtech.com.weather_forecast.R;
 
 public class GridMarginsDecoration extends RecyclerView.ItemDecoration {
 
-    private @Px float marginsVertical;
-    private @Px float marginsHorizontal;
+    private @Px
+    float marginsVertical;
+    private @Px
+    float marginsHorizontal;
 
     public GridMarginsDecoration(Context context, RecyclerView recyclerView) {
         this(context.getResources().getDimensionPixelSize(R.dimen.little_margin), recyclerView);

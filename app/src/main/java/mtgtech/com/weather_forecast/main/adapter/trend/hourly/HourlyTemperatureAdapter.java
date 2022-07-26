@@ -13,20 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.resource.ResourceHelper;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.item.HourlyTrendItemView;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.ProbabilityUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.resource.ResourceHelper;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.item.HourlyTrendItemView;
-import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 
 /**
  * Hourly temperature adapter.
@@ -44,93 +43,6 @@ public abstract class HourlyTemperatureAdapter extends AbsHourlyTrendAdapter<Hou
     private int lowestTemperature;
 
     private boolean showPrecipitationProbability;
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        private HourlyTrendItemView hourlyItem;
-        private PolylineAndHistogramView polylineAndHistogramView;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            hourlyItem = itemView.findViewById(R.id.item_trend_hourly);
-            hourlyItem.setParent(getTrendParent());
-
-            polylineAndHistogramView = new PolylineAndHistogramView(itemView.getContext());
-            hourlyItem.setChartItemView(polylineAndHistogramView);
-        }
-
-        void onBindView(int position) {
-            Context context = itemView.getContext();
-            Hourly hourly = weather.getHourlyForecast().get(position);
-
-            hourlyItem.setHourText(hourly.getHour(context));
-
-            hourlyItem.setTextColor(ContextCompat.getColor(context,R.color.colorTextWhite));
-
-            hourlyItem.setIconDrawable(
-                    ResourceHelper.getWeatherIcon(provider, hourly.getWeatherCode(), hourly.isDaylight())
-            );
-
-            Float precipitationProbability = hourly.getPrecipitationProbability().getTotal();
-            float p = precipitationProbability == null ? 0 : precipitationProbability;
-            if (!showPrecipitationProbability) {
-                p = 0;
-            }
-            polylineAndHistogramView.setData(
-                    buildTemperatureArrayForItem(temperatures, position),
-                    null,
-                    getShortTemperatureString(weather, position, unit),
-                    null,
-                    (float) highestTemperature,
-                    (float) lowestTemperature,
-                    p < 5 ? null : p,
-                    p < 5 ? null : ProbabilityUnit.PERCENT.getProbabilityText(context, p),
-                    100f,
-                    0f
-            );
-            int[] themeColors = themeManager.getWeatherThemeColors();
-//            polylineAndHistogramView.setLineColors(
-//                    themeColors[themeManager.isLightTheme() ? 1 : 2], themeColors[2], themeManager.getLineColor(context));
-            polylineAndHistogramView.setLineColors(
-                    themeColors[1], themeColors[2], ContextCompat.getColor(context,R.color.gnt_white));
-
-//            polylineAndHistogramView.setShadowColors(
-//                    themeColors[themeManager.isLightTheme() ? 1 : 2], themeColors[2], themeManager.isLightTheme());
-
-            polylineAndHistogramView.setShadowColors(
-                    ContextCompat.getColor(context, android.R.color.white),
-                    ContextCompat.getColor(context,android.R.color.white),
-                    false);
-
-
-            polylineAndHistogramView.setTextColors(
-                    ContextCompat.getColor(context, R.color.colorTextWhite),
-                    ContextCompat.getColor(context, R.color.colorTextWhite)
-            );
-            polylineAndHistogramView.setHistogramAlpha(0.5f);
-
-//            hourlyItem.setOnClickListener(v -> WeatherFlow.adUtil().showInterstitialAd((isLoaded, interstitial) -> {
-//                onItemClicked(getAdapterPosition());
-//            }));
-        }
-
-        @Size(3)
-        private Float[] buildTemperatureArrayForItem(float[] temps, int adapterPosition) {
-            Float[] a = new Float[3];
-            a[1] = temps[2 * adapterPosition];
-            if (2 * adapterPosition - 1 < 0) {
-                a[0] = null;
-            } else {
-                a[0] = temps[2 * adapterPosition - 1];
-            }
-            if (2 * adapterPosition + 1 >= temps.length) {
-                a[2] = null;
-            } else {
-                a[2] = temps[2 * adapterPosition + 1];
-            }
-            return a;
-        }
-    }
 
     public HourlyTemperatureAdapter(GeoActivity activity, TrendRecyclerView parent, @NonNull Weather weather,
                                     ResourceProvider provider, TemperatureUnit unit) {
@@ -172,7 +84,7 @@ public abstract class HourlyTemperatureAdapter extends AbsHourlyTrendAdapter<Hou
 
         this.showPrecipitationProbability = showPrecipitationProbability;
 
-        parent.setLineColor(ContextCompat.getColor(activity,R.color.gnt_white));
+        parent.setLineColor(ContextCompat.getColor(activity, R.color.gnt_white));
         if (weather.getYesterday() == null) {
             parent.setData(null, 0, 0);
         } else {
@@ -230,4 +142,91 @@ public abstract class HourlyTemperatureAdapter extends AbsHourlyTrendAdapter<Hou
     protected abstract String getTemperatureString(Weather weather, int index, TemperatureUnit unit);
 
     protected abstract String getShortTemperatureString(Weather weather, int index, TemperatureUnit unit);
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        private HourlyTrendItemView hourlyItem;
+        private PolylineAndHistogramView polylineAndHistogramView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            hourlyItem = itemView.findViewById(R.id.item_trend_hourly);
+            hourlyItem.setParent(getTrendParent());
+
+            polylineAndHistogramView = new PolylineAndHistogramView(itemView.getContext());
+            hourlyItem.setChartItemView(polylineAndHistogramView);
+        }
+
+        void onBindView(int position) {
+            Context context = itemView.getContext();
+            Hourly hourly = weather.getHourlyForecast().get(position);
+
+            hourlyItem.setHourText(hourly.getHour(context));
+
+            hourlyItem.setTextColor(ContextCompat.getColor(context, R.color.colorTextWhite));
+
+            hourlyItem.setIconDrawable(
+                    ResourceHelper.getWeatherIcon(provider, hourly.getWeatherCode(), hourly.isDaylight())
+            );
+
+            Float precipitationProbability = hourly.getPrecipitationProbability().getTotal();
+            float p = precipitationProbability == null ? 0 : precipitationProbability;
+            if (!showPrecipitationProbability) {
+                p = 0;
+            }
+            polylineAndHistogramView.setData(
+                    buildTemperatureArrayForItem(temperatures, position),
+                    null,
+                    getShortTemperatureString(weather, position, unit),
+                    null,
+                    (float) highestTemperature,
+                    (float) lowestTemperature,
+                    p < 5 ? null : p,
+                    p < 5 ? null : ProbabilityUnit.PERCENT.getProbabilityText(context, p),
+                    100f,
+                    0f
+            );
+            int[] themeColors = themeManager.getWeatherThemeColors();
+//            polylineAndHistogramView.setLineColors(
+//                    themeColors[themeManager.isLightTheme() ? 1 : 2], themeColors[2], themeManager.getLineColor(context));
+            polylineAndHistogramView.setLineColors(
+                    themeColors[1], themeColors[2], ContextCompat.getColor(context, R.color.gnt_white));
+
+//            polylineAndHistogramView.setShadowColors(
+//                    themeColors[themeManager.isLightTheme() ? 1 : 2], themeColors[2], themeManager.isLightTheme());
+
+            polylineAndHistogramView.setShadowColors(
+                    ContextCompat.getColor(context, android.R.color.white),
+                    ContextCompat.getColor(context, android.R.color.white),
+                    false);
+
+
+            polylineAndHistogramView.setTextColors(
+                    ContextCompat.getColor(context, R.color.colorTextWhite),
+                    ContextCompat.getColor(context, R.color.colorTextWhite)
+            );
+            polylineAndHistogramView.setHistogramAlpha(0.5f);
+
+//            hourlyItem.setOnClickListener(v -> WeatherFlow.adUtil().showInterstitialAd((isLoaded, interstitial) -> {
+//                onItemClicked(getAdapterPosition());
+//            }));
+        }
+
+        @Size(3)
+        private Float[] buildTemperatureArrayForItem(float[] temps, int adapterPosition) {
+            Float[] a = new Float[3];
+            a[1] = temps[2 * adapterPosition];
+            if (2 * adapterPosition - 1 < 0) {
+                a[0] = null;
+            } else {
+                a[0] = temps[2 * adapterPosition - 1];
+            }
+            if (2 * adapterPosition + 1 >= temps.length) {
+                a[2] = null;
+            } else {
+                a[2] = temps[2 * adapterPosition + 1];
+            }
+            return a;
+        }
+    }
 }

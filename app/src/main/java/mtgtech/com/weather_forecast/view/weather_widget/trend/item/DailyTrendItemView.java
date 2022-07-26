@@ -16,52 +16,50 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.view.image.AbstractIconTarget;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.ChartItemView;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendChild;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendParent;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 /**
  * Daily trend item view.
- * */
+ */
 public class DailyTrendItemView extends ViewGroup
         implements TrendChild {
-
-    private @Nullable ChartItemView chartItem;
-    private TrendParent trendParent;
-    private Paint paint;
-
-    @Nullable private OnClickListener clickListener;
-
-    @Nullable private String weekText;
-    @Nullable private String dateText;
-
-    @Nullable private Drawable dayIconDrawable;
-    @Nullable private Drawable nightIconDrawable;
-
-    @ColorInt private int contentColor;
-    @ColorInt private int subTitleColor;
-
-    private float weekTextBaseLine;
-
-    private float dateTextBaseLine;
-
-    private float dayIconLeft;
-    private float dayIconTop;
-
-    private float trendViewTop;
-
-    private float nightIconLeft;
-    private float nightIconTop;
-
-    private int iconSize;
 
     private static final int ICON_SIZE_DIP = 32;
     private static final int TEXT_MARGIN_DIP = 4;
     private static final int ICON_MARGIN_DIP = 8;
     private static final int MARGIN_BOTTOM_DIP = 16;
+    private @Nullable
+    ChartItemView chartItem;
+    private TrendParent trendParent;
+    private Paint paint;
+    @Nullable
+    private OnClickListener clickListener;
+    @Nullable
+    private String weekText;
+    @Nullable
+    private String dateText;
+    @Nullable
+    private Drawable dayIconDrawable;
+    @Nullable
+    private Drawable nightIconDrawable;
+    @ColorInt
+    private int contentColor;
+    @ColorInt
+    private int subTitleColor;
+    private float weekTextBaseLine;
+    private float dateTextBaseLine;
+    private float dayIconLeft;
+    private float dayIconTop;
+    private float trendViewTop;
+    private float nightIconLeft;
+    private float nightIconTop;
+    private int iconSize;
 
     public DailyTrendItemView(Context context) {
         super(context);
@@ -330,7 +328,8 @@ public class DailyTrendItemView extends ViewGroup
     @Override
     public void setOnClickListener(@Nullable OnClickListener l) {
         clickListener = l;
-        super.setOnClickListener(v -> {});
+        super.setOnClickListener(v -> {
+        });
     }
 
     @Override
@@ -339,16 +338,16 @@ public class DailyTrendItemView extends ViewGroup
     }
 
     @Override
+    public ChartItemView getChartItemView() {
+        return chartItem;
+    }
+
+    @Override
     public void setChartItemView(ChartItemView t) {
         chartItem = t;
         removeAllViews();
         addView(chartItem);
         requestLayout();
-    }
-
-    @Override
-    public ChartItemView getChartItemView() {
-        return chartItem;
     }
 }
 

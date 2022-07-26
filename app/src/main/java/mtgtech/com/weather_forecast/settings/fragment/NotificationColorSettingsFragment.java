@@ -11,7 +11,7 @@ import mtgtech.com.weather_forecast.background.polling.PollingManager;
 
 /**
  * Notification color settings fragment.
- * */
+ */
 
 public class NotificationColorSettingsFragment extends AbstractSettingsFragment {
 

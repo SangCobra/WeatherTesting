@@ -89,11 +89,11 @@ public class WeatherImplementorFactory {
                 return null;
         }
     }
-    
+
     @ColorInt
     public static int getWeatherThemeColor(Context context,
-                                    @WeatherView.WeatherKindRule int weatherKind, 
-                                    boolean daytime) {
+                                           @WeatherView.WeatherKindRule int weatherKind,
+                                           boolean daytime) {
         int color = Color.TRANSPARENT;
         switch (weatherKind) {
             case WeatherView.WEATHER_KIND_CLEAR:

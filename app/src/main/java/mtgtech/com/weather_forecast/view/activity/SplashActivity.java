@@ -52,7 +52,6 @@ public class SplashActivity extends AppCompatActivity {
 
             }
 
-
             @Override
             public void onResultInterstitialAd(InterstitialAd interstitialAd) {
                 super.onResultInterstitialAd(interstitialAd);

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -207,64 +206,64 @@
                     android:layout_height="2dp"
                     android:src="@drawable/ic_line_second" />
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="60dp"-->
-<!--                    android:orientation="horizontal">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="60dp"-->
+                <!--                    android:orientation="horizontal">-->
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="@dimen/_24sdp"-->
-<!--                        android:layout_height="@dimen/_24sdp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:src="@drawable/ic_tem"-->
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="@dimen/_24sdp"-->
+                <!--                        android:layout_height="@dimen/_24sdp"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:src="@drawable/ic_tem"-->
 
-<!--                        />-->
+                <!--                        />-->
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical"-->
-<!--                        android:paddingStart="16dp">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        android:paddingStart="16dp">-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center|left"-->
-<!--                            android:fontFamily="@font/montserrat_regular"-->
-<!--                            android:text="Status bar"-->
-<!--                            android:textColor="#fff"-->
-<!--                            android:textFontWeight="500"-->
-<!--                            android:textSize="16dp" />-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center|left"-->
+                <!--                            android:fontFamily="@font/montserrat_regular"-->
+                <!--                            android:text="Status bar"-->
+                <!--                            android:textColor="#fff"-->
+                <!--                            android:textFontWeight="500"-->
+                <!--                            android:textSize="16dp" />-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center|left"-->
-<!--                            android:fontFamily="@font/montserrat_regular"-->
-<!--                            android:text="Allow us to display on Status bar"-->
-<!--                            android:textColor="#fff"-->
-<!--                            android:textFontWeight="500"-->
-<!--                            android:textSize="@dimen/_8sdp" />-->
-<!--                    </LinearLayout>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center|left"-->
+                <!--                            android:fontFamily="@font/montserrat_regular"-->
+                <!--                            android:text="Allow us to display on Status bar"-->
+                <!--                            android:textColor="#fff"-->
+                <!--                            android:textFontWeight="500"-->
+                <!--                            android:textSize="@dimen/_8sdp" />-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <Switch-->
-<!--                        android:id="@+id/is_status_bar"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:background="@android:color/transparent"-->
-<!--                        android:button="@drawable/switch_button_custom_normal"-->
-<!--                        android:thumb="@null"-->
-<!--                        android:track="@null"-->
-<!--                        tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />-->
-<!--                </LinearLayout>-->
+                <!--                    <Switch-->
+                <!--                        android:id="@+id/is_status_bar"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="match_parent"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:background="@android:color/transparent"-->
+                <!--                        android:button="@drawable/switch_button_custom_normal"-->
+                <!--                        android:thumb="@null"-->
+                <!--                        android:track="@null"-->
+                <!--                        tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />-->
+                <!--                </LinearLayout>-->
 
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="2dp"-->
-<!--                    android:src="@drawable/ic_line_second" />-->
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="2dp"-->
+                <!--                    android:src="@drawable/ic_line_second" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -345,51 +344,51 @@
                     android:layout_height="2dp"
                     android:src="@drawable/ic_line_second" />
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="60dp"-->
-<!--                    android:orientation="horizontal">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="60dp"-->
+                <!--                    android:orientation="horizontal">-->
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="@dimen/_24sdp"-->
-<!--                        android:layout_height="@dimen/_24sdp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:src="@drawable/ic_widget" />-->
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="@dimen/_24sdp"-->
+                <!--                        android:layout_height="@dimen/_24sdp"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:src="@drawable/ic_widget" />-->
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical"-->
-<!--                        android:paddingStart="16dp">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        android:paddingStart="16dp">-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center|left"-->
-<!--                            android:fontFamily="@font/montserrat_regular"-->
-<!--                            android:text="Weather widgets"-->
-<!--                            android:textColor="#fff"-->
-<!--                            android:textFontWeight="500"-->
-<!--                            android:textSize="16dp" />-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center|left"-->
+                <!--                            android:fontFamily="@font/montserrat_regular"-->
+                <!--                            android:text="Weather widgets"-->
+                <!--                            android:textColor="#fff"-->
+                <!--                            android:textFontWeight="500"-->
+                <!--                            android:textSize="16dp" />-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_gravity="center|left"-->
-<!--                            android:fontFamily="@font/montserrat_regular"-->
-<!--                            android:text="Show on phone screen"-->
-<!--                            android:textColor="#fff"-->
-<!--                            android:textFontWeight="500"-->
-<!--                            android:textSize="@dimen/_8sdp" />-->
-<!--                    </LinearLayout>-->
-<!--                </LinearLayout>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_gravity="center|left"-->
+                <!--                            android:fontFamily="@font/montserrat_regular"-->
+                <!--                            android:text="Show on phone screen"-->
+                <!--                            android:textColor="#fff"-->
+                <!--                            android:textFontWeight="500"-->
+                <!--                            android:textSize="@dimen/_8sdp" />-->
+                <!--                    </LinearLayout>-->
+                <!--                </LinearLayout>-->
 
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="2dp"-->
-<!--                    android:src="@drawable/ic_line_second" />-->
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="2dp"-->
+                <!--                    android:src="@drawable/ic_line_second" />-->
 
                 <LinearLayout
                     android:id="@+id/nav_Setting"
@@ -433,34 +432,34 @@
                     </LinearLayout>
                 </LinearLayout>
 
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="2dp"-->
-<!--                    android:src="@drawable/ic_line_second" />-->
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="2dp"-->
+                <!--                    android:src="@drawable/ic_line_second" />-->
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="60dp"-->
-<!--                    android:orientation="horizontal">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="60dp"-->
+                <!--                    android:orientation="horizontal">-->
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="@dimen/_24sdp"-->
-<!--                        android:layout_height="@dimen/_24sdp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:src="@drawable/ic_aqi" />-->
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="@dimen/_24sdp"-->
+                <!--                        android:layout_height="@dimen/_24sdp"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:src="@drawable/ic_aqi" />-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:fontFamily="@font/montserrat_regular"-->
-<!--                        android:paddingStart="16dp"-->
-<!--                        android:text="Air Quality Index"-->
-<!--                        android:textColor="#fff"-->
-<!--                        android:textFontWeight="500"-->
-<!--                        android:textSize="16dp" />-->
-<!--                </LinearLayout>-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:fontFamily="@font/montserrat_regular"-->
+                <!--                        android:paddingStart="16dp"-->
+                <!--                        android:text="Air Quality Index"-->
+                <!--                        android:textColor="#fff"-->
+                <!--                        android:textFontWeight="500"-->
+                <!--                        android:textSize="16dp" />-->
+                <!--                </LinearLayout>-->
             </LinearLayout>
 
             <LinearLayout
@@ -560,10 +559,12 @@
                         android:textFontWeight="500"
                         android:textSize="16dp" />
                 </LinearLayout>
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:src="@drawable/ic_line_second" />
+
                 <LinearLayout
                     android:id="@+id/navPrivacy"
                     android:layout_width="match_parent"

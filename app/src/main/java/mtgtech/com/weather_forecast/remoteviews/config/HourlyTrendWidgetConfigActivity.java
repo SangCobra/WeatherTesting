@@ -8,7 +8,7 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.HourlyTrendWidgetIMP;
 
 /**
  * Hourly trend widget config activity.
- * */
+ */
 
 public class HourlyTrendWidgetConfigActivity extends AbstractWidgetConfigActivity {
 
@@ -20,8 +20,8 @@ public class HourlyTrendWidgetConfigActivity extends AbstractWidgetConfigActivit
         String[] cardStyleValues = getResources().getStringArray(R.array.widget_card_style_values);
 
         this.cardStyleValueNow = "light";
-        this.cardStyles = new String[] {cardStyles[2], cardStyles[3], cardStyles[1]};
-        this.cardStyleValues = new String[] {cardStyleValues[2], cardStyleValues[3], cardStyleValues[1]};
+        this.cardStyles = new String[]{cardStyles[2], cardStyles[3], cardStyles[1]};
+        this.cardStyleValues = new String[]{cardStyleValues[2], cardStyleValues[3], cardStyleValues[1]};
     }
 
     @Override

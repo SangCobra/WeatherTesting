@@ -8,7 +8,7 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.ClockDayHorizontalWidg
 
 /**
  * Clock day horizontal widget config activity.
- * */
+ */
 
 public class ClockDayHorizontalWidgetConfigActivity extends AbstractWidgetConfigActivity {
 
@@ -20,8 +20,8 @@ public class ClockDayHorizontalWidgetConfigActivity extends AbstractWidgetConfig
         String[] clockFontValues = getResources().getStringArray(R.array.clock_font_values);
 
         this.clockFontValueNow = "light";
-        this.clockFonts = new String[] {clockFonts[0], clockFonts[1], clockFonts[2]};
-        this.clockFontValues = new String[] {clockFontValues[0], clockFontValues[1], clockFontValues[2]};
+        this.clockFonts = new String[]{clockFonts[0], clockFonts[1], clockFonts[2]};
+        this.clockFontValues = new String[]{clockFontValues[0], clockFontValues[1], clockFontValues[2]};
     }
 
     @Override

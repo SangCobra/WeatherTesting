@@ -14,7 +14,7 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * Learn more about resident location dialog.
- * */
+ */
 public class LearnMoreAboutResidentLocationDialog extends DialogFragment {
 
     @NonNull

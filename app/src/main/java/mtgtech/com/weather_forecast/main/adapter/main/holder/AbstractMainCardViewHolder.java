@@ -11,10 +11,10 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.main.adapter.main.FirstCardHeaderController;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public abstract class AbstractMainCardViewHolder extends AbstractMainViewHolder {
 

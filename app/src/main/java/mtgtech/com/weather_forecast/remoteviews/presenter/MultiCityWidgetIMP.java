@@ -13,18 +13,18 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.receiver.widget.WidgetMultiCityProvider;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class MultiCityWidgetIMP extends AbstractRemoteViewsPresenter {
 
@@ -142,7 +142,7 @@ public class MultiCityWidgetIMP extends AbstractRemoteViewsPresenter {
                 );
             }
             setOnClickPendingIntent(context, views, location,
-                    R.id.widget_multi_city_horizontal_weather_2, 1,  touchToRefresh);
+                    R.id.widget_multi_city_horizontal_weather_2, 1, touchToRefresh);
         } else {
             views.setViewVisibility(R.id.widget_multi_city_horizontal_weather_2, View.GONE);
         }

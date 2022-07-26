@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="@string/daytime"
             android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/daytime"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -62,8 +62,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:fontFamily="@font/montserrat_regular"
                         android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_regular"
                         android:textColor="@color/colorTextWhite"
                         android:textSize="12sp" />
 
@@ -71,8 +71,8 @@
                         android:id="@+id/tvDayEndTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
                         android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_regular"
                         android:gravity="end"
                         android:textColor="@color/colorTextWhite"
                         android:textSize="12sp" />
@@ -92,13 +92,12 @@
                     android:id="@+id/llDailyDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintHorizontal_weight="1"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imgDailyIcon"
                     app:layout_constraintEnd_toStartOf="@id/daySunMoonView"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/imgDailyIcon"
                     app:layout_constraintTop_toTopOf="parent">
-
 
 
                     <LinearLayout
@@ -123,8 +122,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="28"
                             android:fontFamily="@font/montserrat_regular"
+                            android:text="28"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             app:layout_constraintStart_toEndOf="@id/imgDownArrow"
@@ -143,9 +142,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat_regular"
                             android:text="28"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/montserrat_regular"
                             android:textSize="14sp"
                             app:layout_constraintStart_toEndOf="@id/imgUpArrow"
                             app:layout_constraintTop_toTopOf="@id/imgDownArrow" />
@@ -154,18 +153,20 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/tvDayDailyStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="@dimen/_4sdp"
+                android:fontFamily="@font/montserrat_regular"
                 android:maxLines="4"
                 android:textColor="@color/white"
-                android:textStyle="italic"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcDailyDetails"
                 android:layout_width="match_parent"
@@ -180,8 +181,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="@string/nighttime"
             android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/nighttime"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -259,7 +260,6 @@
                     app:layout_constraintTop_toTopOf="parent">
 
 
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -311,17 +311,19 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/tvNightDailyStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:textStyle="italic"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:maxLines="4"
                 android:textColor="@color/white"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcNightDetails"
                 android:layout_width="match_parent"

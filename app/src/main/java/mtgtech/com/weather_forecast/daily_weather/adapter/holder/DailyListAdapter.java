@@ -1,13 +1,9 @@
 package mtgtech.com.weather_forecast.daily_weather.adapter.holder;
 
-import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
-import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
 import static mtgtech.com.weather_forecast.view.adapter.HourlyForecastAdapter.AD_TYPE;
 import static mtgtech.com.weather_forecast.view.adapter.HourlyForecastAdapter.NON_AD_TYPE;
-import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -21,18 +17,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.view.adapter.DailyForecastAdapter;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 
 public class DailyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
@@ -52,23 +46,24 @@ public class DailyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (list.get(position) == null){
+        if (list.get(position) == null) {
             return AD_TYPE;
-        }
-        else return NON_AD_TYPE;
+        } else return NON_AD_TYPE;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == AD_TYPE) return new AdViewHolder(LayoutInflater.from(context).inflate(R.layout.item_native, parent, false));
-        else return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_daily_list_adapter, parent, false));
+        if (viewType == AD_TYPE)
+            return new AdViewHolder(LayoutInflater.from(context).inflate(R.layout.item_native, parent, false));
+        else
+            return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_daily_list_adapter, parent, false));
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder){
+        if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.setData(list.get(position));
         }
@@ -80,7 +75,7 @@ public class DailyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //            moreInfo.setVisibility(View.GONE);
 //            expand.setImageResource(R.drawable.ic_back);
 //        }
-        
+
     }
 
     @Override
@@ -92,6 +87,7 @@ public class DailyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private TextView time, precipitationProb, maxTerm, minTerm, statusWeather, precipitation, windChill, cloudCover, moonPhrase, windSpeed, uvIndex, windDir;
         private ImageView iconWeather, expand;
         private LinearLayout moreInfo;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             time = itemView.findViewById(R.id.time_or_date_daily);
@@ -109,7 +105,8 @@ public class DailyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             iconWeather = itemView.findViewById(R.id.icon_status_weather_daily);
             expand = itemView.findViewById(R.id.icon_expand);
         }
-        public void setData(Daily daily){
+
+        public void setData(Daily daily) {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy\nEEEE");
             time.setText(dateFormat.format(daily.getDate()));
             precipitationProb.setText(Math.round(daily.day().getPrecipitationProbability().getTotal()) + "%");
@@ -185,9 +182,10 @@ public class DailyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class AdViewHolder extends RecyclerView.ViewHolder{
+    public class AdViewHolder extends RecyclerView.ViewHolder {
 
         private FrameLayout frAd;
+
         public AdViewHolder(@NonNull View itemView) {
             super(itemView);
             frAd = itemView.findViewById(R.id.fr_ad_native);

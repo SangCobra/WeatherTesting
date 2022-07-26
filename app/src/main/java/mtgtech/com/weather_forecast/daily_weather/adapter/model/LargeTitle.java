@@ -10,16 +10,16 @@ public class LargeTitle implements DailyWeatherAdapter.ViewModel {
         this.title = title;
     }
 
+    public static boolean isCode(int code) {
+        return code == 0;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public static boolean isCode(int code) {
-        return code == 0;
     }
 
     @Override

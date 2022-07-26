@@ -13,26 +13,32 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * DailyAirQuality quality.
- *
+ * <p>
  * default unit : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.AirQualityUnit#MUGPCUM}
- * */
+ */
 public class AirQuality implements Serializable {
-
-    @Nullable private String aqiText;
-    @Nullable private Integer aqiIndex;
-    @Nullable private Float pm25;
-    @Nullable private Float pm10;
-    @Nullable private Float so2;
-    @Nullable private Float no2;
-    @Nullable private Float o3;
-    @Nullable private Float co;
-
 
     public static final int AQI_INDEX_1 = 50;
     public static final int AQI_INDEX_2 = 100;
     public static final int AQI_INDEX_3 = 150;
     public static final int AQI_INDEX_4 = 200;
     public static final int AQI_INDEX_5 = 300;
+    @Nullable
+    private String aqiText;
+    @Nullable
+    private Integer aqiIndex;
+    @Nullable
+    private Float pm25;
+    @Nullable
+    private Float pm10;
+    @Nullable
+    private Float so2;
+    @Nullable
+    private Float no2;
+    @Nullable
+    private Float o3;
+    @Nullable
+    private Float co;
 
     public AirQuality(@Nullable String aqiText,
                       @Nullable Integer aqiIndex,

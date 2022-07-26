@@ -9,7 +9,8 @@ import java.util.Arrays;
 
 public class DayNightShaderWrapper {
 
-    @Nullable private Shader shader;
+    @Nullable
+    private Shader shader;
 
     private int targetWidth;
     private int targetHeight;
@@ -36,7 +37,7 @@ public class DayNightShaderWrapper {
             return true;
         }
 
-        for (int i = 0; i < colors.length; i ++) {
+        for (int i = 0; i < colors.length; i++) {
             if (this.colors[i] != colors[i]) {
                 return true;
             }

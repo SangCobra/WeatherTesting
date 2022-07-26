@@ -7,7 +7,9 @@ import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 
 public class Title implements DailyWeatherAdapter.ViewModel {
 
-    private @Nullable @DrawableRes Integer resId;
+    private @Nullable
+    @DrawableRes
+    Integer resId;
     private String title;
 
     public Title(String title) {
@@ -17,6 +19,10 @@ public class Title implements DailyWeatherAdapter.ViewModel {
     public Title(@Nullable Integer resId, String title) {
         this.resId = resId;
         this.title = title;
+    }
+
+    public static boolean isCode(int code) {
+        return code == 2;
     }
 
     @Nullable
@@ -34,10 +40,6 @@ public class Title implements DailyWeatherAdapter.ViewModel {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public static boolean isCode(int code) {
-        return code == 2;
     }
 
     @Override

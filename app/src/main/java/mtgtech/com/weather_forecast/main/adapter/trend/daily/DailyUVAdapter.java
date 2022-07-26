@@ -13,20 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.item.DailyTrendItemView;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.weather_model.model.weather.UV;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.item.DailyTrendItemView;
-import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 
 /**
  * Daily UV adapter.
- * */
+ */
 
 public class DailyUVAdapter extends AbsDailyTrendAdapter<DailyUVAdapter.ViewHolder> {
 
@@ -37,6 +36,62 @@ public class DailyUVAdapter extends AbsDailyTrendAdapter<DailyUVAdapter.ViewHold
     private int highestIndex;
 
     private int size;
+
+    @SuppressLint("SimpleDateFormat")
+    public DailyUVAdapter(GeoActivity activity, TrendRecyclerView parent,
+                          String formattedId, @NonNull Weather weather, @NonNull TimeZone timeZone) {
+        super(activity, parent, formattedId);
+
+        this.weather = weather;
+        this.timeZone = timeZone;
+        this.picker = ThemeManager.getInstance(activity);
+
+        highestIndex = Integer.MIN_VALUE;
+        boolean valid = false;
+        for (int i = weather.getDailyForecast().size() - 1; i >= 0; i--) {
+            Integer index = weather.getDailyForecast().get(i).getUV().getIndex();
+            if (index != null && index > highestIndex) {
+                highestIndex = index;
+            }
+            if ((index != null && index != 0) || valid) {
+                valid = true;
+                size++;
+            }
+        }
+        if (highestIndex == 0) {
+            highestIndex = UV.UV_INDEX_EXCESSIVE;
+        }
+
+        List<TrendRecyclerView.KeyLine> keyLineList = new ArrayList<>();
+        keyLineList.add(
+                new TrendRecyclerView.KeyLine(
+                        UV.UV_INDEX_HIGH,
+                        String.valueOf(UV.UV_INDEX_HIGH),
+                        activity.getString(R.string.action_alert),
+                        TrendRecyclerView.KeyLine.ContentPosition.ABOVE_LINE
+                )
+        );
+        parent.setLineColor(picker.getLineColor(activity));
+        parent.setData(keyLineList, highestIndex, 0);
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_trend_daily, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.onBindView(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return size;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -98,61 +153,5 @@ public class DailyUVAdapter extends AbsDailyTrendAdapter<DailyUVAdapter.ViewHold
 //                onItemClicked(getAdapterPosition());
 //            }));
         }
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public DailyUVAdapter(GeoActivity activity, TrendRecyclerView parent,
-                          String formattedId, @NonNull Weather weather, @NonNull TimeZone timeZone) {
-        super(activity, parent, formattedId);
-
-        this.weather = weather;
-        this.timeZone = timeZone;
-        this.picker = ThemeManager.getInstance(activity);
-
-        highestIndex = Integer.MIN_VALUE;
-        boolean valid = false;
-        for (int i = weather.getDailyForecast().size() - 1; i >= 0; i --) {
-            Integer index = weather.getDailyForecast().get(i).getUV().getIndex();
-            if (index != null && index > highestIndex) {
-                highestIndex = index;
-            }
-            if ((index != null && index != 0) || valid) {
-                valid = true;
-                size ++;
-            }
-        }
-        if (highestIndex == 0) {
-            highestIndex = UV.UV_INDEX_EXCESSIVE;
-        }
-
-        List<TrendRecyclerView.KeyLine> keyLineList = new ArrayList<>();
-        keyLineList.add(
-                new TrendRecyclerView.KeyLine(
-                        UV.UV_INDEX_HIGH,
-                        String.valueOf(UV.UV_INDEX_HIGH),
-                        activity.getString(R.string.action_alert),
-                        TrendRecyclerView.KeyLine.ContentPosition.ABOVE_LINE
-                )
-        );
-        parent.setLineColor(picker.getLineColor(activity));
-        parent.setData(keyLineList, highestIndex, 0);
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_trend_daily, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBindView(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return size;
     }
 }

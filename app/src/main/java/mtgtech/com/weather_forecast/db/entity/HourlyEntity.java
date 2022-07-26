@@ -2,16 +2,15 @@ package mtgtech.com.weather_forecast.db.entity;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Date;
 
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WindDegree;
 import mtgtech.com.weather_forecast.db.propertyConverter.WeatherCodeConverter;
 import mtgtech.com.weather_forecast.db.propertyConverter.WindDegreeConverter;
-
-import org.greenrobot.greendao.annotation.Generated;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WindDegree;
 
 /**
  * Hourly entity.
@@ -82,19 +81,19 @@ public class HourlyEntity {
 
     @Generated(hash = 892631300)
     public HourlyEntity(Long id, String cityId, String weatherSource, Date date, long time,
-            boolean daylight, String weatherText, WeatherCode weatherCode, int temperature,
-            Integer realFeelTemperature, Integer realFeelShaderTemperature,
-            Integer apparentTemperature, Integer windChillTemperature,
-            Integer wetBulbTemperature, Integer degreeDayTemperature,
-            Float totalPrecipitation, Float thunderstormPrecipitation,
-            Float rainPrecipitation, Float snowPrecipitation, Float icePrecipitation,
-            Float totalPrecipitationProbability, Float thunderstormPrecipitationProbability,
-            Float rainPrecipitationProbability, Float snowPrecipitationProbability,
-            Float icePrecipitationProbability, Float visibility, Integer dewPoint,
-            Integer cloudCover, Float ceiling, String windDirection, WindDegree windDegree,
-            Float windSpeed, String windLevel, Float windGustSpeed, Integer uvIndex,
-            String uvLevel, String uvDescription, Integer relativeHumidity,
-            Integer indoorHumidity) {
+                        boolean daylight, String weatherText, WeatherCode weatherCode, int temperature,
+                        Integer realFeelTemperature, Integer realFeelShaderTemperature,
+                        Integer apparentTemperature, Integer windChillTemperature,
+                        Integer wetBulbTemperature, Integer degreeDayTemperature,
+                        Float totalPrecipitation, Float thunderstormPrecipitation,
+                        Float rainPrecipitation, Float snowPrecipitation, Float icePrecipitation,
+                        Float totalPrecipitationProbability, Float thunderstormPrecipitationProbability,
+                        Float rainPrecipitationProbability, Float snowPrecipitationProbability,
+                        Float icePrecipitationProbability, Float visibility, Integer dewPoint,
+                        Integer cloudCover, Float ceiling, String windDirection, WindDegree windDegree,
+                        Float windSpeed, String windLevel, Float windGustSpeed, Integer uvIndex,
+                        String uvLevel, String uvDescription, Integer relativeHumidity,
+                        Integer indoorHumidity) {
         this.id = id;
         this.cityId = cityId;
         this.weatherSource = weatherSource;

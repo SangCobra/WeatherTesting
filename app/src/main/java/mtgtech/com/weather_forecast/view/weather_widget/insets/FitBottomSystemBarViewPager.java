@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.daily_weather.DailyWeatherActivity;
 import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 import mtgtech.com.weather_forecast.databinding.FragmentDailyDetailsBinding;
 import mtgtech.com.weather_forecast.models.DailyDetailsModel;
@@ -40,13 +39,48 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 public class FitBottomSystemBarViewPager extends ViewPager {
 
     private Rect windowInsets;
-    
+
+
+    public FitBottomSystemBarViewPager(@NonNull Context context) {
+        super(context);
+    }
+
+    public FitBottomSystemBarViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    @Override
+    public void setOnApplyWindowInsetsListener(OnApplyWindowInsetsListener listener) {
+        super.setOnApplyWindowInsetsListener((v, insets) -> {
+            Rect waterfull = Utils.getWaterfullInsets(insets);
+            fitSystemWindows(
+                    new Rect(
+                            insets.getSystemWindowInsetLeft() + waterfull.left,
+                            insets.getSystemWindowInsetTop() + waterfull.top,
+                            insets.getSystemWindowInsetRight() + waterfull.right,
+                            insets.getSystemWindowInsetBottom() + waterfull.bottom
+                    )
+            );
+            return listener == null ? insets : listener.onApplyWindowInsets(v, insets);
+        });
+    }
+
+    @Override
+    protected boolean fitSystemWindows(Rect insets) {
+        windowInsets = insets;
+        return false;
+    }
+
+    public Rect getWindowInsets() {
+        return windowInsets;
+    }
 
     public static class FitBottomSystemBarPagerAdapter extends PagerAdapter {
 
+        public List<String> titleList;
         private FitBottomSystemBarViewPager pager;
         private View viewList;
-        public List<String> titleList;
         private Weather weather;
         private Location location;
         private Context context;
@@ -177,7 +211,7 @@ public class FitBottomSystemBarViewPager extends ViewPager {
             setWindowInsets(view, insets);
             if (view instanceof ViewGroup) {
                 int count = ((ViewGroup) view).getChildCount();
-                for (int i = 0; i < count; i ++) {
+                for (int i = 0; i < count; i++) {
                     setWindowInsetsForViewTree(((ViewGroup) view).getChildAt(i), insets);
                 }
             }
@@ -190,6 +224,7 @@ public class FitBottomSystemBarViewPager extends ViewPager {
                 ((FitBottomSystemBarRecyclerView) view).fitSystemWindows(insets);
             }
         }
+
         private void setWeatherIcon(Daily d, mtgtech.com.weather_forecast.databinding.FragmentDailyDetailsBinding dayDetailsBinding) {
             switch (d.day().getWeatherCode()) {
                 case CLEAR:
@@ -229,7 +264,7 @@ public class FitBottomSystemBarViewPager extends ViewPager {
                     break;
 
             }
-            switch (d.night().getWeatherCode()){
+            switch (d.night().getWeatherCode()) {
                 case CLEAR:
                     dayDetailsBinding.imgNightIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.img_moon));
 
@@ -309,40 +344,5 @@ public class FitBottomSystemBarViewPager extends ViewPager {
             list.add(new DailyDetailsModel(R.drawable.ic_windgauge, context.getString(R.string.wind_level), guageText, true));
             return list;
         }
-    }
-
-    public FitBottomSystemBarViewPager(@NonNull Context context) {
-        super(context);
-    }
-
-    public FitBottomSystemBarViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
-    @Override
-    public void setOnApplyWindowInsetsListener(OnApplyWindowInsetsListener listener) {
-        super.setOnApplyWindowInsetsListener((v, insets) -> {
-            Rect waterfull = Utils.getWaterfullInsets(insets);
-            fitSystemWindows(
-                    new Rect(
-                            insets.getSystemWindowInsetLeft() + waterfull.left,
-                            insets.getSystemWindowInsetTop() + waterfull.top,
-                            insets.getSystemWindowInsetRight() + waterfull.right,
-                            insets.getSystemWindowInsetBottom() + waterfull.bottom
-                    )
-            );
-            return listener == null ? insets : listener.onApplyWindowInsets(v, insets);
-        });
-    }
-
-    @Override
-    protected boolean fitSystemWindows(Rect insets) {
-        windowInsets = insets;
-        return false;
-    }
-
-    public Rect getWindowInsets() {
-        return windowInsets;
     }
 }

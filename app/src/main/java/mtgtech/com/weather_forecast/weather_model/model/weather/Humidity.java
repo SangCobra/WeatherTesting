@@ -5,8 +5,10 @@ import androidx.annotation.NonNull;
 import java.io.Serializable;
 
 public class Humidity implements Serializable {
-    @NonNull private Integer relativeHumidity;
-    @NonNull private Integer indoorHumidity;
+    @NonNull
+    private Integer relativeHumidity;
+    @NonNull
+    private Integer indoorHumidity;
 
     public Humidity(@NonNull Integer relativeHumidity, @NonNull Integer indoorHumidity) {
         this.relativeHumidity = relativeHumidity;

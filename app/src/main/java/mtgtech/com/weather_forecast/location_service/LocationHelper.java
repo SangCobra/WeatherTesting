@@ -11,8 +11,6 @@ import androidx.core.app.ActivityCompat;
 import java.util.List;
 import java.util.TimeZone;
 
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.location_service.service.AndroidLocationService;
 import mtgtech.com.weather_forecast.location_service.service.LocationService;
@@ -20,15 +18,19 @@ import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.NetworkUtils;
 import mtgtech.com.weather_forecast.weather_forecast.service.AccuWeatherService;
 import mtgtech.com.weather_forecast.weather_forecast.service.WeatherService;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 
 /**
  * Location helper.
- * */
+ */
 
 public class LocationHelper {
 
-    @NonNull private final LocationService locationService;
-    @NonNull private final WeatherService accuWeather;
+    @NonNull
+    private final LocationService locationService;
+    @NonNull
+    private final WeatherService accuWeather;
 
     public LocationHelper(Context context) {
         switch (SettingsOptionManager.getInstance(context).getLocationProvider()) {
@@ -114,7 +116,7 @@ public class LocationHelper {
         }
 
         if (background) {
-            return new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+            return new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         } else {
             return permissions;
         }
@@ -124,6 +126,7 @@ public class LocationHelper {
 
     public interface OnRequestLocationListener {
         void requestLocationSuccess(Location requestLocation);
+
         void requestLocationFailed(Location requestLocation);
     }
 }

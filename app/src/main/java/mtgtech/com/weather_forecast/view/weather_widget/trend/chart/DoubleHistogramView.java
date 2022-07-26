@@ -11,36 +11,13 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
-import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.ChartItemView;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.ChartItemView;
 
 /**
  * Double histogram view.
- * */
+ */
 public class DoubleHistogramView extends ChartItemView {
-
-    private Paint paint;
-
-    private @Nullable Float highHistogramValue;
-    private @Nullable Float lowHistogramValue;
-    private @Nullable String highHistogramValueStr;
-    private @Nullable String lowHistogramValueStr;
-    private @Nullable Float highestHistogramValue;
-
-    private int highHistogramY;
-    private int lowHistogramY;
-
-    private int margins;
-    private int marginCenter;
-    private int histogramWidth;
-    private int histogramTextSize;
-    private int chartLineWith;
-    private int textMargin;
-
-    private int[] lineColors;
-    private int textColor;
-    private int textShadowColor;
-    private @Size(2) float[] histogramAlphas;
 
     private static final float MARGIN_DIP = 24;
     private static final float MARGIN_CENTER_DIP = 4;
@@ -48,6 +25,30 @@ public class DoubleHistogramView extends ChartItemView {
     private static final float HISTOGRAM_TEXT_SIZE_DIP = 13;
     private static final float CHART_LINE_SIZE_DIP = 1;
     private static final float TEXT_MARGIN_DIP = 2;
+    private Paint paint;
+    private @Nullable
+    Float highHistogramValue;
+    private @Nullable
+    Float lowHistogramValue;
+    private @Nullable
+    String highHistogramValueStr;
+    private @Nullable
+    String lowHistogramValueStr;
+    private @Nullable
+    Float highestHistogramValue;
+    private int highHistogramY;
+    private int lowHistogramY;
+    private int margins;
+    private int marginCenter;
+    private int histogramWidth;
+    private int histogramTextSize;
+    private int chartLineWith;
+    private int textMargin;
+    private int[] lineColors;
+    private int textColor;
+    private int textShadowColor;
+    private @Size(2)
+    float[] histogramAlphas;
 
     public DoubleHistogramView(Context context) {
         super(context);
@@ -65,7 +66,7 @@ public class DoubleHistogramView extends ChartItemView {
     }
 
     private void initialize() {
-        lineColors = new int[] {Color.BLACK, Color.DKGRAY, Color.LTGRAY};
+        lineColors = new int[]{Color.BLACK, Color.DKGRAY, Color.LTGRAY};
 
         setTextColors(Color.BLACK);
 
@@ -80,7 +81,7 @@ public class DoubleHistogramView extends ChartItemView {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setAntiAlias(true);
 
-        histogramAlphas = new float[] {1, 1};
+        histogramAlphas = new float[]{1, 1};
     }
 
     @Override
@@ -211,7 +212,7 @@ public class DoubleHistogramView extends ChartItemView {
     }
 
     public void setHistogramAlphas(float highAlpha, float lowAlpha) {
-        this.histogramAlphas = new float[] {highAlpha, lowAlpha};
+        this.histogramAlphas = new float[]{highAlpha, lowAlpha};
     }
 
     private void computeCoordinates() {

@@ -6,15 +6,15 @@ import androidx.core.app.NotificationCompat;
 
 import java.util.List;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.polling.basic.ForegroundUpdateService;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.remoteviews.presenter.notification.ForecastNotificationIMP;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 /**
  * Foreground Today forecast update service.
- * */
+ */
 
 public class ForegroundTodayForecastUpdateService extends ForegroundUpdateService {
 

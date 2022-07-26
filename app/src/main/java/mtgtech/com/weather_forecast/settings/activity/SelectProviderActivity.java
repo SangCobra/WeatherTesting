@@ -2,18 +2,19 @@ package mtgtech.com.weather_forecast.settings.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
+
+import androidx.appcompat.widget.Toolbar;
 
 import org.jetbrains.annotations.NotNull;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.settings.fragment.ServiceProviderSettingsFragment;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 /**
  * Select provider activity.
- * */
+ */
 
 public class SelectProviderActivity extends GeoActivity {
 

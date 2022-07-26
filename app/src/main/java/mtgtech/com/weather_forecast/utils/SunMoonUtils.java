@@ -15,11 +15,11 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 
 public class SunMoonUtils {
 
@@ -37,7 +37,7 @@ public class SunMoonUtils {
     private SunMoonView sunMoonView;
     private Location location;
 
-    public SunMoonUtils(SunMoonView sunMoonView, Location location, ResourceProvider provider,Boolean isNight) {
+    public SunMoonUtils(SunMoonView sunMoonView, Location location, ResourceProvider provider, Boolean isNight) {
         this.sunMoonView = sunMoonView;
         this.location = location;
         this.provider = provider;
@@ -99,7 +99,6 @@ public class SunMoonUtils {
         endTimes = new float[2];
         currentTimes = new float[]{currentTime, currentTime};
         attachAnimatorSets = new AnimatorSet[2];
-
 
 
         // sun.

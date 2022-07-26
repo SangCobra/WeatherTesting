@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -13,49 +14,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.WeatherFlow;
 
 /**
  * Location service.
- * */
+ */
 
 public abstract class LocationService {
-
-    public class Result {
-
-        public float latitude;
-        public float longitude;
-
-        public String district;
-        public String city;
-        public String province;
-        public String country;
-
-        public boolean inChina;
-        public boolean hasGeocodeInformation;
-
-        public Result(float lat, float lon) {
-            latitude = lat;
-            longitude = lon;
-
-            district = "";
-            city = "";
-            province = "";
-            country = "";
-
-            inChina = false;
-            hasGeocodeInformation = false;
-        }
-
-        public void setGeocodeInformation(String country, String province, String city, String district) {
-            hasGeocodeInformation = true;
-            this.country = country;
-            this.province = province;
-            this.city = city;
-            this.district = district;
-        }
-    }
 
     public abstract void requestLocation(Context context, @NonNull LocationCallback callback);
 
@@ -98,9 +64,44 @@ public abstract class LocationService {
                 .build();
     }
 
-    // interface.
-
     public interface LocationCallback {
         void onCompleted(@Nullable Result result);
+    }
+
+    // interface.
+
+    public class Result {
+
+        public float latitude;
+        public float longitude;
+
+        public String district;
+        public String city;
+        public String province;
+        public String country;
+
+        public boolean inChina;
+        public boolean hasGeocodeInformation;
+
+        public Result(float lat, float lon) {
+            latitude = lat;
+            longitude = lon;
+
+            district = "";
+            city = "";
+            province = "";
+            country = "";
+
+            inChina = false;
+            hasGeocodeInformation = false;
+        }
+
+        public void setGeocodeInformation(String country, String province, String city, String district) {
+            hasGeocodeInformation = true;
+            this.country = country;
+            this.province = province;
+            this.city = city;
+            this.district = district;
+        }
     }
 }

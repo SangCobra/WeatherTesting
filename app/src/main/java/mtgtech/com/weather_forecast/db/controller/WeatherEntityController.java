@@ -5,14 +5,14 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.db.entity.DaoSession;
 import mtgtech.com.weather_forecast.db.entity.WeatherEntity;
 import mtgtech.com.weather_forecast.db.entity.WeatherEntityDao;
 import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 
 public class WeatherEntityController extends AbsEntityController<WeatherEntity> {
-    
+
     public WeatherEntityController(DaoSession session) {
         super(session);
     }

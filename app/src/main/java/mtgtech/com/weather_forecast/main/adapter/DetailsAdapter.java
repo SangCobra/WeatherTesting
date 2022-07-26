@@ -1,79 +1,37 @@
 package mtgtech.com.weather_forecast.main.adapter;
 
 import android.content.Context;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.widget.ImageViewCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.widget.ImageViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.CloudCoverUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 
 /**
  * Details adapter.
- * */
+ */
 
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHolder> {
 
     private List<Index> indexList;
     private ThemeManager themeManager;
-
-    private static class Index {
-        @DrawableRes int iconId;
-        String title;
-        String content;
-
-        Index(@DrawableRes int iconId, String title, String content) {
-            this.iconId = iconId;
-            this.title = title;
-            this.content = content;
-        }
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        private AppCompatImageView icon;
-        private TextView title;
-        private TextView content;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            this.icon = itemView.findViewById(R.id.item_details_icon);
-            this.title = itemView.findViewById(R.id.item_details_title);
-            this.content = itemView.findViewById(R.id.item_details_content);
-        }
-
-        void onBindView(Index index) {
-            Context context = itemView.getContext();
-
-            icon.setImageResource(index.iconId);
-            ImageViewCompat.setImageTintList(
-                    icon,
-                    ColorStateList.valueOf(themeManager.getTextContentColor(context))
-            );
-
-            title.setText(index.title);
-            title.setTextColor(themeManager.getTextContentColor(context));
-
-            content.setText(index.content);
-            content.setTextColor(themeManager.getTextSubtitleColor(context));
-        }
-    }
 
     public DetailsAdapter(Context context, @NonNull Weather weather) {
         this.indexList = new ArrayList<>();
@@ -195,5 +153,48 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
     @Override
     public int getItemCount() {
         return indexList.size();
+    }
+
+    private static class Index {
+        @DrawableRes
+        int iconId;
+        String title;
+        String content;
+
+        Index(@DrawableRes int iconId, String title, String content) {
+            this.iconId = iconId;
+            this.title = title;
+            this.content = content;
+        }
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        private AppCompatImageView icon;
+        private TextView title;
+        private TextView content;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            this.icon = itemView.findViewById(R.id.item_details_icon);
+            this.title = itemView.findViewById(R.id.item_details_title);
+            this.content = itemView.findViewById(R.id.item_details_content);
+        }
+
+        void onBindView(Index index) {
+            Context context = itemView.getContext();
+
+            icon.setImageResource(index.iconId);
+            ImageViewCompat.setImageTintList(
+                    icon,
+                    ColorStateList.valueOf(themeManager.getTextContentColor(context))
+            );
+
+            title.setText(index.title);
+            title.setTextColor(themeManager.getTextContentColor(context));
+
+            content.setText(index.content);
+            content.setTextColor(themeManager.getTextSubtitleColor(context));
+        }
     }
 }

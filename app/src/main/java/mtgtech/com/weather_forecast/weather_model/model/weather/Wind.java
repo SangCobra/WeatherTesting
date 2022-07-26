@@ -14,16 +14,11 @@ import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
 
 /**
  * DailyWind.
- *
+ * <p>
  * default unit:
  * {@link #speed} : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit#KPH}
- * */
+ */
 public class Wind implements Serializable {
-
-    @NonNull private String direction;
-    @NonNull private WindDegree degree;
-    @Nullable private Float speed;
-    @NonNull private String level;
 
     public static final float WIND_SPEED_0 = 2;
     public static final float WIND_SPEED_1 = 6;
@@ -37,6 +32,14 @@ public class Wind implements Serializable {
     public static final float WIND_SPEED_9 = 87;
     public static final float WIND_SPEED_10 = 103;
     public static final float WIND_SPEED_11 = 117;
+    @NonNull
+    private String direction;
+    @NonNull
+    private WindDegree degree;
+    @Nullable
+    private Float speed;
+    @NonNull
+    private String level;
 
     public Wind(@NonNull String direction,
                 @NonNull WindDegree degree,

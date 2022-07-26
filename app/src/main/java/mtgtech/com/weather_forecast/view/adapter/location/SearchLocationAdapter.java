@@ -11,17 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.search.Search;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class SearchLocationAdapter extends RecyclerView.Adapter<SearchLocationAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Search> list;
     private LocationAdapter.OnLocationItemClickListener l;
     private OnSearchLocationItemClickListener listener;
+
     public SearchLocationAdapter(Context context, OnSearchLocationItemClickListener listener) {
         this.context = context;
         this.listener = listener;
@@ -53,20 +52,21 @@ public class SearchLocationAdapter extends RecyclerView.Adapter<SearchLocationAd
 
     @Override
     public int getItemCount() {
-        if (list.size()>0){
+        if (list.size() > 0) {
             return list.size();
-        }
-        else return 0;
+        } else return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView locationName;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             locationName = itemView.findViewById(R.id.name_place_be_found);
         }
+
         @SuppressLint("SetTextI18n")
-        public void setData(Search search){
+        public void setData(Search search) {
             locationName.setText(search.getLocalizedName() + ", " + search.getCountry().getLocalizedName());
             itemView.setOnClickListener(v -> {
                 listener.onClick(search.getLocalizedName(), getAdapterPosition());

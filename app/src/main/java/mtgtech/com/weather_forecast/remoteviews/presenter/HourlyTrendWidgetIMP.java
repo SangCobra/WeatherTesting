@@ -16,23 +16,24 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import mtgtech.com.weather_forecast.WeatherFlow;
+
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.receiver.widget.WidgetTrendHourlyProvider;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import mtgtech.com.weather_forecast.remoteviews.trend.TrendLinearLayout;
+import mtgtech.com.weather_forecast.remoteviews.trend.WidgetItemView;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.remoteviews.trend.TrendLinearLayout;
-import mtgtech.com.weather_forecast.remoteviews.trend.WidgetItemView;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.manager.ThreadManager;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class HourlyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
 
@@ -68,7 +69,8 @@ public class HourlyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
         );
     }
 
-    @WorkerThread @Nullable
+    @WorkerThread
+    @Nullable
     @SuppressLint({"InflateParams, SimpleDateFormat", "WrongThread"})
     private static View getDrawableView(Context context, Location location, boolean lightTheme) {
         Weather weather = location.getWeather();
@@ -100,7 +102,7 @@ public class HourlyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
         lowestTemperature = weather.getYesterday() == null
                 ? Integer.MAX_VALUE
                 : weather.getYesterday().getNighttimeTemperature();
-        for (int i = 0; i < itemCount; i ++) {
+        for (int i = 0; i < itemCount; i++) {
             if (weather.getHourlyForecast().get(i).getTemperature().getTemperature() > highestTemperature) {
                 highestTemperature = weather.getHourlyForecast().get(i).getTemperature().getTemperature();
             }
@@ -114,7 +116,7 @@ public class HourlyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
         if (weather.getYesterday() != null) {
             TrendLinearLayout trendParent = drawableView.findViewById(R.id.widget_trend_hourly);
             trendParent.setData(
-                    new int[] {
+                    new int[]{
                             weather.getYesterday().getDaytimeTemperature(),
                             weather.getYesterday().getNighttimeTemperature()
                     },
@@ -125,7 +127,7 @@ public class HourlyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
             );
             trendParent.setColor(lightTheme);
         }
-        WidgetItemView[] items = new WidgetItemView[] {
+        WidgetItemView[] items = new WidgetItemView[]{
                 drawableView.findViewById(R.id.widget_trend_hourly_item_1),
                 drawableView.findViewById(R.id.widget_trend_hourly_item_2),
                 drawableView.findViewById(R.id.widget_trend_hourly_item_3),
@@ -133,7 +135,7 @@ public class HourlyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
                 drawableView.findViewById(R.id.widget_trend_hourly_item_5),
         };
         int[] colors = WeatherViewController.getThemeColors(context, weather, TimeManager.isDaylight(location));
-        for (int i = 0; i < items.length; i ++) {
+        for (int i = 0; i < items.length; i++) {
             Hourly hourly = weather.getHourlyForecast().get(i);
 
             items[i].setTitleText(hourly.getHour(context));
@@ -189,7 +191,7 @@ public class HourlyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
             return views;
         }
 
-        WidgetItemView[] items = new WidgetItemView[] {
+        WidgetItemView[] items = new WidgetItemView[]{
                 drawableView.findViewById(R.id.widget_trend_hourly_item_1),
                 drawableView.findViewById(R.id.widget_trend_hourly_item_2),
                 drawableView.findViewById(R.id.widget_trend_hourly_item_3),

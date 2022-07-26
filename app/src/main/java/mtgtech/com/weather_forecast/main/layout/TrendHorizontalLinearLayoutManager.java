@@ -11,11 +11,10 @@ import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 public class TrendHorizontalLinearLayoutManager extends LinearLayoutManager {
 
-    private Context context;
-    private int fillCount;
-
     private static final int MIN_ITEM_WIDTH = 56;
     private static final int MIN_ITEM_HEIGHT = 144;
+    private Context context;
+    private int fillCount;
 
     public TrendHorizontalLinearLayoutManager(Context context) {
         this(context, 0);

@@ -10,16 +10,41 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.databinding.ItemPollenDailyBinding;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.PollenUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Pollen;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.databinding.ItemPollenDailyBinding;
 
 public class DailyPollenAdapter extends RecyclerView.Adapter<DailyPollenAdapter.ViewHolder> {
 
     private Weather weather;
     private PollenUnit unit;
+
+    public DailyPollenAdapter(Weather weather) {
+        this.weather = weather;
+        this.unit = PollenUnit.PPCM;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(
+                ItemPollenDailyBinding.inflate(
+                        LayoutInflater.from(parent.getContext())
+                )
+        );
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.onBindView(weather.getDailyForecast().get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return weather.getDailyForecast().size();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -66,30 +91,5 @@ public class DailyPollenAdapter extends RecyclerView.Adapter<DailyPollenAdapter.
             binding.moldValue.setText(unit.getPollenText(context, pollen.getMoldIndex())
                     + " - " + pollen.getMoldDescription());
         }
-    }
-
-    public DailyPollenAdapter(Weather weather) {
-        this.weather = weather;
-        this.unit = PollenUnit.PPCM;
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(
-                ItemPollenDailyBinding.inflate(
-                        LayoutInflater.from(parent.getContext())
-                )
-        );
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBindView(weather.getDailyForecast().get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return weather.getDailyForecast().size();
     }
 }

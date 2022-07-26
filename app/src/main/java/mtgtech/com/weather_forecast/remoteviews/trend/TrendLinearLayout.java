@@ -13,13 +13,13 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 /**
  * Trend linear layout.
- * */
+ */
 
 public class TrendLinearLayout extends LinearLayout {
 
@@ -32,8 +32,10 @@ public class TrendLinearLayout extends LinearLayout {
     private int lowestTemp;
     private TemperatureUnit unit;
 
-    @ColorInt private int lineColor;
-    @ColorInt private int textColor;
+    @ColorInt
+    private int lineColor;
+    @ColorInt
+    private int textColor;
 
     private float TREND_ITEM_HEIGHT;
     private float BOTTOM_MARGIN;
@@ -171,7 +173,7 @@ public class TrendLinearLayout extends LinearLayout {
     }
 
     private void computeCoordinates() {
-        historyTempYs = new int[] {
+        historyTempYs = new int[]{
                 computeSingleCoordinate(historyTemps[0], highestTemp, lowestTemp),
                 computeSingleCoordinate(historyTemps[1], highestTemp, lowestTemp)
         };

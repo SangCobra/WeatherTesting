@@ -29,21 +29,22 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.adapter.IconProviderAdapter;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 public class ProvidersPreviewerDialog extends DialogFragment {
 
     private CircularProgressView progress;
     private RecyclerView list;
 
-    @Nullable private OnIconProviderChangedListener listener;
+    @Nullable
+    private OnIconProviderChangedListener listener;
 
     @NonNull
     @SuppressLint("InflateParams")
@@ -145,11 +146,11 @@ public class ProvidersPreviewerDialog extends DialogFragment {
         progress.setVisibility(View.GONE);
     }
 
-    public interface OnIconProviderChangedListener {
-        void onIconProviderChanged(String iconProvider);
-    }
-
     public void setOnIconProviderChangedListener(@Nullable OnIconProviderChangedListener l) {
         listener = l;
+    }
+
+    public interface OnIconProviderChangedListener {
+        void onIconProviderChanged(String iconProvider);
     }
 }

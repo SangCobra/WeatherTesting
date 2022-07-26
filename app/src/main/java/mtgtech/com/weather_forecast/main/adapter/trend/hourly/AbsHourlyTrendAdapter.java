@@ -2,14 +2,14 @@ package mtgtech.com.weather_forecast.main.adapter.trend.hourly;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.main.dialog.HourlyWeatherDialog;
+import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendParent;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendRecyclerViewAdapter;
-import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
-public abstract class AbsHourlyTrendAdapter<VH extends RecyclerView.ViewHolder> extends TrendRecyclerViewAdapter<VH>  {
+public abstract class AbsHourlyTrendAdapter<VH extends RecyclerView.ViewHolder> extends TrendRecyclerViewAdapter<VH> {
 
     private GeoActivity activity;
     private Weather weather;

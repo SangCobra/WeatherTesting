@@ -11,6 +11,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuAlertResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuCurrentResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuDailyResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuHourlyResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuLocationResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuMinuteResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.CurrentCondition;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
@@ -35,13 +42,6 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Wind;
 import mtgtech.com.weather_forecast.weather_model.model.weather.WindDegree;
 import mtgtech.com.weather_forecast.weather_model.model.weather.WindGust;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuAlertResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuDailyResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuHourlyResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuLocationResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuMinuteResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuCurrentResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.CurrentCondition;
 
 public class AccuResultConverter {
 
@@ -177,7 +177,7 @@ public class AccuResultConverter {
                             toInt(currentResult.TemperatureSummary.Past24HourRange.Minimum.Metric.Value)
                     ),
                     getDailyList(context, dailyResult),
-                    getHourlyList(context,hourlyResultList),
+                    getHourlyList(context, hourlyResultList),
                     getMinutelyList(
                             dailyResult.DailyForecasts.get(0).Sun.Rise,
                             dailyResult.DailyForecasts.get(0).Sun.Set,
@@ -358,7 +358,7 @@ public class AccuResultConverter {
         return null;
     }
 
-    private static List<Hourly> getHourlyList(Context context,List<AccuHourlyResult> resultList) {
+    private static List<Hourly> getHourlyList(Context context, List<AccuHourlyResult> resultList) {
         List<Hourly> hourlyList = new ArrayList<>(resultList.size());
         for (AccuHourlyResult result : resultList) {
             hourlyList.add(
@@ -387,14 +387,14 @@ public class AccuResultConverter {
                             new Wind(
                                     result.Wind.Direction.Localized,
                                     new WindDegree(
-                                            (float)result.Wind.Direction.Degrees,
+                                            (float) result.Wind.Direction.Degrees,
                                             false
                                     ),
                                     (float) result.Wind.Speed.Value,
                                     CommonConverter.getWindLevel(context, result.Wind.Speed.Value)
                             ),
-                            (float) result.Visibility.Value,(int)result.DewPoint.Value,(int) result.CloudCover,(float) result.Ceiling.Value,
-                            new UV(result.UVIndex,result.UVIndexText,null),
+                            (float) result.Visibility.Value, (int) result.DewPoint.Value, (int) result.CloudCover, (float) result.Ceiling.Value,
+                            new UV(result.UVIndex, result.UVIndexText, null),
                             new PrecipitationProbability(
                                     (float) result.PrecipitationProbability,
                                     null,
@@ -458,7 +458,7 @@ public class AccuResultConverter {
     }
 
     private static WeatherCode getWeatherCode(int icon) {
-        if (icon == 1 || icon == 2 || icon == 3 ||  icon == 30
+        if (icon == 1 || icon == 2 || icon == 3 || icon == 30
                 || icon == 33 || icon == 34) {
             return WeatherCode.CLEAR;
         } else if (icon == 4 || icon == 6 || icon == 7

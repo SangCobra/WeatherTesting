@@ -20,30 +20,26 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import mtgtech.com.weather_forecast.main.dialog.BackgroundLocationDialog;
-import mtgtech.com.weather_forecast.utils.MyUtils;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.model.Indicator;
 import mtgtech.com.weather_forecast.main.model.LocationResource;
 import mtgtech.com.weather_forecast.main.model.LockableLocationList;
 import mtgtech.com.weather_forecast.main.model.UpdatePackage;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class MainActivityViewModel extends ViewModel
         implements MainActivityRepository.OnLocationCompletedListener {
 
+    private static final int INVALID_LOCATION_INDEX = -1;
+    int denyCount = 0;
     private MutableLiveData<LocationResource> currentLocation;
     private MutableLiveData<Indicator> indicator;
     private LockableLocationList lockableLocationList;
     private MainActivityRepository repository;
     private boolean denyPermission = false;
-    int denyCount = 0;
-
     private boolean newInstance;
-
-    private static final int INVALID_LOCATION_INDEX = -1;
 
     public MainActivityViewModel() {
         currentLocation = new MutableLiveData<>();
@@ -73,30 +69,30 @@ public class MainActivityViewModel extends ViewModel
         }
 
         Observable.create((ObservableOnSubscribe<UpdatePackage>) emitter ->
-            lockableLocationList.write((getter, setter) -> {
-                DatabaseHelper databaseHelper = DatabaseHelper.getInstance(activity);
-                List<Location> totalList = databaseHelper.readLocationList();
-                for (Location l : totalList) {
-                    l.setWeather(databaseHelper.readWeather(l));
-                }
-                setter.setLocationList(activity, totalList);
-                setter.setCurrentIndex(0);
-
-                List<Location> validList = getter.getValidList();
-                for (int i = 0; i < validList.size(); i ++) {
-                    if (validList.get(i).equals(formattedId)) {
-                        setter.setCurrentIndex(i);
-                        break;
+                lockableLocationList.write((getter, setter) -> {
+                    DatabaseHelper databaseHelper = DatabaseHelper.getInstance(activity);
+                    List<Location> totalList = databaseHelper.readLocationList();
+                    for (Location l : totalList) {
+                        l.setWeather(databaseHelper.readWeather(l));
                     }
-                }
+                    setter.setLocationList(activity, totalList);
+                    setter.setCurrentIndex(0);
 
-                emitter.onNext(
-                        new UpdatePackage(
-                                validList.get(getter.getValidCurrentIndex()),
-                                getIndicatorInstance(getter)
-                        )
-                );
-            })
+                    List<Location> validList = getter.getValidList();
+                    for (int i = 0; i < validList.size(); i++) {
+                        if (validList.get(i).equals(formattedId)) {
+                            setter.setCurrentIndex(i);
+                            break;
+                        }
+                    }
+
+                    emitter.onNext(
+                            new UpdatePackage(
+                                    validList.get(getter.getValidCurrentIndex()),
+                                    getIndicatorInstance(getter)
+                            )
+                    );
+                })
         ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(updatePackage -> setLocation(activity, updatePackage, false))
@@ -186,7 +182,7 @@ public class MainActivityViewModel extends ViewModel
             return INVALID_LOCATION_INDEX;
         }
 
-        for (int i = 0; i < locationList.size(); i ++) {
+        for (int i = 0; i < locationList.size(); i++) {
             if (locationList.get(i).equals(formattedId)) {
                 return i;
             }
@@ -240,14 +236,14 @@ public class MainActivityViewModel extends ViewModel
                                     // denied basic location permissions.
                                     if (location.isUsable()) {
                                         repository.getWeather(activity,
-                                                currentLocation, lockableLocationList,false, this);
+                                                currentLocation, lockableLocationList, false, this);
                                     } else {
                                         currentLocation.setValue(
                                                 LocationResource.error(location, true));
                                     }
                                     activity.requestPermissions(
                                             permissionList.toArray(new String[0]),
-                                            requestCode+1,
+                                            requestCode + 1,
                                             (requestCodes, permissions, grantResults) -> {
                                                 repository.getWeather(activity, currentLocation, lockableLocationList, true, this);
                                             }
@@ -283,10 +279,9 @@ public class MainActivityViewModel extends ViewModel
     }
 
 
-
     private List<String> getDeniedPermissionList(Context context, boolean background) {
         List<String> permissionList = repository.getLocatePermissionList(background);
-        for (int i = permissionList.size() - 1; i >= 0; i --) {
+        for (int i = permissionList.size() - 1; i >= 0; i--) {
             if (ActivityCompat.checkSelfPermission(context, permissionList.get(i))
                     == PackageManager.PERMISSION_GRANTED) {
                 permissionList.remove(i);

@@ -8,24 +8,24 @@ import java.util.Date;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.remoteviews.presenter.ClockDayDetailsWidgetIMP;
-import mtgtech.com.weather_forecast.remoteviews.presenter.DailyTrendWidgetIMP;
-import mtgtech.com.weather_forecast.remoteviews.presenter.HourlyTrendWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.ClockDayHorizontalWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.ClockDayVerticalWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.ClockDayWeekWidgetIMP;
-import mtgtech.com.weather_forecast.remoteviews.presenter.DayWidgetIMP;
+import mtgtech.com.weather_forecast.remoteviews.presenter.DailyTrendWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.DayWeekWidgetIMP;
+import mtgtech.com.weather_forecast.remoteviews.presenter.DayWidgetIMP;
+import mtgtech.com.weather_forecast.remoteviews.presenter.HourlyTrendWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.MultiCityWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.TextWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.WeekWidgetIMP;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 /**
  * Widget utils.
- * */
+ */
 
 public class WidgetUtils {
 
@@ -70,7 +70,7 @@ public class WidgetUtils {
     }
 
     public static String[] buildWidgetDayStyleText(Context context, Weather weather, TemperatureUnit unit) {
-        String[] texts = new String[] {
+        String[] texts = new String[]{
                 weather.getCurrent().getWeatherText(),
                 weather.getCurrent().getTemperature().getTemperature(context, unit),
                 weather.getDailyForecast().get(0).day().getTemperature().getShortTemperature(context, unit),
@@ -80,7 +80,7 @@ public class WidgetUtils {
         TextPaint paint = new TextPaint();
 
         float[] widths = new float[4];
-        for (int i = 0; i < widths.length; i ++) {
+        for (int i = 0; i < widths.length; i++) {
             widths[i] = paint.measureText(texts[i]);
         }
 
@@ -92,9 +92,9 @@ public class WidgetUtils {
         }
 
         while (true) {
-            boolean[] flags = new boolean[] {false, false, false, false};
+            boolean[] flags = new boolean[]{false, false, false, false};
 
-            for (int i = 0; i < 2; i ++) {
+            for (int i = 0; i < 2; i++) {
                 if (widths[i] < maxiWidth) {
                     texts[i] = texts[i] + " ";
                     widths[i] = paint.measureText(texts[i]);
@@ -102,7 +102,7 @@ public class WidgetUtils {
                     flags[i] = true;
                 }
             }
-            for (int i = 2; i < 4; i ++) {
+            for (int i = 2; i < 4; i++) {
                 if (widths[i] < maxiWidth) {
                     texts[i] = " " + texts[i];
                     widths[i] = paint.measureText(texts[i]);
@@ -114,7 +114,7 @@ public class WidgetUtils {
             int n = 0;
             for (boolean flag : flags) {
                 if (flag) {
-                    n ++;
+                    n++;
                 }
             }
             if (n == 4) {
@@ -122,7 +122,7 @@ public class WidgetUtils {
             }
         }
 
-        return new String[] {
+        return new String[]{
                 texts[0] + "\n" + texts[1],
                 texts[2] + "\n" + texts[3]
         };

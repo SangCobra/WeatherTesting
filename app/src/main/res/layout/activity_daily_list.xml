@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#262626"
+    android:orientation="vertical"
     tools:context=".view.activity.DailyListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#262626"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_weather_daily_toolbar"
@@ -24,30 +23,29 @@
             <TextView
                 android:id="@+id/activity_weather_daily_title"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@android:color/white"
-                android:text="Daily weather"  android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="@dimen/_16sdp"/>
+                android:text="Daily weather"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:minHeight="?attr/actionBarSize">
-
+                android:minHeight="?attr/actionBarSize"
+                android:visibility="gone">
 
 
                 <TextView
                     android:id="@+id/activity_weather_daily_indicator"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="@dimen/normal_margin"
                     style="@style/subtitle_text"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/normal_margin"
                     android:visibility="gone"
                     tools:text="3/15" />
-
 
 
                 <LinearLayout
@@ -70,72 +68,71 @@
 
                     <TextView
                         android:id="@+id/activity_weather_daily_subtitle"
+                        style="@style/subtitle_text"
                         android:layout_width="match_parent"
                         android:layout_marginTop="2dp"
-                        style="@style/subtitle_text"
-                        tools:text="十一月初七"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"
+                        tools:text="十一月初七" />
 
                 </LinearLayout>
 
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dailyForecastList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/_12sdp"/>
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_weight="1" />
+
         <FrameLayout
             android:id="@+id/banner_ad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent">
-            <include layout="@layout/layout_banner_control"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <include layout="@layout/layout_banner_control" />
         </FrameLayout>
     </LinearLayout>
 
 
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:background="@drawable/home_transparent_bg"-->
+    <!--        android:layout_marginHorizontal="15dp"-->
+    <!--        android:layout_marginBottom="60dp"-->
+    <!--        >-->
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        android:background="@drawable/home_transparent_bg"-->
-<!--        android:layout_marginHorizontal="15dp"-->
-<!--        android:layout_marginBottom="60dp"-->
-<!--        >-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:paddingTop="10dp"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="18sp"-->
-<!--            android:id="@+id/tvDailyStatus"/>-->
-
-
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="@color/white" />-->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:paddingTop="10dp"-->
+    <!--            android:paddingBottom="10dp"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textSize="18sp"-->
+    <!--            android:id="@+id/tvDailyStatus"/>-->
 
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/dailyForecastList"-->
-<!--            android:layout_marginBottom="10dp"/>-->
-
-<!--    </LinearLayout>-->
+    <!--        <View-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="1dp"-->
+    <!--            android:background="@color/white" />-->
 
 
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:id="@+id/dailyForecastList"-->
+    <!--            android:layout_marginBottom="10dp"/>-->
 
+    <!--    </LinearLayout>-->
 
 
 </LinearLayout>

@@ -27,6 +27,22 @@ android {
         def formattedDate = new Date().format('hh.mm.MM.dd.yyyy')
         archivesBaseName = "WeatherForecast_V${versionName}_Time${formattedDate}"
     }
+    signingConfigs {
+        release {
+            storeFile file('key/release.jks')
+            storePassword 'com.dailyweather.accuweather.forecast.thermometer'
+            keyAlias 'release'
+            keyPassword 'com.dailyweather.accuweather.forecast.thermometer'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
     flavorDimensions "dimen"
     productFlavors {
         vDevelop_ {
@@ -90,21 +106,7 @@ android {
             addConstantTo(owner, "banner_daily_weather", "ca-app-pub-3270179691816977/7757786425")
         }
     }
-    signingConfigs {
-        release {
-            storeFile file('key/release.jks')
-            storePassword 'com.dailyweather.accuweather.forecast.thermometer'
-            keyAlias 'release'
-            keyPassword 'com.dailyweather.accuweather.forecast.thermometer'
-        }
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-    }
+
 //    lintOptions {
 //        checkReleaseBuilds false
 //        abortOnError false
@@ -127,7 +129,7 @@ android {
 
     configurations {
         cleanedAnnotations
-        compile.exclude group: 'org.jetbrains' , module:'annotations'
+        compile.exclude group: 'org.jetbrains', module: 'annotations'
     }
 }
 
@@ -217,22 +219,14 @@ dependencies {
 //    implementation 'com.github.didikee:AndroidDonate:0.1.0'
 
     //ads
-    implementation 'com.google.android.gms:play-services-ads:19.5.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 
-    //native templates
-//    implementation project(':nativetemplates')
     implementation 'com.github.MTGLibs:CommonLibs:1.2.2'
 
-    //billing
-//    implementation 'com.anjlab.android.iab.v3:library:1.1.0'
-
-    //Volley
     implementation 'com.android.volley:volley:1.1.1'
-
 
     //firebase
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
-//
 //    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'

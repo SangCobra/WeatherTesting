@@ -9,13 +9,20 @@ import java.util.List;
 public class Weather
         implements Serializable {
 
-    @NonNull private Base base;
-    @NonNull private Current current;
-    @Nullable private History yesterday;
-    @NonNull private List<Daily> dailyForecast;
-    @NonNull private List<Hourly> hourlyForecast;
-    @NonNull private List<Minutely> minutelyForecast;
-    @NonNull private List<Alert> alertList;
+    @NonNull
+    private Base base;
+    @NonNull
+    private Current current;
+    @Nullable
+    private History yesterday;
+    @NonNull
+    private List<Daily> dailyForecast;
+    @NonNull
+    private List<Hourly> hourlyForecast;
+    @NonNull
+    private List<Minutely> minutelyForecast;
+    @NonNull
+    private List<Alert> alertList;
 
     public Weather(@NonNull Base base, @NonNull Current current, @Nullable History yesterday,
                    @NonNull List<Daily> dailyForecast,
@@ -41,13 +48,13 @@ public class Weather
         return current;
     }
 
-    public void setYesterday(@Nullable History yesterday) {
-        this.yesterday = yesterday;
-    }
-
     @Nullable
     public History getYesterday() {
         return yesterday;
+    }
+
+    public void setYesterday(@Nullable History yesterday) {
+        this.yesterday = yesterday;
     }
 
     @NonNull

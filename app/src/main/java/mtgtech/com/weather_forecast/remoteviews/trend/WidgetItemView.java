@@ -12,50 +12,45 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
 
 /**
  * Widget item view.
- * */
+ */
 public class WidgetItemView extends ViewGroup {
-
-    private PolylineAndHistogramView trend;
-    private Paint paint;
-
-    private float width;
-
-    @Nullable private String titleText;
-    @Nullable private String subtitleText;
-
-    @Nullable private Drawable topIconDrawable;
-    @Nullable private Drawable bottomIconDrawable;
-
-    @ColorInt private int contentColor;
-    @ColorInt private int subtitleColor;
-
-    private float titleTextBaseLine;
-
-    private float subtitleTextBaseLine;
-
-    private float topIconLeft;
-    private float topIconTop;
-
-    private float trendViewTop;
-
-    private float bottomIconLeft;
-    private float bottomIconTop;
-
-    private int iconSize;
 
     protected static final int ICON_SIZE_DIP = 32;
     protected static final int TREND_VIEW_HEIGHT_DIP_1X = 96;
     protected static final int TREND_VIEW_HEIGHT_DIP_2X = 108;
-
     protected static final int TEXT_MARGIN_DIP = 2;
     protected static final int ICON_MARGIN_DIP = 4;
     protected static final int MARGIN_VERTICAL_DIP = 8;
+    private PolylineAndHistogramView trend;
+    private Paint paint;
+    private float width;
+    @Nullable
+    private String titleText;
+    @Nullable
+    private String subtitleText;
+    @Nullable
+    private Drawable topIconDrawable;
+    @Nullable
+    private Drawable bottomIconDrawable;
+    @ColorInt
+    private int contentColor;
+    @ColorInt
+    private int subtitleColor;
+    private float titleTextBaseLine;
+    private float subtitleTextBaseLine;
+    private float topIconLeft;
+    private float topIconTop;
+    private float trendViewTop;
+    private float bottomIconLeft;
+    private float bottomIconTop;
+    private int iconSize;
 
     public WidgetItemView(Context context) {
         super(context);

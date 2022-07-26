@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Accu hourly result.
- * */
+ */
 
 public class AccuHourlyResult {
 
@@ -58,6 +58,7 @@ public class AccuHourlyResult {
         public String Unit;
         public int UnitType;
     }
+
     public static class RealFeelTemperature {
         public double Value;
         public String Unit;
@@ -70,6 +71,7 @@ public class AccuHourlyResult {
         public String Unit;
         public int UnitType;
     }
+
     public static class Visibility {
         public double Value;
         public String Unit;
@@ -106,17 +108,20 @@ public class AccuHourlyResult {
     public static class WindGust {
         public Speed Speed;
     }
-    public static class Rain{
+
+    public static class Rain {
         public double Value;
         public String Unit;
         public int UnitType;
     }
-    public static class Snow{
+
+    public static class Snow {
         public double Value;
         public String Unit;
         public int UnitType;
     }
-    public static class Ice{
+
+    public static class Ice {
         public double Value;
         public String Unit;
         public int UnitType;

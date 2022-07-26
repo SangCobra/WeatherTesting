@@ -1,9 +1,5 @@
 package mtgtech.com.weather_forecast.settings.activity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -11,15 +7,19 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.databinding.ActivityMySettingsBinding;
 import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.settings.dialog.TimeSetterDialog;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 public class MySettingsActivity extends GeoActivity {
 
@@ -76,7 +76,6 @@ public class MySettingsActivity extends GeoActivity {
         binding.switchHideBigView.setChecked(settingsOptionManager.isNotificationHideBigViewEnabled());
 
 
-
         clickListeners();
         changeListeners();
     }
@@ -114,7 +113,7 @@ public class MySettingsActivity extends GeoActivity {
                 if (settingsOptionManager.isNotificationEnabled()) {
                     binding.etNotificationStyle.setTextColor(ContextCompat.getColor(MySettingsActivity.this, R.color.colorSkyBlue));
                     DrawableCompat.setTint(binding.etNotificationStyle.getBackground(), ContextCompat.getColor(this, R.color.colorSkyBlue));
-                }else{
+                } else {
                     binding.etNotificationStyle.setTextColor(ContextCompat.getColor(MySettingsActivity.this, R.color.black30));
                     DrawableCompat.setTint(binding.etNotificationStyle.getBackground(), ContextCompat.getColor(this, R.color.black30));
                 }
@@ -215,35 +214,35 @@ public class MySettingsActivity extends GeoActivity {
         }));
 
         binding.switchTempIconEnable.setOnCheckedChangeListener(((compoundButton, b) -> {
-            if(compoundButton.isPressed()){
+            if (compoundButton.isPressed()) {
                 settingsOptionManager.setNotificationTemperatureIconEnabled(b);
                 PollingManager.resetNormalBackgroundTask(MySettingsActivity.this, true);
             }
         }));
 
         binding.switchHideNotificationIcon.setOnCheckedChangeListener(((compoundButton, b) -> {
-            if(compoundButton.isPressed()){
+            if (compoundButton.isPressed()) {
                 settingsOptionManager.setNotificationHideIconEnabled(b);
                 PollingManager.resetNormalBackgroundTask(MySettingsActivity.this, true);
             }
         }));
 
         binding.switchHideInLockScreen.setOnCheckedChangeListener(((compoundButton, b) -> {
-            if(compoundButton.isPressed()){
+            if (compoundButton.isPressed()) {
                 settingsOptionManager.setNotificationHideInLockScreenEnabled(b);
                 PollingManager.resetNormalBackgroundTask(MySettingsActivity.this, true);
             }
         }));
 
         binding.switchHideBigView.setOnCheckedChangeListener(((compoundButton, b) -> {
-            if(compoundButton.isPressed()){
-                settingsOptionManager.setNotificationHideBigViewEnabled( b);
+            if (compoundButton.isPressed()) {
+                settingsOptionManager.setNotificationHideBigViewEnabled(b);
                 PollingManager.resetNormalBackgroundTask(MySettingsActivity.this, true);
             }
         }));
 
         binding.switchCanBeCleared.setOnCheckedChangeListener(((compoundButton, b) -> {
-            if(compoundButton.isPressed()){
+            if (compoundButton.isPressed()) {
                 settingsOptionManager.setNotificationCanBeClearedEnabled(b);
                 PollingManager.resetNormalBackgroundTask(MySettingsActivity.this, true);
             }
@@ -290,8 +289,8 @@ public class MySettingsActivity extends GeoActivity {
             }
         });
 
-        binding.llNotificationStyle.setOnClickListener(view ->{
-            if(settingsOptionManager.isNotificationEnabled()){
+        binding.llNotificationStyle.setOnClickListener(view -> {
+            if (settingsOptionManager.isNotificationEnabled()) {
                 showNotificationStyleDialog();
             }
         });
@@ -344,6 +343,7 @@ public class MySettingsActivity extends GeoActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
     private void showSpeedUnitDialog() {
         String[] unitsTitle = getResources().getStringArray(R.array.speed_units);
         String[] unitsValues = getResources().getStringArray(R.array.speed_unit_values);

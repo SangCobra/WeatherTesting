@@ -1,7 +1,6 @@
 package mtgtech.com.weather_forecast.daily_weather.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,23 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.DurationUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.ProbabilityUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
-import mtgtech.com.weather_forecast.weather_model.model.weather.HalfDay;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Precipitation;
-import mtgtech.com.weather_forecast.weather_model.model.weather.PrecipitationDuration;
-import mtgtech.com.weather_forecast.weather_model.model.weather.PrecipitationProbability;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.AirQualityHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.AstroHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.LargeTitleHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.LineHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.MarginHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.OverviewHolder;
-import mtgtech.com.weather_forecast.daily_weather.adapter.holder.PollenHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.TitleHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.UVHolder;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.ValueHolder;
@@ -45,27 +33,22 @@ import mtgtech.com.weather_forecast.daily_weather.adapter.model.Margin;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.Overview;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.Title;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.Value;
-//import mtgtech.com.weather_forecast.databinding.ItemWeatherDailyPollenBinding;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.DurationUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.ProbabilityUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
+import mtgtech.com.weather_forecast.weather_model.model.weather.HalfDay;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Precipitation;
+import mtgtech.com.weather_forecast.weather_model.model.weather.PrecipitationDuration;
+import mtgtech.com.weather_forecast.weather_model.model.weather.PrecipitationProbability;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 
 public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.ViewHolder> {
 
     private List<ViewModel> modelList;
     private int spanCount;
-
-    public interface ViewModel {
-        int getCode();
-    }
-
-    public static abstract class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-
-        public abstract void onBindView(ViewModel model, int position);
-    }
-
     public GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
         @Override
         public int getSpanSize(int position) {
@@ -325,5 +308,18 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
             list.add(new Margin());
         }
         return list;
+    }
+
+    public interface ViewModel {
+        int getCode();
+    }
+
+    public static abstract class ViewHolder extends RecyclerView.ViewHolder {
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        public abstract void onBindView(ViewModel model, int position);
     }
 }

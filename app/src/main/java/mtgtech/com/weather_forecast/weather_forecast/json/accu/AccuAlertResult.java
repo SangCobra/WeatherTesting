@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Accu alert result.
- * */
+ */
 
 public class AccuAlertResult {
 

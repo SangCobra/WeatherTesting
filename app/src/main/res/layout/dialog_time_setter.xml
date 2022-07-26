@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_time_setter_container"
     android:layout_width="wrap_content"
@@ -14,9 +13,9 @@
 
         <TimePicker
             android:id="@+id/dialog_time_setter_time_picker"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,17 +24,17 @@
             <Button
                 android:id="@+id/dialog_time_setter_done"
                 style="@style/material_button"
+                android:layout_alignParentEnd="true"
                 android:text="@string/done"
                 android:textColor="@color/colorAccent"
-                android:layout_alignParentEnd="true"
                 tools:ignore="RtlHardcoded" />
 
             <Button
                 android:id="@+id/dialog_time_setter_cancel"
                 style="@style/material_button"
+                android:layout_toStartOf="@id/dialog_time_setter_done"
                 android:text="@string/cancel"
                 android:textColor="@color/colorTextDark2nd"
-                android:layout_toStartOf="@id/dialog_time_setter_done"
                 tools:ignore="RtlHardcoded" />
 
         </RelativeLayout>

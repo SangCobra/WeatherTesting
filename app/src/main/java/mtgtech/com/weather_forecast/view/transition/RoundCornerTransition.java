@@ -20,14 +20,12 @@ import mtgtech.com.weather_forecast.R;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class RoundCornerTransition extends Transition {
 
-    private final float radiusFrom;
-    private final float radiusTo;
-
     private static final String PROPNAME_RADIUS = "geometricweather:roundCorner:radius";
-
     private static final String[] transitionProperties = {
             PROPNAME_RADIUS
     };
+    private final float radiusFrom;
+    private final float radiusTo;
 
     public RoundCornerTransition(Context context, AttributeSet attrs) {
         super(context, attrs);

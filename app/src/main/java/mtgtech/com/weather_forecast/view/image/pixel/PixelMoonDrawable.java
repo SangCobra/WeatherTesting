@@ -20,7 +20,8 @@ public class PixelMoonDrawable extends Drawable {
     private Paint paint;
     private Xfermode clearXfermode;
 
-    @ColorInt private int coreColor;
+    @ColorInt
+    private int coreColor;
 
     private float alpha;
     private Rect bounds;

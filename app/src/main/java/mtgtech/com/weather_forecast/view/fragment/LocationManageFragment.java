@@ -1,8 +1,6 @@
 package mtgtech.com.weather_forecast.view.fragment;
 
-import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
 import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
-import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -28,26 +26,22 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import java.util.List;
 
-import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.main.MainActivityViewModel;
-import mtgtech.com.weather_forecast.view.activity.SearchActivity;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.MainListDecoration;
-import mtgtech.com.weather_forecast.view.adapter.location.LocationAdapter;
-import mtgtech.com.weather_forecast.view.adapter.location.LocationTouchCallback;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.utils.manager.ShortcutsManager;
+import mtgtech.com.weather_forecast.view.adapter.location.LocationAdapter;
+import mtgtech.com.weather_forecast.view.adapter.location.LocationTouchCallback;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class LocationManageFragment extends Fragment
         implements LocationTouchCallback.OnLocationListChangedListener {
@@ -62,20 +56,19 @@ public class LocationManageFragment extends Fragment
     private List<Location> listLocationBefore;
     private MainActivity.LoadLocation loadLocation;
     private MainActivityViewModel mainActivityViewModel;
-
-    public void setLoadLocation(MainActivity.LoadLocation loadLocation) {
-        this.loadLocation = loadLocation;
-    }
-
     private LocationAdapter adapter;
     private MainListDecoration decoration;
     private int searchRequestCode;
     private int providerSettingsRequestCode;
-
     private ValueAnimator colorAnimator;
-
     private boolean drawerMode = false;
     private FrameLayout frAd;
+    private @Nullable
+    LocationManageCallback locationListChangedListener;
+
+    public void setLoadLocation(MainActivity.LoadLocation loadLocation) {
+        this.loadLocation = loadLocation;
+    }
 
     public LocationAdapter getAdapter() {
         return adapter;
@@ -84,9 +77,6 @@ public class LocationManageFragment extends Fragment
     public void setAdapter(LocationAdapter adapter) {
         this.adapter = adapter;
     }
-
-    private @Nullable
-    LocationManageCallback locationListChangedListener;
 
     @Nullable
     @Override
@@ -138,7 +128,7 @@ public class LocationManageFragment extends Fragment
         this.imgBack = view.findViewById(R.id.imgBack);
         imgBack.setOnClickListener(v -> {
             isStartAgain = true;
-            if (listLocationBefore.size() < readLocationList().size()){
+            if (listLocationBefore.size() < readLocationList().size()) {
                 Intent intent = new Intent();
                 intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID, readLocationList().get(readLocationList().size() - 1).getFormattedId());
                 intent.putExtra(MainActivity.KEY_LOCATION_INDEX, readLocationList().size() - 1);
@@ -260,23 +250,17 @@ public class LocationManageFragment extends Fragment
 
     // interface.
 
-    public interface LocationManageCallback {
-        void onSelectedLocation(@NonNull String formattedId, int index);
-
-        void onLocationListChanged();
-    }
-
     public void setOnLocationListChangedListener(LocationManageCallback l) {
         this.locationListChangedListener = l;
     }
-
-    // on location list changed listener.
 
     @Override
     public void onLocationSequenceChanged(List<Location> locationList) {
         DatabaseHelper.getInstance(requireActivity()).writeLocationList(locationList);
         onLocationListChanged(locationList, true, true);
     }
+
+    // on location list changed listener.
 
     @Override
     public void onLocationInserted(List<Location> locationList, Location location) {
@@ -304,5 +288,11 @@ public class LocationManageFragment extends Fragment
     public void onSelectProviderActivityStarted() {
         IntentHelper.startSelectProviderActivityForResult(
                 requireActivity(), providerSettingsRequestCode);
+    }
+
+    public interface LocationManageCallback {
+        void onSelectedLocation(@NonNull String formattedId, int index);
+
+        void onLocationListChanged();
     }
 }

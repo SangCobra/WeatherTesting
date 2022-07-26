@@ -2,7 +2,7 @@ package mtgtech.com.weather_forecast.weather_model.model.location;
 
 /**
  * Chinese city.
- * */
+ */
 
 public class ChineseCity {
 

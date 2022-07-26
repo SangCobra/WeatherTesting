@@ -11,21 +11,31 @@ import java.util.List;
 
 /**
  * Alert.
- *
+ * <p>
  * All properties are {@link androidx.annotation.NonNull}.
- * */
+ */
 public class Alert implements Parcelable, Serializable {
 
+    public static final Creator<Alert> CREATOR = new Creator<Alert>() {
+        @Override
+        public Alert createFromParcel(Parcel source) {
+            return new Alert(source);
+        }
+
+        @Override
+        public Alert[] newArray(int size) {
+            return new Alert[size];
+        }
+    };
     private long alertId;
     private Date date;
     private long time;
-
     private String description;
     private String content;
-
     private String type;
     private int priority;
-    @ColorInt private int color;
+    @ColorInt
+    private int color;
 
     public Alert(long alertId, Date date, long time,
                  String description, String content,
@@ -38,6 +48,29 @@ public class Alert implements Parcelable, Serializable {
         this.type = type;
         this.priority = priority;
         this.color = color;
+    }
+
+    protected Alert(Parcel in) {
+        this.alertId = in.readLong();
+        long tmpDate = in.readLong();
+        this.date = tmpDate == -1 ? null : new Date(tmpDate);
+        this.time = in.readLong();
+        this.description = in.readString();
+        this.content = in.readString();
+        this.type = in.readString();
+        this.priority = in.readInt();
+        this.color = in.readInt();
+    }
+
+    public static void deduplication(List<Alert> alertList) {
+        for (int i = 0; i < alertList.size(); i++) {
+            String type = alertList.get(i).getType();
+            for (int j = alertList.size() - 1; j > i; j--) {
+                if (alertList.get(j).getType().equals(type)) {
+                    alertList.remove(j);
+                }
+            }
+        }
     }
 
     public long getAlertId() {
@@ -64,6 +97,8 @@ public class Alert implements Parcelable, Serializable {
         return type;
     }
 
+    // parcelable.
+
     public int getPriority() {
         return priority;
     }
@@ -71,19 +106,6 @@ public class Alert implements Parcelable, Serializable {
     public int getColor() {
         return color;
     }
-
-    public static void deduplication(List<Alert> alertList) {
-        for (int i = 0; i < alertList.size(); i ++) {
-            String type = alertList.get(i).getType();
-            for (int j = alertList.size() - 1; j > i; j --) {
-                if (alertList.get(j).getType().equals(type)) {
-                    alertList.remove(j);
-                }
-            }
-        }
-    }
-
-    // parcelable.
 
     @Override
     public int describeContents() {
@@ -101,28 +123,4 @@ public class Alert implements Parcelable, Serializable {
         dest.writeInt(this.priority);
         dest.writeInt(this.color);
     }
-
-    protected Alert(Parcel in) {
-        this.alertId = in.readLong();
-        long tmpDate = in.readLong();
-        this.date = tmpDate == -1 ? null : new Date(tmpDate);
-        this.time = in.readLong();
-        this.description = in.readString();
-        this.content = in.readString();
-        this.type = in.readString();
-        this.priority = in.readInt();
-        this.color = in.readInt();
-    }
-
-    public static final Creator<Alert> CREATOR = new Creator<Alert>() {
-        @Override
-        public Alert createFromParcel(Parcel source) {
-            return new Alert(source);
-        }
-
-        @Override
-        public Alert[] newArray(int size) {
-            return new Alert[size];
-        }
-    };
 }

@@ -1,18 +1,14 @@
 package mtgtech.com.weather_forecast.view.activity;
 
-import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
 import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
-import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
-import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 
 import com.common.control.interfaces.AdCallback;
 import com.common.control.manager.AdmobManager;
@@ -24,20 +20,22 @@ import java.util.TimeZone;
 import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.daily_weather.adapter.holder.DailyListAdapter;
 import mtgtech.com.weather_forecast.databinding.ActivityDailyListBinding;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.view.adapter.DailyDayNightAdapter;
 import mtgtech.com.weather_forecast.view.adapter.DailyForecastAdapter;
-import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class DailyListActivity extends GeoActivity {
 
+    public static final String KEY_FORMATTED_LOCATION_ID = "FORMATTED_LOCATION_ID";
+    public static final String KEY_CURRENT_DAILY_INDEX = "CURRENT_DAILY_INDEX";
     private ActivityDailyListBinding binding;
     private @Nullable
     Weather weather;
@@ -48,11 +46,6 @@ public class DailyListActivity extends GeoActivity {
     private DailyDayNightAdapter dailyDayNightAdapter;
     private SettingsOptionManager settingsOptionManager;
     private DailyListAdapter dailyListAdapter;
-
-
-
-    public static final String KEY_FORMATTED_LOCATION_ID = "FORMATTED_LOCATION_ID";
-    public static final String KEY_CURRENT_DAILY_INDEX = "CURRENT_DAILY_INDEX";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +150,7 @@ public class DailyListActivity extends GeoActivity {
         super.onBackPressed();
         isStartAgain = false;
     }
+
     public void loadIntersAdDailyDetails() {
         if (AdCache.getInstance().getInterstitialAdDailyDetails() == null) {
             AdmobManager.getInstance().loadInterAds(this, BuildConfig.inter_detail_daily, new AdCallback() {

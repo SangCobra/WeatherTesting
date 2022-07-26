@@ -3,8 +3,8 @@ package mtgtech.com.weather_forecast.db.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.db.entity.LocationEntity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class LocationEntityConverter {
 
@@ -29,7 +29,7 @@ public class LocationEntityConverter {
 
     public static List<LocationEntity> convertToEntityList(List<Location> locationList) {
         List<LocationEntity> entityList = new ArrayList<>(locationList.size());
-        for (int i = 0; i < locationList.size(); i ++) {
+        for (int i = 0; i < locationList.size(); i++) {
             entityList.add(convertToEntity(locationList.get(i), i));
         }
         return entityList;

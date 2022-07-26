@@ -10,8 +10,8 @@ import androidx.work.impl.utils.futures.SettableFuture;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.remoteviews.presenter.notification.ForecastNotificationIMP;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class TomorrowForecastUpdateWorker extends AsyncUpdateWorker {
 

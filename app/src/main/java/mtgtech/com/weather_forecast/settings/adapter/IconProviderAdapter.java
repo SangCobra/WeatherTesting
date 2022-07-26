@@ -36,6 +36,59 @@ public class IconProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     // holder.
 
+    public IconProviderAdapter(Activity activity,
+                               @NonNull List<ResourceProvider> providerList,
+                               @Nullable OnItemClickedListener l) {
+        this.activity = activity;
+        this.providerList = providerList;
+        this.listener = l;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == 1) {
+            return new ViewHolder(
+                    LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item_icon_provider, parent, false)
+            );
+        } else {
+            return new GetMoreViewHolder(
+                    LayoutInflater.from(parent.getContext())
+                            .inflate(R.layout.item_icon_provider_get_more, parent, false)
+            );
+        }
+    }
+
+    // adapter.
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof GetMoreViewHolder) {
+            ((GetMoreViewHolder) holder).onBindView();
+            return;
+        }
+        ((ViewHolder) holder).onBindView();
+    }
+
+    @Override
+    public int getItemCount() {
+        return providerList.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position < providerList.size() ? 1 : -1;
+    }
+
+    public interface OnItemClickedListener {
+        void onItemClicked(ResourceProvider helper, int adapterPosition);
+
+        void onAppStoreItemClicked(String query);
+
+        void onGitHubItemClicked(String query);
+    }
+
     private class ViewHolder extends RecyclerView.ViewHolder {
 
         private RelativeLayout container;
@@ -117,56 +170,5 @@ public class IconProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             chronus.setOnClickListener(v ->
                     listener.onAppStoreItemClicked("Chronus Icon"));
         }
-    }
-
-    // adapter.
-
-    public IconProviderAdapter(Activity activity,
-                               @NonNull List<ResourceProvider> providerList,
-                               @Nullable OnItemClickedListener l) {
-        this.activity = activity;
-        this.providerList = providerList;
-        this.listener = l;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 1) {
-            return new ViewHolder(
-                    LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_icon_provider, parent, false)
-            );
-        } else {
-            return new GetMoreViewHolder(
-                    LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.item_icon_provider_get_more, parent, false)
-            );
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof GetMoreViewHolder) {
-            ((GetMoreViewHolder) holder).onBindView();
-            return;
-        }
-        ((ViewHolder) holder).onBindView();
-    }
-
-    @Override
-    public int getItemCount() {
-        return providerList.size() + 1;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position < providerList.size() ? 1 : -1;
-    }
-
-    public interface OnItemClickedListener {
-        void onItemClicked(ResourceProvider helper, int adapterPosition);
-        void onAppStoreItemClicked(String query);
-        void onGitHubItemClicked(String query);
     }
 }

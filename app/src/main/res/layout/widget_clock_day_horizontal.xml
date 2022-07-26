@@ -13,10 +13,10 @@
 
     <LinearLayout
         android:id="@+id/widget_clock_day_weather"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,25 +32,25 @@
 
                 <TextClock
                     android:id="@+id/widget_clock_day_clock_light"
-                    android:fontFamily="sans-serif-light"
+                    style="@style/widget_text_clock"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/normal_margin"
-                    android:layout_marginEnd="@dimen/little_margin"
                     android:layout_marginTop="-2dp"
+                    android:layout_marginEnd="@dimen/little_margin"
                     android:layout_marginBottom="-2dp"
+                    android:fontFamily="sans-serif-light"
                     android:textSize="48dp"
-                    style="@style/widget_text_clock"
-                    tools:text="9:10"
-                    tools:ignore="RelativeOverlap,RtlHardcoded,SpUsage" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded,SpUsage"
+                    tools:text="9:10" />
 
                 <TextClock
                     android:id="@+id/widget_clock_day_clock_aa_light"
-                    android:layout_toEndOf="@id/widget_clock_day_clock_light"
-                    android:layout_alignBaseline="@id/widget_clock_day_clock_light"
                     style="@style/widget_text_clock_aa"
-                    tools:text="AM"
-                    tools:ignore="RelativeOverlap,RtlHardcoded" />
+                    android:layout_alignBaseline="@id/widget_clock_day_clock_light"
+                    android:layout_toEndOf="@id/widget_clock_day_clock_light"
+                    tools:ignore="RelativeOverlap,RtlHardcoded"
+                    tools:text="AM" />
 
             </RelativeLayout>
 
@@ -64,24 +64,24 @@
 
                 <TextClock
                     android:id="@+id/widget_clock_day_clock_normal"
+                    style="@style/widget_text_clock"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/normal_margin"
-                    android:layout_marginEnd="@dimen/little_margin"
                     android:layout_marginTop="-2dp"
+                    android:layout_marginEnd="@dimen/little_margin"
                     android:layout_marginBottom="-2dp"
                     android:textSize="48dp"
-                    style="@style/widget_text_clock"
-                    tools:text="9:10"
-                    tools:ignore="RelativeOverlap,RtlHardcoded,SpUsage" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded,SpUsage"
+                    tools:text="9:10" />
 
                 <TextClock
                     android:id="@+id/widget_clock_day_clock_aa_normal"
-                    android:layout_toEndOf="@id/widget_clock_day_clock_normal"
-                    android:layout_alignBaseline="@id/widget_clock_day_clock_normal"
                     style="@style/widget_text_clock_aa"
-                    tools:text="AM"
-                    tools:ignore="RelativeOverlap,RtlHardcoded" />
+                    android:layout_alignBaseline="@id/widget_clock_day_clock_normal"
+                    android:layout_toEndOf="@id/widget_clock_day_clock_normal"
+                    tools:ignore="RelativeOverlap,RtlHardcoded"
+                    tools:text="AM" />
 
             </RelativeLayout>
 
@@ -95,25 +95,25 @@
 
                 <TextClock
                     android:id="@+id/widget_clock_day_clock_black"
-                    android:fontFamily="sans-serif-black"
+                    style="@style/widget_text_clock"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/normal_margin"
-                    android:layout_marginEnd="@dimen/little_margin"
                     android:layout_marginTop="-2dp"
+                    android:layout_marginEnd="@dimen/little_margin"
                     android:layout_marginBottom="-2dp"
+                    android:fontFamily="sans-serif-black"
                     android:textSize="48dp"
-                    style="@style/widget_text_clock"
-                    tools:text="9:10"
-                    tools:ignore="RelativeOverlap,RtlHardcoded,SpUsage" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded,SpUsage"
+                    tools:text="9:10" />
 
                 <TextClock
                     android:id="@+id/widget_clock_day_clock_aa_black"
-                    android:layout_toEndOf="@id/widget_clock_day_clock_black"
-                    android:layout_alignBaseline="@id/widget_clock_day_clock_black"
                     style="@style/widget_text_clock_aa"
-                    tools:text="AM"
-                    tools:ignore="RelativeOverlap,RtlHardcoded" />
+                    android:layout_alignBaseline="@id/widget_clock_day_clock_black"
+                    android:layout_toEndOf="@id/widget_clock_day_clock_black"
+                    tools:ignore="RelativeOverlap,RtlHardcoded"
+                    tools:text="AM" />
 
             </RelativeLayout>
 
@@ -136,57 +136,57 @@
 
             <TextClock
                 android:id="@+id/widget_clock_day_title"
+                style="@style/widget_text_clock"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/large_margin"
-                android:textSize="@dimen/widget_content_text_size"
-                android:textColor="@color/colorTextLight"
+                android:format12Hour="@string/date_format_widget_short"
+                android:format24Hour="@string/date_format_widget_short"
                 android:maxLines="1"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                android:format24Hour="@string/date_format_widget_short"
-                android:format12Hour="@string/date_format_widget_short"
-                style="@style/widget_text_clock"
-                tools:text="11-04 周五"
-                tools:ignore="RtlHardcoded" />
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/widget_content_text_size"
+                tools:ignore="RtlHardcoded"
+                tools:text="11-04 周五" />
 
             <TextView
                 android:id="@+id/widget_clock_day_lunar"
-                android:layout_toEndOf="@id/widget_clock_day_title"
+                style="@style/content_text"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="2dp"
                 android:layout_marginEnd="@dimen/little_margin"
-                android:text=""
-                android:textSize="@dimen/widget_content_text_size"
-                android:textColor="@color/colorTextLight"
+                android:layout_toEndOf="@id/widget_clock_day_title"
                 android:maxLines="1"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                style="@style/content_text"
-                tools:text=" - 九月十八"
-                tools:ignore="RtlHardcoded" />
+                android:text=""
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/widget_content_text_size"
+                tools:ignore="RtlHardcoded"
+                tools:text=" - 九月十八" />
 
             <TextView
                 android:id="@+id/widget_clock_day_subtitle"
+                style="@style/content_text"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/little_margin"
                 android:layout_marginEnd="@dimen/large_margin"
-                android:text="@string/ellipsis"
-                android:textSize="@dimen/widget_content_text_size"
-                android:textColor="@color/colorTextLight"
                 android:maxLines="1"
                 android:shadowColor="@color/colorTextDark2nd"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="1"
-                style="@style/content_text"
-                tools:text="青岛 8℃"
-                tools:ignore="RtlHardcoded" />
+                android:text="@string/ellipsis"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/widget_content_text_size"
+                tools:ignore="RtlHardcoded"
+                tools:text="青岛 8℃" />
 
         </RelativeLayout>
 

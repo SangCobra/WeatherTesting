@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.PollenUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Pollen;
 import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.DailyPollen;
 import mtgtech.com.weather_forecast.databinding.ItemWeatherDailyPollenBinding;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.PollenUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Pollen;
 
 public class PollenHolder extends DailyWeatherAdapter.ViewHolder {
 

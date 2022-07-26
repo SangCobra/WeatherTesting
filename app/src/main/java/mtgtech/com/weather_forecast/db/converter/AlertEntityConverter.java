@@ -3,10 +3,10 @@ package mtgtech.com.weather_forecast.db.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Alert;
 import mtgtech.com.weather_forecast.db.entity.AlertEntity;
 import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Alert;
 
 public class AlertEntityConverter {
 

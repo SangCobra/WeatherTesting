@@ -19,11 +19,11 @@ import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.view.weather_widget.NumberAnimTextView;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 
 public class HeaderViewHolder extends AbstractMainViewHolder {
 
@@ -35,7 +35,8 @@ public class HeaderViewHolder extends AbstractMainViewHolder {
     private int temperatureCFrom;
     private int temperatureCTo;
     private TemperatureUnit unit;
-    private @Nullable Disposable disposable;
+    private @Nullable
+    Disposable disposable;
 
     public HeaderViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.container_main_header, parent, false));

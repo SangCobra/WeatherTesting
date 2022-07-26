@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:theme="@style/WeatherFlowTheme.AppbarTheme" >
+        app:theme="@style/WeatherFlowTheme.AppbarTheme">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_settings_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/action_settings"
-            app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />
+            app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme"
+            app:title="@string/action_settings" />
 
     </LinearLayout>
 

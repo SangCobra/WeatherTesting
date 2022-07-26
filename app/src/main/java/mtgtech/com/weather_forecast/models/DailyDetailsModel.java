@@ -4,6 +4,15 @@ public class DailyDetailsModel {
 
     private int imageId;
     private String dailyDetailsHeading;
+    private Boolean isVisible;
+    private String dailyDetailsValue;
+
+    public DailyDetailsModel(int imageId, String dailyDetailsHeading, String dailyDetailsValue, Boolean isVisible) {
+        this.imageId = imageId;
+        this.dailyDetailsHeading = dailyDetailsHeading;
+        this.dailyDetailsValue = dailyDetailsValue;
+        this.isVisible = isVisible;
+    }
 
     public Boolean getVisible() {
         return isVisible;
@@ -12,8 +21,6 @@ public class DailyDetailsModel {
     public void setVisible(Boolean visible) {
         isVisible = visible;
     }
-
-    private Boolean isVisible;
 
     public int getImageId() {
         return imageId;
@@ -37,14 +44,5 @@ public class DailyDetailsModel {
 
     public void setDailyDetailsValue(String dailyDetailsValue) {
         this.dailyDetailsValue = dailyDetailsValue;
-    }
-
-    private String dailyDetailsValue;
-
-    public DailyDetailsModel(int imageId, String dailyDetailsHeading, String dailyDetailsValue,Boolean isVisible) {
-        this.imageId = imageId;
-        this.dailyDetailsHeading = dailyDetailsHeading;
-        this.dailyDetailsValue = dailyDetailsValue;
-        this.isVisible = isVisible;
     }
 }

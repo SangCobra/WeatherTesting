@@ -1,8 +1,8 @@
 package mtgtech.com.weather_forecast.daily_weather.adapter.model;
 
+import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Astro;
 import mtgtech.com.weather_forecast.weather_model.model.weather.MoonPhase;
-import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 
 public class DailyAstro implements DailyWeatherAdapter.ViewModel {
 
@@ -14,6 +14,10 @@ public class DailyAstro implements DailyWeatherAdapter.ViewModel {
         this.sun = sun;
         this.moon = moon;
         this.moonPhase = moonPhase;
+    }
+
+    public static boolean isCode(int code) {
+        return code == 7;
     }
 
     public Astro getSun() {
@@ -38,10 +42,6 @@ public class DailyAstro implements DailyWeatherAdapter.ViewModel {
 
     public void setMoonPhase(MoonPhase moonPhase) {
         this.moonPhase = moonPhase;
-    }
-
-    public static boolean isCode(int code) {
-        return code == 7;
     }
 
     @Override

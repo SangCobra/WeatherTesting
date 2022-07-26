@@ -9,7 +9,7 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.DayWidgetIMP;
 
 /**
  * Day widget config activity.
- * */
+ */
 
 public class DayWidgetConfigActivity extends AbstractWidgetConfigActivity {
 
@@ -21,7 +21,7 @@ public class DayWidgetConfigActivity extends AbstractWidgetConfigActivity {
             String[] widgetStyleValues = getResources().getStringArray(R.array.widget_style_values);
 
             this.viewTypeValueNow = "rectangle";
-            this.viewTypes = new String[] {
+            this.viewTypes = new String[]{
                     widgetStyles[0],
                     widgetStyles[1],
                     widgetStyles[2],
@@ -32,7 +32,7 @@ public class DayWidgetConfigActivity extends AbstractWidgetConfigActivity {
                     widgetStyles[7],
                     widgetStyles[9]
             };
-            this.viewTypeValues = new String[] {
+            this.viewTypeValues = new String[]{
                     widgetStyleValues[0],
                     widgetStyleValues[1],
                     widgetStyleValues[2],

@@ -10,18 +10,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.location_service.LocationHelper;
 import mtgtech.com.weather_forecast.main.model.LocationResource;
 import mtgtech.com.weather_forecast.main.model.LockableLocationList;
 import mtgtech.com.weather_forecast.weather_forecast.WeatherHelper;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public class MainActivityRepository {
 
+    private static final int INVALID_LOCATION_INDEX = -1;
     private LocationHelper locationHelper;
     private WeatherHelper weatherHelper;
-
-    private static final int INVALID_LOCATION_INDEX = -1;
 
     public MainActivityRepository(Context context) {
         locationHelper = new LocationHelper(context);
@@ -130,7 +129,7 @@ public class MainActivityRepository {
     }
 
     private int indexLocation(@NonNull List<Location> locationList, @NonNull Location location) {
-        for (int i = 0; i < locationList.size(); i ++) {
+        for (int i = 0; i < locationList.size(); i++) {
             if (locationList.get(i).equals(location)) {
                 return i;
             }
@@ -152,7 +151,7 @@ public class MainActivityRepository {
     public interface OnLocationCompletedListener {
         /**
          * Work in write lock.
-         * */
+         */
         void onCompleted(Context context);
     }
 }

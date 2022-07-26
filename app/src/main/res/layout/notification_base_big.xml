@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/notification_base"
-    android:orientation="horizontal" 
     android:layout_width="match_parent"
-    android:layout_height="86dp">
+    android:layout_height="86dp"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/notification_base_icon"
@@ -22,51 +22,51 @@
 
     <TextView
         android:id="@+id/notification_base_realtimeTemp"
-        android:layout_toEndOf="@id/notification_base_icon"
-        android:layout_centerVertical="true"
-        android:textSize="@dimen/design_title_text_size"
-        android:includeFontPadding="false"
         style="@style/notification_large_title_text"
-        tools:text="3°"
-        tools:ignore="RelativeOverlap,RtlHardcoded" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/notification_base_icon"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/design_title_text_size"
+        tools:ignore="RelativeOverlap,RtlHardcoded"
+        tools:text="3°" />
 
     <LinearLayout
         android:id="@+id/notification_base_titleContainer"
-        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/notification_base_realtimeTemp"
-        android:layout_marginStart="@dimen/little_margin"
         android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/little_margin"
+        android:layout_toEndOf="@id/notification_base_realtimeTemp"
+        android:orientation="vertical"
         tools:ignore="RtlHardcoded">
 
         <TextView
             android:id="@+id/notification_base_weather"
+            style="@style/notification_title_text"
+            android:layout_marginEnd="@dimen/little_margin"
+            android:includeFontPadding="false"
             android:text="@string/wait_refresh"
             android:textSize="@dimen/title_text_size"
-            android:includeFontPadding="false"
-            android:layout_marginEnd="@dimen/little_margin"
-            style="@style/notification_title_text"
             tools:text="Partly Cloudy" />
 
         <TextView
             android:id="@+id/notification_base_aqiAndWind"
+            style="@style/notification_content_text"
+            android:layout_marginEnd="@dimen/little_margin"
+            android:includeFontPadding="false"
             android:text="@string/ellipsis"
             android:textSize="@dimen/content_text_size"
-            android:includeFontPadding="false"
-            android:layout_marginEnd="@dimen/little_margin"
-            style="@style/notification_content_text"
             tools:text="Air Quality - Fresh Air" />
 
         <TextView
             android:id="@+id/notification_base_time"
+            style="@style/notification_subtitle_text"
+            android:layout_marginEnd="@dimen/little_margin"
+            android:includeFontPadding="false"
             android:text="@string/ellipsis"
             android:textSize="@dimen/widget_time_text_size"
-            android:includeFontPadding="false"
-            android:layout_marginEnd="@dimen/little_margin"
-            style="@style/notification_subtitle_text"
-            tools:text="青岛, 更新于 周三 10:00 正月初二"
-            tools:ignore="RtlHardcoded,SmallSp" />
+            tools:ignore="RtlHardcoded,SmallSp"
+            tools:text="青岛, 更新于 周三 10:00 正月初二" />
 
     </LinearLayout>
 

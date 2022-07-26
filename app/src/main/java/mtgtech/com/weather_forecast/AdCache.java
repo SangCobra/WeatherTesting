@@ -4,6 +4,12 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 public class AdCache {
     private static AdCache instance;
+    private InterstitialAd interstitialAd;
+    private InterstitialAd interstitialAdDailyDetails;
+
+    private AdCache() {
+
+    }
 
     public static AdCache getInstance() {
         if (instance == null) {
@@ -11,12 +17,6 @@ public class AdCache {
         }
         return instance;
     }
-
-    private AdCache() {
-
-    }
-    private InterstitialAd interstitialAd;
-    private InterstitialAd interstitialAdDailyDetails;
 
     public InterstitialAd getInterstitialAdDailyDetails() {
         return interstitialAdDailyDetails;

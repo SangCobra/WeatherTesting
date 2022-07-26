@@ -13,10 +13,9 @@ import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 
 /**
  * Weather view.
- *
+ * <p>
  * This view is used to draw the weather phenomenon.
- *
- * */
+ */
 
 public interface WeatherView {
 
@@ -34,13 +33,6 @@ public interface WeatherView {
     int WEATHER_KIND_THUNDERSTORM = 11;
     int WEATHER_KIND_WIND = 12;
 
-    @IntDef({
-            WEATHER_KING_NULL, WEATHER_KIND_CLEAR, WEATHER_KIND_CLOUD, WEATHER_KIND_CLOUDY,
-            WEATHER_KIND_RAINY, WEATHER_KIND_SNOW, WEATHER_KIND_SLEET, WEATHER_KIND_HAIL,
-            WEATHER_KIND_FOG, WEATHER_KIND_HAZE, WEATHER_KIND_THUNDER, WEATHER_KIND_THUNDERSTORM,
-            WEATHER_KIND_WIND
-    }) @interface WeatherKindRule {}
-
     void setWeather(@WeatherView.WeatherKindRule int weatherKind, boolean daytime,
                     @Nullable ResourceProvider provider);
 
@@ -53,13 +45,13 @@ public interface WeatherView {
 
     /**
      * @return colors[] {
-     *     theme color,
-     *     color of daytime chart line,
-     *     color of nighttime chart line
+     * theme color,
+     * color of daytime chart line,
+     * color of nighttime chart line
      * }
-     *
-     * */
-    @ColorInt @Size(3)
+     */
+    @ColorInt
+    @Size(3)
     int[] getThemeColors(boolean lightTheme);
 
     @ColorInt
@@ -79,4 +71,13 @@ public interface WeatherView {
     void setSystemBarColor(Context context, Window window,
                            boolean statusShader, boolean lightStatus,
                            boolean navigationShader, boolean lightNavigation);
+
+    @IntDef({
+            WEATHER_KING_NULL, WEATHER_KIND_CLEAR, WEATHER_KIND_CLOUD, WEATHER_KIND_CLOUDY,
+            WEATHER_KIND_RAINY, WEATHER_KIND_SNOW, WEATHER_KIND_SLEET, WEATHER_KIND_HAIL,
+            WEATHER_KIND_FOG, WEATHER_KIND_HAZE, WEATHER_KIND_THUNDER, WEATHER_KIND_THUNDERSTORM,
+            WEATHER_KIND_WIND
+    })
+    @interface WeatherKindRule {
+    }
 }

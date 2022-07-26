@@ -1,17 +1,19 @@
 package mtgtech.com.weather_forecast.utils;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.core.content.ContextCompat;
-import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 /**
  * Notification utils.
- * */
+ */
 
 public class SnackbarUtils {
 

@@ -20,10 +20,10 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 public abstract class AbstractMainViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,8 +33,10 @@ public abstract class AbstractMainViewHolder extends RecyclerView.ViewHolder {
     protected boolean itemAnimationEnabled;
     private boolean inScreen;
 
-    private @Nullable Animator itemAnimator;
-    private @Nullable Disposable disposable;
+    private @Nullable
+    Animator itemAnimator;
+    private @Nullable
+    Disposable disposable;
 
     @SuppressLint("ObjectAnimatorBinding")
     public AbstractMainViewHolder(@NonNull View view) {

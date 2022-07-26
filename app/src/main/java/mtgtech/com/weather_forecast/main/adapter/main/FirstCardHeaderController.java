@@ -17,23 +17,25 @@ import java.text.DateFormat;
 import java.util.TimeZone;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.main.MainDisplayUtils;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class FirstCardHeaderController
         implements View.OnClickListener {
 
     private GeoActivity activity;
     private View view;
-    @Nullable private Weather weather;
+    @Nullable
+    private Weather weather;
 
-    private @Nullable LinearLayout container;
+    private @Nullable
+    LinearLayout container;
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
     public FirstCardHeaderController(@NonNull GeoActivity activity, @NonNull Location location) {
@@ -97,7 +99,7 @@ public class FirstCardHeaderController
             } else {
                 alert.setVisibility(View.VISIBLE);
                 StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < weather.getAlertList().size(); i ++) {
+                for (int i = 0; i < weather.getAlertList().size(); i++) {
                     builder.append(weather.getAlertList().get(i).getDescription())
                             .append(", ")
                             .append(

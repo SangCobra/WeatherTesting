@@ -3,6 +3,8 @@ package mtgtech.com.weather_forecast.db.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import mtgtech.com.weather_forecast.db.entity.DailyEntity;
+import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Astro;
@@ -16,8 +18,6 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.PrecipitationPro
 import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.weather_model.model.weather.UV;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Wind;
-import mtgtech.com.weather_forecast.db.entity.DailyEntity;
-import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 
 public class DailyEntityConverter {
 

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_12sdp"
-    android:paddingTop="@dimen/_4sdp"
-    android:paddingBottom="@dimen/_4sdp"
     android:background="@drawable/shape_border"
     android:backgroundTint="#3B3B3B"
     android:orientation="horizontal"
+    android:paddingTop="@dimen/_4sdp"
+    android:paddingBottom="@dimen/_4sdp"
     android:stateListAnimator="@animator/touch_raise"
     tools:ignore="UnusedAttribute">
 
@@ -21,7 +20,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:src="@drawable/ic_location"/>
+        android:src="@drawable/ic_location" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -30,14 +29,15 @@
         android:layout_weight="1"
         android:gravity="center|left"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
             android:singleLine="true"
             android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
-            android:fontFamily="@font/montserrat_medium"
             tools:ignore="RtlHardcoded"
             tools:text="Current Location, 5°" />
 
@@ -45,9 +45,9 @@
             android:id="@+id/geo_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
             android:singleLine="true"
             android:text="Dummy location"
-            android:fontFamily="@font/montserrat_regular"
             android:textColor="#fff"
             android:textSize="@dimen/_10sdp" />
 
@@ -65,59 +65,57 @@
             android:id="@+id/deleteLocation"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:src="@drawable/ic_delete" />
         <!--        <TextView-->
-<!--            android:id="@+id/tvTemperatureLocation"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="40dp"-->
-<!--            android:includeFontPadding="false"-->
-<!--            android:lineSpacingExtra="0dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="25sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--            android:id="@+id/tvTemperatureLocation"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="40dp"-->
+        <!--            android:includeFontPadding="false"-->
+        <!--            android:lineSpacingExtra="0dp"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="25sp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--        <ImageView-->
-<!--            android:layout_width="7dp"-->
-<!--            android:layout_height="7dp"-->
-<!--            android:layout_marginStart="3dp"-->
-<!--            android:src="@drawable/degree_ring"-->
-<!--            app:layout_constraintStart_toEndOf="@id/tvTemperatureLocation"-->
-<!--            app:layout_constraintTop_toTopOf="@id/tvTemperatureLocation" />-->
+        <!--        <ImageView-->
+        <!--            android:layout_width="7dp"-->
+        <!--            android:layout_height="7dp"-->
+        <!--            android:layout_marginStart="3dp"-->
+        <!--            android:src="@drawable/degree_ring"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/tvTemperatureLocation"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/tvTemperatureLocation" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvTempScale"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="7dp"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            android:text="C"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/tvTemperatureLocation"-->
-<!--            app:layout_constraintStart_toEndOf="@id/tvTemperatureLocation" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvTempScale"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="7dp"-->
+        <!--            android:layout_marginBottom="5dp"-->
+        <!--            android:text="C"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="14sp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/tvTemperatureLocation"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/tvTemperatureLocation" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/subtitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Hazy"-->
-<!--            android:textColor="#80FFFFFF"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/tvTempScale"-->
-<!--            app:layout_constraintStart_toStartOf="@id/tvTemperatureLocation"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tvTemperatureLocation" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/subtitle"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="Hazy"-->
+        <!--            android:textColor="#80FFFFFF"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="@id/tvTempScale"-->
+        <!--            app:layout_constraintStart_toStartOf="@id/tvTemperatureLocation"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvTemperatureLocation" />-->
 
     </LinearLayout>
-
-
 
 
     <!--    android:background="@color/striking_red"-->

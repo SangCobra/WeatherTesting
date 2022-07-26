@@ -5,9 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
 
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
@@ -18,9 +19,12 @@ public class MoonPhaseView extends View {
     private RectF backgroundRectF = new RectF();
 
     private float surfaceAngle; // head of light surface, clockwise.
-    @ColorInt private int lightColor;
-    @ColorInt private int darkColor;
-    @ColorInt private int strokeColor;
+    @ColorInt
+    private int lightColor;
+    @ColorInt
+    private int darkColor;
+    @ColorInt
+    private int strokeColor;
 
     private float LINE_WIDTH = 1;
 

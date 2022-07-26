@@ -1,28 +1,15 @@
 package mtgtech.com.weather_forecast.main.adapter.main;
 
 import android.animation.Animator;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.google.android.ads.nativetemplates.TemplateView;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
-import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.CardDisplay;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.main.adapter.main.holder.AbstractMainCardViewHolder;
 import mtgtech.com.weather_forecast.main.adapter.main.holder.AbstractMainViewHolder;
 import mtgtech.com.weather_forecast.main.adapter.main.holder.AirQualityViewHolder;
@@ -36,16 +23,26 @@ import mtgtech.com.weather_forecast.main.adapter.main.holder.HourlyViewHolder;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.PurchaseUtils;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.CardDisplay;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
 
-    private @NonNull GeoActivity activity;
-    private @NonNull Location location;
-    private @NonNull ResourceProvider provider;
+    private @NonNull
+    GeoActivity activity;
+    private @NonNull
+    Location location;
+    private @NonNull
+    ResourceProvider provider;
 
-    private @NonNull List<Integer> viewTypeList;
-    private @Nullable Integer firstCardPosition;
-    private @NonNull List<Animator> pendingAnimatorList;
+    private @NonNull
+    List<Integer> viewTypeList;
+    private @Nullable
+    Integer firstCardPosition;
+    private @NonNull
+    List<Animator> pendingAnimatorList;
     private int headerCurrentTemperatureTextHeight;
     private boolean listAnimationEnabled;
     private boolean itemAnimationEnabled;
@@ -54,6 +51,31 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
                        @NonNull ResourceProvider provider,
                        boolean listAnimationEnabled, boolean itemAnimationEnabled) {
         reset(activity, location, provider, listAnimationEnabled, itemAnimationEnabled);
+    }
+
+    private static int getViewType(CardDisplay cardDisplay) {
+        switch (cardDisplay) {
+            case CARD_DAILY_OVERVIEW:
+                return ViewType.DAILY;
+
+            case CARD_HOURLY_OVERVIEW:
+                return ViewType.HOURLY;
+
+            case CARD_AIR_QUALITY:
+                return ViewType.AIR_QUALITY;
+
+            case CARD_ALLERGEN:
+                return ViewType.ALLERGEN;
+
+            case CARD_SUNRISE_SUNSET:
+                return ViewType.ASTRO;
+
+            case AD_TYPE:
+                return ViewType.AD;
+
+            default: // CARD_LIFE_DETAILS.
+                return ViewType.DETAILS;
+        }
     }
 
     public void reset(@NonNull GeoActivity activity, @NonNull Location location,
@@ -91,7 +113,7 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
                 }
                 viewTypeList.add(getViewType(c));
             }
-            if(!PurchaseUtils.isPurchased(activity)) {
+            if (!PurchaseUtils.isPurchased(activity)) {
                 viewTypeList.add(2, ViewType.AD);
                 viewTypeList.add(ViewType.AD);
             }
@@ -136,23 +158,6 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
         }
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull AbstractMainViewHolder holder, int position) {
-        if (holder instanceof AbstractMainCardViewHolder) {
-            ((AbstractMainCardViewHolder) holder).onBindView(
-                    activity,
-                    location,
-                    provider,
-                    listAnimationEnabled,
-                    itemAnimationEnabled,
-                    firstCardPosition != null && firstCardPosition == position
-            );
-        }
-        else {
-            holder.onBindView(activity, location, provider, listAnimationEnabled, itemAnimationEnabled);
-        }
-    }
-
 //     class AdViewHolder extends AbstractMainViewHolder {
 //         public AdViewHolder(ViewGroup parent) {
 //             super(LayoutInflater.from(parent.getContext()).inflate(
@@ -168,6 +173,22 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
 //
 ////         TemplateView adTemplateView  = itemView.findViewById(R.id.nativeTemplate);
 //    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AbstractMainViewHolder holder, int position) {
+        if (holder instanceof AbstractMainCardViewHolder) {
+            ((AbstractMainCardViewHolder) holder).onBindView(
+                    activity,
+                    location,
+                    provider,
+                    listAnimationEnabled,
+                    itemAnimationEnabled,
+                    firstCardPosition != null && firstCardPosition == position
+            );
+        } else {
+            holder.onBindView(activity, location, provider, listAnimationEnabled, itemAnimationEnabled);
+        }
+    }
 
     @Override
     public void onViewRecycled(@NonNull AbstractMainViewHolder holder) {
@@ -186,7 +207,7 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
 
     private void ensureFirstCard() {
         firstCardPosition = null;
-        for (int i = 0; i < getItemCount(); i ++) {
+        for (int i = 0; i < getItemCount(); i++) {
             int type = getItemViewType(i);
             if (type == ViewType.DAILY
                     || type == ViewType.HOURLY
@@ -213,36 +234,11 @@ public class MainAdapter extends RecyclerView.Adapter<AbstractMainViewHolder> {
 
     public void onScroll(RecyclerView recyclerView) {
         AbstractMainViewHolder holder;
-        for (int i = 0; i < getItemCount(); i ++) {
+        for (int i = 0; i < getItemCount(); i++) {
             holder = (AbstractMainViewHolder) recyclerView.findViewHolderForAdapterPosition(i);
             if (holder != null && holder.getTop() < recyclerView.getMeasuredHeight()) {
                 holder.enterScreen(pendingAnimatorList, listAnimationEnabled);
             }
-        }
-    }
-
-    private static int getViewType(CardDisplay cardDisplay) {
-        switch (cardDisplay) {
-            case CARD_DAILY_OVERVIEW:
-                return ViewType.DAILY;
-
-            case CARD_HOURLY_OVERVIEW:
-                return ViewType.HOURLY;
-
-            case CARD_AIR_QUALITY:
-                return ViewType.AIR_QUALITY;
-
-            case CARD_ALLERGEN:
-                return ViewType.ALLERGEN;
-
-            case CARD_SUNRISE_SUNSET:
-                return ViewType.ASTRO;
-
-            case AD_TYPE:
-                return ViewType.AD;
-
-            default: // CARD_LIFE_DETAILS.
-                return ViewType.DETAILS;
         }
     }
 }

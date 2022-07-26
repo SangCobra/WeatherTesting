@@ -1,16 +1,11 @@
 package mtgtech.com.weather_forecast;
 
-import static mtgtech.com.weather_forecast.main.MainActivity.isGotoSettings;
-
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDelegate;
-
 
 import com.common.control.MyApplication;
 import com.common.control.manager.AppOpenManager;
@@ -23,17 +18,15 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import mtgtech.com.weather_forecast.main.MainActivity;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.LanguageUtils;
+import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 import mtgtech.com.weather_forecast.view.activity.SplashActivity;
+import mtgtech.com.weather_forecast.weather_forecast.TLSCompactHelper;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import okhttp3.OkHttpClient;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.utils.PurchaseUtils;
-import mtgtech.com.weather_forecast.weather_forecast.TLSCompactHelper;
-import mtgtech.com.weather_forecast.utils.LanguageUtils;
-import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 /**
  * Geometric weather application class.
@@ -41,24 +34,11 @@ import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 public class WeatherFlow extends MyApplication {
 
-    private static WeatherFlow instance;
-
-    public static WeatherFlow getInstance() {
-        return instance;
-    }
-
-    private Set<GeoActivity> activitySet;
-
-    private OkHttpClient okHttpClient;
-    private GsonConverterFactory gsonConverterFactory;
-    private RxJava2CallAdapterFactory rxJava2CallAdapterFactory;
-
     public static final String NOTIFICATION_CHANNEL_ID_NORMALLY = "normally";
     public static final String NOTIFICATION_CHANNEL_ID_ALERT = "alert";
     public static final String NOTIFICATION_CHANNEL_ID_FORECAST = "forecast";
     public static final String NOTIFICATION_CHANNEL_ID_LOCATION = "location";
     public static final String NOTIFICATION_CHANNEL_ID_BACKGROUND = "background";
-
     public static final int NOTIFICATION_ID_NORMALLY = 1;
     public static final int NOTIFICATION_ID_TODAY_FORECAST = 2;
     public static final int NOTIFICATION_ID_TOMORROW_FORECAST = 3;
@@ -72,7 +52,6 @@ public class WeatherFlow extends MyApplication {
     public static final int NOTIFICATION_ID_ALERT_MAX = 1999;
     public static final int NOTIFICATION_ID_ALERT_GROUP = 2000;
     public static final int NOTIFICATION_ID_PRECIPITATION = 3000;
-
     // day.
     public static final int WIDGET_DAY_PENDING_INTENT_CODE_WEATHER = 11;
     public static final int WIDGET_DAY_PENDING_INTENT_CODE_REFRESH = 12;
@@ -132,7 +111,6 @@ public class WeatherFlow extends MyApplication {
     public static final int WIDGET_CLOCK_DAY_WEEK_PENDING_INTENT_CODE_CLOCK_LIGHT = 84;
     public static final int WIDGET_CLOCK_DAY_WEEK_PENDING_INTENT_CODE_CLOCK_NORMAL = 85;
     public static final int WIDGET_CLOCK_DAY_WEEK_PENDING_INTENT_CODE_CLOCK_BLACK = 86;
-
     // text.
     public static final int WIDGET_TEXT_PENDING_INTENT_CODE_WEATHER = 91;
     public static final int WIDGET_TEXT_PENDING_INTENT_CODE_REFRESH = 92;
@@ -150,15 +128,55 @@ public class WeatherFlow extends MyApplication {
     public static final int WIDGET_MULTI_CITY_PENDING_INTENT_CODE_REFRESH_2 = 124;
     public static final int WIDGET_MULTI_CITY_PENDING_INTENT_CODE_WEATHER_3 = 125;
     public static final int WIDGET_MULTI_CITY_PENDING_INTENT_CODE_REFRESH_3 = 126;
-
-    public static int click = 1;
     public static final String PURCHASE = "purchase";
+    public static int click = 1;
+    private static WeatherFlow instance;
+    private Set<GeoActivity> activitySet;
+    private OkHttpClient okHttpClient;
+    private GsonConverterFactory gsonConverterFactory;
+    private RxJava2CallAdapterFactory rxJava2CallAdapterFactory;
+
+    public static WeatherFlow getInstance() {
+        return instance;
+    }
 
 //    @Override
 //    public void onCreate() {
 //        super.onCreate();
 //
 //    }
+
+    public static String getProcessName() {
+        try {
+            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
+            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
+            String processName = mBufferedReader.readLine().trim();
+            mBufferedReader.close();
+            return processName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getNotificationChannelName(Context c, String channelId) {
+        switch (channelId) {
+            case NOTIFICATION_CHANNEL_ID_ALERT:
+                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.action_alert);
+
+            case NOTIFICATION_CHANNEL_ID_FORECAST:
+                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.forecast);
+
+            case NOTIFICATION_CHANNEL_ID_LOCATION:
+                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.feedback_request_location);
+
+            case NOTIFICATION_CHANNEL_ID_BACKGROUND:
+                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.background_information);
+
+            default:
+                return c.getString(R.string.weather_flow);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -234,38 +252,6 @@ public class WeatherFlow extends MyApplication {
 
     public RxJava2CallAdapterFactory getRxJava2CallAdapterFactory() {
         return rxJava2CallAdapterFactory;
-    }
-
-    public static String getProcessName() {
-        try {
-            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
-            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
-            String processName = mBufferedReader.readLine().trim();
-            mBufferedReader.close();
-            return processName;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String getNotificationChannelName(Context c, String channelId) {
-        switch (channelId) {
-            case NOTIFICATION_CHANNEL_ID_ALERT:
-                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.action_alert);
-
-            case NOTIFICATION_CHANNEL_ID_FORECAST:
-                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.forecast);
-
-            case NOTIFICATION_CHANNEL_ID_LOCATION:
-                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.feedback_request_location);
-
-            case NOTIFICATION_CHANNEL_ID_BACKGROUND:
-                return c.getString(R.string.weather_flow) + " " + c.getString(R.string.background_information);
-
-            default:
-                return c.getString(R.string.weather_flow);
-        }
     }
 
     public void resetDayNightMode() {

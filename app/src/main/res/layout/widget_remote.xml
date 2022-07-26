@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/widget_remote_card"
-        android:visibility="visible"
         style="@style/widget_background_card"
+        android:visibility="visible"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -17,10 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="ContentDescription" />
-    
+
     <ProgressBar
         android:id="@+id/widget_remote_progress"
-        android:layout_centerInParent="true"
-        style="@style/widget_progress" />
+        style="@style/widget_progress"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

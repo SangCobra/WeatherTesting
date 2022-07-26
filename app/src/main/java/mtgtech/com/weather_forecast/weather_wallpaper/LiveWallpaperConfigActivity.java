@@ -20,7 +20,7 @@ import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 public class LiveWallpaperConfigActivity extends GeoActivity {
-    
+
     protected CoordinatorLayout container;
 
     protected String weatherKindValueNow;
@@ -69,7 +69,7 @@ public class LiveWallpaperConfigActivity extends GeoActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
         this.container = findViewById(R.id.activity_live_wallpaper_config_container);
-        
+
         AppCompatSpinner weatherKindSpinner = findViewById(R.id.activity_live_wallpaper_config_weatherKindSpinner);
         weatherKindSpinner.setOnItemSelectedListener(new WeatherKindSpinnerSelectedListener());
         weatherKindSpinner.setAdapter(

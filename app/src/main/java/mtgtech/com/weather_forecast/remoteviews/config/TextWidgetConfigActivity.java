@@ -8,7 +8,7 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.TextWidgetIMP;
 
 /**
  * Text widget config activity.
- * */
+ */
 
 public class TextWidgetConfigActivity extends AbstractWidgetConfigActivity {
 

@@ -3,26 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingHorizontal="@dimen/_12sdp"
-    android:paddingVertical="@dimen/_4sdp"
-    android:orientation="vertical">
+    android:paddingVertical="@dimen/_4sdp">
+
     <TextView
         android:id="@+id/name_place_be_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:text="HongKong"
         android:layout_gravity="center|left"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_14sdp"
-        android:fontFamily="@font/montserrat_regular"
-        android:textFontWeight="500"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_12sdp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="HongKong"
+        android:textColor="@color/white"
+        android:textFontWeight="500"
+        android:textSize="@dimen/_14sdp"
         tools:ignore="UnusedAttribute" />
+
     <View
         android:id="@+id/lineSpace"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#3B3B3B"/>
+        android:background="#3B3B3B" />
 
 </LinearLayout>

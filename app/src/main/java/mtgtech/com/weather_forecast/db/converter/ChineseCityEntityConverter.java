@@ -3,8 +3,8 @@ package mtgtech.com.weather_forecast.db.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.location.ChineseCity;
 import mtgtech.com.weather_forecast.db.entity.ChineseCityEntity;
+import mtgtech.com.weather_forecast.weather_model.model.location.ChineseCity;
 
 public class ChineseCityEntityConverter {
 

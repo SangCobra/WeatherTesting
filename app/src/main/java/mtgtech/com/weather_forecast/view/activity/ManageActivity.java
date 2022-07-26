@@ -1,41 +1,32 @@
 package mtgtech.com.weather_forecast.view.activity;
 
-import static mtgtech.com.weather_forecast.main.MainActivity.isStartAgain;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 
-import com.common.control.interfaces.AdCallback;
-import com.common.control.manager.AdmobManager;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.FragmentTransaction;
 
-import mtgtech.com.weather_forecast.AdCache;
-import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.view.fragment.LocationManageFragment;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 /**
  * Manage activity.
- * */
+ */
 
 public class ManageActivity extends GeoActivity {
 
+    public static final int SEARCH_ACTIVITY = 1;
+    public static final int SELECT_PROVIDER_ACTIVITY = 2;
     private CoordinatorLayout container;
     private LocationManageFragment manageFragment;
     private MainActivity.LoadLocation loadLocation;
-
-    public static final int SEARCH_ACTIVITY = 1;
     private int requestCode;
-    public static final int SELECT_PROVIDER_ACTIVITY = 2;
 
     public void setLoadLocation(MainActivity.LoadLocation loadLocation) {
         this.loadLocation = loadLocation;
@@ -55,12 +46,12 @@ public class ManageActivity extends GeoActivity {
         manageFragment.setRequestCodes(SEARCH_ACTIVITY, SELECT_PROVIDER_ACTIVITY);
         manageFragment.setOnLocationListChangedListener(new LocationManageFragment.LocationManageCallback() {
             @Override
-            public void onSelectedLocation(@NonNull String formattedId,int index) {
+            public void onSelectedLocation(@NonNull String formattedId, int index) {
                 Intent intent = new Intent();
                 intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID, formattedId);
                 intent.putExtra(MainActivity.KEY_LOCATION_INDEX, index);
                 intent.putExtra(MainActivity.KEY_RELOAD_WEATHER, 1000);
-                setResult(RESULT_OK,intent);
+                setResult(RESULT_OK, intent);
 //                setResult(
 //                        RESULT_OK,
 //                        new Intent().putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID, formattedId)
@@ -103,15 +94,16 @@ public class ManageActivity extends GeoActivity {
 
     @Override
     public void onBackPressed() {
-        if (requestCode == SEARCH_ACTIVITY){
+        if (requestCode == SEARCH_ACTIVITY) {
             Intent intent = new Intent();
-            intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID,manageFragment.readLocationList().get(manageFragment.readLocationList().size()-1).getFormattedId());
-            intent.putExtra(MainActivity.KEY_LOCATION_INDEX, manageFragment.readLocationList().size()-1);
+            intent.putExtra(MainActivity.KEY_MAIN_ACTIVITY_LOCATION_FORMATTED_ID, manageFragment.readLocationList().get(manageFragment.readLocationList().size() - 1).getFormattedId());
+            intent.putExtra(MainActivity.KEY_LOCATION_INDEX, manageFragment.readLocationList().size() - 1);
             intent.putExtra(MainActivity.KEY_RELOAD_WEATHER, 1000);
             setResult(Activity.RESULT_OK, intent);
         }
         super.onBackPressed();
     }
+
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {

@@ -11,10 +11,6 @@ import org.greenrobot.greendao.database.Database;
 
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.location.ChineseCity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.History;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.db.controller.AlertEntityController;
 import mtgtech.com.weather_forecast.db.controller.ChineseCityEntityController;
 import mtgtech.com.weather_forecast.db.controller.DailyEntityController;
@@ -43,25 +39,21 @@ import mtgtech.com.weather_forecast.db.entity.LocationEntity;
 import mtgtech.com.weather_forecast.db.entity.MinutelyEntityDao;
 import mtgtech.com.weather_forecast.db.entity.WeatherEntity;
 import mtgtech.com.weather_forecast.db.entity.WeatherEntityDao;
+import mtgtech.com.weather_forecast.weather_model.model.location.ChineseCity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.History;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 /**
  * Database helper
- * */
+ */
 
 public class DatabaseHelper {
 
+    private final static String DATABASE_NAME = "Geometric_Weather_db";
     private static volatile DatabaseHelper instance;
-    public static DatabaseHelper getInstance(Context c) {
-        if (instance == null) {
-            synchronized (DatabaseHelper.class) {
-                instance = new DatabaseHelper(c);
-            }
-        }
-        return instance;
-    }
-
+    private final Object writingLock;
     private DatabaseOpenHelper openHelper;
-
     private LocationEntityController locationEntityController;
     private ChineseCityEntityController chineseCityEntityController;
     private WeatherEntityController weatherEntityController;
@@ -70,11 +62,7 @@ public class DatabaseHelper {
     private MinutelyEntityController minutelyEntityController;
     private AlertEntityController alertEntityController;
     private HistoryEntityController historyEntityController;
-
     private boolean writingCityList;
-    private final Object writingLock;
-
-    private final static String DATABASE_NAME = "Geometric_Weather_db";
 
     private DatabaseHelper(Context c) {
         openHelper = new DatabaseOpenHelper(c, DATABASE_NAME, null);
@@ -91,6 +79,15 @@ public class DatabaseHelper {
 
         writingCityList = false;
         writingLock = new Object();
+    }
+
+    public static DatabaseHelper getInstance(Context c) {
+        if (instance == null) {
+            synchronized (DatabaseHelper.class) {
+                instance = new DatabaseHelper(c);
+            }
+        }
+        return instance;
     }
 
     // location.
@@ -209,7 +206,7 @@ public class DatabaseHelper {
         }
 
         HistoryEntity historyEntity = historyEntityController.selectYesterdayHistoryEntity(
-                location.getCityId(), location.getWeatherSource(),weatherEntity.updateDate);
+                location.getCityId(), location.getWeatherSource(), weatherEntity.updateDate);
         return WeatherEntityConverter.convert(weatherEntity, historyEntity);
     }
 

@@ -19,24 +19,24 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_ads" />
 
-<!--            <androidx.appcompat.widget.AppCompatImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentRight="true"-->
-<!--                android:src="@drawable/ic_ads2"-->
-<!--                android:visibility="gone" />-->
+            <!--            <androidx.appcompat.widget.AppCompatImageView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_alignParentRight="true"-->
+            <!--                android:src="@drawable/ic_ads2"-->
+            <!--                android:visibility="gone" />-->
         </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_4sdp"
-            android:layout_gravity="center"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:padding="8dip">
 
@@ -122,13 +122,13 @@
 
         <Button
             android:id="@+id/ad_call_to_action"
-            android:layout_width= "@dimen/_81sdp"
+            android:layout_width="@dimen/_81sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_4sdp"
             android:layout_marginRight="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:background="@drawable/shape_border_button"
             android:backgroundTint="#FFA800"
             android:gravity="center"

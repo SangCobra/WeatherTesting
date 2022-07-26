@@ -6,10 +6,10 @@ import java.util.List;
 
 public class ListResource<T> {
 
-    @NonNull public final List<T> dataList;
-    @NonNull public final Event event;
-
-    private interface Event {}
+    @NonNull
+    public final List<T> dataList;
+    @NonNull
+    public final Event event;
 
     public ListResource(@NonNull List<T> dataList) {
         this(dataList, new DataSetChanged());
@@ -38,6 +38,9 @@ public class ListResource<T> {
         List<T> list = current.dataList;
         list.remove(index);
         return new ListResource<>(list, new ItemRemoved(index));
+    }
+
+    private interface Event {
     }
 
     // event.

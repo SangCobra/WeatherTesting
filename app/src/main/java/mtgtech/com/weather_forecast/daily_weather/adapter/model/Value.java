@@ -12,6 +12,10 @@ public class Value implements DailyWeatherAdapter.ViewModel {
         this.value = value;
     }
 
+    public static boolean isCode(int code) {
+        return code == 3;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -26,10 +30,6 @@ public class Value implements DailyWeatherAdapter.ViewModel {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public static boolean isCode(int code) {
-        return code == 3;
     }
 
     @Override

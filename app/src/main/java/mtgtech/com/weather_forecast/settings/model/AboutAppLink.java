@@ -9,17 +9,16 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * About app link.
- * */
+ */
 
 public class AboutAppLink {
 
+    public static final String LINK_ALIPAY = "ALIPAY";
+    public static final String LINK_WECHAT = "WECHAT";
     public int iconRes;
     public String title;
     public String url;
     public boolean email;
-
-    public static final String LINK_ALIPAY = "ALIPAY";
-    public static final String LINK_WECHAT = "WECHAT";
 
     private AboutAppLink(int iconRes, String title, String url, boolean email) {
         this.iconRes = iconRes;

@@ -11,7 +11,7 @@ import androidx.core.widget.NestedScrollView;
 
 /**
  * Vertical nested scroll view.
- * */
+ */
 
 public class VerticalNestedScrollView extends NestedScrollView {
 

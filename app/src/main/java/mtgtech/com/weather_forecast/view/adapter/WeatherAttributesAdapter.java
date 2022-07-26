@@ -44,6 +44,7 @@ public class WeatherAttributesAdapter extends RecyclerView.Adapter<WeatherAttrib
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.tvAttributesWeather);

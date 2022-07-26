@@ -9,7 +9,7 @@ import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 
 /**
  * Service helper.
- * */
+ */
 
 public class PermanentServiceHelper {
 

@@ -11,45 +11,37 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.service.wallpaper.WallpaperService;
-import androidx.annotation.IntDef;
-import androidx.annotation.Nullable;
-import androidx.annotation.Size;
-
 import android.text.TextUtils;
 import android.view.OrientationEventListener;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
+import androidx.annotation.Size;
+
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeatherView.DelayRotateController;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeatherView.IntervalComputer;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeatherView.MaterialWeatherView;
 import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeatherView.WeatherImplementorFactory;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
-import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.weather_wallpaper.LiveWallpaperConfigManager;
 
 public class MaterialLiveWallpaperService extends WallpaperService {
 
     private static final int STEP_DISPLAY = 1;
     private static final int STEP_DISMISS = -1;
-
-    @IntDef({STEP_DISPLAY, STEP_DISMISS})
-    private @interface StepRule {}
-
-    private enum DeviceOrientation {
-        TOP, LEFT, BOTTOM, RIGHT
-    }
-
     private static final int SWITCH_ANIMATION_DURATION = 150;
 
     @Override
@@ -57,23 +49,38 @@ public class MaterialLiveWallpaperService extends WallpaperService {
         return new WeatherEngine();
     }
 
+    private enum DeviceOrientation {
+        TOP, LEFT, BOTTOM, RIGHT
+    }
+
+    @IntDef({STEP_DISPLAY, STEP_DISMISS})
+    private @interface StepRule {
+    }
+
     private class WeatherEngine extends Engine {
 
         private SurfaceHolder holder;
-        @Nullable private IntervalComputer intervalComputer;
+        @Nullable
+        private IntervalComputer intervalComputer;
 
-        @Nullable private MaterialWeatherView.WeatherAnimationImplementor implementor;
-        @Nullable private MaterialWeatherView.RotateController[] rotators;
+        @Nullable
+        private MaterialWeatherView.WeatherAnimationImplementor implementor;
+        @Nullable
+        private MaterialWeatherView.RotateController[] rotators;
 
         private boolean openGravitySensor;
-        @Nullable private SensorManager sensorManager;
-        @Nullable private Sensor gravitySensor;
+        @Nullable
+        private SensorManager sensorManager;
+        @Nullable
+        private Sensor gravitySensor;
 
-        @Size(2) private int[] sizes;
+        @Size(2)
+        private int[] sizes;
         private float rotation2D;
         private float rotation3D;
 
-        @WeatherView.WeatherKindRule private int weatherKind;
+        @WeatherView.WeatherKindRule
+        private int weatherKind;
         private boolean daytime;
 
         private float displayRate;
@@ -84,7 +91,8 @@ public class MaterialLiveWallpaperService extends WallpaperService {
 
         private DeviceOrientation deviceOrientation;
 
-        @Nullable private Disposable disposable;
+        @Nullable
+        private Disposable disposable;
         private HandlerThread handlerThread;
         private Handler handler;
         private Runnable drawableRunnable = new Runnable() {
@@ -232,7 +240,7 @@ public class MaterialLiveWallpaperService extends WallpaperService {
         private void setWeatherImplementor() {
             step = STEP_DISPLAY;
             implementor = WeatherImplementorFactory.getWeatherImplementor(weatherKind, daytime, sizes);
-            rotators = new MaterialWeatherView.RotateController[] {
+            rotators = new MaterialWeatherView.RotateController[]{
                     new DelayRotateController(rotation2D),
                     new DelayRotateController(rotation3D)
             };
@@ -252,7 +260,7 @@ public class MaterialLiveWallpaperService extends WallpaperService {
 
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
-            this.sizes = new int[] {0, 0};
+            this.sizes = new int[]{0, 0};
 
             this.holder = surfaceHolder;
             holder.addCallback(new SurfaceHolder.Callback() {

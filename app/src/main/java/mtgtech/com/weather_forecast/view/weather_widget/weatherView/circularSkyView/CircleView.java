@@ -3,12 +3,13 @@ package mtgtech.com.weather_forecast.view.weather_widget.weatherView.circularSky
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+
+import androidx.core.content.ContextCompat;
 
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
@@ -16,12 +17,14 @@ import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 /**
  * Circle view.
- * */
+ */
 
 public class CircleView extends View {
 
+    private static final int SHOW_ANIM_DURATION = 400;
+    private static final int HIDE_ANIM_DURATION = 400;
+    private static final int TOUCH_ANIM_DURATION = 1500;
     private Paint paint;
-
     private float[] initRadius = new float[4];
     private float[] realRadius = new float[4];
     private int[] colors;
@@ -29,11 +32,6 @@ public class CircleView extends View {
     private float cX, cY;
     private boolean dayTime;
     private boolean animating = false;
-
-    private static final int SHOW_ANIM_DURATION = 400;
-    private static final int HIDE_ANIM_DURATION = 400;
-    private static final int TOUCH_ANIM_DURATION = 1500;
-
     private Animation animShow = new Animation() {
         @Override
         protected void applyTransformation(float interpolatedTime, Transformation t) {
@@ -96,7 +94,7 @@ public class CircleView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         float unitRadius = DisplayUtils.getTabletListAdaptiveWidth(getContext(), getMeasuredWidth())
                 / Constants.UNIT_RADIUS_RATIO;
-        for (int i = 0; i < 4; i ++) {
+        for (int i = 0; i < 4; i++) {
             initRadius[i] = unitRadius * (i + 1);
             realRadius[i] = initRadius[i];
         }
@@ -108,7 +106,7 @@ public class CircleView extends View {
 
     /**
      * @return Return true whether execute switch animation.
-     * */
+     */
     public boolean showCircle(boolean dayTime) {
         if (this.dayTime != dayTime) {
             doHide(dayTime);
@@ -201,14 +199,14 @@ public class CircleView extends View {
 
     private void setColor() {
         if (dayTime) {
-            colors = new int[] {
+            colors = new int[]{
                     ContextCompat.getColor(getContext(), R.color.lightPrimary_1),
                     ContextCompat.getColor(getContext(), R.color.lightPrimary_2),
                     ContextCompat.getColor(getContext(), R.color.lightPrimary_3),
                     ContextCompat.getColor(getContext(), R.color.lightPrimary_4),
                     ContextCompat.getColor(getContext(), R.color.lightPrimary_5)};
         } else {
-            colors = new int[] {
+            colors = new int[]{
                     ContextCompat.getColor(getContext(), R.color.darkPrimary_1),
                     ContextCompat.getColor(getContext(), R.color.darkPrimary_2),
                     ContextCompat.getColor(getContext(), R.color.darkPrimary_3),

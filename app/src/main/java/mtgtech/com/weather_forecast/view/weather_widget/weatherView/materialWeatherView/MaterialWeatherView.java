@@ -22,42 +22,41 @@ import androidx.annotation.Size;
 import androidx.core.graphics.ColorUtils;
 
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
 
 /**
  * Material Weather view.
- * */
+ */
 
 public class MaterialWeatherView extends View implements WeatherView {
 
-    @Nullable private IntervalComputer intervalComputer;
-
-    @Nullable private WeatherAnimationImplementor implementor;
-    @Nullable private RotateController[] rotators;
-
-    private boolean gravitySensorEnabled;
-    @Nullable private SensorManager sensorManager;
-    @Nullable private Sensor gravitySensor;
-
-    @Size(2) int[] sizes;
-    private float rotation2D;
-    private float rotation3D;
-
-    @WeatherKindRule private int weatherKind;
-    private boolean daytime;
-    @ColorInt private int backgroundColor;
-
-    private float displayRate;
-
-    @StepRule
-    private int step;
     private static final int STEP_DISPLAY = 1;
     private static final int STEP_DISMISS = -1;
-
-    @IntDef({STEP_DISPLAY, STEP_DISMISS})
-    private  @interface StepRule {}
-
+    private static final int SWITCH_ANIMATION_DURATION = 150;
+    @Size(2)
+    int[] sizes;
+    @Nullable
+    private IntervalComputer intervalComputer;
+    @Nullable
+    private WeatherAnimationImplementor implementor;
+    @Nullable
+    private RotateController[] rotators;
+    private boolean gravitySensorEnabled;
+    @Nullable
+    private SensorManager sensorManager;
+    @Nullable
+    private Sensor gravitySensor;
+    private float rotation2D;
+    private float rotation3D;
+    @WeatherKindRule
+    private int weatherKind;
+    private boolean daytime;
+    @ColorInt
+    private int backgroundColor;
+    private float displayRate;
+    @StepRule
+    private int step;
     private int firstCardMarginTop;
     private int scrollTransparentTriggerDistance;
 
@@ -67,33 +66,6 @@ public class MaterialWeatherView extends View implements WeatherView {
     private boolean drawable;
 
     private DeviceOrientation deviceOrientation;
-    private enum DeviceOrientation {
-        TOP, LEFT, BOTTOM, RIGHT
-    }
-
-    private static final int SWITCH_ANIMATION_DURATION = 150;
-
-    /**
-     * This class is used to implement different kinds of weather animations.
-     * */
-    public static abstract class WeatherAnimationImplementor {
-
-        public abstract void updateData(@Size(2) int[] canvasSizes, long interval,
-                                        float rotation2D, float rotation3D);
-
-        // return true if finish drawing.
-        public abstract void draw(@Size(2) int[] canvasSizes, Canvas canvas,
-                                  float displayRatio, float scrollRate,
-                                  float rotation2D, float rotation3D);
-    }
-
-    public static abstract class RotateController {
-
-        public abstract void updateRotation(double rotation, double interval);
-
-        public abstract double getRotation();
-    }
-
     private SensorEventListener gravityListener = new SensorEventListener() {
 
         @Override
@@ -149,7 +121,6 @@ public class MaterialWeatherView extends View implements WeatherView {
             // do nothing.
         }
     };
-
     private OrientationEventListener orientationListener = new OrientationEventListener(getContext()) {
         @Override
         public void onOrientationChanged(int orientation) {
@@ -182,6 +153,30 @@ public class MaterialWeatherView extends View implements WeatherView {
         this.initialize();
     }
 
+    private static int getBrighterColor(int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[1] = hsv[1] - 0.25F;
+        hsv[2] = hsv[2] + 0.25F;
+        return Color.HSVToColor(hsv);
+    }
+
+    public static int[] getThemeColors(Context context,
+                                       @WeatherKindRule int weatherKind, boolean lightTheme) {
+        int color = innerGetBackgroundColor(context, weatherKind, lightTheme);
+        if (!lightTheme) {
+            color = getBrighterColor(color);
+            return new int[]{color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
+        } else {
+            return new int[]{color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
+        }
+    }
+
+    private static int innerGetBackgroundColor(Context context,
+                                               @WeatherKindRule int weatherKind, boolean daytime) {
+        return WeatherImplementorFactory.getWeatherThemeColor(context, weatherKind, daytime);
+    }
+
     private void initialize() {
         this.sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
@@ -194,7 +189,7 @@ public class MaterialWeatherView extends View implements WeatherView {
 
         Resources res = getResources();
         DisplayMetrics metrics = res.getDisplayMetrics();
-        this.sizes = new int[] {metrics.widthPixels, metrics.heightPixels};
+        this.sizes = new int[]{metrics.widthPixels, metrics.heightPixels};
 
         this.firstCardMarginTop = (int) (res.getDisplayMetrics().heightPixels * 0.55);
         this.scrollTransparentTriggerDistance = firstCardMarginTop;
@@ -300,7 +295,7 @@ public class MaterialWeatherView extends View implements WeatherView {
 
     private void setWeatherImplementor() {
         implementor = WeatherImplementorFactory.getWeatherImplementor(weatherKind, daytime, sizes);
-        rotators = new RotateController[] {
+        rotators = new RotateController[]{
                 new DelayRotateController(rotation2D),
                 new DelayRotateController(rotation3D)
         };
@@ -317,18 +312,6 @@ public class MaterialWeatherView extends View implements WeatherView {
             intervalComputer.reset(getContext());
         }
     }
-
-    private static int getBrighterColor(int color){
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[1] = hsv[1] - 0.25F;
-        hsv[2] = hsv[2] + 0.25F;
-        return Color.HSVToColor(hsv);
-    }
-
-    // interface.
-
-    // weather view.
 
     @Override
     public void setWeather(@WeatherKindRule int weatherKind, boolean daytime,
@@ -357,6 +340,10 @@ public class MaterialWeatherView extends View implements WeatherView {
         // do nothing.
     }
 
+    // interface.
+
+    // weather view.
+
     @Override
     public void onScroll(int scrollY) {
         scrollRate = (float) (Math.min(1, 1.0 * scrollY / scrollTransparentTriggerDistance));
@@ -375,31 +362,15 @@ public class MaterialWeatherView extends View implements WeatherView {
         int color = getBackgroundColor();
         if (!lightTheme) {
             color = getBrighterColor(color);
-            return new int[] {color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
+            return new int[]{color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
         } else {
-            return new int[] {color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
-        }
-    }
-
-    public static int[] getThemeColors(Context context,
-                                       @WeatherKindRule int weatherKind, boolean lightTheme) {
-        int color = innerGetBackgroundColor(context, weatherKind, lightTheme);
-        if (!lightTheme) {
-            color = getBrighterColor(color);
-            return new int[] {color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
-        } else {
-            return new int[] {color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
+            return new int[]{color, color, ColorUtils.setAlphaComponent(color, (int) (0.5 * 255))};
         }
     }
 
     @Override
     public int getBackgroundColor() {
         return innerGetBackgroundColor(getContext(), weatherKind, daytime);
-    }
-
-    private static int innerGetBackgroundColor(Context context,
-                                               @WeatherKindRule int weatherKind, boolean daytime) {
-        return WeatherImplementorFactory.getWeatherThemeColor(context, weatherKind, daytime);
     }
 
     @Override
@@ -443,5 +414,34 @@ public class MaterialWeatherView extends View implements WeatherView {
                                   boolean navigationShader, boolean lightNavigation) {
         DisplayUtils.setSystemBarColor(context, window, true,
                 statusShader, lightNavigation, navigationShader, lightNavigation);
+    }
+
+    private enum DeviceOrientation {
+        TOP, LEFT, BOTTOM, RIGHT
+    }
+
+    @IntDef({STEP_DISPLAY, STEP_DISMISS})
+    private @interface StepRule {
+    }
+
+    /**
+     * This class is used to implement different kinds of weather animations.
+     */
+    public static abstract class WeatherAnimationImplementor {
+
+        public abstract void updateData(@Size(2) int[] canvasSizes, long interval,
+                                        float rotation2D, float rotation3D);
+
+        // return true if finish drawing.
+        public abstract void draw(@Size(2) int[] canvasSizes, Canvas canvas,
+                                  float displayRatio, float scrollRate,
+                                  float rotation2D, float rotation3D);
+    }
+
+    public static abstract class RotateController {
+
+        public abstract void updateRotation(double rotation, double interval);
+
+        public abstract double getRotation();
     }
 }

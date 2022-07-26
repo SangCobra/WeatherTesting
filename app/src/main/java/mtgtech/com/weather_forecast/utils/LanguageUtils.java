@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * Language utils.
- * */
+ */
 
 public class LanguageUtils {
 
@@ -24,8 +24,8 @@ public class LanguageUtils {
     private static final Map<Character, Character> T2S = new HashMap<>();
 
     static {
-        final char[] charS =UTF8S.toCharArray();
-        final char[] charT =UTF8T.toCharArray();
+        final char[] charS = UTF8S.toCharArray();
+        final char[] charT = UTF8T.toCharArray();
         for (int i = 0, n = Math.min(charT.length, charS.length); i < n; i++) {
             final Character cT = charT[i];
             final Character cS = charS[i];

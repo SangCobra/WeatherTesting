@@ -1,23 +1,24 @@
 package mtgtech.com.weather_forecast.background.polling;
 
 import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.widget.Toast;
 
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.location_service.LocationHelper;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.weather_forecast.WeatherHelper;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 /**
  * Polling updateRotation helper.
- * */
+ */
 
 public class PollingUpdateHelper {
 
@@ -68,14 +69,15 @@ public class PollingUpdateHelper {
 
     // interface.
 
+    public void setOnPollingUpdateListener(OnPollingUpdateListener l) {
+        this.listener = l;
+    }
+
     public interface OnPollingUpdateListener {
         void onUpdateCompleted(@NonNull Location location, @Nullable Weather old,
                                boolean succeed, int index, int total);
-        void onPollingCompleted();
-    }
 
-    public void setOnPollingUpdateListener(OnPollingUpdateListener l) {
-        this.listener = l;
+        void onPollingCompleted();
     }
 
     // on request location listener.
@@ -120,7 +122,8 @@ public class PollingUpdateHelper {
 
     private class RequestWeatherCallback implements WeatherHelper.OnRequestWeatherListener {
 
-        @Nullable private Weather old;
+        @Nullable
+        private Weather old;
         private int index;
         private int total;
 

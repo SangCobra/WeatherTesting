@@ -30,12 +30,12 @@ public abstract class AbstractIconTarget
 
     public abstract Object getTagFromTarget();
 
-    private void setTag(Object tag) {
-        setTagForTarget(tag);
-    }
-
     private Object getTag() {
         return getTagFromTarget();
+    }
+
+    private void setTag(Object tag) {
+        setTagForTarget(tag);
     }
 
     public int getSize() {
@@ -45,11 +45,6 @@ public abstract class AbstractIconTarget
     // interface.
 
     // target.
-
-    @Override
-    public void setRequest(Request request) {
-        setTag(request);
-    }
 
     @Override
     public Request getRequest() {
@@ -63,6 +58,11 @@ public abstract class AbstractIconTarget
             }
         }
         return request;
+    }
+
+    @Override
+    public void setRequest(Request request) {
+        setTag(request);
     }
 
     @Override

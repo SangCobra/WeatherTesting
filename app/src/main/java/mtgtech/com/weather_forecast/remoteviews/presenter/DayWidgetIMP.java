@@ -3,31 +3,30 @@ package mtgtech.com.weather_forecast.remoteviews.presenter;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import java.util.Date;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.receiver.widget.WidgetDayProvider;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import mtgtech.com.weather_forecast.remoteviews.WidgetUtils;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.helpter.LunarHelper;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
-import mtgtech.com.weather_forecast.remoteviews.WidgetUtils;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class DayWidgetIMP extends AbstractRemoteViewsPresenter {
 
@@ -96,7 +95,7 @@ public class DayWidgetIMP extends AbstractRemoteViewsPresenter {
         return views;
     }
 
-    private static RemoteViews buildWidgetView(Context context, Location location, 
+    private static RemoteViews buildWidgetView(Context context, Location location,
                                                TemperatureUnit temperatureUnit,
                                                boolean dayTime, boolean minimalIcon,
                                                String viewStyle, WidgetColor color, int textSize,
@@ -227,7 +226,7 @@ public class DayWidgetIMP extends AbstractRemoteViewsPresenter {
     }
 
     @Nullable
-    private static String getTitleText(Context context, Location location, 
+    private static String getTitleText(Context context, Location location,
                                        String viewStyle, TemperatureUnit unit) {
         Weather weather = location.getWeather();
         if (weather == null) {
@@ -311,13 +310,13 @@ public class DayWidgetIMP extends AbstractRemoteViewsPresenter {
             case "time":
                 switch (viewStyle) {
                     case "rectangle":
-                        return location.getCityName(context) 
-                                + " " 
+                        return location.getCityName(context)
+                                + " "
                                 + Base.getTime(context, weather.getBase().getUpdateDate());
 
                     case "symmetry":
-                        return WidgetUtils.getWeek(context) 
-                                + " " 
+                        return WidgetUtils.getWeek(context)
+                                + " "
                                 + Base.getTime(context, weather.getBase().getUpdateDate());
 
                     case "tile":
@@ -330,18 +329,18 @@ public class DayWidgetIMP extends AbstractRemoteViewsPresenter {
                 break;
 
             case "aqi":
-                if (weather.getCurrent().getAirQuality().getAqiIndex() != null 
+                if (weather.getCurrent().getAirQuality().getAqiIndex() != null
                         && weather.getCurrent().getAirQuality().getAqiText() != null) {
-                    return weather.getCurrent().getAirQuality().getAqiText() 
-                            + " (" 
-                            + weather.getCurrent().getAirQuality().getAqiIndex() 
+                    return weather.getCurrent().getAirQuality().getAqiText()
+                            + " ("
+                            + weather.getCurrent().getAirQuality().getAqiIndex()
                             + ")";
                 }
                 break;
 
             case "wind":
-                return weather.getCurrent().getWind().getDirection() 
-                        + " " 
+                return weather.getCurrent().getWind().getDirection()
+                        + " "
                         + weather.getCurrent().getWind().getLevel();
 
             case "lunar":

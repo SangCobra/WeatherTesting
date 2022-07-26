@@ -10,15 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
 
 public class LocationTouchCallback extends ItemTouchHelper.SimpleCallback {
 
     private GeoActivity activity;
     private LocationAdapter adapter;
-    private @Nullable OnLocationListChangedListener listener;
+    private @Nullable
+    OnLocationListChangedListener listener;
 
     public LocationTouchCallback(GeoActivity activity, LocationAdapter adapter, int dragDirs, int swipeDirs,
                                  @Nullable OnLocationListChangedListener l) {
@@ -121,9 +122,13 @@ public class LocationTouchCallback extends ItemTouchHelper.SimpleCallback {
 
     public interface OnLocationListChangedListener {
         void onLocationSequenceChanged(List<Location> locationList);
+
         void onLocationInserted(List<Location> locationList, Location location);
+
         void onLocationRemoved(List<Location> locationList, Location location);
+
         void onLocationChanged(List<Location> locationList, Location location);
+
         void onSelectProviderActivityStarted();
     }
 

@@ -7,14 +7,14 @@ import androidx.preference.Preference;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 
 /**
  * Service provider settings fragment.
- * */
+ */
 
 public class ServiceProviderSettingsFragment extends AbstractSettingsFragment {
 
@@ -41,7 +41,7 @@ public class ServiceProviderSettingsFragment extends AbstractSettingsFragment {
             preference.setSummary(source.getSourceName(getActivity()));
 
             List<Location> locationList = DatabaseHelper.getInstance(requireActivity()).readLocationList();
-            for (int i = 0; i < locationList.size(); i ++) {
+            for (int i = 0; i < locationList.size(); i++) {
                 if (locationList.get(i).isCurrentPosition()) {
                     locationList.get(i).setWeatherSource(source);
                     break;

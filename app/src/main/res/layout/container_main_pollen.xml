@@ -2,39 +2,39 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_main_pollen"
-    android:layout_margin="0dp"
-    style="@style/material_card">
+    style="@style/material_card"
+    android:layout_margin="0dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/normal_margin">
 
         <TextView
             android:id="@+id/container_main_pollen_title"
+            style="@style/content_text"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
             android:text="@string/allergen"
             android:textSize="@dimen/title_text_size"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            style="@style/content_text" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/container_main_pollen_subtitle"
-            android:text="@string/feedback_click_to_get_more"
-            android:layout_marginTop="2dp"
+            style="@style/subtitle_text"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/normal_margin"
-            style="@style/subtitle_text"
+            android:text="@string/feedback_click_to_get_more"
             tools:ignore="RtlHardcoded" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             tools:ignore="DisableBaselineAlignment">
 
             <RelativeLayout
@@ -44,20 +44,20 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/container_main_pollen_grassIcon"
-                    android:src="@drawable/ic_circle_medium"
-                    android:layout_centerVertical="true"
                     style="@style/material_icon"
-                    tools:tint="@color/colorLevel_1"
-                    tools:ignore="ContentDescription" />
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_circle_medium"
+                    tools:ignore="ContentDescription"
+                    tools:tint="@color/colorLevel_1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginBottom="@dimen/normal_margin"
                     android:layout_toEndOf="@id/container_main_pollen_grassIcon"
-                    android:layout_centerVertical="true">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/container_main_pollen_grassTitle"
@@ -80,20 +80,20 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/container_main_pollen_ragweedIcon"
-                    android:src="@drawable/ic_circle_medium"
-                    android:layout_centerVertical="true"
                     style="@style/material_icon"
-                    tools:tint="@color/colorLevel_1"
-                    tools:ignore="ContentDescription" />
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_circle_medium"
+                    tools:ignore="ContentDescription"
+                    tools:tint="@color/colorLevel_1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginBottom="@dimen/normal_margin"
                     android:layout_toEndOf="@id/container_main_pollen_ragweedIcon"
-                    android:layout_centerVertical="true">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/container_main_pollen_ragweedTitle"
@@ -112,9 +112,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             tools:ignore="DisableBaselineAlignment">
 
             <RelativeLayout
@@ -124,20 +124,20 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/container_main_pollen_treeIcon"
-                    android:src="@drawable/ic_circle_medium"
-                    android:layout_centerVertical="true"
                     style="@style/material_icon"
-                    tools:tint="@color/colorLevel_1"
-                    tools:ignore="ContentDescription" />
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_circle_medium"
+                    tools:ignore="ContentDescription"
+                    tools:tint="@color/colorLevel_1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginBottom="@dimen/normal_margin"
                     android:layout_toEndOf="@id/container_main_pollen_treeIcon"
-                    android:layout_centerVertical="true">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/container_main_pollen_treeTitle"
@@ -160,20 +160,20 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/container_main_pollen_moldIcon"
-                    android:src="@drawable/ic_circle_medium"
-                    android:layout_centerVertical="true"
                     style="@style/material_icon"
-                    tools:tint="@color/colorLevel_1"
-                    tools:ignore="ContentDescription" />
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_circle_medium"
+                    tools:ignore="ContentDescription"
+                    tools:tint="@color/colorLevel_1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginBottom="@dimen/normal_margin"
                     android:layout_toEndOf="@id/container_main_pollen_moldIcon"
-                    android:layout_centerVertical="true">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/container_main_pollen_moldTitle"

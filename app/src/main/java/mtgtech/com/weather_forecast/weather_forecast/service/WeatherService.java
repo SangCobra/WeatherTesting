@@ -13,21 +13,9 @@ import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 /**
  * Weather service.
- * */
+ */
 
 public abstract class WeatherService {
-
-    public abstract void requestWeather(Context context, Location location,
-                                        @NonNull RequestWeatherCallback callback);
-
-    @WorkerThread
-    @NonNull
-    public abstract List<Location> requestLocation(Context context, String query);
-
-    public abstract void requestLocation(Context context, Location location,
-                                         @NonNull RequestLocationCallback callback);
-
-    public abstract void cancel();
 
     protected static String formatLocationString(String str) {
         if (TextUtils.isEmpty(str)) {
@@ -135,13 +123,27 @@ public abstract class WeatherService {
         }
     }
 
+    public abstract void requestWeather(Context context, Location location,
+                                        @NonNull RequestWeatherCallback callback);
+
+    @WorkerThread
+    @NonNull
+    public abstract List<Location> requestLocation(Context context, String query);
+
+    public abstract void requestLocation(Context context, Location location,
+                                         @NonNull RequestLocationCallback callback);
+
+    public abstract void cancel();
+
     public interface RequestWeatherCallback {
         void requestWeatherSuccess(@NonNull Location requestLocation);
+
         void requestWeatherFailed(@NonNull Location requestLocation);
     }
 
     public interface RequestLocationCallback {
         void requestLocationSuccess(String query, List<Location> locationList);
+
         void requestLocationFailed(String query);
     }
 }

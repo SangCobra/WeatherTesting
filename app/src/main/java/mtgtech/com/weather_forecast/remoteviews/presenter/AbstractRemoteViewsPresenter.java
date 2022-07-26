@@ -27,6 +27,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.remoteviews.WidgetUtils;
+import mtgtech.com.weather_forecast.resource.ResourceUtils;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.utils.helpter.LunarHelper;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.WidgetWeekIconMode;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.DistanceUnit;
@@ -37,43 +43,10 @@ import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumi
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.remoteviews.WidgetUtils;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
-import mtgtech.com.weather_forecast.resource.ResourceUtils;
-import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
-import mtgtech.com.weather_forecast.utils.helpter.LunarHelper;
 
 public abstract class AbstractRemoteViewsPresenter {
 
     private static final int SUBTITLE_DAILY_ITEM_LENGTH = 5;
-
-    public static class WidgetConfig {
-        public String viewStyle;
-        public String cardStyle;
-        public int cardAlpha;
-        public String textColor;
-        public int textSize;
-        public boolean hideSubtitle;
-        public String subtitleData;
-        public String clockFont;
-        public boolean hideLunar;
-    }
-
-    public static class WidgetColor {
-        public boolean showCard;
-        public boolean darkCard;
-        public boolean darkText;
-
-        public WidgetColor(Context context, boolean dayTime, String cardStyle, String textColor) {
-            showCard = !cardStyle.equals("none");
-            darkCard = cardStyle.equals("dark") || (cardStyle.equals("auto") && !dayTime);
-
-            darkText = showCard
-                    ? !darkCard // light card.
-                    : textColor.equals("dark") || (textColor.equals("auto") && isLightWallpaper(context));
-        }
-    }
 
     public static WidgetConfig getWidgetConfig(Context context, String sharedPreferencesName) {
         WidgetConfig config = new WidgetConfig();
@@ -376,7 +349,7 @@ public abstract class AbstractRemoteViewsPresenter {
     private static String replaceAlerts(@NonNull String subtitle, @NonNull Weather weather) {
         StringBuilder defaultBuilder = new StringBuilder();
         StringBuilder shortBuilder = new StringBuilder();
-        for (int i = 0; i < weather.getAlertList().size(); i ++) {
+        for (int i = 0; i < weather.getAlertList().size(); i++) {
             defaultBuilder.append(weather.getAlertList().get(i).getDescription())
                     .append(", ")
                     .append(
@@ -397,7 +370,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceDaytimeWeatherSubtitle(@NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "dw$",
                     weather.getDailyForecast().get(i).day().getWeatherText()
@@ -407,7 +380,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceNighttimeWeatherSubtitle(@NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "nw$",
                     weather.getDailyForecast().get(i).night().getWeatherText()
@@ -419,7 +392,7 @@ public abstract class AbstractRemoteViewsPresenter {
     private static String replaceDaytimeTemperatureSubtitle(Context context, @NonNull String subtitle,
                                                             @NonNull Weather weather, TemperatureUnit unit) {
 
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "dt$",
                     weather.getDailyForecast()
@@ -434,7 +407,7 @@ public abstract class AbstractRemoteViewsPresenter {
 
     private static String replaceNighttimeTemperatureSubtitle(Context context, @NonNull String subtitle,
                                                               @NonNull Weather weather, TemperatureUnit unit) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "nt$",
                     weather.getDailyForecast()
@@ -451,7 +424,7 @@ public abstract class AbstractRemoteViewsPresenter {
                                                                   @NonNull String subtitle,
                                                                   @NonNull Weather weather,
                                                                   TemperatureUnit unit) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "dtd$",
                     weather.getDailyForecast()
@@ -468,7 +441,7 @@ public abstract class AbstractRemoteViewsPresenter {
                                                                     @NonNull String subtitle,
                                                                     @NonNull Weather weather,
                                                                     TemperatureUnit unit) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "ntd$",
                     weather.getDailyForecast()
@@ -484,7 +457,7 @@ public abstract class AbstractRemoteViewsPresenter {
     private static String replaceDaytimePrecipitationSubtitle(Context context,
                                                               @NonNull String subtitle,
                                                               @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "dp$",
                     ProbabilityUnit.PERCENT.getProbabilityText(
@@ -506,7 +479,7 @@ public abstract class AbstractRemoteViewsPresenter {
     private static String replaceNighttimePrecipitationSubtitle(Context context,
                                                                 @NonNull String subtitle,
                                                                 @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "np$",
                     ProbabilityUnit.PERCENT.getProbabilityText(
@@ -526,7 +499,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceDaytimeWindSubtitle(@NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "dwd$",
                     weather.getDailyForecast().get(i).day().getWind().getLevel()
@@ -539,7 +512,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceNighttimeWindSubtitle(@NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "nwd$",
                     weather.getDailyForecast().get(i).night().getWind().getLevel()
@@ -552,7 +525,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceSunriseSubtitle(Context context, @NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "sr$",
                     weather.getDailyForecast().get(i).sun().getRiseTime(context) + ""
@@ -562,7 +535,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceSunsetSubtitle(Context context, @NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "ss$",
                     weather.getDailyForecast().get(i).sun().getSetTime(context) + ""
@@ -572,7 +545,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceMoonriseSubtitle(Context context, @NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "mr$",
                     weather.getDailyForecast().get(i).moon().getRiseTime(context) + ""
@@ -582,7 +555,7 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceMoonsetSubtitle(Context context, @NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "ms$",
                     weather.getDailyForecast().get(i).moon().getSetTime(context) + ""
@@ -592,12 +565,39 @@ public abstract class AbstractRemoteViewsPresenter {
     }
 
     private static String replaceMoonPhaseSubtitle(Context context, @NonNull String subtitle, @NonNull Weather weather) {
-        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i ++) {
+        for (int i = 0; i < SUBTITLE_DAILY_ITEM_LENGTH; i++) {
             subtitle = subtitle.replace(
                     "$" + i + "mp$",
                     weather.getDailyForecast().get(i).getMoonPhase().getMoonPhase(context) + ""
             );
         }
         return subtitle;
+    }
+
+    public static class WidgetConfig {
+        public String viewStyle;
+        public String cardStyle;
+        public int cardAlpha;
+        public String textColor;
+        public int textSize;
+        public boolean hideSubtitle;
+        public String subtitleData;
+        public String clockFont;
+        public boolean hideLunar;
+    }
+
+    public static class WidgetColor {
+        public boolean showCard;
+        public boolean darkCard;
+        public boolean darkText;
+
+        public WidgetColor(Context context, boolean dayTime, String cardStyle, String textColor) {
+            showCard = !cardStyle.equals("none");
+            darkCard = cardStyle.equals("dark") || (cardStyle.equals("auto") && !dayTime);
+
+            darkText = showCard
+                    ? !darkCard // light card.
+                    : textColor.equals("dark") || (textColor.equals("auto") && isLightWallpaper(context));
+        }
     }
 }

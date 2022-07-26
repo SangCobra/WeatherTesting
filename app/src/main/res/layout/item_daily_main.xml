@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_daily"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/_4sdp"
-    android:paddingEnd="@dimen/_4sdp"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
-    android:background="@android:color/transparent">
+    android:paddingStart="@dimen/_4sdp"
+    android:paddingEnd="@dimen/_4sdp">
+
     <TextView
         android:id="@+id/time_in_daily"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_23sdp"
-        android:text="@string/now"
-        android:gravity="center"
         android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:textAllCaps="true"
         android:background="@drawable/shape_border_daily"
         android:fontFamily="@font/montserrat_regular"
-        android:textSize="@dimen/_10sdp"/>
+        android:gravity="center"
+        android:text="@string/now"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10sdp" />
+
     <ImageView
         android:id="@+id/icon_weather_in_daily"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/_8sdp"
-        android:src="@drawable/sun_cloudy"
-        android:layout_gravity="center"/>
+        android:src="@drawable/sun_cloudy" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/icon_daily_trend"
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_10sdp"
-            android:src="@drawable/ic_wi_umbrella_yellow"
+            android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_3sdp"
-            android:layout_gravity="center"/>
+            android:src="@drawable/ic_wi_umbrella_yellow" />
+
         <TextView
             android:id="@+id/percent_rain_down_in_daily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:fontFamily="@font/montserrat_regular"
             android:gravity="center"
             android:text="80%"
-            android:textSize="@dimen/_10sdp"
             android:textColor="#5DCEFF"
-            android:fontFamily="@font/montserrat_regular"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_4sdp"/>
+            android:textSize="@dimen/_10sdp" />
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_90sdp"
-        android:orientation="vertical"
         android:layout_gravity="center|bottom"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -70,8 +74,7 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/length_to_percent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/percent_in_daily_up"
@@ -83,20 +86,22 @@
                 android:textSize="@dimen/_14sdp" />
 
         </LinearLayout>
+
         <FrameLayout
             android:id="@+id/length_to_percent"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="@dimen/_4sdp"
             app:layout_constraintBottom_toTopOf="@id/linear_min"
-            android:layout_marginBottom="@dimen/_4sdp">
-            <ImageView  
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center|bottom"
-                android:src="@drawable/ic_rectangle_21"/>
+                android:src="@drawable/ic_rectangle_21" />
         </FrameLayout>
 
         <LinearLayout
@@ -104,12 +109,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/_4sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/percent_in_daily_down"

@@ -15,14 +15,15 @@ import mtgtech.com.weather_forecast.weather_model.model.location.ChineseCity;
 
 /**
  * File utils.
- * */
+ */
 
 public class FileUtils {
 
     public static List<ChineseCity> readCityList(Context context) {
         return new Gson().fromJson(
                 readAssetFileToString(context, "city_list.txt"),
-                new TypeToken<List<ChineseCity>>() {}.getType()
+                new TypeToken<List<ChineseCity>>() {
+                }.getType()
         );
     }
 

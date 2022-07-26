@@ -7,20 +7,29 @@ import java.io.Serializable;
 
 /**
  * Half day.
- * */
+ */
 public class HalfDay implements Serializable {
 
-    @NonNull private String weatherText;
-    @NonNull private String weatherPhase;
-    @NonNull private WeatherCode weatherCode;
+    @NonNull
+    private String weatherText;
+    @NonNull
+    private String weatherPhase;
+    @NonNull
+    private WeatherCode weatherCode;
 
-    @NonNull private Temperature temperature;
-    @NonNull private Precipitation precipitation;
-    @NonNull private PrecipitationProbability precipitationProbability;
-    @NonNull private PrecipitationDuration precipitationDuration;
-    @NonNull private Wind wind;
+    @NonNull
+    private Temperature temperature;
+    @NonNull
+    private Precipitation precipitation;
+    @NonNull
+    private PrecipitationProbability precipitationProbability;
+    @NonNull
+    private PrecipitationDuration precipitationDuration;
+    @NonNull
+    private Wind wind;
 
-    @Nullable private Integer cloudCover;
+    @Nullable
+    private Integer cloudCover;
 
     public HalfDay(@NonNull String weatherText, @NonNull String weatherPhase, @NonNull WeatherCode weatherCode,
                    @NonNull Temperature temperature,

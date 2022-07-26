@@ -10,11 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
 import mtgtech.com.weather_forecast.WeatherFlow;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.resource.Constants;
 import mtgtech.com.weather_forecast.resource.ResourceUtils;
 import mtgtech.com.weather_forecast.view.image.pixel.PixelMoonDrawable;
 import mtgtech.com.weather_forecast.view.image.pixel.PixelSunDrawable;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 public class PixelResourcesProvider extends IconPackResourcesProvider {
 
@@ -57,7 +57,7 @@ public class PixelResourcesProvider extends IconPackResourcesProvider {
     @Override
     @Size(3)
     public Drawable[] getWeatherIcons(WeatherCode code, boolean dayTime) {
-        return new Drawable[] {getWeatherIcon(code, dayTime), null, null};
+        return new Drawable[]{getWeatherIcon(code, dayTime), null, null};
     }
 
     @Override
@@ -67,7 +67,7 @@ public class PixelResourcesProvider extends IconPackResourcesProvider {
 
     @Override
     String getWeatherIconName(WeatherCode code, boolean daytime,
-                                     @IntRange(from = 1, to = 3) int index) {
+                              @IntRange(from = 1, to = 3) int index) {
         if (index == 1) {
             return getWeatherIconName(code, daytime);
         } else {
@@ -80,7 +80,7 @@ public class PixelResourcesProvider extends IconPackResourcesProvider {
     @Override
     @Size(3)
     public Animator[] getWeatherAnimators(WeatherCode code, boolean dayTime) {
-        return new Animator[] {null, null, null};
+        return new Animator[]{null, null, null};
     }
 
     @Override

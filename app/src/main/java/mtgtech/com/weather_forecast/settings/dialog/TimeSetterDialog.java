@@ -5,14 +5,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.preference.PreferenceManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.preference.PreferenceManager;
 
 import java.util.Calendar;
 
@@ -21,7 +21,7 @@ import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 
 /**
  * Time setter dialog.
- * */
+ */
 
 public class TimeSetterDialog extends DialogFragment
         implements View.OnClickListener, TimePicker.OnTimeChangedListener {
@@ -72,15 +72,9 @@ public class TimeSetterDialog extends DialogFragment
 
     // on time changed listener.
 
-    public interface OnTimeChangedListener {
-        void timeChanged();
-    }
-
     public void setOnTimeChangedListener(OnTimeChangedListener l) {
         this.listener = l;
     }
-
-    // on time changed listener.
 
     @Override
     public void onTimeChanged(TimePicker timePicker, int i, int i1) {
@@ -88,7 +82,7 @@ public class TimeSetterDialog extends DialogFragment
         this.minute = i1;
     }
 
-    // on click.
+    // on time changed listener.
 
     @Override
     public void onClick(View v) {
@@ -133,5 +127,11 @@ public class TimeSetterDialog extends DialogFragment
                 dismiss();
                 break;
         }
+    }
+
+    // on click.
+
+    public interface OnTimeChangedListener {
+        void timeChanged();
     }
 }

@@ -2,14 +2,15 @@ package mtgtech.com.weather_forecast.view.weather_widget.verticalScrollView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 /**
  * Vertical swipe refresh layout.
- * */
+ */
 
 public class VerticalSwipeRefreshLayout extends SwipeRefreshLayout {
 

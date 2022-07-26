@@ -23,15 +23,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.DailyTrendDisplay;
-import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 import mtgtech.com.weather_forecast.databinding.ActivityDailyTrendDisplayManageBinding;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.settings.adapter.DailyTrendDisplayAdapter;
 import mtgtech.com.weather_forecast.view.adapter.TagAdapter;
 import mtgtech.com.weather_forecast.view.decotarion.GridMarginsDecoration;
 import mtgtech.com.weather_forecast.view.decotarion.ListDecoration;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.DailyTrendDisplay;
+import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 
 public class DailyTrendDisplayManageActivity extends GeoActivity {
 
@@ -39,71 +39,10 @@ public class DailyTrendDisplayManageActivity extends GeoActivity {
     private DailyTrendDisplayAdapter dailyTrendDisplayAdapter;
     private TagAdapter tagAdapter;
 
-    private @Nullable AnimatorSet bottomAnimator;
-    private @Nullable Boolean bottomBarVisibility;
-
-    private class DailyTrendTag implements TagAdapter.Tag {
-
-        DailyTrendDisplay tag;
-
-        DailyTrendTag(DailyTrendDisplay tag) {
-            this.tag = tag;
-        }
-
-        @Override
-        public String getName() {
-            return tag.getTagName(DailyTrendDisplayManageActivity.this);
-        }
-    }
-
-    private class CardDisplaySwipeCallback extends ItemTouchHelper.SimpleCallback {
-
-        CardDisplaySwipeCallback(int dragDirs, int swipeDirs) {
-            super(dragDirs, swipeDirs);
-        }
-
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView,
-                              @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            setResult(RESULT_OK);
-
-            int fromPosition = viewHolder.getAdapterPosition();
-            int toPosition = target.getAdapterPosition();
-
-            dailyTrendDisplayAdapter.moveItem(fromPosition, toPosition);
-            ((DailyTrendDisplayAdapter.ViewHolder) viewHolder).drawDrag(DailyTrendDisplayManageActivity.this, false);
-            return true;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            setResult(RESULT_OK);
-            dailyTrendDisplayAdapter.removeItem(viewHolder.getAdapterPosition());
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c,
-                                @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            switch (actionState) {
-                case ItemTouchHelper.ACTION_STATE_SWIPE:
-                    ((DailyTrendDisplayAdapter.ViewHolder) viewHolder).drawSwipe(dX);
-                    break;
-
-                case ItemTouchHelper.ACTION_STATE_DRAG:
-                    ((DailyTrendDisplayAdapter.ViewHolder) viewHolder)
-                            .drawDrag(DailyTrendDisplayManageActivity.this, dY != 0);
-                    break;
-
-                case ItemTouchHelper.ACTION_STATE_IDLE:
-                    ((DailyTrendDisplayAdapter.ViewHolder) viewHolder)
-                            .drawSwipe(0)
-                            .drawDrag(DailyTrendDisplayManageActivity.this, false);
-                    break;
-            }
-        }
-    }
+    private @Nullable
+    AnimatorSet bottomAnimator;
+    private @Nullable
+    Boolean bottomBarVisibility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +78,8 @@ public class DailyTrendDisplayManageActivity extends GeoActivity {
         otherTags.add(DailyTrendDisplay.TAG_WIND);
         otherTags.add(DailyTrendDisplay.TAG_UV_INDEX);
         otherTags.add(DailyTrendDisplay.TAG_PRECIPITATION);
-        for (int i = otherTags.size() - 1; i >= 0; i --) {
-            for (int j = 0; j < displayTags.size(); j ++) {
+        for (int i = otherTags.size() - 1; i >= 0; i--) {
+            for (int j = 0; j < displayTags.size(); j++) {
                 if (otherTags.get(i) == displayTags.get(j)) {
                     otherTags.remove(i);
                     break;
@@ -224,6 +163,69 @@ public class DailyTrendDisplayManageActivity extends GeoActivity {
                     ? new DecelerateInterpolator(2f)
                     : new AccelerateInterpolator(2f));
             bottomAnimator.start();
+        }
+    }
+
+    private class DailyTrendTag implements TagAdapter.Tag {
+
+        DailyTrendDisplay tag;
+
+        DailyTrendTag(DailyTrendDisplay tag) {
+            this.tag = tag;
+        }
+
+        @Override
+        public String getName() {
+            return tag.getTagName(DailyTrendDisplayManageActivity.this);
+        }
+    }
+
+    private class CardDisplaySwipeCallback extends ItemTouchHelper.SimpleCallback {
+
+        CardDisplaySwipeCallback(int dragDirs, int swipeDirs) {
+            super(dragDirs, swipeDirs);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView,
+                              @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            setResult(RESULT_OK);
+
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+
+            dailyTrendDisplayAdapter.moveItem(fromPosition, toPosition);
+            ((DailyTrendDisplayAdapter.ViewHolder) viewHolder).drawDrag(DailyTrendDisplayManageActivity.this, false);
+            return true;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            setResult(RESULT_OK);
+            dailyTrendDisplayAdapter.removeItem(viewHolder.getAdapterPosition());
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c,
+                                @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            switch (actionState) {
+                case ItemTouchHelper.ACTION_STATE_SWIPE:
+                    ((DailyTrendDisplayAdapter.ViewHolder) viewHolder).drawSwipe(dX);
+                    break;
+
+                case ItemTouchHelper.ACTION_STATE_DRAG:
+                    ((DailyTrendDisplayAdapter.ViewHolder) viewHolder)
+                            .drawDrag(DailyTrendDisplayManageActivity.this, dY != 0);
+                    break;
+
+                case ItemTouchHelper.ACTION_STATE_IDLE:
+                    ((DailyTrendDisplayAdapter.ViewHolder) viewHolder)
+                            .drawSwipe(0)
+                            .drawDrag(DailyTrendDisplayManageActivity.this, false);
+                    break;
+            }
         }
     }
 }

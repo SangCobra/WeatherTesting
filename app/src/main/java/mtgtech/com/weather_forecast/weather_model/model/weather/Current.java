@@ -7,34 +7,50 @@ import java.io.Serializable;
 
 /**
  * Current.
- *
+ * <p>
  * default unit
  * {@link #relativeHumidity} : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit#PERCENT}
  * {@link #dewPoint} : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit#C}
  * {@link #visibility} : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.DistanceUnit#KM}
  * {@link #ceiling} : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.DistanceUnit#KM}
- * */
+ */
 public class Current implements Serializable {
 
-    @NonNull private String weatherText;
-    @NonNull private WeatherCode weatherCode;
+    @NonNull
+    private String weatherText;
+    @NonNull
+    private WeatherCode weatherCode;
 
-    @NonNull private Temperature temperature;
-    @NonNull private Precipitation precipitation;
-    @NonNull private PrecipitationProbability precipitationProbability;
-    @NonNull private Wind wind;
-    @NonNull private UV uv;
-    @NonNull private AirQuality airQuality;
+    @NonNull
+    private Temperature temperature;
+    @NonNull
+    private Precipitation precipitation;
+    @NonNull
+    private PrecipitationProbability precipitationProbability;
+    @NonNull
+    private Wind wind;
+    @NonNull
+    private UV uv;
+    @NonNull
+    private AirQuality airQuality;
 
-    @Nullable private Float relativeHumidity;
-    @Nullable private Float pressure;
-    @Nullable private Float visibility;
-    @Nullable private Integer dewPoint;
-    @Nullable private Integer cloudCover;
-    @Nullable private Float ceiling;
+    @Nullable
+    private Float relativeHumidity;
+    @Nullable
+    private Float pressure;
+    @Nullable
+    private Float visibility;
+    @Nullable
+    private Integer dewPoint;
+    @Nullable
+    private Integer cloudCover;
+    @Nullable
+    private Float ceiling;
 
-    @Nullable private String dailyForecast;
-    @Nullable private String hourlyForecast;
+    @Nullable
+    private String dailyForecast;
+    @Nullable
+    private String hourlyForecast;
 
     public Current(@NonNull String weatherText, @NonNull WeatherCode weatherCode,
                    @NonNull Temperature temperature,

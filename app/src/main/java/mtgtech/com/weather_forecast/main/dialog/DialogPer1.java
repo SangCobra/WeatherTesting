@@ -15,6 +15,7 @@ import mtgtech.com.weather_forecast.main.MainActivity;
 public class DialogPer1 extends AppCompatActivity {
 
     public static BackgroundLocationDialog.OnSetButtonClickListener listener;
+
     public static void start(Context context) {
         Intent starter = new Intent(context, DialogPer1.class);
         context.startActivity(starter);

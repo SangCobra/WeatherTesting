@@ -11,8 +11,8 @@
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="5dip">
 
         <LinearLayout
@@ -81,13 +81,13 @@
 
             </RelativeLayout>
 
-<!--            <ImageView-->
-<!--                android:layout_width="fill_parent"-->
-<!--                android:layout_height="0dip"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="@color/lightTransparent"-->
-<!--                android:clickable="false"-->
-<!--                android:gravity="center" />-->
+            <!--            <ImageView-->
+            <!--                android:layout_width="fill_parent"-->
+            <!--                android:layout_height="0dip"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:background="@color/lightTransparent"-->
+            <!--                android:clickable="false"-->
+            <!--                android:gravity="center" />-->
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -137,6 +137,7 @@
             android:layout_alignParentTop="true" />
 
     </RelativeLayout>
+
     <Button
         android:layout_width="@dimen/_90sdp"
         android:layout_height="40dip"

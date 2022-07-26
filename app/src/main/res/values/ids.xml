@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item type="id" name="tag_icon_day" />
-    <item type="id" name="tag_icon_night" />
+    <item name="tag_icon_day" type="id" />
+    <item name="tag_icon_night" type="id" />
 
-    <item type="id" name="tag_icon_top" />
-    <item type="id" name="tag_icon_bottom" />
+    <item name="tag_icon_top" type="id" />
+    <item name="tag_icon_bottom" type="id" />
 
 </resources>

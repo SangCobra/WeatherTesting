@@ -3,10 +3,10 @@ package mtgtech.com.weather_forecast.db.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Minutely;
 import mtgtech.com.weather_forecast.db.entity.MinutelyEntity;
 import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Minutely;
 
 public class MinutelyEntityConverter {
 
@@ -15,7 +15,7 @@ public class MinutelyEntityConverter {
 
         entity.cityId = cityId;
         entity.weatherSource = new WeatherSourceConverter().convertToDatabaseValue(source);
-        
+
         entity.date = minutely.getDate();
         entity.time = minutely.getTime();
         entity.daylight = minutely.isDaylight();

@@ -25,14 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.CardDisplay;
-import mtgtech.com.weather_forecast.view.adapter.TagAdapter;
-import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.settings.adapter.CardDisplayAdapter;
+import mtgtech.com.weather_forecast.view.adapter.TagAdapter;
 import mtgtech.com.weather_forecast.view.decotarion.GridMarginsDecoration;
 import mtgtech.com.weather_forecast.view.decotarion.ListDecoration;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.CardDisplay;
+import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 
 public class CardDisplayManageActivity extends GeoActivity {
 
@@ -40,72 +40,10 @@ public class CardDisplayManageActivity extends GeoActivity {
     private TagAdapter tagAdapter;
 
     private FrameLayout bottomBar;
-    private @Nullable AnimatorSet bottomAnimator;
-    private @Nullable Boolean bottomBarVisibility;
-
-    private class CardTag implements TagAdapter.Tag {
-
-        CardDisplay card;
-
-        CardTag(CardDisplay card) {
-            this.card = card;
-        }
-
-        @Override
-        public String getName() {
-            return card.getCardName(CardDisplayManageActivity.this);
-        }
-    }
-
-    private class CardDisplaySwipeCallback extends ItemTouchHelper.SimpleCallback {
-
-        CardDisplaySwipeCallback(int dragDirs, int swipeDirs) {
-            super(dragDirs, swipeDirs);
-        }
-
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView,
-                              @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            setResult(RESULT_OK);
-
-            int fromPosition = viewHolder.getAdapterPosition();
-            int toPosition = target.getAdapterPosition();
-
-            cardDisplayAdapter.moveItem(fromPosition, toPosition);
-            ((CardDisplayAdapter.ViewHolder) viewHolder).drawDrag(CardDisplayManageActivity.this, false);
-            return true;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            setResult(RESULT_OK);
-            cardDisplayAdapter.removeItem(viewHolder.getAdapterPosition());
-        }
-
-        @Override
-        public void onChildDraw(@NonNull Canvas c,
-                                @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
-                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            switch (actionState) {
-                case ItemTouchHelper.ACTION_STATE_SWIPE:
-                    ((CardDisplayAdapter.ViewHolder) viewHolder)
-                            .drawSwipe(dX);
-                    break;
-
-                case ItemTouchHelper.ACTION_STATE_DRAG:
-                    ((CardDisplayAdapter.ViewHolder) viewHolder)
-                            .drawDrag(CardDisplayManageActivity.this, dY != 0);
-                    break;
-
-                case ItemTouchHelper.ACTION_STATE_IDLE:
-                    ((CardDisplayAdapter.ViewHolder) viewHolder)
-                            .drawSwipe(0)
-                            .drawDrag(CardDisplayManageActivity.this, false);
-                    break;
-            }
-        }
-    }
+    private @Nullable
+    AnimatorSet bottomAnimator;
+    private @Nullable
+    Boolean bottomBarVisibility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +80,8 @@ public class CardDisplayManageActivity extends GeoActivity {
         otherCards.add(CardDisplay.CARD_ALLERGEN);
         otherCards.add(CardDisplay.CARD_SUNRISE_SUNSET);
         otherCards.add(CardDisplay.CARD_LIFE_DETAILS);
-        for (int i = otherCards.size() - 1; i >= 0; i --) {
-            for (int j = 0; j < displayCards.size(); j ++) {
+        for (int i = otherCards.size() - 1; i >= 0; i--) {
+            for (int j = 0; j < displayCards.size(); j++) {
                 if (otherCards.get(i) == displayCards.get(j)) {
                     otherCards.remove(i);
                     break;
@@ -228,6 +166,70 @@ public class CardDisplayManageActivity extends GeoActivity {
                     ? new DecelerateInterpolator(2f)
                     : new AccelerateInterpolator(2f));
             bottomAnimator.start();
+        }
+    }
+
+    private class CardTag implements TagAdapter.Tag {
+
+        CardDisplay card;
+
+        CardTag(CardDisplay card) {
+            this.card = card;
+        }
+
+        @Override
+        public String getName() {
+            return card.getCardName(CardDisplayManageActivity.this);
+        }
+    }
+
+    private class CardDisplaySwipeCallback extends ItemTouchHelper.SimpleCallback {
+
+        CardDisplaySwipeCallback(int dragDirs, int swipeDirs) {
+            super(dragDirs, swipeDirs);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView,
+                              @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            setResult(RESULT_OK);
+
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+
+            cardDisplayAdapter.moveItem(fromPosition, toPosition);
+            ((CardDisplayAdapter.ViewHolder) viewHolder).drawDrag(CardDisplayManageActivity.this, false);
+            return true;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            setResult(RESULT_OK);
+            cardDisplayAdapter.removeItem(viewHolder.getAdapterPosition());
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c,
+                                @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            switch (actionState) {
+                case ItemTouchHelper.ACTION_STATE_SWIPE:
+                    ((CardDisplayAdapter.ViewHolder) viewHolder)
+                            .drawSwipe(dX);
+                    break;
+
+                case ItemTouchHelper.ACTION_STATE_DRAG:
+                    ((CardDisplayAdapter.ViewHolder) viewHolder)
+                            .drawDrag(CardDisplayManageActivity.this, dY != 0);
+                    break;
+
+                case ItemTouchHelper.ACTION_STATE_IDLE:
+                    ((CardDisplayAdapter.ViewHolder) viewHolder)
+                            .drawSwipe(0)
+                            .drawDrag(CardDisplayManageActivity.this, false);
+                    break;
+            }
         }
     }
 }

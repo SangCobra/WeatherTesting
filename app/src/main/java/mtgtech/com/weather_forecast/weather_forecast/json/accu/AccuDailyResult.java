@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Accu daily result.
- * */
+ */
 
 public class AccuDailyResult {
 

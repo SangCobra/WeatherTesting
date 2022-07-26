@@ -15,6 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.main.adapter.main.MainTag;
+import mtgtech.com.weather_forecast.main.adapter.trend.HourlyTrendAdapter;
+import mtgtech.com.weather_forecast.main.layout.TrendHorizontalLinearLayoutManager;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.adapter.TagAdapter;
+import mtgtech.com.weather_forecast.view.decotarion.GridMarginsDecoration;
+import mtgtech.com.weather_forecast.view.weather_widget.PrecipitationBar;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
@@ -22,16 +32,6 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Minutely;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.main.adapter.main.MainTag;
-import mtgtech.com.weather_forecast.main.adapter.trend.HourlyTrendAdapter;
-import mtgtech.com.weather_forecast.main.layout.TrendHorizontalLinearLayoutManager;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.view.adapter.TagAdapter;
-import mtgtech.com.weather_forecast.view.decotarion.GridMarginsDecoration;
-import mtgtech.com.weather_forecast.view.weather_widget.PrecipitationBar;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 public class HourlyViewHolder extends AbstractMainCardViewHolder {
 
@@ -70,6 +70,15 @@ public class HourlyViewHolder extends AbstractMainCardViewHolder {
         minutelyContainer.setOnClickListener(v -> {
 
         });
+    }
+
+    private static boolean needToShowMinutelyForecast(List<Minutely> minutelyList) {
+        for (Minutely m : minutelyList) {
+            if (m.isPrecipitation()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -150,15 +159,6 @@ public class HourlyViewHolder extends AbstractMainCardViewHolder {
         }
     }
 
-    private static boolean needToShowMinutelyForecast(List<Minutely> minutelyList) {
-        for (Minutely m : minutelyList) {
-            if (m.isPrecipitation()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void setTrendAdapterByTag(Weather weather, MainTag tag) {
         switch (tag.getType()) {
             case TEMPERATURE:
@@ -192,7 +192,7 @@ public class HourlyViewHolder extends AbstractMainCardViewHolder {
         int precipitationCount = 0;
         for (Hourly h : weather.getHourlyForecast()) {
             if (h.getWeatherCode().isPercipitation() && h.getPrecipitation().isValid()) {
-                precipitationCount ++;
+                precipitationCount++;
             }
         }
         if (precipitationCount < 3) {

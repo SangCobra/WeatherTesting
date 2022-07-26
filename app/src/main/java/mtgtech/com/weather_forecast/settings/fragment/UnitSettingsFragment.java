@@ -8,7 +8,7 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * Unit settings fragment.
- * */
+ */
 
 public class UnitSettingsFragment extends AbstractSettingsFragment {
 
@@ -58,7 +58,7 @@ public class UnitSettingsFragment extends AbstractSettingsFragment {
         ListPreference pressure = findPreference(getString(R.string.key_pressure_unit));
         pressure.setSummary(getSettingsOptionManager().getPressureUnit().getAbbreviation(requireActivity()));
         pressure.setOnPreferenceChangeListener((p, newValue) -> {
-            getSettingsOptionManager().setPressureUnit((String)newValue);
+            getSettingsOptionManager().setPressureUnit((String) newValue);
             pressure.setSummary(getSettingsOptionManager().getPressureUnit().getAbbreviation(requireActivity()));
 //            SnackbarUtils.showSnackbar(
 //                    (GeoActivity) requireActivity(), getString(R.string.feedback_refresh_ui_after_refresh));
@@ -69,7 +69,7 @@ public class UnitSettingsFragment extends AbstractSettingsFragment {
         ListPreference speed = findPreference(getString(R.string.key_speed_unit));
         speed.setSummary(getSettingsOptionManager().getSpeedUnit().getAbbreviation(requireActivity()));
         speed.setOnPreferenceChangeListener((p, newValue) -> {
-            getSettingsOptionManager().setSpeedUnit((String)newValue);
+            getSettingsOptionManager().setSpeedUnit((String) newValue);
             speed.setSummary(getSettingsOptionManager().getSpeedUnit().getAbbreviation(requireActivity()));
 //            SnackbarUtils.showSnackbar(
 //                    (GeoActivity) requireActivity(), getString(R.string.feedback_refresh_ui_after_refresh));

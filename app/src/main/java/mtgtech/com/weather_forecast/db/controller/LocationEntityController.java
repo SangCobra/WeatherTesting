@@ -10,7 +10,7 @@ import mtgtech.com.weather_forecast.db.entity.LocationEntity;
 import mtgtech.com.weather_forecast.db.entity.LocationEntityDao;
 
 public class LocationEntityController extends AbsEntityController<LocationEntity> {
-    
+
     public LocationEntityController(DaoSession session) {
         super(session);
     }

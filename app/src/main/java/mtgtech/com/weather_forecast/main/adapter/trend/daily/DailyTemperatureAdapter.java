@@ -14,20 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.resource.ResourceHelper;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.item.DailyTrendItemView;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.ProbabilityUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.resource.ResourceHelper;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.PolylineAndHistogramView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.item.DailyTrendItemView;
-import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 
 /**
  * Daily temperature adapter.
@@ -47,104 +46,6 @@ public abstract class DailyTemperatureAdapter extends AbsDailyTrendAdapter<Daily
     private int lowestTemperature;
 
     private boolean showPrecipitationProbability;
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        private DailyTrendItemView dailyItem;
-        private PolylineAndHistogramView polylineAndHistogramView;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            dailyItem = itemView.findViewById(R.id.item_trend_daily);
-            dailyItem.setParent(getTrendParent());
-
-            polylineAndHistogramView = new PolylineAndHistogramView(itemView.getContext());
-            dailyItem.setChartItemView(polylineAndHistogramView);
-        }
-
-        @SuppressLint("SetTextI18n, InflateParams")
-        void onBindView(int position) {
-            Context context = itemView.getContext();
-            Daily daily = weather.getDailyForecast().get(position);
-
-            if (daily.isToday(timeZone)) {
-                dailyItem.setWeekText(context.getString(R.string.today));
-            } else {
-                dailyItem.setWeekText(daily.getWeek(context));
-            }
-
-            dailyItem.setDateText(daily.getShortDate(context));
-
-            dailyItem.setTextColor(
-                    themeManager.getTextContentColor(context),
-                    themeManager.getTextSubtitleColor(context)
-            );
-
-            dailyItem.setDayIconDrawable(
-                    ResourceHelper.getWeatherIcon(provider, daily.day().getWeatherCode(), true));
-
-            Float daytimePrecipitationProbability = daily.day().getPrecipitationProbability().getTotal();
-            Float nighttimePrecipitationProbability = daily.night().getPrecipitationProbability().getTotal();
-            float p = Math.max(
-                    daytimePrecipitationProbability == null ? 0 : daytimePrecipitationProbability,
-                    nighttimePrecipitationProbability == null ? 0 : nighttimePrecipitationProbability
-            );
-            if (!showPrecipitationProbability) {
-                p = 0;
-            }
-            polylineAndHistogramView.setData(
-                    buildTemperatureArrayForItem(daytimeTemperatures, position),
-                    buildTemperatureArrayForItem(nighttimeTemperatures, position),
-                    getShortDaytimeTemperatureString(weather, position, unit),
-                    getShortNighttimeTemperatureString(weather, position, unit),
-                    (float) highestTemperature,
-                    (float) lowestTemperature,
-                    p < 5 ? null : p,
-                    p < 5 ? null : ProbabilityUnit.PERCENT.getProbabilityText(context, p),
-                    100f,
-                    0f
-            );
-            int[] themeColors = themeManager.getWeatherThemeColors();
-            polylineAndHistogramView.setLineColors(
-                    themeColors[1], themeColors[2], themeManager.getLineColor(context));
-            polylineAndHistogramView.setShadowColors(
-                    themeColors[1], themeColors[2], themeManager.isLightTheme());
-            polylineAndHistogramView.setTextColors(
-                    themeManager.getTextContentColor(context),
-                    themeManager.getTextSubtitleColor(context)
-            );
-            polylineAndHistogramView.setHistogramAlpha(themeManager.isLightTheme() ? 0.2f : 0.5f);
-
-            dailyItem.setNightIconDrawable(
-                    ResourceHelper.getWeatherIcon(provider, daily.night().getWeatherCode(), false));
-
-            dailyItem.setOnClickListener(v ->{
-//                        WeatherFlow.adUtil().showInterstitialAd((isLoaded, interstitial) -> {
-//                            onItemClicked(getAdapterPosition());
-//                        });
-
-                    }
-
-            );
-        }
-
-        @Size(3)
-        private Float[] buildTemperatureArrayForItem(float[] temps, int adapterPosition) {
-            Float[] a = new Float[3];
-            a[1] = temps[2 * adapterPosition];
-            if (2 * adapterPosition - 1 < 0) {
-                a[0] = null;
-            } else {
-                a[0] = temps[2 * adapterPosition - 1];
-            }
-            if (2 * adapterPosition + 1 >= temps.length) {
-                a[2] = null;
-            } else {
-                a[2] = temps[2 * adapterPosition + 1];
-            }
-            return a;
-        }
-    }
 
     @SuppressLint("SimpleDateFormat")
     public DailyTemperatureAdapter(GeoActivity activity, TrendRecyclerView parent,
@@ -265,4 +166,102 @@ public abstract class DailyTemperatureAdapter extends AbsDailyTrendAdapter<Daily
     protected abstract String getShortDaytimeTemperatureString(Weather weather, int index, TemperatureUnit unit);
 
     protected abstract String getShortNighttimeTemperatureString(Weather weather, int index, TemperatureUnit unit);
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        private DailyTrendItemView dailyItem;
+        private PolylineAndHistogramView polylineAndHistogramView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            dailyItem = itemView.findViewById(R.id.item_trend_daily);
+            dailyItem.setParent(getTrendParent());
+
+            polylineAndHistogramView = new PolylineAndHistogramView(itemView.getContext());
+            dailyItem.setChartItemView(polylineAndHistogramView);
+        }
+
+        @SuppressLint("SetTextI18n, InflateParams")
+        void onBindView(int position) {
+            Context context = itemView.getContext();
+            Daily daily = weather.getDailyForecast().get(position);
+
+            if (daily.isToday(timeZone)) {
+                dailyItem.setWeekText(context.getString(R.string.today));
+            } else {
+                dailyItem.setWeekText(daily.getWeek(context));
+            }
+
+            dailyItem.setDateText(daily.getShortDate(context));
+
+            dailyItem.setTextColor(
+                    themeManager.getTextContentColor(context),
+                    themeManager.getTextSubtitleColor(context)
+            );
+
+            dailyItem.setDayIconDrawable(
+                    ResourceHelper.getWeatherIcon(provider, daily.day().getWeatherCode(), true));
+
+            Float daytimePrecipitationProbability = daily.day().getPrecipitationProbability().getTotal();
+            Float nighttimePrecipitationProbability = daily.night().getPrecipitationProbability().getTotal();
+            float p = Math.max(
+                    daytimePrecipitationProbability == null ? 0 : daytimePrecipitationProbability,
+                    nighttimePrecipitationProbability == null ? 0 : nighttimePrecipitationProbability
+            );
+            if (!showPrecipitationProbability) {
+                p = 0;
+            }
+            polylineAndHistogramView.setData(
+                    buildTemperatureArrayForItem(daytimeTemperatures, position),
+                    buildTemperatureArrayForItem(nighttimeTemperatures, position),
+                    getShortDaytimeTemperatureString(weather, position, unit),
+                    getShortNighttimeTemperatureString(weather, position, unit),
+                    (float) highestTemperature,
+                    (float) lowestTemperature,
+                    p < 5 ? null : p,
+                    p < 5 ? null : ProbabilityUnit.PERCENT.getProbabilityText(context, p),
+                    100f,
+                    0f
+            );
+            int[] themeColors = themeManager.getWeatherThemeColors();
+            polylineAndHistogramView.setLineColors(
+                    themeColors[1], themeColors[2], themeManager.getLineColor(context));
+            polylineAndHistogramView.setShadowColors(
+                    themeColors[1], themeColors[2], themeManager.isLightTheme());
+            polylineAndHistogramView.setTextColors(
+                    themeManager.getTextContentColor(context),
+                    themeManager.getTextSubtitleColor(context)
+            );
+            polylineAndHistogramView.setHistogramAlpha(themeManager.isLightTheme() ? 0.2f : 0.5f);
+
+            dailyItem.setNightIconDrawable(
+                    ResourceHelper.getWeatherIcon(provider, daily.night().getWeatherCode(), false));
+
+            dailyItem.setOnClickListener(v -> {
+//                        WeatherFlow.adUtil().showInterstitialAd((isLoaded, interstitial) -> {
+//                            onItemClicked(getAdapterPosition());
+//                        });
+
+                    }
+
+            );
+        }
+
+        @Size(3)
+        private Float[] buildTemperatureArrayForItem(float[] temps, int adapterPosition) {
+            Float[] a = new Float[3];
+            a[1] = temps[2 * adapterPosition];
+            if (2 * adapterPosition - 1 < 0) {
+                a[0] = null;
+            } else {
+                a[0] = temps[2 * adapterPosition - 1];
+            }
+            if (2 * adapterPosition + 1 >= temps.length) {
+                a[2] = null;
+            } else {
+                a[2] = temps[2 * adapterPosition + 1];
+            }
+            return a;
+        }
+    }
 }

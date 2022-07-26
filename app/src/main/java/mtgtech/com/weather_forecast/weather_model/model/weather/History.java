@@ -9,9 +9,9 @@ import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureU
 
 /**
  * History.
- *
+ * <p>
  * All properties are {@link androidx.annotation.NonNull}.
- * */
+ */
 public class History implements Serializable {
 
     private Date date;
@@ -44,11 +44,11 @@ public class History implements Serializable {
     }
 
     public String getDaytimeTemperature(Context context, TemperatureUnit unit) {
-        return unit.getTemperatureTextWithoutDegree(context,daytimeTemperature);
+        return unit.getTemperatureTextWithoutDegree(context, daytimeTemperature);
 
     }
 
     public String getNighttimeTemperature(Context context, TemperatureUnit unit) {
-       return unit.getTemperatureTextWithoutDegree(context,nighttimeTemperature);
+        return unit.getTemperatureTextWithoutDegree(context, nighttimeTemperature);
     }
 }

@@ -22,19 +22,19 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Alert;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import mtgtech.com.weather_forecast.WeatherFlow;
+import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
-import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Alert;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 /**
  * Notification utils.
- * */
+ */
 
 public class NotificationUtils {
 
@@ -108,9 +108,9 @@ public class NotificationUtils {
 
         List<Alert> alertList = new ArrayList<>();
         if (oldResult != null) {
-            for (int i = 0; i < weather.getAlertList().size(); i ++) {
+            for (int i = 0; i < weather.getAlertList().size(); i++) {
                 boolean newAlert = true;
-                for (int j = 0; j < oldResult.getAlertList().size(); j ++) {
+                for (int j = 0; j < oldResult.getAlertList().size(); j++) {
                     if (weather.getAlertList().get(i).getAlertId()
                             == oldResult.getAlertList().get(j).getAlertId()) {
                         newAlert = false;
@@ -125,7 +125,7 @@ public class NotificationUtils {
             alertList.addAll(weather.getAlertList());
         }
 
-        for (int i = 0; i < alertList.size(); i ++) {
+        for (int i = 0; i < alertList.size(); i++) {
             sendAlertNotification(
                     context, location, alertList.get(i), alertList.size() > 1);
         }
@@ -299,7 +299,7 @@ public class NotificationUtils {
     }
 
     private static boolean isShortTermLiquid(Weather weather) {
-        for (int i = 0; i < 4; i ++) {
+        for (int i = 0; i < 4; i++) {
             if (weather.getHourlyForecast().get(i).getWeatherCode().isPercipitation()) {
                 return true;
             }

@@ -11,7 +11,8 @@ import androidx.annotation.Nullable;
 
 public class RotateDrawable extends Drawable {
 
-    private @Nullable Drawable drawable;
+    private @Nullable
+    Drawable drawable;
     private float degree;
 
     public RotateDrawable(@Nullable Drawable drawable) {

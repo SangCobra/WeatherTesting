@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Accu aqi result.
- * */
+ */
 
 public class AccuAqiResult {
 

@@ -19,87 +19,20 @@ import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeat
 
 /**
  * Hail implementor.
- * */
+ */
 
 public class HailImplementor extends MaterialWeatherView.WeatherAnimationImplementor {
 
+    public static final int TYPE_HAIL_DAY = 1;
+    public static final int TYPE_HAIL_NIGHT = 2;
+    private static final float INITIAL_ROTATION_3D = 1000;
     private Paint paint;
     private Path path;
     private Hail[] hails;
-
     private float lastDisplayRate;
-
     private float lastRotation3D;
-    private static final float INITIAL_ROTATION_3D = 1000;
-
     @ColorInt
     private int backgroundColor;
-
-    public static final int TYPE_HAIL_DAY = 1;
-    public static final int TYPE_HAIL_NIGHT = 2;
-
-    @IntDef({TYPE_HAIL_DAY, TYPE_HAIL_NIGHT})
-    @interface TypeRule {}
-
-    private class Hail {
-
-        private float cX;
-        private float cY;
-
-        float centerX;
-        float centerY;
-        float size;
-
-        float speed;
-
-        @ColorInt
-        int color;
-        float scale;
-
-        private int viewWidth;
-        private int viewHeight;
-
-        private int canvasSize;
-
-        private Hail(int viewWidth, int viewHeight, @ColorInt int color, float scale) {
-            this.viewWidth = viewWidth;
-            this.viewHeight = viewHeight;
-
-            this.canvasSize = (int) Math.pow(viewWidth * viewWidth + viewHeight * viewHeight, 0.5);
-
-            this.size = (float) (0.0324 * viewWidth);
-            this.speed = viewWidth / 125f;
-            this.color = color;
-            this.scale = scale;
-
-            this.init(true);
-        }
-
-        private void init(boolean firstTime) {
-            Random r = new Random();
-            cX = r.nextInt(canvasSize);
-            if (firstTime) {
-                cY = r.nextInt((int) (canvasSize - size)) - canvasSize;
-            } else {
-                cY = -size;
-            }
-            computeCenterPosition();
-        }
-
-        private void computeCenterPosition() {
-            centerX = (float) (cX - (canvasSize - viewWidth) * 0.5);
-            centerY = (float) (cY - (canvasSize - viewHeight) * 0.5);
-        }
-
-        void move(long interval, float deltaRotation3D) {
-            cY += speed * interval * (Math.pow(scale, 1.5) - 5 * Math.sin(deltaRotation3D * Math.PI / 180.0));
-            if (cY - size >= canvasSize) {
-                init(false);
-            } else {
-                computeCenterPosition();
-            }
-        }
-    }
 
     public HailImplementor(@Size(2) int[] canvasSizes, @TypeRule int type) {
         this.paint = new Paint();
@@ -112,7 +45,7 @@ public class HailImplementor extends MaterialWeatherView.WeatherAnimationImpleme
         switch (type) {
             case TYPE_HAIL_DAY:
                 backgroundColor = Color.rgb(80, 116, 193);
-                colors = new int[] {
+                colors = new int[]{
                         Color.rgb(101, 134, 203),
                         Color.rgb(152, 175, 222),
                         Color.rgb(255, 255, 255),};
@@ -120,16 +53,16 @@ public class HailImplementor extends MaterialWeatherView.WeatherAnimationImpleme
 
             case TYPE_HAIL_NIGHT:
                 backgroundColor = Color.rgb(42, 52, 69);
-                colors = new int[] {
+                colors = new int[]{
                         Color.rgb(64, 67, 85),
                         Color.rgb(127, 131, 154),
                         Color.rgb(255, 255, 255),};
                 break;
         }
-        float[] scales = new float[] {0.6F, 0.8F, 1};
+        float[] scales = new float[]{0.6F, 0.8F, 1};
 
         this.hails = new Hail[51];
-        for (int i = 0; i < hails.length; i ++) {
+        for (int i = 0; i < hails.length; i++) {
             hails[i] = new Hail(
                     canvasSizes[0], canvasSizes[1],
                     colors[i * 3 / hails.length], scales[i * 3 / hails.length]);
@@ -137,6 +70,18 @@ public class HailImplementor extends MaterialWeatherView.WeatherAnimationImpleme
 
         this.lastDisplayRate = 0;
         this.lastRotation3D = INITIAL_ROTATION_3D;
+    }
+
+    @ColorInt
+    public static int getThemeColor(Context context, @TypeRule int type) {
+        switch (type) {
+            case TYPE_HAIL_DAY:
+                return Color.rgb(80, 116, 193);
+
+            case TYPE_HAIL_NIGHT:
+                return Color.rgb(42, 52, 69);
+        }
+        return ContextCompat.getColor(context, R.color.colorPrimary);
     }
 
     @Override
@@ -187,15 +132,63 @@ public class HailImplementor extends MaterialWeatherView.WeatherAnimationImpleme
         lastDisplayRate = displayRate;
     }
 
-    @ColorInt
-    public static int getThemeColor(Context context, @TypeRule int type) {
-        switch (type) {
-            case TYPE_HAIL_DAY:
-                return Color.rgb(80, 116, 193);
+    @IntDef({TYPE_HAIL_DAY, TYPE_HAIL_NIGHT})
+    @interface TypeRule {
+    }
 
-            case TYPE_HAIL_NIGHT:
-                return Color.rgb(42, 52, 69);
+    private class Hail {
+
+        float centerX;
+        float centerY;
+        float size;
+        float speed;
+        @ColorInt
+        int color;
+        float scale;
+        private float cX;
+        private float cY;
+        private int viewWidth;
+        private int viewHeight;
+
+        private int canvasSize;
+
+        private Hail(int viewWidth, int viewHeight, @ColorInt int color, float scale) {
+            this.viewWidth = viewWidth;
+            this.viewHeight = viewHeight;
+
+            this.canvasSize = (int) Math.pow(viewWidth * viewWidth + viewHeight * viewHeight, 0.5);
+
+            this.size = (float) (0.0324 * viewWidth);
+            this.speed = viewWidth / 125f;
+            this.color = color;
+            this.scale = scale;
+
+            this.init(true);
         }
-        return ContextCompat.getColor(context, R.color.colorPrimary);
+
+        private void init(boolean firstTime) {
+            Random r = new Random();
+            cX = r.nextInt(canvasSize);
+            if (firstTime) {
+                cY = r.nextInt((int) (canvasSize - size)) - canvasSize;
+            } else {
+                cY = -size;
+            }
+            computeCenterPosition();
+        }
+
+        private void computeCenterPosition() {
+            centerX = (float) (cX - (canvasSize - viewWidth) * 0.5);
+            centerY = (float) (cY - (canvasSize - viewHeight) * 0.5);
+        }
+
+        void move(long interval, float deltaRotation3D) {
+            cY += speed * interval * (Math.pow(scale, 1.5) - 5 * Math.sin(deltaRotation3D * Math.PI / 180.0));
+            if (cY - size >= canvasSize) {
+                init(false);
+            } else {
+                computeCenterPosition();
+            }
+        }
     }
 }

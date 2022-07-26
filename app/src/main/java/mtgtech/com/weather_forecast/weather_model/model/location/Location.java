@@ -14,37 +14,44 @@ import java.util.List;
 import java.util.TimeZone;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.utils.LanguageUtils;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 /**
  * Location.
- * */
+ */
 
 public class Location
         implements Parcelable, Serializable {
 
-    private String cityId;
+    public static final String CURRENT_POSITION_ID = "CURRENT_POSITION";
+    public static final Creator<Location> CREATOR = new Creator<Location>() {
+        @Override
+        public Location createFromParcel(Parcel source) {
+            return new Location(source);
+        }
 
+        @Override
+        public Location[] newArray(int size) {
+            return new Location[size];
+        }
+    };
+    private static final String NULL_ID = "NULL_ID";
+    private String cityId;
     private float latitude;
     private float longitude;
     private TimeZone timeZone;
-
     private String country;
     private String province;
     private String city;
     private String district;
-
-    @Nullable private Weather weather;
+    @Nullable
+    private Weather weather;
     private WeatherSource weatherSource;
-
     private boolean currentPosition;
     private boolean residentPosition;
     private boolean china;
-
-    private static final String NULL_ID = "NULL_ID";
-    public static final String CURRENT_POSITION_ID = "CURRENT_POSITION";
 
     public Location(String cityId,
                     float latitude, float longitude, TimeZone timeZone,
@@ -66,6 +73,22 @@ public class Location
         this.china = china;
     }
 
+    protected Location(Parcel in) {
+        this.cityId = in.readString();
+        this.latitude = in.readFloat();
+        this.longitude = in.readFloat();
+        this.timeZone = (TimeZone) in.readSerializable();
+        this.country = in.readString();
+        this.province = in.readString();
+        this.city = in.readString();
+        this.district = in.readString();
+        int tmpWeatherSource = in.readInt();
+        this.weatherSource = tmpWeatherSource == -1 ? null : WeatherSource.values()[tmpWeatherSource];
+        this.currentPosition = in.readByte() != 0;
+        this.residentPosition = in.readByte() != 0;
+        this.china = in.readByte() != 0;
+    }
+
     public static Location buildLocal() {
         return new Location(
                 NULL_ID,
@@ -84,6 +107,38 @@ public class Location
                 null, WeatherSource.ACCU,
                 false, false, true
         );
+    }
+
+    private static boolean isEquals(@Nullable String a, @Nullable String b) {
+        if (TextUtils.isEmpty(a) && TextUtils.isEmpty(b)) {
+            return true;
+        } else if (!TextUtils.isEmpty(a) && !TextUtils.isEmpty(b)) {
+            return a.equals(b);
+        } else {
+            return false;
+        }
+    }
+
+    public static List<Location> excludeInvalidResidentLocation(Context context, List<Location> list) {
+        Location currentLocation = null;
+        for (Location l : list) {
+            if (l.isCurrentPosition()) {
+                currentLocation = l;
+                break;
+            }
+        }
+
+        List<Location> result = new ArrayList<>(list.size());
+        if (currentLocation == null) {
+            result.addAll(list);
+        } else {
+            for (Location l : list) {
+                if (!l.isResidentPosition() || !l.isCloseTo(context, currentLocation)) {
+                    result.add(l);
+                }
+            }
+        }
+        return result;
     }
 
     public void updateLocationResult(float latitude, float longitude, TimeZone timeZone,
@@ -224,48 +279,16 @@ public class Location
         this.weather = weather;
     }
 
-    public void setWeatherSource(WeatherSource source) {
-        this.weatherSource = source;
-    }
-
     public WeatherSource getWeatherSource() {
         return weatherSource;
     }
 
+    public void setWeatherSource(WeatherSource source) {
+        this.weatherSource = source;
+    }
+
     public boolean isChina() {
         return china;
-    }
-
-    private static boolean isEquals(@Nullable String a, @Nullable String b) {
-        if (TextUtils.isEmpty(a) && TextUtils.isEmpty(b)) {
-            return true;
-        } else if (!TextUtils.isEmpty(a) && !TextUtils.isEmpty(b)) {
-            return a.equals(b);
-        } else {
-            return false;
-        }
-    }
-
-    public static List<Location> excludeInvalidResidentLocation(Context context, List<Location> list) {
-        Location currentLocation = null;
-        for (Location l : list) {
-            if (l.isCurrentPosition()) {
-                currentLocation = l;
-                break;
-            }
-        }
-
-        List<Location> result = new ArrayList<>(list.size());
-        if (currentLocation == null) {
-            result.addAll(list);
-        } else {
-            for (Location l : list) {
-                if (!l.isResidentPosition() || !l.isCloseTo(context, currentLocation)) {
-                    result.add(l);
-                }
-            }
-        }
-        return result;
     }
 
     private boolean isCloseTo(Context c, Location location) {
@@ -304,34 +327,6 @@ public class Location
         dest.writeByte(this.residentPosition ? (byte) 1 : (byte) 0);
         dest.writeByte(this.china ? (byte) 1 : (byte) 0);
     }
-
-    protected Location(Parcel in) {
-        this.cityId = in.readString();
-        this.latitude = in.readFloat();
-        this.longitude = in.readFloat();
-        this.timeZone = (TimeZone) in.readSerializable();
-        this.country = in.readString();
-        this.province = in.readString();
-        this.city = in.readString();
-        this.district = in.readString();
-        int tmpWeatherSource = in.readInt();
-        this.weatherSource = tmpWeatherSource == -1 ? null : WeatherSource.values()[tmpWeatherSource];
-        this.currentPosition = in.readByte() != 0;
-        this.residentPosition = in.readByte() != 0;
-        this.china = in.readByte() != 0;
-    }
-
-    public static final Creator<Location> CREATOR = new Creator<Location>() {
-        @Override
-        public Location createFromParcel(Parcel source) {
-            return new Location(source);
-        }
-
-        @Override
-        public Location[] newArray(int size) {
-            return new Location[size];
-        }
-    };
 
 
 }

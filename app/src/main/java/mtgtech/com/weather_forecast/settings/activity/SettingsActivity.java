@@ -2,21 +2,22 @@ package mtgtech.com.weather_forecast.settings.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.jetbrains.annotations.NotNull;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.settings.fragment.SettingsFragment;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 /**
  * Settings activity.
- * */
+ */
 
 public class SettingsActivity extends GeoActivity
         implements Toolbar.OnMenuItemClickListener {

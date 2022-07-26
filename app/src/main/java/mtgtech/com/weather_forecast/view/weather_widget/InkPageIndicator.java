@@ -14,12 +14,13 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.ColorInt;
-import androidx.core.view.ViewCompat;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
+
+import androidx.annotation.ColorInt;
+import androidx.core.view.ViewCompat;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import java.util.Arrays;
 
@@ -27,7 +28,7 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * Ink page indicator.
- * */
+ */
 
 public class InkPageIndicator extends View
         implements SwipeSwitchLayout.OnPagerSwipeListener, View.OnAttachStateChangeListener {
@@ -42,14 +43,31 @@ public class InkPageIndicator extends View
     // constants
     private static final float INVALID_FRACTION = -1f;
     private static final float MINIMAL_REVEAL = 0.00001f;
-
+    private static final float MAX_ALPHA = 0.7F;
+    // drawing
+    private final Paint unselectedPaint;
+    private final Paint selectedPaint;
+    private final Paint textPaint;
+    private final Path unselectedDotPath;
+    private final Path unselectedDotLeftPath;
+    private final Path unselectedDotRightPath;
+    private final RectF rectF;
+    private final Interpolator interpolator;
+    // working values for beziers
+    float endX1;
+    float endY1;
+    float endX2;
+    float endY2;
+    float controlX1;
+    float controlY1;
+    float controlX2;
+    float controlY2;
     // configurable attributes
     private int dotDiameter;
     private int gap;
     private long animDuration;
     private int unselectedColour;
     private int selectedColour;
-
     // derived from attributes
     private float dotRadius;
     private float halfDotRadius;
@@ -57,10 +75,8 @@ public class InkPageIndicator extends View
     private float dotTopY;
     private float dotCenterY;
     private float dotBottomY;
-
     // ViewPager
     private SwipeSwitchLayout switchView;
-
     // state
     private int pageCount;
     private int currentPage;
@@ -75,37 +91,14 @@ public class InkPageIndicator extends View
     private boolean isAttachedToWindow;
     private boolean pageChanging;
     private boolean showing;
-
-    // drawing
-    private final Paint unselectedPaint;
-    private final Paint selectedPaint;
-    private final Paint textPaint;
     private Path combinedUnselectedPath;
-    private final Path unselectedDotPath;
-    private final Path unselectedDotLeftPath;
-    private final Path unselectedDotRightPath;
-    private final RectF rectF;
-
     // animation
     private ValueAnimator moveAnimation;
     private AnimatorSet joiningAnimationSet;
     private PendingRetreatAnimator retreatAnimation;
     private PendingRevealAnimator[] revealAnimations;
-    private final Interpolator interpolator;
     private ObjectAnimator showAnimator;
     private ObjectAnimator dismissAnimator;
-
-    // working values for beziers
-    float endX1;
-    float endY1;
-    float endX2;
-    float endY2;
-    float controlX1;
-    float controlY1;
-    float controlX2;
-    float controlY2;
-
-    private static final float MAX_ALPHA = 0.7F;
 
     public InkPageIndicator(Context context) {
         this(context, null, 0);
@@ -702,7 +695,7 @@ public class InkPageIndicator extends View
     }
 
     private void setDotRevealFraction(int dot, float fraction) {
-        if(dot < dotRevealFractions.length) {
+        if (dot < dotRevealFractions.length) {
             dotRevealFractions[dot] = fraction;
         }
         ViewCompat.postInvalidateOnAnimation(this);
@@ -711,6 +704,53 @@ public class InkPageIndicator extends View
     private void cancelJoiningAnimations() {
         if (joiningAnimationSet != null && joiningAnimationSet.isRunning()) {
             joiningAnimationSet.cancel();
+        }
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        SavedState savedState = (SavedState) state;
+        super.onRestoreInstanceState(savedState.getSuperState());
+        currentPage = savedState.currentPage;
+        requestLayout();
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState savedState = new SavedState(superState);
+        savedState.currentPage = currentPage;
+        return savedState;
+    }
+
+    static class SavedState extends View.BaseSavedState {
+        @SuppressWarnings("UnusedDeclaration")
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+        int currentPage;
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            currentPage = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(currentPage);
         }
     }
 
@@ -903,53 +943,5 @@ public class InkPageIndicator extends View
         boolean shouldStart(float currentValue) {
             return currentValue < thresholdValue;
         }
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        SavedState savedState = (SavedState) state;
-        super.onRestoreInstanceState(savedState.getSuperState());
-        currentPage = savedState.currentPage;
-        requestLayout();
-    }
-
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SavedState savedState = new SavedState(superState);
-        savedState.currentPage = currentPage;
-        return savedState;
-    }
-
-    static class SavedState extends View.BaseSavedState {
-        int currentPage;
-
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        private SavedState(Parcel in) {
-            super(in);
-            currentPage = in.readInt();
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeInt(currentPage);
-        }
-
-        @SuppressWarnings("UnusedDeclaration")
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-            @Override
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
     }
 }

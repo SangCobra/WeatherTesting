@@ -11,13 +11,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.Nullable;
-import androidx.annotation.Size;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.AppCompatImageView;
-
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Window;
@@ -25,58 +18,52 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
+import androidx.annotation.Size;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.databinding.ContainerCircularSkyViewBinding;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherView;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 /**
  * Circular sky weather view.
- * */
+ */
 
 public class CircularSkyWeatherView extends FrameLayout
         implements WeatherView, WeatherIconControlView.OnWeatherIconChangingListener {
 
-    @WeatherKindRule private int weatherKind = WEATHER_KING_NULL;
-    @Nullable private String iconProvider;
-    @ColorInt private int backgroundColor;
+    @WeatherKindRule
+    private int weatherKind = WEATHER_KING_NULL;
+    @Nullable
+    private String iconProvider;
+    @ColorInt
+    private int backgroundColor;
     private boolean daytime;
 
     private ContainerCircularSkyViewBinding binding;
 
-    @Size(3) private Drawable[] iconDrawables;
-    @Size(3) private Animator[] iconAnimators;
-    @Size(2) private Animator[] starShineAnimators;
+    @Size(3)
+    private Drawable[] iconDrawables;
+    @Size(3)
+    private Animator[] iconAnimators;
+    @Size(2)
+    private Animator[] starShineAnimators;
 
     private int insetTop;
     private int firstCardMarginTop;
-
-    private class StarAlphaAnimation extends Animation {
-
-        private float startAlpha;
-        private float endAlpha;
-
-        StarAlphaAnimation(float startAlpha, float endAlpha) {
-            this.startAlpha = startAlpha;
-            this.endAlpha = endAlpha;
-        }
-
-        @Override
-        protected void applyTransformation(float interpolatedTime, Transformation t) {
-            super.applyTransformation(interpolatedTime, t);
-            binding.starContainer.setAlpha(startAlpha + (endAlpha - startAlpha) * interpolatedTime);
-        }
-    }
-
-    private AnimatorListenerAdapter[] starShineAnimatorListeners = new AnimatorListenerAdapter[] {
+    private AnimatorListenerAdapter[] starShineAnimatorListeners = new AnimatorListenerAdapter[]{
 
             new AnimatorListenerAdapter() {
                 @Override
@@ -110,6 +97,16 @@ public class CircularSkyWeatherView extends FrameLayout
         this.initialize();
     }
 
+    public static int[] getThemeColors(Context context, boolean lightTheme) {
+        return new int[]{
+                lightTheme
+                        ? ContextCompat.getColor(context, R.color.lightPrimary_3)
+                        : ContextCompat.getColor(context, R.color.darkPrimary_1),
+                ContextCompat.getColor(context, R.color.lightPrimary_5),
+                ContextCompat.getColor(context, R.color.darkPrimary_1)
+        };
+    }
+
     @SuppressLint("InflateParams")
     private void initialize() {
         this.daytime = TimeManager.getInstance(getContext()).isDayTime();
@@ -130,10 +127,10 @@ public class CircularSkyWeatherView extends FrameLayout
             binding.starContainer.setAlpha(1);
         }
 
-        this.iconDrawables = new Drawable[] {null, null, null};
-        this.iconAnimators = new Animator[] {null, null, null};
+        this.iconDrawables = new Drawable[]{null, null, null};
+        this.iconAnimators = new Animator[]{null, null, null};
 
-        AppCompatImageView[] starts = new AppCompatImageView[] {
+        AppCompatImageView[] starts = new AppCompatImageView[]{
                 findViewById(R.id.star_1),
                 findViewById(R.id.star_2)};
         Glide.with(getContext())
@@ -145,10 +142,10 @@ public class CircularSkyWeatherView extends FrameLayout
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(starts[1]);
 
-        this.starShineAnimators = new AnimatorSet[] {
+        this.starShineAnimators = new AnimatorSet[]{
                 (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.start_shine_1),
                 (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.start_shine_2)};
-        for (int i = 0; i < starShineAnimators.length; i ++) {
+        for (int i = 0; i < starShineAnimators.length; i++) {
             starShineAnimators[i].addListener(starShineAnimatorListeners[i]);
             starShineAnimators[i].setTarget(starts[i]);
             starShineAnimators[i].start();
@@ -188,7 +185,7 @@ public class CircularSkyWeatherView extends FrameLayout
 
     /**
      * @return Return true whether execute switch animation.
-     * */
+     */
     public boolean showCircles() {
         if (binding.circularSky.showCircle(daytime)) {
             changeStarAlPha();
@@ -276,16 +273,6 @@ public class CircularSkyWeatherView extends FrameLayout
         return getThemeColors(getContext(), daytime);
     }
 
-    public static int[] getThemeColors(Context context, boolean lightTheme) {
-        return new int[] {
-                lightTheme
-                        ? ContextCompat.getColor(context, R.color.lightPrimary_3)
-                        : ContextCompat.getColor(context, R.color.darkPrimary_1),
-                ContextCompat.getColor(context, R.color.lightPrimary_5),
-                ContextCompat.getColor(context, R.color.darkPrimary_1)
-        };
-    }
-
     @Override
     public int getBackgroundColor() {
         if (daytime) {
@@ -330,5 +317,22 @@ public class CircularSkyWeatherView extends FrameLayout
     public void OnWeatherIconChanging() {
         binding.icon.setAnimatableIcon(iconDrawables, iconAnimators);
         binding.icon.startAnimators();
+    }
+
+    private class StarAlphaAnimation extends Animation {
+
+        private float startAlpha;
+        private float endAlpha;
+
+        StarAlphaAnimation(float startAlpha, float endAlpha) {
+            this.startAlpha = startAlpha;
+            this.endAlpha = endAlpha;
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            binding.starContainer.setAlpha(startAlpha + (endAlpha - startAlpha) * interpolatedTime);
+        }
     }
 }

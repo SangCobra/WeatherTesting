@@ -20,12 +20,14 @@ import mtgtech.com.weather_forecast.view.weather_widget.AnimatableIconView;
 
 /**
  * Animatable icon dialog.
- * */
+ */
 public class AnimatableIconDialog extends DialogFragment {
 
     private String title;
-    @Size(3) private Drawable[] iconDrawables;
-    @Size(3) private Animator[] iconAnimators;
+    @Size(3)
+    private Drawable[] iconDrawables;
+    @Size(3)
+    private Animator[] iconAnimators;
 
     @NonNull
     @SuppressLint("InflateParams")

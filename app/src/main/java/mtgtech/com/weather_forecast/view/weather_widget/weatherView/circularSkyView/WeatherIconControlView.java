@@ -12,7 +12,7 @@ import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 /**
  * Weather icon control view.
- * */
+ */
 
 public class WeatherIconControlView extends FrameLayout {
 
@@ -27,88 +27,6 @@ public class WeatherIconControlView extends FrameLayout {
     private int iconSize;
     private int radius;
 
-    private class AnimRise extends Animation {
-
-        //     90
-        // 180      0
-        //------------
-        private float angleFrom;
-        private float angleTo;
-
-        AnimRise() {
-            angleFrom = 180;
-            angleTo = 90;
-        }
-
-        @Override
-        protected void applyTransformation(float interpolatedTime, Transformation t) {
-            ensureIconOffset(angleFrom, angleTo, interpolatedTime);
-
-            getChildAt(2).setTranslationX(iconX + iconSize);
-            getChildAt(2).setTranslationY(iconY + iconSize);
-        }
-    }
-
-    private class AnimFall extends Animation {
-
-        //     90
-        // 180      0
-        //------------
-        private float angleFrom;
-        private float angleTo;
-
-        AnimFall() {
-            angleFrom = currentAngle;
-            angleTo = 0;
-        }
-
-        @Override
-        protected void applyTransformation(float interpolatedTime, Transformation t) {
-            ensureIconOffset(angleFrom, angleTo, interpolatedTime);
-
-            getChildAt(2).setTranslationX(iconX + iconSize);
-            getChildAt(2).setTranslationY(iconY + iconSize);
-        }
-    }
-
-    private class AnimListener implements Animation.AnimationListener {
-
-        private boolean canceled;
-        private int type;
-
-        static final int END_TYPE = 0;
-        static final int CONTINUE_TYPE = 1;
-
-        AnimListener(int type) {
-            this.canceled = false;
-            this.type = type;
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-            // do nothing.
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            if (!canceled) {
-                switch (type) {
-                    case END_TYPE:
-                        break;
-
-                    case CONTINUE_TYPE:
-                        animRise();
-                        break;
-                }
-            }
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-            // do nothing.
-        }
-    }
-
     public WeatherIconControlView(Context context) {
         super(context);
     }
@@ -120,8 +38,6 @@ public class WeatherIconControlView extends FrameLayout {
     public WeatherIconControlView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
-    // draw.
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -159,8 +75,6 @@ public class WeatherIconControlView extends FrameLayout {
         child.layout(-iconSize, -iconSize, 0, 0);
     }
 
-    // control.
-
     public void showWeatherIcon() {
         if (rose) {
             animFall();
@@ -169,6 +83,8 @@ public class WeatherIconControlView extends FrameLayout {
             animRise();
         }
     }
+
+    // draw.
 
     private void ensureIconOffset(float angleFrom, float angleTo, float time) {
         currentAngle = angleFrom + (angleTo - angleFrom) * time;
@@ -185,7 +101,7 @@ public class WeatherIconControlView extends FrameLayout {
         if (animListener != null) {
             animListener.canceled = true;
         }
-        animListener =  new AnimListener(AnimListener.END_TYPE);
+        animListener = new AnimListener(AnimListener.END_TYPE);
 
         AnimRise animation = new AnimRise();
         animation.setDuration(800);
@@ -196,11 +112,13 @@ public class WeatherIconControlView extends FrameLayout {
         startAnimation(animation);
     }
 
+    // control.
+
     private void animFall() {
         if (animListener != null) {
             animListener.canceled = true;
         }
-        animListener =  new AnimListener(AnimListener.CONTINUE_TYPE);
+        animListener = new AnimListener(AnimListener.CONTINUE_TYPE);
 
         AnimFall animation = new AnimFall();
         animation.setDuration(400);
@@ -211,13 +129,94 @@ public class WeatherIconControlView extends FrameLayout {
         startAnimation(animation);
     }
 
-    // interface.
+    public void setOnWeatherIconChangingListener(OnWeatherIconChangingListener l) {
+        iconListener = l;
+    }
 
     interface OnWeatherIconChangingListener {
         void OnWeatherIconChanging();
     }
 
-    public void setOnWeatherIconChangingListener(OnWeatherIconChangingListener l) {
-        iconListener = l;
+    private class AnimRise extends Animation {
+
+        //     90
+        // 180      0
+        //------------
+        private float angleFrom;
+        private float angleTo;
+
+        AnimRise() {
+            angleFrom = 180;
+            angleTo = 90;
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            ensureIconOffset(angleFrom, angleTo, interpolatedTime);
+
+            getChildAt(2).setTranslationX(iconX + iconSize);
+            getChildAt(2).setTranslationY(iconY + iconSize);
+        }
+    }
+
+    // interface.
+
+    private class AnimFall extends Animation {
+
+        //     90
+        // 180      0
+        //------------
+        private float angleFrom;
+        private float angleTo;
+
+        AnimFall() {
+            angleFrom = currentAngle;
+            angleTo = 0;
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            ensureIconOffset(angleFrom, angleTo, interpolatedTime);
+
+            getChildAt(2).setTranslationX(iconX + iconSize);
+            getChildAt(2).setTranslationY(iconY + iconSize);
+        }
+    }
+
+    private class AnimListener implements Animation.AnimationListener {
+
+        static final int END_TYPE = 0;
+        static final int CONTINUE_TYPE = 1;
+        private boolean canceled;
+        private int type;
+
+        AnimListener(int type) {
+            this.canceled = false;
+            this.type = type;
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+            // do nothing.
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if (!canceled) {
+                switch (type) {
+                    case END_TYPE:
+                        break;
+
+                    case CONTINUE_TYPE:
+                        animRise();
+                        break;
+                }
+            }
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            // do nothing.
+        }
     }
 }

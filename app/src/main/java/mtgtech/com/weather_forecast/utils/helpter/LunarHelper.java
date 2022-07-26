@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * Lunar helper.
- * */
+ */
 
 public class LunarHelper {
 

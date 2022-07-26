@@ -17,7 +17,8 @@ public enum CardDisplay {
     AD_TYPE("life_details", R.string.life_details);
 
     private String value;
-    private @StringRes int nameId;
+    private @StringRes
+    int nameId;
 
     CardDisplay(String value, int nameId) {
         this.value = value;

@@ -16,16 +16,18 @@ import mtgtech.com.weather_forecast.utils.helpter.LunarHelper;
 
 /**
  * Daily.
- *
+ * <p>
  * All properties are {@link androidx.annotation.NonNull}.
- * */
+ */
 public class Daily implements Serializable {
 
     private Date date;
     private long time;
 
-    @Size(2) private HalfDay[] halfDays;
-    @Size(2) private Astro[] astros;
+    @Size(2)
+    private HalfDay[] halfDays;
+    @Size(2)
+    private Astro[] astros;
     private MoonPhase moonPhase;
     private AirQuality airQuality;
     private Pollen pollen;
@@ -33,27 +35,27 @@ public class Daily implements Serializable {
     private float hoursOfSun;
     private boolean isExpand;
 
-    public boolean isExpand() {
-        return isExpand;
-    }
-
-    public void setExpand(boolean expand) {
-        isExpand = expand;
-    }
-
     public Daily(Date date, long time,
                  HalfDay day, HalfDay night, Astro sun, Astro moon,
                  MoonPhase moonPhase, AirQuality airQuality, Pollen pollen, UV uv,
                  float hoursOfSun) {
         this.date = date;
         this.time = time;
-        this.halfDays = new HalfDay[] {day, night};
-        this.astros = new Astro[] {sun, moon};
+        this.halfDays = new HalfDay[]{day, night};
+        this.astros = new Astro[]{sun, moon};
         this.moonPhase = moonPhase;
         this.airQuality = airQuality;
         this.pollen = pollen;
         this.uv = uv;
         this.hoursOfSun = hoursOfSun;
+    }
+
+    public boolean isExpand() {
+        return isExpand;
+    }
+
+    public void setExpand(boolean expand) {
+        isExpand = expand;
     }
 
     public HalfDay day() {
@@ -118,7 +120,7 @@ public class Daily implements Serializable {
         calendar.setTime(date);
 
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-        if (day == 1){
+        if (day == 1) {
             return context.getString(R.string.week_7);
         } else if (day == 2) {
             return context.getString(R.string.week_1);

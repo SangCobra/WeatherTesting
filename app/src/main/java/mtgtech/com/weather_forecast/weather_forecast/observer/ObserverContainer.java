@@ -2,14 +2,17 @@ package mtgtech.com.weather_forecast.weather_forecast.observer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 
 public class ObserverContainer<T> extends DisposableObserver<T> {
 
-    @NonNull private CompositeDisposable compositeDisposable;
-    @Nullable private Observer<T> observer;
+    @NonNull
+    private CompositeDisposable compositeDisposable;
+    @Nullable
+    private Observer<T> observer;
 
     public ObserverContainer(@NonNull CompositeDisposable disposable, @Nullable Observer<T> observer) {
         this.compositeDisposable = disposable;

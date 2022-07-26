@@ -19,12 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.main.adapter.AqiAdapter;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.view.weather_widget.ArcProgress;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class AirQualityViewHolder extends AbstractMainCardViewHolder {
 
@@ -35,11 +35,13 @@ public class AirQualityViewHolder extends AbstractMainCardViewHolder {
     private RecyclerView recyclerView;
     private AqiAdapter adapter;
 
-    @Nullable private Weather weather;
+    @Nullable
+    private Weather weather;
     private int aqiIndex;
 
     private boolean enable;
-    @Nullable private AnimatorSet attachAnimatorSet;
+    @Nullable
+    private AnimatorSet attachAnimatorSet;
 
     public AirQualityViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.container_main_aqi, parent, false));

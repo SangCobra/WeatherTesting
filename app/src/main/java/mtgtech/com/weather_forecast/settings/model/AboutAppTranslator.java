@@ -7,7 +7,7 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * About app translator.
- * */
+ */
 
 public class AboutAppTranslator {
 

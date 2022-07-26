@@ -4,76 +4,55 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.ViewConfiguration;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendParent;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendParent;
 
 /**
  * Trend recycler view.
- * */
+ */
 
 public class TrendRecyclerView extends RecyclerView
         implements TrendParent {
 
+    private static final int LINE_WIDTH_DIP = 1;
+    private static final int TEXT_SIZE_DIP = 10;
+    private static final int TEXT_MARGIN_DIP = 2;
+    private static final String TAG = "TrendRecyclerView";
     private Paint paint;
-    @ColorInt private int lineColor;
-
+    @ColorInt
+    private int lineColor;
     private int drawingBoundaryTop;
     private int drawingBoundaryBottom;
-
-    private @Nullable List<KeyLine> keyLineList;
+    private @Nullable
+    List<KeyLine> keyLineList;
     private boolean keyLineVisibility = true;
-
-    private @Nullable Float highestData;
-    private @Nullable Float lowestData;
-
+    private @Nullable
+    Float highestData;
+    private @Nullable
+    Float lowestData;
     private int textSize;
     private int textMargin;
     private int lineWidth;
-
     private int pointerId;
     private float initialX;
     private float initialY;
     private int touchSlop;
     private boolean isBeingDragged;
     private boolean isHorizontalDragged;
-
-    private static final int LINE_WIDTH_DIP = 1;
-    private static final int TEXT_SIZE_DIP = 10;
-    private static final int TEXT_MARGIN_DIP = 2;
-
-    private static final String TAG = "TrendRecyclerView";
-
-    public static class KeyLine {
-
-        float value;
-        String contentLeft;
-        String contentRight;
-        ContentPosition contentPosition;
-
-        public enum ContentPosition {ABOVE_LINE, BELOW_LINE}
-
-        public KeyLine(float value, String contentLeft, String contentRight, ContentPosition contentPosition) {
-            this.value = value;
-            this.contentLeft = contentLeft;
-            this.contentRight = contentRight;
-            this.contentPosition = contentPosition;
-        }
-    }
 
     public TrendRecyclerView(Context context) {
         super(context);
@@ -183,10 +162,10 @@ public class TrendRecyclerView extends RecyclerView
 
 
         float dataRange;
-        if(highestData > lowestData){
+        if (highestData > lowestData) {
             dataRange = highestData - lowestData;
-        }else{
-            dataRange =  lowestData;
+        } else {
+            dataRange = lowestData;
 
         }
         float boundaryRange = drawingBoundaryBottom - drawingBoundaryTop;
@@ -195,8 +174,7 @@ public class TrendRecyclerView extends RecyclerView
                 continue;
             }
 
-            float y =  DisplayUtils.dpToPx(getContext(),157);
-
+            float y = DisplayUtils.dpToPx(getContext(), 157);
 
 
             paint.setStyle(Paint.Style.STROKE);
@@ -245,14 +223,14 @@ public class TrendRecyclerView extends RecyclerView
         }
     }
 
-    // control.
-
     public void setData(List<KeyLine> keyLineList, float highestData, float lowestData) {
         this.keyLineList = keyLineList;
         this.highestData = highestData;
         this.lowestData = lowestData;
         invalidate();
     }
+
+    // control.
 
     public void setKeyLineVisibility(boolean visibility) {
         this.keyLineVisibility = visibility;
@@ -264,8 +242,6 @@ public class TrendRecyclerView extends RecyclerView
         invalidate();
     }
 
-    // interface.
-
     @Override
     public void setDrawingBoundary(int top, int bottom) {
         if (drawingBoundaryTop != top || drawingBoundaryBottom != bottom) {
@@ -273,5 +249,24 @@ public class TrendRecyclerView extends RecyclerView
             drawingBoundaryBottom = bottom;
             invalidate();
         }
+    }
+
+    // interface.
+
+    public static class KeyLine {
+
+        float value;
+        String contentLeft;
+        String contentRight;
+        ContentPosition contentPosition;
+
+        public KeyLine(float value, String contentLeft, String contentRight, ContentPosition contentPosition) {
+            this.value = value;
+            this.contentLeft = contentLeft;
+            this.contentRight = contentRight;
+            this.contentPosition = contentPosition;
+        }
+
+        public enum ContentPosition {ABOVE_LINE, BELOW_LINE}
     }
 }

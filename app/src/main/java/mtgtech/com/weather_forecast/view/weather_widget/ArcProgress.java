@@ -8,53 +8,54 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import androidx.annotation.ColorInt;
-import androidx.annotation.Size;
-import androidx.core.graphics.ColorUtils;
-
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.Size;
+import androidx.core.graphics.ColorUtils;
 
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 /**
  * Acr progress.
- * */
+ */
 
 public class ArcProgress extends View {
 
+    private static final float SHADOW_ALPHA_FACTOR_LIGHT = 0.1f;
+    private static final float SHADOW_ALPHA_FACTOR_DARK = 0.1f;
     private Paint progressPaint;
     private Paint shadowPaint;
     private Paint textPaint;
-
     private DayNightShaderWrapper shaderWrapper;
-
     private RectF rectF = new RectF();
     private float arcBottomHeight;
-
     private float progress;
     private float max;
     private float arcAngle;
     private float progressWidth;
-    @ColorInt private int progressColor;
-    @ColorInt private int shadowColor;
-    @ColorInt private int shaderColor;
-    @ColorInt private int backgroundColor;
-
+    @ColorInt
+    private int progressColor;
+    @ColorInt
+    private int shadowColor;
+    @ColorInt
+    private int shaderColor;
+    @ColorInt
+    private int backgroundColor;
     private String text;
     private float textSize;
-    @ColorInt private int textColor;
-    @Size(2) private int[] shaderColors;
-
+    @ColorInt
+    private int textColor;
+    @Size(2)
+    private int[] shaderColors;
     private String bottomText;
     private float bottomTextSize;
-    @ColorInt private int bottomTextColor;
-
-    private static final float SHADOW_ALPHA_FACTOR_LIGHT = 0.1f;
-    private static final float SHADOW_ALPHA_FACTOR_DARK = 0.1f;
+    @ColorInt
+    private int bottomTextColor;
 
     public ArcProgress(Context context) {
         this(context, null);
@@ -74,7 +75,7 @@ public class ArcProgress extends View {
 
         initPaint();
 
-        shaderColors = new int[] {Color.BLACK, Color.WHITE};
+        shaderColors = new int[]{Color.BLACK, Color.WHITE};
         shaderWrapper = new DayNightShaderWrapper(
                 null, getMeasuredWidth(), getMeasuredHeight(), true, shaderColors);
     }
@@ -151,7 +152,7 @@ public class ArcProgress extends View {
         this.invalidate();
     }
 
-    private int getDarkerColor(@ColorInt int color){
+    private int getDarkerColor(@ColorInt int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[1] = hsv[1] + 0.15f;
@@ -281,7 +282,7 @@ public class ArcProgress extends View {
             );
         }
 
-        if(arcBottomHeight == 0) {
+        if (arcBottomHeight == 0) {
             float radius = getWidth() / 2f;
             float angle = (360 - arcAngle) / 2f;
             arcBottomHeight = radius * (float) (1 - Math.cos(angle / 180 * Math.PI));

@@ -11,12 +11,12 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Astro;
-import mtgtech.com.weather_forecast.weather_model.model.weather.MoonPhase;
 import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.DailyAstro;
-import mtgtech.com.weather_forecast.view.weather_widget.astro.MoonPhaseView;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.astro.MoonPhaseView;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Astro;
+import mtgtech.com.weather_forecast.weather_model.model.weather.MoonPhase;
 
 public class AstroHolder extends DailyWeatherAdapter.ViewHolder {
 

@@ -1,11 +1,12 @@
 package mtgtech.com.weather_forecast.view.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -15,25 +16,11 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Alert;
 
 /**
  * Alert adapter.
- * */
+ */
 
 public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.ViewHolder> {
 
     private List<Alert> alertList;
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-        // widget
-        TextView title;
-        TextView subtitle;
-        TextView content;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            this.title = itemView.findViewById(R.id.item_alert_title);
-            this.subtitle = itemView.findViewById(R.id.item_alert_subtitle);
-            this.content = itemView.findViewById(R.id.item_alert_content);
-        }
-    }
 
     public AlertAdapter(List<Alert> list) {
         this.alertList = list;
@@ -61,6 +48,20 @@ public class AlertAdapter extends RecyclerView.Adapter<AlertAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return alertList.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        // widget
+        TextView title;
+        TextView subtitle;
+        TextView content;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            this.title = itemView.findViewById(R.id.item_alert_title);
+            this.subtitle = itemView.findViewById(R.id.item_alert_subtitle);
+            this.content = itemView.findViewById(R.id.item_alert_content);
+        }
     }
 }
 

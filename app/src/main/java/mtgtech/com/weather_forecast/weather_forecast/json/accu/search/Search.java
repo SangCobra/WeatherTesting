@@ -1,4 +1,3 @@
-
 package mtgtech.com.weather_forecast.weather_forecast.json.accu.search;
 
 

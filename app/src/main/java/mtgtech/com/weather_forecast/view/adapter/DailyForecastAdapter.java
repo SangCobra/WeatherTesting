@@ -14,10 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.databinding.ItemDailyForecastBinding;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.MyUtils;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 
 public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdapter.DailyForecastViewHolder> {
 
@@ -25,7 +25,7 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
     private ArrayList<Daily> list = new ArrayList<>();
     private DailyForecastClickListener listener;
 
-    public DailyForecastAdapter(Context context,DailyForecastClickListener listener) {
+    public DailyForecastAdapter(Context context, DailyForecastClickListener listener) {
         this.context = context;
         this.listener = listener;
     }
@@ -33,7 +33,7 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
     @NonNull
     @Override
     public DailyForecastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DailyForecastViewHolder(ItemDailyForecastBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+        return new DailyForecastViewHolder(ItemDailyForecastBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -44,6 +44,15 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void updateData(ArrayList<Daily> newList) {
+        list = newList;
+        notifyDataSetChanged();
+    }
+
+    public interface DailyForecastClickListener {
+        void clickDaily(int index);
     }
 
     class DailyForecastViewHolder extends RecyclerView.ViewHolder {
@@ -83,67 +92,57 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
                                                  }
             );
 
-                switch (model.day().getWeatherCode()) {
-                    case CLEAR:
-                        if(MyUtils.isNight()){
-                            binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_clear_night));
+            switch (model.day().getWeatherCode()) {
+                case CLEAR:
+                    if (MyUtils.isNight()) {
+                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_clear_night));
 
-                        }else{
-                            binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_clear_day));
+                    } else {
+                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_clear_day));
 
-                        }
-                        break;
-                    case PARTLY_CLOUDY:
-                        if(MyUtils.isNight())
-                        {
-                            binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_partly_cloudy_night));
+                    }
+                    break;
+                case PARTLY_CLOUDY:
+                    if (MyUtils.isNight()) {
+                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_partly_cloudy_night));
 
-                        }else{
-                            binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_partly_cloudy_day));
+                    } else {
+                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_partly_cloudy_day));
 
-                        }
-                        break;
-                    case CLOUDY:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_cloudy));
-                        break;
-                    case RAIN:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_rain));
-                        break;
-                    case SNOW:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_snow));
-                        break;
-                    case WIND:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.img_weather_wind));
-                        break;
-                    case FOG:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_fog));
-                        break;
-                    case HAZE:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_haze));
-                        break;
-                    case SLEET:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_sleet));
-                        break;
-                    case HAIL:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_hail));
-                        break;
-                    case THUNDER:
-                    case THUNDERSTORM:
-                        binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_thunder));
+                    }
+                    break;
+                case CLOUDY:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_cloudy));
+                    break;
+                case RAIN:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_rain));
+                    break;
+                case SNOW:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_snow));
+                    break;
+                case WIND:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.img_weather_wind));
+                    break;
+                case FOG:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_fog));
+                    break;
+                case HAZE:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_haze));
+                    break;
+                case SLEET:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_sleet));
+                    break;
+                case HAIL:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_hail));
+                    break;
+                case THUNDER:
+                case THUNDERSTORM:
+                    binding.imgDailyForecast.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.weather_thunder));
 
-                        break;
+                    break;
 
-                }
+            }
 
         }
-    }
-
-    public void updateData(ArrayList<Daily> newList) {
-            list = newList;
-        notifyDataSetChanged();
-    }
-
-    public interface DailyForecastClickListener{
-        void clickDaily(int index);
     }
 }

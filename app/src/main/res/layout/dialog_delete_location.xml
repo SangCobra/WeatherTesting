@@ -5,25 +5,26 @@
     android:layout_height="match_parent"
     android:background="#4D000000"
     tools:ignore="UnusedAttribute">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:backgroundTint="#3B3B3B"
-        android:padding="@dimen/_8sdp"
-        android:background="@drawable/shape_border"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/_12sdp">
+        android:layout_margin="@dimen/_12sdp"
+        android:background="@drawable/shape_border"
+        android:backgroundTint="#3B3B3B"
+        android:orientation="vertical"
+        android:padding="@dimen/_8sdp">
+
         <TextView
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="Delete address"
             android:textColor="#fff"
-            android:fontFamily="@font/montserrat_semibold"
-            android:textSize="@dimen/_16sdp"
-            android:layout_marginBottom="16dp"
-            />
+            android:textSize="@dimen/_16sdp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,36 +38,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:weightSum="2"
             android:layout_marginBottom="8dp"
-            >
+            android:orientation="horizontal"
+            android:weightSum="2">
+
             <TextView
                 android:id="@+id/bt_cancel"
-                android:layout_marginEnd="8dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="@string/cancel"
-                android:textColor="#fff"
                 android:background="@drawable/shape_border_button"
                 android:backgroundTint="#262626"
-                android:gravity="center"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="@dimen/_14sdp"/>
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="#fff"
+                android:textSize="@dimen/_14sdp" />
+
             <TextView
                 android:id="@+id/bt_delete"
-                android:layout_marginStart="8dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="@string/delete"
-                android:textColor="#fff"
                 android:background="@drawable/shape_border_button"
                 android:backgroundTint="#FFA800"
-                android:gravity="center"
                 android:fontFamily="@font/montserrat_regular"
-                android:textSize="@dimen/_14sdp"/>
+                android:gravity="center"
+                android:text="@string/delete"
+                android:textColor="#fff"
+                android:textSize="@dimen/_14sdp" />
         </LinearLayout>
 
     </LinearLayout>

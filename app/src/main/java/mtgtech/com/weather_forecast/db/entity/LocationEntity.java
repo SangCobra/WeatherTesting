@@ -2,27 +2,26 @@ package mtgtech.com.weather_forecast.db.entity;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
-
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
-import mtgtech.com.weather_forecast.db.propertyConverter.TimeZoneConverter;
-import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
-
-import org.greenrobot.greendao.annotation.Id;
-
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 import java.util.TimeZone;
 
+import mtgtech.com.weather_forecast.db.propertyConverter.TimeZoneConverter;
+import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
+
 /**
  * Location entity.
- *
+ * <p>
  * {@link mtgtech.com.weather_forecast.weather_model.model.location.Location}.
- * */
+ */
 
 @Entity
 public class LocationEntity {
 
-    @Id public String formattedId;
+    @Id
+    public String formattedId;
 
     public String cityId;
 
@@ -48,10 +47,10 @@ public class LocationEntity {
 
     @Generated(hash = 212187184)
     public LocationEntity(String formattedId, String cityId, float latitude,
-            float longitude, TimeZone timeZone, String country, String province,
-            String city, String district, WeatherSource weatherSource,
-            boolean currentPosition, boolean residentPosition, boolean china,
-            long sequence) {
+                          float longitude, TimeZone timeZone, String country, String province,
+                          String city, String district, WeatherSource weatherSource,
+                          boolean currentPosition, boolean residentPosition, boolean china,
+                          long sequence) {
         this.formattedId = formattedId;
         this.cityId = cityId;
         this.latitude = latitude;

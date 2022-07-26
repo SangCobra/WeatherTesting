@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/border_prep"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#99000000"
     tools:context=".settings.dialog.SetPrecipitationDialog">
@@ -17,124 +17,126 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Choose Precipitation"
-                android:textSize="16dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="Choose Precipitation"
                 android:textColor="#262626"
-                />
+                android:textSize="16dp" />
+
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
                     android:id="@+id/bg_unitType1"
-                    android:padding="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
-                    >
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
                     <RadioButton
                         android:id="@+id/unitType1"
                         android:layout_width="28dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        />
+                        android:background="@android:color/transparent" />
 
                     <TextView
                         android:layout_width="308dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="8dp"
-                        android:text="mm"
                         android:fontFamily="@font/montserrat_regular"
+                        android:text="mm"
                         android:textColor="#3C3C3C"
                         android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/bg_unitType2"
-                    android:padding="4dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:layout_marginLeft="16dp"
                     android:layout_weight="1"
-                    >
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
                     <RadioButton
                         android:id="@+id/unitType2"
                         android:layout_width="28dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        />
+                        android:background="@android:color/transparent" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="inch"
-                        android:fontFamily="@font/montserrat_regular"
                         android:layout_marginStart="8dp"
-                        android:textSize="16dp"
-                        android:textColor="#3C3C3C"/>
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="inch"
+                        android:textColor="#3C3C3C"
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/bg_unitType3"
-                    android:padding="4dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:layout_marginLeft="16dp"
                     android:layout_weight="1"
-                    >
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp">
+
                     <RadioButton
                         android:id="@+id/unitType3"
                         android:layout_width="28dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        />
+                        android:background="@android:color/transparent" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="L/m²"
-                        android:fontFamily="@font/montserrat_regular"
                         android:layout_marginStart="8dp"
-                        android:textSize="16dp"
-                        android:textColor="#3C3C3C"/>
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="L/m²"
+                        android:textColor="#3C3C3C"
+                        android:textSize="16dp" />
                 </LinearLayout>
             </RadioGroup>
+
             <FrameLayout
                 android:id="@+id/btn_cancel_pres"
-                android:layout_marginLeft="@dimen/_170sdp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                android:layout_marginLeft="@dimen/_170sdp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center|right"
-                    android:layout_marginRight="@dimen/_32sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_32sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:text="Cancel"
-                    android:textColor="#FFA800"
-                    android:textAllCaps="true"/>
+                    android:textAllCaps="true"
+                    android:textColor="#FFA800" />
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

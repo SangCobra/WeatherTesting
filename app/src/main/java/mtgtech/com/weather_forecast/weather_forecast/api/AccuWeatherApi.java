@@ -2,19 +2,19 @@ package mtgtech.com.weather_forecast.weather_forecast.api;
 
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.search.Search;
 import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuAlertResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuAqiResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuCurrentResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuDailyResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuHourlyResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuLocationResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuMinuteResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuCurrentResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.search.Search;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Accu api.
@@ -76,6 +76,7 @@ public interface AccuWeatherApi {
                                                @Query("apikey") String apikey,
                                                @Query("language") String language,
                                                @Query("details") boolean details);
+
     @GET("locations/v1/autocomplete.json")
     Observable<List<Search>> searchPlace(@Query("apikey") String apikey,
                                          @Query("language") String language,

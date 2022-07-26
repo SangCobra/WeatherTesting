@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-    android:background="@color/colorRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorRoot">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:title="@string/settings_title_card_display"
-                app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme" />
+                app:popupTheme="@style/WeatherFlowTheme.AppbarPopupTheme"
+                app:title="@string/settings_title_card_display" />
 
         </LinearLayout>
 
@@ -35,8 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/appBar"
-            android:paddingBottom="64dp"
-            android:clipToPadding="false" />
+            android:clipToPadding="false"
+            android:paddingBottom="64dp" />
 
         <FrameLayout
             android:id="@+id/bottomBar"

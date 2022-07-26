@@ -24,14 +24,14 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.view.weather_widget.astro.MoonPhaseView;
 import mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class AstroViewHolder extends AbstractMainCardViewHolder {
 
@@ -47,16 +47,23 @@ public class AstroViewHolder extends AbstractMainCardViewHolder {
     private RelativeLayout moonContainer;
     private TextView moonTxt;
 
-    @Nullable private Weather weather;
-    @Nullable private TimeZone timeZone;
+    @Nullable
+    private Weather weather;
+    @Nullable
+    private TimeZone timeZone;
 
-    @Size(2) private float[] startTimes;
-    @Size(2) private float[] endTimes;
-    @Size(2) private float[] currentTimes;
-    @Size(2) private float[] animCurrentTimes;
+    @Size(2)
+    private float[] startTimes;
+    @Size(2)
+    private float[] endTimes;
+    @Size(2)
+    private float[] currentTimes;
+    @Size(2)
+    private float[] animCurrentTimes;
     private int phaseAngle;
 
-    @Size(3) private AnimatorSet[] attachAnimatorSets;
+    @Size(3)
+    private AnimatorSet[] attachAnimatorSets;
 
     public AstroViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.container_main_sun_moon, parent, false));
@@ -71,7 +78,7 @@ public class AstroViewHolder extends AbstractMainCardViewHolder {
         this.moonContainer = itemView.findViewById(R.id.container_main_sun_moon_moonContainer);
         this.moonTxt = itemView.findViewById(R.id.container_main_sun_moon_moonrise_moonset);
 
-        this.attachAnimatorSets = new AnimatorSet[] {null, null, null};
+        this.attachAnimatorSets = new AnimatorSet[]{null, null, null};
     }
 
     @SuppressLint("SetTextI18n")
@@ -130,7 +137,7 @@ public class AstroViewHolder extends AbstractMainCardViewHolder {
                     ColorUtils.setAlphaComponent(themeColors[1], (int) (0.66 * 255)),
                     ColorUtils.setAlphaComponent(themeColors[1], (int) (0.33 * 255)),
                     themeManager.getRootColor(context),
-                    themeManager.isLightTheme(),true
+                    themeManager.isLightTheme(), true
             );
         } else {
             sunMoonView.setColors(
@@ -138,7 +145,7 @@ public class AstroViewHolder extends AbstractMainCardViewHolder {
                     ColorUtils.setAlphaComponent(themeColors[2], (int) (0.5 * 255)),
                     ColorUtils.setAlphaComponent(themeColors[2], (int) (0.2 * 255)),
                     themeManager.getRootColor(context),
-                    themeManager.isLightTheme(),true
+                    themeManager.isLightTheme(), true
             );
         }
 
@@ -225,7 +232,7 @@ public class AstroViewHolder extends AbstractMainCardViewHolder {
     @Override
     public void onRecycleView() {
         super.onRecycleView();
-        for (int i = 0; i < attachAnimatorSets.length; i ++) {
+        for (int i = 0; i < attachAnimatorSets.length; i++) {
             if (attachAnimatorSets[i] != null && attachAnimatorSets[i].isRunning()) {
                 attachAnimatorSets[i].cancel();
             }
@@ -246,13 +253,13 @@ public class AstroViewHolder extends AbstractMainCardViewHolder {
 
         calendar.setTime(Objects.requireNonNull(today.sun().getRiseDate()));
         int sunriseTime = SunMoonView.decodeTime(calendar);
-        
+
         calendar.setTime(Objects.requireNonNull(today.sun().getSetDate()));
         int sunsetTime = SunMoonView.decodeTime(calendar);
 
         startTimes = new float[2];
         endTimes = new float[2];
-        currentTimes = new float[] {currentTime, currentTime};
+        currentTimes = new float[]{currentTime, currentTime};
 
         // sun.
         startTimes[0] = sunriseTime;
@@ -313,7 +320,7 @@ public class AstroViewHolder extends AbstractMainCardViewHolder {
             }
         }
 
-        animCurrentTimes = new float[] {currentTimes[0], currentTimes[1]};
+        animCurrentTimes = new float[]{currentTimes[0], currentTimes[1]};
     }
 
     private void ensurePhaseAngle(@NonNull Weather weather) {

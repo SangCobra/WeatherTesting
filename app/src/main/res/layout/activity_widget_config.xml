@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_widget_config"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/activity_widget_config_top"
@@ -35,17 +35,17 @@
 
         <mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView
             android:id="@+id/activity_widget_config_scrollView"
-            android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
 
-            android:clipToPadding="false">
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:id="@+id/activity_widget_config_scrollContainer"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/activity_widget_config_viewStyleContainer"
@@ -67,12 +67,12 @@
                         android:id="@+id/activity_widget_config_styleSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        android:layout_toEndOf="@id/activity_widget_config_viewStyleTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
+                        android:layout_toEndOf="@id/activity_widget_config_viewStyleTitle"
+                        android:spinnerMode="dropdown"
                         app:theme="@style/spinner_item"
                         tools:ignore="RtlHardcoded" />
 
@@ -85,22 +85,22 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_showCardTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_show_widget_card"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_show_widget_card" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/activity_widget_config_showCardSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        android:layout_toEndOf="@id/activity_widget_config_showCardTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
+                        android:layout_toEndOf="@id/activity_widget_config_showCardTitle"
+                        android:spinnerMode="dropdown"
                         app:theme="@style/spinner_item"
                         tools:ignore="RtlHardcoded" />
 
@@ -113,31 +113,31 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_cardAlphaTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_show_widget_card_alpha"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_show_widget_card_alpha" />
 
                     <com.xw.repo.BubbleSeekBar
                         android:id="@+id/activity_widget_config_cardAlphaSeekBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/activity_widget_config_cardAlphaTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
-                        app:bsb_min="0"
+                        android:layout_toEndOf="@id/activity_widget_config_cardAlphaTitle"
+                        app:bsb_bubble_text_color="@color/colorRoot"
                         app:bsb_max="100"
+                        app:bsb_min="0"
                         app:bsb_progress="100"
                         app:bsb_section_count="5"
-                        app:bsb_seek_by_section="true"
-                        app:bsb_bubble_text_color="@color/colorRoot"
-                        app:bsb_show_section_text="true"
-                        app:bsb_section_text_position="below_section_mark"
                         app:bsb_section_text_color="@color/colorTextSubtitle"
+                        app:bsb_section_text_position="below_section_mark"
                         app:bsb_section_text_size="@dimen/subtitle_text_size"
+                        app:bsb_seek_by_section="true"
+                        app:bsb_show_section_text="true"
                         tools:ignore="RtlHardcoded" />
 
                 </RelativeLayout>
@@ -149,18 +149,18 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_hideSubtitleTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_hide_subtitle"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_hide_subtitle" />
 
                     <Switch
                         android:id="@+id/activity_widget_config_hideSubtitleSwitch"
+                        style="@style/my_switch"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/normal_margin"
-                        style="@style/my_switch"
                         tools:ignore="RtlHardcoded" />
 
                 </RelativeLayout>
@@ -172,22 +172,22 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_subtitleDataTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_subtitle_data"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_subtitle_data" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/activity_widget_config_subtitleDataSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        android:layout_toEndOf="@id/activity_widget_config_subtitleDataTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
+                        android:layout_toEndOf="@id/activity_widget_config_subtitleDataTitle"
+                        android:spinnerMode="dropdown"
                         app:theme="@style/spinner_item"
                         tools:ignore="RtlHardcoded" />
 
@@ -200,22 +200,22 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_blackTextTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_black_text"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_black_text" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/activity_widget_config_blackTextSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        android:layout_toEndOf="@id/activity_widget_config_blackTextTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
+                        android:layout_toEndOf="@id/activity_widget_config_blackTextTitle"
+                        android:spinnerMode="dropdown"
                         app:theme="@style/spinner_item"
                         tools:ignore="RtlHardcoded" />
 
@@ -228,30 +228,30 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_textSizeTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_text_size"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_text_size" />
 
                     <com.xw.repo.BubbleSeekBar
                         android:id="@+id/activity_widget_config_textSizeSeekBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/activity_widget_config_textSizeTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
-                        app:bsb_min="0"
+                        android:layout_toEndOf="@id/activity_widget_config_textSizeTitle"
+                        app:bsb_bubble_text_color="@color/colorRoot"
                         app:bsb_max="300"
+                        app:bsb_min="0"
                         app:bsb_progress="100"
                         app:bsb_section_count="3"
-                        app:bsb_bubble_text_color="@color/colorRoot"
-                        app:bsb_show_section_text="true"
-                        app:bsb_section_text_position="below_section_mark"
                         app:bsb_section_text_color="@color/colorTextSubtitle"
+                        app:bsb_section_text_position="below_section_mark"
                         app:bsb_section_text_size="@dimen/subtitle_text_size"
+                        app:bsb_show_section_text="true"
                         app:bsb_show_thumb_text="true"
                         tools:ignore="RtlHardcoded" />
 
@@ -264,22 +264,22 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_clockFontTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_clock_font"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_clock_font" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/activity_widget_config_clockFontSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:spinnerMode="dropdown"
-                        android:layout_toEndOf="@id/activity_widget_config_clockFontTitle"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
+                        android:layout_toEndOf="@id/activity_widget_config_clockFontTitle"
+                        android:spinnerMode="dropdown"
                         app:theme="@style/spinner_item"
                         tools:ignore="RtlHardcoded" />
 
@@ -292,33 +292,33 @@
 
                     <TextView
                         android:id="@+id/activity_widget_config_hideLunarTitle"
+                        style="@style/content_text"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="@dimen/normal_margin"
-                        android:text="@string/feedback_hide_lunar"
-                        android:layout_alignParentStart="true"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_hide_lunar" />
 
                     <Switch
                         android:id="@+id/activity_widget_config_hideLunarSwitch"
+                        style="@style/my_switch"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/normal_margin"
-                        style="@style/my_switch"
                         tools:ignore="RtlHardcoded" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/activity_widget_config_doneButton"
-                        android:layout_margin="@dimen/normal_margin"
+                        style="@style/material_button"
                         android:layout_alignParentEnd="true"
+                        android:layout_margin="@dimen/normal_margin"
                         android:text="@string/done"
                         android:textColor="@color/colorAccent"
-                        style="@style/material_button"
                         tools:ignore="RtlHardcoded" />
 
                 </RelativeLayout>
@@ -343,9 +343,9 @@
                 android:clipToPadding="false">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/activity_widget_config_subtitle_inputLayout"
@@ -357,32 +357,32 @@
                             android:id="@+id/activity_widget_config_subtitle_inputter"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textFilter"
-                            android:hint="@string/feedback_subtitle_data"
-                            android:textColorHint="@color/colorTextSubtitle"
-                            android:textColorHighlight="@color/colorTextSubtitle"
-                            android:textSize="@dimen/content_text_size"
-                            android:textColor="@color/colorTextContent"
                             android:layout_margin="@dimen/little_margin"
+                            android:hint="@string/feedback_subtitle_data"
+                            android:inputType="textFilter"
                             android:maxLines="1"
+                            android:textColor="@color/colorTextContent"
+                            android:textColorHighlight="@color/colorTextSubtitle"
+                            android:textColorHint="@color/colorTextSubtitle"
+                            android:textSize="@dimen/content_text_size"
                             tools:ignore="Autofill" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
-                        android:text="@string/feedback_custom_subtitle_explanation"
+                        style="@style/content_text"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
                         android:layout_marginBottom="@dimen/normal_margin"
-                        style="@style/content_text" />
+                        android:text="@string/feedback_custom_subtitle_explanation" />
 
                     <TextView
                         android:id="@+id/activity_widget_config_custom_subtitle_keywords"
+                        style="@style/content_text"
                         android:layout_marginStart="@dimen/normal_margin"
                         android:layout_marginEnd="@dimen/normal_margin"
                         android:layout_marginBottom="@dimen/normal_margin"
-                        android:textIsSelectable="true"
-                        style="@style/content_text" />
+                        android:textIsSelectable="true" />
 
                 </LinearLayout>
 

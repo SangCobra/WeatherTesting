@@ -26,11 +26,11 @@ import java.util.List;
 import java.util.Map;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.resource.Config;
 import mtgtech.com.weather_forecast.resource.Constants;
 import mtgtech.com.weather_forecast.resource.ResourceUtils;
 import mtgtech.com.weather_forecast.resource.XmlHelper;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 public class IconPackResourcesProvider extends ResourceProvider {
 
@@ -38,7 +38,8 @@ public class IconPackResourcesProvider extends ResourceProvider {
 
     private Context context;
     private String providerName;
-    @Nullable private Drawable iconDrawable;
+    @Nullable
+    private Drawable iconDrawable;
 
     private Config config;
     private Map<String, String> drawableFilter;
@@ -101,27 +102,6 @@ public class IconPackResourcesProvider extends ResourceProvider {
         }
     }
 
-    private void buildDefaultInstance(@NonNull Context c) {
-        context = c.getApplicationContext();
-        providerName = c.getString(R.string.weather_flow);
-        iconDrawable = defaultProvider.getProviderIcon();
-
-        Resources res = context.getResources();
-        try {
-            config = XmlHelper.getConfig(res.getXml(R.xml.icon_provider_config));
-            drawableFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_drawable_filter));
-            animatorFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_animator_filter));
-            shortcutFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_shortcut_filter));
-            sunMoonFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_sun_moon_filter));
-        } catch (Exception e) {
-            config = new Config();
-            drawableFilter = new HashMap<>();
-            animatorFilter = new HashMap<>();
-            shortcutFilter = new HashMap<>();
-            sunMoonFilter = new HashMap<>();
-        }
-    }
-
     @NonNull
     static List<IconPackResourcesProvider> getProviderList(@NonNull Context context,
                                                            @NonNull ResourceProvider defaultProvider) {
@@ -167,6 +147,49 @@ public class IconPackResourcesProvider extends ResourceProvider {
         }
     }
 
+    private static String innerGetWeatherIconName(WeatherCode code, boolean daytime) {
+        return Constants.getResourcesName(code)
+                + Constants.SEPARATOR + (daytime ? Constants.DAY : Constants.NIGHT);
+    }
+
+    private static String innerGetWeatherAnimatorName(WeatherCode code, boolean daytime) {
+        return Constants.getResourcesName(code)
+                + Constants.SEPARATOR + (daytime ? Constants.DAY : Constants.NIGHT);
+    }
+
+    private static String innerGetMiniIconName(WeatherCode code, boolean daytime) {
+        return innerGetWeatherIconName(code, daytime)
+                + Constants.SEPARATOR + Constants.MINI;
+    }
+
+    private static String innerGetShortcutsIconName(WeatherCode code, boolean daytime) {
+        return Constants.getShortcutsName(code)
+                + Constants.SEPARATOR + (daytime ? Constants.DAY : Constants.NIGHT);
+    }
+
+    private void buildDefaultInstance(@NonNull Context c) {
+        context = c.getApplicationContext();
+        providerName = c.getString(R.string.weather_flow);
+        iconDrawable = defaultProvider.getProviderIcon();
+
+        Resources res = context.getResources();
+        try {
+            config = XmlHelper.getConfig(res.getXml(R.xml.icon_provider_config));
+            drawableFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_drawable_filter));
+            animatorFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_animator_filter));
+            shortcutFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_shortcut_filter));
+            sunMoonFilter = XmlHelper.getFilterMap(res.getXml(R.xml.icon_provider_sun_moon_filter));
+        } catch (Exception e) {
+            config = new Config();
+            drawableFilter = new HashMap<>();
+            animatorFilter = new HashMap<>();
+            shortcutFilter = new HashMap<>();
+            sunMoonFilter = new HashMap<>();
+        }
+    }
+
+    // weather icon.
+
     private int getMetaDataResource(String key) {
         try {
             return context.getPackageManager().getApplicationInfo(
@@ -196,8 +219,6 @@ public class IconPackResourcesProvider extends ResourceProvider {
             return iconDrawable;
         }
     }
-
-    // weather icon.
 
     @Override
     @NonNull
@@ -234,18 +255,20 @@ public class IconPackResourcesProvider extends ResourceProvider {
     public Drawable[] getWeatherIcons(WeatherCode code, boolean dayTime) {
         if (config.hasWeatherIcons) {
             if (config.hasWeatherAnimators) {
-                return new Drawable[] {
+                return new Drawable[]{
                         getDrawable(getWeatherIconName(code, dayTime, 1)),
                         getDrawable(getWeatherIconName(code, dayTime, 2)),
                         getDrawable(getWeatherIconName(code, dayTime, 3))
                 };
             } else {
-                return new Drawable[] {getWeatherIcon(code, dayTime), null, null};
+                return new Drawable[]{getWeatherIcon(code, dayTime), null, null};
             }
         }
 
         return defaultProvider.getWeatherIcons(code, dayTime);
     }
+
+    // animator.
 
     @Nullable
     private Drawable getDrawable(@NonNull String resName) {
@@ -268,37 +291,32 @@ public class IconPackResourcesProvider extends ResourceProvider {
     }
 
     String getWeatherIconName(WeatherCode code, boolean daytime,
-                                     @IntRange(from = 1, to = 3) int index) {
+                              @IntRange(from = 1, to = 3) int index) {
         return getFilterResource(
                 drawableFilter,
                 innerGetWeatherIconName(code, daytime) + Constants.SEPARATOR + index
         );
     }
 
-    private static String innerGetWeatherIconName(WeatherCode code, boolean daytime) {
-        return Constants.getResourcesName(code)
-                + Constants.SEPARATOR + (daytime ? Constants.DAY : Constants.NIGHT);
-    }
-
-    // animator.
-
     @Override
     @Size(3)
     public Animator[] getWeatherAnimators(WeatherCode code, boolean dayTime) {
         if (config.hasWeatherIcons) {
             if (config.hasWeatherAnimators) {
-                return new Animator[] {
+                return new Animator[]{
                         getAnimator(getWeatherAnimatorName(code, dayTime, 1)),
                         getAnimator(getWeatherAnimatorName(code, dayTime, 2)),
                         getAnimator(getWeatherAnimatorName(code, dayTime, 3))
                 };
             } else {
-                return new Animator[] {null, null, null};
+                return new Animator[]{null, null, null};
             }
         }
 
         return defaultProvider.getWeatherAnimators(code, dayTime);
     }
+
+    // minimal icon.
 
     @Nullable
     private Animator getAnimator(@NonNull String resName) {
@@ -313,19 +331,12 @@ public class IconPackResourcesProvider extends ResourceProvider {
     }
 
     String getWeatherAnimatorName(WeatherCode code, boolean daytime,
-                                          @IntRange(from = 1, to = 3) int index) {
+                                  @IntRange(from = 1, to = 3) int index) {
         return getFilterResource(
                 animatorFilter,
                 innerGetWeatherAnimatorName(code, daytime) + Constants.SEPARATOR + index
         );
     }
-
-    private static String innerGetWeatherAnimatorName(WeatherCode code, boolean daytime) {
-        return Constants.getResourcesName(code)
-                + Constants.SEPARATOR + (daytime ? Constants.DAY : Constants.NIGHT);
-    }
-
-    // minimal icon.
 
     @Override
     @NonNull
@@ -478,19 +489,14 @@ public class IconPackResourcesProvider extends ResourceProvider {
         );
     }
 
+    // shortcut.
+
     String getMiniXmlIconName(WeatherCode code, boolean daytime) {
         return getFilterResource(
                 drawableFilter,
                 innerGetMiniIconName(code, daytime) + Constants.SEPARATOR + Constants.XML
         );
     }
-
-    private static String innerGetMiniIconName(WeatherCode code, boolean daytime) {
-        return innerGetWeatherIconName(code, daytime)
-                + Constants.SEPARATOR + Constants.MINI;
-    }
-
-    // shortcut.
 
     @Override
     @NonNull
@@ -536,11 +542,6 @@ public class IconPackResourcesProvider extends ResourceProvider {
                 shortcutFilter,
                 innerGetShortcutsIconName(code, daytime) + Constants.SEPARATOR + Constants.FOREGROUND
         );
-    }
-
-    private static String innerGetShortcutsIconName(WeatherCode code, boolean daytime) {
-        return Constants.getShortcutsName(code)
-                + Constants.SEPARATOR + (daytime ? Constants.DAY : Constants.NIGHT);
     }
 
     // sun and moon.

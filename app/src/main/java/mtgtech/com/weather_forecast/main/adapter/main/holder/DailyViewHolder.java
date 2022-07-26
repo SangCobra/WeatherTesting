@@ -15,21 +15,21 @@ import java.util.List;
 import java.util.TimeZone;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.main.adapter.main.MainTag;
+import mtgtech.com.weather_forecast.main.adapter.trend.DailyTrendAdapter;
+import mtgtech.com.weather_forecast.main.layout.TrendHorizontalLinearLayoutManager;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
+import mtgtech.com.weather_forecast.view.adapter.TagAdapter;
+import mtgtech.com.weather_forecast.view.decotarion.GridMarginsDecoration;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.appearance.DailyTrendDisplay;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.main.adapter.main.MainTag;
-import mtgtech.com.weather_forecast.main.adapter.trend.DailyTrendAdapter;
-import mtgtech.com.weather_forecast.main.layout.TrendHorizontalLinearLayoutManager;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.view.adapter.TagAdapter;
-import mtgtech.com.weather_forecast.view.decotarion.GridMarginsDecoration;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 public class DailyViewHolder extends AbstractMainCardViewHolder {
 
@@ -218,7 +218,7 @@ public class DailyViewHolder extends AbstractMainCardViewHolder {
         for (Daily d : weather.getDailyForecast()) {
             if ((d.day().getWeatherCode().isPercipitation() || d.night().getWeatherCode().isPercipitation())
                     && (d.day().getPrecipitation().isValid() || d.night().getPrecipitation().isValid())) {
-                precipitationCount ++;
+                precipitationCount++;
             }
         }
         if (precipitationCount < 3) {

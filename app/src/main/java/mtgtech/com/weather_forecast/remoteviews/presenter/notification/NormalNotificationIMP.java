@@ -6,8 +6,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.widget.RemoteViews;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,16 +16,20 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
 
-import android.util.Log;
-import android.widget.RemoteViews;
-
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.WeatherFlow;
+import mtgtech.com.weather_forecast.remoteviews.presenter.AbstractRemoteViewsPresenter;
+import mtgtech.com.weather_forecast.resource.ResourceHelper;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.LanguageUtils;
 import mtgtech.com.weather_forecast.utils.MyUtils;
+import mtgtech.com.weather_forecast.utils.helpter.LunarHelper;
+import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.NotificationStyle;
 import mtgtech.com.weather_forecast.weather_model.model.option.NotificationTextColor;
@@ -33,18 +37,10 @@ import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureU
 import mtgtech.com.weather_forecast.weather_model.model.weather.Base;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.remoteviews.presenter.AbstractRemoteViewsPresenter;
-import mtgtech.com.weather_forecast.resource.ResourceHelper;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.utils.LanguageUtils;
-import mtgtech.com.weather_forecast.utils.helpter.LunarHelper;
-import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 /**
  * Normal notification utils.
- * */
+ */
 
 public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
 
@@ -432,7 +428,7 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
     }
 
     private static int getWeatherRes(Location location, int day) {
-        switch (location.getWeather().getDailyForecast().get(day-1).day().getWeatherCode()){
+        switch (location.getWeather().getDailyForecast().get(day - 1).day().getWeatherCode()) {
             case CLEAR:
                 if (MyUtils.isNight()) {
                     return R.drawable.img_moon;
@@ -470,8 +466,9 @@ public class NormalNotificationIMP extends AbstractRemoteViewsPresenter {
         }
         return -1;
     }
+
     private static int getWeatherRes(Location location) {
-        switch (location.getWeather().getCurrent().getWeatherCode()){
+        switch (location.getWeather().getCurrent().getWeatherCode()) {
             case CLEAR:
                 if (MyUtils.isNight()) {
                     return R.drawable.img_moon;

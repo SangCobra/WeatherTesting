@@ -8,7 +8,7 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.WeekWidgetIMP;
 
 /**
  * Week widget config activity.
- * */
+ */
 
 public class WeekWidgetConfigActivity extends AbstractWidgetConfigActivity {
 
@@ -19,11 +19,11 @@ public class WeekWidgetConfigActivity extends AbstractWidgetConfigActivity {
         String[] widgetStyleValues = getResources().getStringArray(R.array.week_widget_style_values);
 
         this.viewTypeValueNow = "5_days";
-        this.viewTypes = new String[] {
+        this.viewTypes = new String[]{
                 widgetStyles[0],
                 widgetStyles[1]
         };
-        this.viewTypeValues = new String[] {
+        this.viewTypeValues = new String[]{
                 widgetStyleValues[0],
                 widgetStyleValues[1]
         };

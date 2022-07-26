@@ -1,6 +1,5 @@
 package mtgtech.com.weather_forecast.view.fragment;
 
-import static com.common.control.utils.LanguageUtils.changeLanguage;
 import static mtgtech.com.weather_forecast.main.MainActivity.MANAGE_ACTIVITY;
 import static mtgtech.com.weather_forecast.main.MainActivity.isShowAds;
 import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
@@ -41,19 +40,8 @@ import java.util.Locale;
 
 import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
-import mtgtech.com.weather_forecast.utils.LanguageUtils;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.CloudCoverUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.AQIObject;
-import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.databinding.FragmentHomeBinding;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.main.AirQualityActivity;
 import mtgtech.com.weather_forecast.main.MainActivity;
 import mtgtech.com.weather_forecast.main.RadarActivity;
@@ -64,12 +52,22 @@ import mtgtech.com.weather_forecast.models.TodayForecastModel;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.SunMoonUtils;
+import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.view.adapter.AQIGasAdapter;
 import mtgtech.com.weather_forecast.view.adapter.DailyDayNightAdapter;
 import mtgtech.com.weather_forecast.view.adapter.DailyForecastAdapter;
 import mtgtech.com.weather_forecast.view.adapter.TodayForecastAdapter;
-import mtgtech.com.weather_forecast.utils.SunMoonUtils;
-import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.CloudCoverUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.RelativeHumidityUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.AQIObject;
+import mtgtech.com.weather_forecast.weather_model.model.weather.AirQuality;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 
 public class HomeFragment extends Fragment {
@@ -90,6 +88,8 @@ public class HomeFragment extends Fragment {
     private SettingsOptionManager settingsOptionManager;
     private Location locationAnother;
     private MainActivity.LoadLocation loadLocation;
+    private float startX;
+    private float startY;
 
     public void setLoadLocation(MainActivity.LoadLocation loadLocation) {
         this.loadLocation = loadLocation;
@@ -467,9 +467,6 @@ public class HomeFragment extends Fragment {
         list.add(new AQIObject("CO", aqi.getCO()));
         return list;
     }
-
-    private float startX;
-    private float startY;
 
     private void sendToRadar(Location location) {
         Intent intent = new Intent(requireActivity(), RadarActivity.class);

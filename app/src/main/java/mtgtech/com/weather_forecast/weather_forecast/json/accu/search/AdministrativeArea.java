@@ -1,5 +1,5 @@
-
 package mtgtech.com.weather_forecast.weather_forecast.json.accu.search;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -1,14 +1,15 @@
 package mtgtech.com.weather_forecast.main.dialog
 
-import mtgtech.com.weather_forecast.OnActionCallback
-import mtgtech.com.weather_forecast.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import mtgtech.com.weather_forecast.OnActionCallback
+import mtgtech.com.weather_forecast.R
 
-class DeleteDialog(contentLayoutId: Int = R.layout.dialog_delete_location
+class DeleteDialog(
+    contentLayoutId: Int = R.layout.dialog_delete_location
 ) : AppCompatActivity(contentLayoutId) {
 
     companion object {
@@ -31,6 +32,7 @@ class DeleteDialog(contentLayoutId: Int = R.layout.dialog_delete_location
             finish()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         callback = null

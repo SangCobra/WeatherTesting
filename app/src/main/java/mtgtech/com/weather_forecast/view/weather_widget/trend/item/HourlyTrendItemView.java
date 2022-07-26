@@ -16,43 +16,41 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.view.image.AbstractIconTarget;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.ChartItemView;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendChild;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.TrendParent;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 /**
  * Hourly trend item view.
- * */
+ */
 public class HourlyTrendItemView extends ViewGroup
         implements TrendChild {
-
-    private @Nullable ChartItemView chartItem;
-    private TrendParent trendParent;
-    private Paint paint;
-
-    @Nullable private OnClickListener clickListener;
-
-    @Nullable private String hourText;
-    @Nullable private Drawable iconDrawable;
-
-    @ColorInt private int contentColor;
-
-    private float hourTextBaseLine;
-
-    private float iconLeft;
-    private float iconTop;
-
-    private float trendViewTop;
-
-    private int iconSize;
 
     private static final int ICON_SIZE_DIP = 32;
     private static final int TEXT_MARGIN_DIP = 4;
     private static final int ICON_MARGIN_DIP = 8;
     private static final int MARGIN_BOTTOM_DIP = 16;
+    private @Nullable
+    ChartItemView chartItem;
+    private TrendParent trendParent;
+    private Paint paint;
+    @Nullable
+    private OnClickListener clickListener;
+    @Nullable
+    private String hourText;
+    @Nullable
+    private Drawable iconDrawable;
+    @ColorInt
+    private int contentColor;
+    private float hourTextBaseLine;
+    private float iconLeft;
+    private float iconTop;
+    private float trendViewTop;
+    private int iconSize;
 
     public HourlyTrendItemView(Context context) {
         super(context);
@@ -164,7 +162,7 @@ public class HourlyTrendItemView extends ViewGroup
         if (iconDrawable != null) {
             int restoreCount = canvas.save();
             canvas.translate(iconLeft, iconTop);
-            iconDrawable.setBounds(0, 0, (int)DisplayUtils.dpToPx(getContext(),25), (int)DisplayUtils.dpToPx(getContext(),25));
+            iconDrawable.setBounds(0, 0, (int) DisplayUtils.dpToPx(getContext(), 25), (int) DisplayUtils.dpToPx(getContext(), 25));
             iconDrawable.draw(canvas);
 
             canvas.restoreToCount(restoreCount);
@@ -244,7 +242,8 @@ public class HourlyTrendItemView extends ViewGroup
     @Override
     public void setOnClickListener(@Nullable OnClickListener l) {
         clickListener = l;
-        super.setOnClickListener(v -> {});
+        super.setOnClickListener(v -> {
+        });
     }
 
     @Override
@@ -253,16 +252,16 @@ public class HourlyTrendItemView extends ViewGroup
     }
 
     @Override
+    public ChartItemView getChartItemView() {
+        return chartItem;
+    }
+
+    @Override
     public void setChartItemView(ChartItemView t) {
         chartItem = t;
         removeAllViews();
         addView(chartItem);
         requestLayout();
-    }
-
-    @Override
-    public ChartItemView getChartItemView() {
-        return chartItem;
     }
 }
 

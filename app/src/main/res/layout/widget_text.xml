@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@android:color/black" >
+    tools:background="@android:color/black">
 
     <LinearLayout
         android:id="@+id/widget_text_container"
@@ -18,50 +18,50 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/little_margin"
             android:layout_marginEnd="@dimen/little_margin"
-            android:textSize="@dimen/widget_content_text_size"
-            android:textColor="@color/colorTextLight"
+            android:format12Hour="@string/date_format_widget_long"
+            android:format24Hour="@string/date_format_widget_long"
+            android:maxLines="1"
             android:shadowColor="@color/colorTextDark2nd"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="1"
-            android:maxLines="1"
-            android:format24Hour="@string/date_format_widget_long"
-            android:format12Hour="@string/date_format_widget_long"
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/widget_content_text_size"
             tools:text="12月29日 星期四" />
 
         <TextView
             android:id="@+id/widget_text_weather"
+            style="@style/content_text"
             android:layout_marginStart="@dimen/little_margin"
-            android:layout_marginEnd="@dimen/little_margin"
             android:layout_marginTop="2dp"
+            android:layout_marginEnd="@dimen/little_margin"
             android:layout_marginBottom="@dimen/little_margin"
-            android:text="@string/ellipsis"
-            android:textSize="@dimen/widget_content_text_size"
-            android:textColor="@color/colorTextLight"
             android:maxLines="1"
             android:shadowColor="@color/colorTextDark2nd"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="1"
-            style="@style/content_text"
-            tools:text="Partly Could"
-            tools:ignore="RtlHardcoded" />
+            android:text="@string/ellipsis"
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/widget_content_text_size"
+            tools:ignore="RtlHardcoded"
+            tools:text="Partly Could" />
 
         <TextView
             android:id="@+id/widget_text_temperature"
-            android:text="@string/ellipsis"
-            android:textSize="48sp"
-            android:textColor="@color/colorTextLight"
+            style="@style/content_text"
+            android:layout_marginStart="@dimen/little_margin"
+            android:layout_marginTop="-12dp"
+            android:layout_marginEnd="@dimen/little_margin"
             android:shadowColor="@color/colorTextDark2nd"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="1"
-            android:layout_marginStart="@dimen/little_margin"
-            android:layout_marginEnd="@dimen/little_margin"
-            android:layout_marginTop="-12dp"
-            style="@style/content_text"
-            tools:text="21°"
-            tools:ignore="RtlHardcoded,SpUsage" />
+            android:text="@string/ellipsis"
+            android:textColor="@color/colorTextLight"
+            android:textSize="48sp"
+            tools:ignore="RtlHardcoded,SpUsage"
+            tools:text="21°" />
 
     </LinearLayout>
 

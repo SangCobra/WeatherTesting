@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.UnitUtils;
 import mtgtech.com.weather_forecast.weather_model.model.weather.AQIObject;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 
 public class AQIGasAdapter extends RecyclerView.Adapter<AQIGasAdapter.AQIViewHolder> {
 
@@ -46,6 +46,11 @@ public class AQIGasAdapter extends RecyclerView.Adapter<AQIGasAdapter.AQIViewHol
         return list.size();
     }
 
+    public void updateData(ArrayList<AQIObject> newList) {
+        list = newList;
+        notifyDataSetChanged();
+    }
+
     class AQIViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvHeading, tvValue;
@@ -58,15 +63,10 @@ public class AQIGasAdapter extends RecyclerView.Adapter<AQIGasAdapter.AQIViewHol
         }
 
         public void setData(AQIObject model) {
-            if (model.getValue() != null){
+            if (model.getValue() != null) {
                 tvHeading.setText(model.getName());
                 tvValue.setText(UnitUtils.formatFloat(model.getValue(), 0));
             }
         }
-    }
-
-    public void updateData(ArrayList<AQIObject> newList) {
-        list = newList;
-        notifyDataSetChanged();
     }
 }

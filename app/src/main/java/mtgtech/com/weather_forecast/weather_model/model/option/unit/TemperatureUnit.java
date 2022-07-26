@@ -16,10 +16,6 @@ public enum TemperatureUnit {
     private int unitArrayIndex;
     private Calculator unitCalculator;
 
-    public interface Calculator {
-        int getTemperature(int c);
-    }
-
     TemperatureUnit(String id, int index, Calculator calculator) {
         unitId = id;
         unitArrayIndex = index;
@@ -44,6 +40,7 @@ public enum TemperatureUnit {
             return getTemperature(c) + getAbbreviation(context);
         }
     }
+
     public String getTemperatureTextWithoutDegree(Context context, int c) {
         if (DisplayUtils.isRtl(context)) {
             return BidiFormatter.getInstance().unicodeWrap(
@@ -86,6 +83,10 @@ public enum TemperatureUnit {
 
     public String getShortAbbreviation(Context context) {
         return context.getResources().getStringArray(R.array.temperature_units_short)[unitArrayIndex];
+    }
+
+    public interface Calculator {
+        int getTemperature(int c);
     }
 
 }

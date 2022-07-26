@@ -12,29 +12,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import java.util.Date;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import mtgtech.com.weather_forecast.WeatherFlow;
+
+import java.util.Date;
+
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.receiver.widget.WidgetTrendDailyProvider;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import mtgtech.com.weather_forecast.remoteviews.trend.TrendLinearLayout;
+import mtgtech.com.weather_forecast.remoteviews.trend.WidgetItemView;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.remoteviews.trend.TrendLinearLayout;
-import mtgtech.com.weather_forecast.remoteviews.trend.WidgetItemView;
-import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.manager.ThreadManager;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.weatherView.WeatherViewController;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class DailyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
 
@@ -70,7 +71,8 @@ public class DailyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
         );
     }
 
-    @WorkerThread @Nullable
+    @WorkerThread
+    @Nullable
     @SuppressLint({"InflateParams", "WrongThread"})
     private static View getDrawableView(Context context, Location location,
                                         boolean lightTheme) {
@@ -112,7 +114,7 @@ public class DailyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
         lowestTemperature = weather.getYesterday() == null
                 ? Integer.MAX_VALUE
                 : weather.getYesterday().getNighttimeTemperature();
-        for (int i = 0; i < itemCount; i ++) {
+        for (int i = 0; i < itemCount; i++) {
             if (weather.getDailyForecast().get(i).day().getTemperature().getTemperature() > highestTemperature) {
                 highestTemperature = weather.getDailyForecast().get(i).day().getTemperature().getTemperature();
             }
@@ -126,7 +128,7 @@ public class DailyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
         if (weather.getYesterday() != null) {
             TrendLinearLayout trendParent = drawableView.findViewById(R.id.widget_trend_daily);
             trendParent.setData(
-                    new int[] {
+                    new int[]{
                             weather.getYesterday().getDaytimeTemperature(),
                             weather.getYesterday().getNighttimeTemperature()
                     },
@@ -137,7 +139,7 @@ public class DailyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
             );
             trendParent.setColor(lightTheme);
         }
-        WidgetItemView[] items = new WidgetItemView[] {
+        WidgetItemView[] items = new WidgetItemView[]{
                 drawableView.findViewById(R.id.widget_trend_daily_item_1),
                 drawableView.findViewById(R.id.widget_trend_daily_item_2),
                 drawableView.findViewById(R.id.widget_trend_daily_item_3),
@@ -145,7 +147,7 @@ public class DailyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
                 drawableView.findViewById(R.id.widget_trend_daily_item_5)
         };
         int[] colors = WeatherViewController.getThemeColors(context, weather, TimeManager.isDaylight(location));
-        for (int i = 0; i < items.length; i ++) {
+        for (int i = 0; i < items.length; i++) {
             Daily daily = weather.getDailyForecast().get(i);
 
             if (daily.getDate().equals(new Date())) {
@@ -211,14 +213,14 @@ public class DailyTrendWidgetIMP extends AbstractRemoteViewsPresenter {
     @SuppressLint("WrongThread")
     @WorkerThread
     private static RemoteViews getRemoteViews(Context context, @Nullable View drawableView,
-                                             Location location, int width,
+                                              Location location, int width,
                                               boolean darkCard, int cardAlpha) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_remote);
         if (drawableView == null) {
             return views;
         }
 
-        WidgetItemView[] items = new WidgetItemView[] {
+        WidgetItemView[] items = new WidgetItemView[]{
                 drawableView.findViewById(R.id.widget_trend_daily_item_1),
                 drawableView.findViewById(R.id.widget_trend_daily_item_2),
                 drawableView.findViewById(R.id.widget_trend_daily_item_3),

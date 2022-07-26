@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<!--        <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
+    <!--        <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -46,19 +46,22 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:replace="android:label"
         tools:targetApi="n">
-        <activity android:name=".main.RadarActivity"
-            android:screenOrientation="locked"
-            />
-        <activity android:name=".main.HourlyListActivity"
-            android:screenOrientation="locked"/>
-        <activity android:name=".settings.activity.MySettingsActivity"
-            android:screenOrientation="locked"/>
-        <activity android:name=".view.activity.DailyListActivity"
-            android:screenOrientation="locked"/>
+        <activity
+            android:name=".main.RadarActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".main.HourlyListActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".settings.activity.MySettingsActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".view.activity.DailyListActivity"
+            android:screenOrientation="locked" />
         <activity
             android:name=".main.DailyListActivity"
-            tools:ignore="MissingClass"
-            android:screenOrientation="locked"/>
+            android:screenOrientation="locked"
+            tools:ignore="MissingClass" />
 
         <meta-data
             android:name="com.mtgtech.weatherFlow.PROVIDER_CONFIG"
@@ -101,28 +104,28 @@
         <activity
             android:name=".daily_weather.DailyWeatherActivity"
             android:label="@string/daily_overview"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="locked"/>
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".view.activity.AlertActivity"
             android:label="@string/action_alert"
-            android:theme="@style/WeatherFlowTheme"
-            android:screenOrientation="locked"/>
+            android:screenOrientation="locked"
+            android:theme="@style/WeatherFlowTheme" />
         <activity
             android:name=".view.activity.AllergenActivity"
             android:label="@string/allergen"
-            android:theme="@style/WeatherFlowTheme"
-            android:screenOrientation="locked"/>
+            android:screenOrientation="locked"
+            android:theme="@style/WeatherFlowTheme" />
         <activity
             android:name=".view.activity.ManageActivity"
             android:label="@string/action_manage"
-            android:theme="@style/WeatherFlowTheme"
-            android:screenOrientation="locked"/>
+            android:screenOrientation="locked"
+            android:theme="@style/WeatherFlowTheme" />
         <activity
             android:name=".view.activity.SearchActivity"
             android:label="@string/action_search"
-            android:theme="@style/WeatherFlowTheme.Search"
-            android:screenOrientation="locked"/>
+            android:screenOrientation="locked"
+            android:theme="@style/WeatherFlowTheme.Search" />
         <activity
             android:name=".settings.activity.SettingsActivity"
             android:label="@string/action_settings"
@@ -146,8 +149,8 @@
         <activity
             android:name=".settings.activity.PreviewIconActivity"
             android:label="@string/action_preview"
-            android:theme="@style/WeatherFlowTheme"
-            android:screenOrientation="locked"/>
+            android:screenOrientation="locked"
+            android:theme="@style/WeatherFlowTheme" />
         <activity
             android:name=".settings.activity.AboutActivity"
             android:label="@string/action_about"
@@ -303,16 +306,17 @@
             android:theme="@style/Transparent" />
         <activity
             android:name=".view.activity.SplashActivity"
-            android:screenOrientation="locked"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.AirQualityActivity"
-            android:screenOrientation="locked"/> <!-- service -->
+        <activity
+            android:name=".main.AirQualityActivity"
+            android:screenOrientation="locked" /> <!-- service -->
         <service
             android:name=".background.polling.basic.AwakeForegroundUpdateService"
             android:foregroundServiceType="location" />

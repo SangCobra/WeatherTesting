@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/border_settings_begin"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/border_settings_begin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_12sdp"
     android:background="#99000000"
-    >
+    android:padding="@dimen/_12sdp">
+
     <LinearLayout
         android:id="@+id/in_settings_begin"
         android:layout_width="match_parent"
@@ -16,16 +16,17 @@
         android:backgroundTint="#3B3B3B"
         android:orientation="vertical"
         tools:ignore="UselessParent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_48sdp"
-            android:text="Settings"
-            android:fontFamily="@font/montserrat_regular"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"
-            android:gravity="center"
             android:background="@drawable/border_radius_half_up"
-            android:backgroundTint="#262626"/>
+            android:backgroundTint="#262626"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp" />
 
         <LinearLayout
             android:layout_width="354dp"
@@ -265,7 +266,7 @@
                         android:textColor="#fff"
                         android:textFontWeight="500"
                         android:textSize="@dimen/_10sdp" />
-                </LinearLayout  >
+                </LinearLayout>
 
                 <Switch
                     android:id="@+id/set_status_bar"
@@ -279,18 +280,19 @@
                     tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
             </LinearLayout>
         </LinearLayout>
+
         <Button
             android:id="@+id/done_settings_begin"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_36sdp"
-            android:text="DONE"
-            android:fontFamily="@font/montserrat_regular"
-            android:backgroundTint="#FFA800"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/white"
-            android:background="@drawable/shape_border_button"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/_14sdp"
             android:layout_marginBottom="@dimen/_14sdp"
-            android:layout_gravity="center"/>
+            android:background="@drawable/shape_border_button"
+            android:backgroundTint="#FFA800"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="DONE"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
     </LinearLayout>
 </FrameLayout>

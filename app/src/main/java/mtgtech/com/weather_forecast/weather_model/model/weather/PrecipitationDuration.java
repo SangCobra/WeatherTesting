@@ -6,16 +6,21 @@ import java.io.Serializable;
 
 /**
  * Precipitation duration.
- *
+ * <p>
  * default unit : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.DurationUnit#H}
- * */
+ */
 public class PrecipitationDuration implements Serializable {
 
-    @Nullable private Float total;
-    @Nullable private Float thunderstorm;
-    @Nullable private Float rain;
-    @Nullable private Float snow;
-    @Nullable private Float ice;
+    @Nullable
+    private Float total;
+    @Nullable
+    private Float thunderstorm;
+    @Nullable
+    private Float rain;
+    @Nullable
+    private Float snow;
+    @Nullable
+    private Float ice;
 
     public PrecipitationDuration(@Nullable Float total,
                                  @Nullable Float thunderstorm,

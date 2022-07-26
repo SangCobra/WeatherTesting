@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Accu location result.
- * */
+ */
 
 public class AccuLocationResult {
 

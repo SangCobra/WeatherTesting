@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.db.entity.AlertEntity;
 import mtgtech.com.weather_forecast.db.entity.AlertEntityDao;
 import mtgtech.com.weather_forecast.db.entity.DaoSession;
 import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 
 public class AlertEntityController extends AbsEntityController<AlertEntity> {
 

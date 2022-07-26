@@ -15,16 +15,16 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import mtgtech.com.weather_forecast.background.polling.PollingUpdateHelper;
+import mtgtech.com.weather_forecast.db.DatabaseHelper;
+import mtgtech.com.weather_forecast.remoteviews.NotificationUtils;
+import mtgtech.com.weather_forecast.utils.manager.ShortcutsManager;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.remoteviews.NotificationUtils;
-import mtgtech.com.weather_forecast.db.DatabaseHelper;
-import mtgtech.com.weather_forecast.background.polling.PollingUpdateHelper;
-import mtgtech.com.weather_forecast.utils.manager.ShortcutsManager;
 
 /**
  * Update service.
- * */
+ */
 
 public abstract class UpdateService extends Service
         implements PollingUpdateHelper.OnPollingUpdateListener {
@@ -91,7 +91,7 @@ public abstract class UpdateService extends Service
     @Override
     public void onUpdateCompleted(@NonNull Location location, @Nullable Weather old,
                                   boolean succeed, int index, int total) {
-        for (int i = 0; i < locationList.size(); i ++) {
+        for (int i = 0; i < locationList.size(); i++) {
             if (locationList.get(i).equals(location)) {
                 locationList.set(i, location);
                 if (i == 0) {

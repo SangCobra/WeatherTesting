@@ -11,11 +11,11 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Wind;
 import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.DailyWind;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Wind;
 
 public class WindHolder extends DailyWeatherAdapter.ViewHolder {
 

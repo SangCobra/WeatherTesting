@@ -2,46 +2,42 @@ package mtgtech.com.weather_forecast.weather_forecast.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_forecast.api.WeatherBitApi;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.CurrentCondition;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import retrofit2.Retrofit;
 import mtgtech.com.weather_forecast.BuildConfig;
 import mtgtech.com.weather_forecast.WeatherFlow;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.weather_forecast.SchedulerTransformer;
 import mtgtech.com.weather_forecast.weather_forecast.api.AccuWeatherApi;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_forecast.api.WeatherBitApi;
 import mtgtech.com.weather_forecast.weather_forecast.converter.AccuResultConverter;
+import mtgtech.com.weather_forecast.weather_forecast.interceptor.GzipInterceptor;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuAlertResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuAqiResult;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuCurrentResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuDailyResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuHourlyResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuLocationResult;
 import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuMinuteResult;
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.AccuCurrentResult;
-import mtgtech.com.weather_forecast.weather_forecast.interceptor.GzipInterceptor;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.CurrentCondition;
 import mtgtech.com.weather_forecast.weather_forecast.observer.BaseObserver;
 import mtgtech.com.weather_forecast.weather_forecast.observer.ObserverContainer;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
+import retrofit2.Retrofit;
 
 /**
  * Accu weather service.
- * */
+ */
 
 public class AccuWeatherService extends WeatherService {
-
-    private AccuWeatherApi api;
-    private WeatherBitApi bitApi;
-    private CompositeDisposable compositeDisposable;
 
     private static final String PREFERENCE_LOCAL = "LOCAL_PREFERENCE";
     private static final String KEY_OLD_DISTRICT = "OLD_DISTRICT";
@@ -49,56 +45,10 @@ public class AccuWeatherService extends WeatherService {
     private static final String KEY_OLD_PROVINCE = "OLD_PROVINCE";
     private static final String KEY_OLD_KEY = "OLD_KEY";
     String languageCode = "en";
+    private AccuWeatherApi api;
+    private WeatherBitApi bitApi;
+    private CompositeDisposable compositeDisposable;
 
-    private class CacheLocationRequestCallback implements RequestLocationCallback {
-
-        private Context context;
-        @NonNull private RequestLocationCallback callback;
-
-        CacheLocationRequestCallback(Context context, @NonNull RequestLocationCallback callback) {
-            this.context = context;
-            this.callback = callback;
-        }
-
-        @Override
-        public void requestLocationSuccess(String query, List<Location> locationList) {
-            if (!TextUtils.isEmpty(locationList.get(0).getCityId())) {
-                context.getSharedPreferences(PREFERENCE_LOCAL, Context.MODE_PRIVATE)
-                        .edit()
-                        .putString(KEY_OLD_KEY, locationList.get(0).getCityId())
-                        .apply();
-            }
-            callback.requestLocationSuccess(query, locationList);
-        }
-
-        @Override
-        public void requestLocationFailed(String query) {
-            context.getSharedPreferences(PREFERENCE_LOCAL, Context.MODE_PRIVATE)
-                    .edit()
-                    .putString(KEY_OLD_DISTRICT, "")
-                    .putString(KEY_OLD_CITY, "")
-                    .putString(KEY_OLD_PROVINCE, "")
-                    .putString(KEY_OLD_KEY, "")
-                    .apply();
-            callback.requestLocationFailed(query);
-        }
-    }
-
-    public AccuWeatherApi getApi() {
-        return api;
-    }
-
-    public void setApi(AccuWeatherApi api) {
-        this.api = api;
-    }
-
-    private class EmptyMinuteResult extends AccuMinuteResult {
-    }
-
-    private class EmptyAqiResult extends AccuAqiResult {
-    }
-    private class EmptyAqiResultBit extends CurrentCondition {
-    }
     public AccuWeatherService() {
         api = new Retrofit.Builder()
                 .baseUrl(BuildConfig.ACCU_WEATHER_BASE_URL)
@@ -127,6 +77,14 @@ public class AccuWeatherService extends WeatherService {
                 .create((WeatherBitApi.class));
     }
 
+    public AccuWeatherApi getApi() {
+        return api;
+    }
+
+    public void setApi(AccuWeatherApi api) {
+        this.api = api;
+    }
+
     @Override
     public void requestWeather(Context context, Location location, @NonNull RequestWeatherCallback callback) {
 //        String languageCode = SettingsOptionManager.getInstance(context).getLanguage().getCode();
@@ -138,7 +96,7 @@ public class AccuWeatherService extends WeatherService {
                 location.getCityId(), BuildConfig.ACCU_WEATHER_KEY, languageCode, true, true);
 
         Observable<List<AccuHourlyResult>> hourly = api.getHourly(
-                location.getCityId(), BuildConfig.ACCU_WEATHER_KEY, languageCode, true,true);
+                location.getCityId(), BuildConfig.ACCU_WEATHER_KEY, languageCode, true, true);
 
         Observable<AccuMinuteResult> minute = api.getMinutely(
                 BuildConfig.ACCU_WEATHER_KEY,
@@ -169,15 +127,15 @@ public class AccuWeatherService extends WeatherService {
                  accuDailyResult, accuHourlyResults, accuMinuteResult,
                  accuAlertResults,
                  accuAqiResult) -> AccuResultConverter.convert(
-                         context,
-                         location,
-                         accuRealtimeResults.get(0),
-                         accuDailyResult,
-                         accuHourlyResults,
-                         accuMinuteResult instanceof EmptyMinuteResult ? null : accuMinuteResult,
-                         accuAqiResult instanceof EmptyAqiResultBit ? null : accuAqiResult,
-                         accuAlertResults
-                 )
+                        context,
+                        location,
+                        accuRealtimeResults.get(0),
+                        accuDailyResult,
+                        accuHourlyResults,
+                        accuMinuteResult instanceof EmptyMinuteResult ? null : accuMinuteResult,
+                        accuAqiResult instanceof EmptyAqiResultBit ? null : accuAqiResult,
+                        accuAlertResults
+                )
         ).compose(SchedulerTransformer.create())
                 .subscribe(new ObserverContainer<>(compositeDisposable, new BaseObserver<Weather>() {
                     @Override
@@ -334,5 +292,49 @@ public class AccuWeatherService extends WeatherService {
             return a.equals(b);
         }
         return false;
+    }
+
+    private class CacheLocationRequestCallback implements RequestLocationCallback {
+
+        private Context context;
+        @NonNull
+        private RequestLocationCallback callback;
+
+        CacheLocationRequestCallback(Context context, @NonNull RequestLocationCallback callback) {
+            this.context = context;
+            this.callback = callback;
+        }
+
+        @Override
+        public void requestLocationSuccess(String query, List<Location> locationList) {
+            if (!TextUtils.isEmpty(locationList.get(0).getCityId())) {
+                context.getSharedPreferences(PREFERENCE_LOCAL, Context.MODE_PRIVATE)
+                        .edit()
+                        .putString(KEY_OLD_KEY, locationList.get(0).getCityId())
+                        .apply();
+            }
+            callback.requestLocationSuccess(query, locationList);
+        }
+
+        @Override
+        public void requestLocationFailed(String query) {
+            context.getSharedPreferences(PREFERENCE_LOCAL, Context.MODE_PRIVATE)
+                    .edit()
+                    .putString(KEY_OLD_DISTRICT, "")
+                    .putString(KEY_OLD_CITY, "")
+                    .putString(KEY_OLD_PROVINCE, "")
+                    .putString(KEY_OLD_KEY, "")
+                    .apply();
+            callback.requestLocationFailed(query);
+        }
+    }
+
+    private class EmptyMinuteResult extends AccuMinuteResult {
+    }
+
+    private class EmptyAqiResult extends AccuAqiResult {
+    }
+
+    private class EmptyAqiResultBit extends CurrentCondition {
     }
 }

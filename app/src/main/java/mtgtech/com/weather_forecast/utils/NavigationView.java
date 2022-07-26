@@ -1,39 +1,30 @@
 package mtgtech.com.weather_forecast.utils;
 
+import static mtgtech.com.weather_forecast.main.MainActivity.MANAGE_ACTIVITY;
+import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
+import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
+
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Bundle;
+
 import androidx.core.view.GravityCompat;
 import androidx.preference.CheckBoxPreference;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
+
+import com.common.control.interfaces.AdCallback;
+import com.common.control.manager.AdmobManager;
 
 import mtgtech.com.weather_forecast.AdCache;
 import mtgtech.com.weather_forecast.R;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
 import mtgtech.com.weather_forecast.databinding.ActivityMainBinding;
 import mtgtech.com.weather_forecast.main.MainActivity;
-import mtgtech.com.weather_forecast.remoteviews.presenter.notification.ForecastNotificationIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.settings.activity.MySettingsActivity;
 import mtgtech.com.weather_forecast.settings.fragment.AbstractSettingsFragment;
-import mtgtech.com.weather_forecast.settings.fragment.NotificationColorSettingsFragment;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
-import mtgtech.com.weather_forecast.weather_model.model.option.NotificationStyle;
-
-import static mtgtech.com.weather_forecast.main.MainActivity.MANAGE_ACTIVITY;
-import static mtgtech.com.weather_forecast.utils.manager.AdsUtils.currentTime;
-import static mtgtech.com.weather_forecast.view.fragment.HomeFragment.TIME_LOAD_INTERS;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-
-import com.common.control.interfaces.AdCallback;
-import com.common.control.manager.AdmobManager;
 
 public class NavigationView extends AbstractSettingsFragment {
-
 
 
     public void setUp(MainActivity mainActivity, ActivityMainBinding binding) {
@@ -55,7 +46,7 @@ public class NavigationView extends AbstractSettingsFragment {
 //        binding.navLayout.switchShowNightInfo.setChecked(settingsOptionManager.isShowNightInfoEnabled());
         binding.navLayout.switchWeatherBackground.setChecked(settingsOptionManager.isWeatherBgEnabled());
 
-        changeListeners(mainActivity,binding, settingsOptionManager);
+        changeListeners(mainActivity, binding, settingsOptionManager);
 
 
     }
@@ -141,7 +132,7 @@ public class NavigationView extends AbstractSettingsFragment {
     }
 
     private void showIntersAd(Activity activity) {
-        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS){
+        if (System.currentTimeMillis() - currentTime >= TIME_LOAD_INTERS) {
             AdmobManager.getInstance().showInterstitial(activity, AdCache.getInstance().getInterstitialAd(), new AdCallback() {
                 @Override
                 public void onAdClosed() {
@@ -185,13 +176,13 @@ public class NavigationView extends AbstractSettingsFragment {
             }
         }));
         binding.navLayout.isLockScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(buttonView.isPressed()){
+            if (buttonView.isPressed()) {
                 settingsOptionManager.setNotificationHideInLockScreenEnabled(!isChecked);
                 PollingManager.resetNormalBackgroundTask(mainActivity, isChecked);
             }
         });
         binding.navLayout.changeTermType.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (buttonView.isPressed()){
+            if (buttonView.isPressed()) {
                 settingsOptionManager.setTermChange(!isChecked);
                 mainActivity.onRefresh();
             }

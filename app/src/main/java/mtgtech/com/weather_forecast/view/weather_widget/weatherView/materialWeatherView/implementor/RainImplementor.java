@@ -19,54 +19,192 @@ import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeat
 
 /**
  * Rain implementor.
- * */
+ */
 
 public class RainImplementor extends MaterialWeatherView.WeatherAnimationImplementor {
-
-    private Paint paint;
-    private Rain[] rains;
-    private Thunder thunder;
-
-    private float lastDisplayRate;
-
-    private float lastRotation3D;
-    private static final float INITIAL_ROTATION_3D = 1000;
-
-    @ColorInt
-    private int backgroundColor;
 
     public static final int TYPE_RAIN_DAY = 1;
     public static final int TYPE_RAIN_NIGHT = 2;
     public static final int TYPE_THUNDERSTORM = 3;
     public static final int TYPE_SLEET_DAY = 4;
     public static final int TYPE_SLEET_NIGHT = 5;
+    private static final float INITIAL_ROTATION_3D = 1000;
+    private Paint paint;
+    private Rain[] rains;
+    private Thunder thunder;
+    private float lastDisplayRate;
+    private float lastRotation3D;
+    @ColorInt
+    private int backgroundColor;
+
+    public RainImplementor(@Size(2) int[] canvasSizes, @TypeRule int type) {
+        this.paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setAntiAlias(true);
+
+        int[] colors = new int[3];
+        switch (type) {
+            case TYPE_RAIN_DAY:
+                this.rains = new Rain[51];
+                this.thunder = null;
+                this.backgroundColor = Color.rgb(64, 151, 231);
+                colors = new int[]{
+                        Color.rgb(223, 179, 114),
+                        Color.rgb(152, 175, 222),
+                        Color.rgb(255, 255, 255)};
+                break;
+
+            case TYPE_RAIN_NIGHT:
+                this.rains = new Rain[51];
+                this.thunder = null;
+                this.backgroundColor = Color.rgb(38, 78, 143);
+                colors = new int[]{
+                        Color.rgb(182, 142, 82),
+                        Color.rgb(88, 92, 113),
+                        Color.rgb(255, 255, 255)};
+                break;
+
+            case TYPE_THUNDERSTORM:
+                this.rains = new Rain[45];
+                this.thunder = new Thunder();
+                this.backgroundColor = Color.rgb(43, 29, 69);
+                colors = new int[]{
+                        Color.rgb(182, 142, 82),
+                        Color.rgb(88, 92, 113),
+                        Color.rgb(255, 255, 255)};
+                break;
+
+            case TYPE_SLEET_DAY:
+                this.rains = new Rain[45];
+                this.thunder = null;
+                backgroundColor = Color.rgb(104, 186, 255);
+                colors = new int[]{
+                        Color.rgb(128, 197, 255),
+                        Color.rgb(185, 222, 255),
+                        Color.rgb(255, 255, 255)};
+                break;
+
+            case TYPE_SLEET_NIGHT:
+                this.rains = new Rain[45];
+                this.thunder = null;
+                backgroundColor = Color.rgb(26, 91, 146);
+                colors = new int[]{
+                        Color.rgb(40, 102, 155),
+                        Color.rgb(99, 144, 182),
+                        Color.rgb(255, 255, 255)};
+                break;
+        }
+
+        float[] scales = new float[]{0.6F, 0.8F, 1};
+        assert rains != null;
+        for (int i = 0; i < rains.length; i++) {
+            rains[i] = new Rain(
+                    canvasSizes[0], canvasSizes[1],
+                    colors[i * 3 / rains.length], scales[i * 3 / rains.length]);
+        }
+
+        this.lastDisplayRate = 0;
+        this.lastRotation3D = INITIAL_ROTATION_3D;
+    }
+
+    @ColorInt
+    public static int getThemeColor(Context context, @TypeRule int type) {
+        switch (type) {
+            case TYPE_RAIN_DAY:
+                return Color.rgb(64, 151, 231);
+
+            case TYPE_RAIN_NIGHT:
+                return Color.rgb(38, 78, 143);
+
+            case TYPE_SLEET_DAY:
+                return Color.rgb(104, 186, 255);
+
+            case TYPE_SLEET_NIGHT:
+                return Color.rgb(26, 91, 146);
+
+            case TYPE_THUNDERSTORM:
+                return Color.rgb(43, 29, 69);
+        }
+        return ContextCompat.getColor(context, R.color.colorPrimary);
+    }
+
+    @Override
+    public void updateData(@Size(2) int[] canvasSizes, long interval,
+                           float rotation2D, float rotation3D) {
+
+        for (Rain r : rains) {
+            r.move(interval, lastRotation3D == INITIAL_ROTATION_3D ? 0 : rotation3D - lastRotation3D);
+        }
+        if (thunder != null) {
+            thunder.shine(interval);
+        }
+        lastRotation3D = rotation3D;
+    }
+
+    @Override
+    public void draw(@Size(2) int[] canvasSizes, Canvas canvas,
+                     float displayRate, float scrollRate, float rotation2D, float rotation3D) {
+
+        if (displayRate >= 1) {
+            canvas.drawColor(backgroundColor);
+        } else {
+            canvas.drawColor(
+                    ColorUtils.setAlphaComponent(
+                            backgroundColor,
+                            (int) (displayRate * 255)));
+        }
+
+        if (scrollRate < 1) {
+            rotation2D += 8;
+            canvas.rotate(
+                    rotation2D,
+                    canvasSizes[0] * 0.5F,
+                    canvasSizes[1] * 0.5F);
+
+            for (Rain r : rains) {
+                paint.setColor(r.color);
+                if (displayRate < lastDisplayRate) {
+                    paint.setAlpha((int) (displayRate * (1 - scrollRate) * 255));
+                } else {
+                    paint.setAlpha((int) ((1 - scrollRate) * 255));
+                }
+                canvas.drawRect(r.rectF, paint);
+            }
+            if (thunder != null) {
+                canvas.drawColor(
+                        Color.argb(
+                                (int) (displayRate * (1 - scrollRate) * thunder.alpha * 255),
+                                thunder.r,
+                                thunder.g,
+                                thunder.b));
+            }
+        }
+
+        lastDisplayRate = displayRate;
+    }
 
     @IntDef({TYPE_RAIN_DAY, TYPE_RAIN_NIGHT, TYPE_THUNDERSTORM, TYPE_SLEET_DAY, TYPE_SLEET_NIGHT})
-    @interface TypeRule {}
+    @interface TypeRule {
+    }
 
     private class Rain {
-
-        float x;
-        float y;
-        float width;
-        float height;
-
-        RectF rectF;
-        float speed;
-
-        @ColorInt
-        int color;
-        float scale;
-
-        private int viewWidth;
-        private int viewHeight;
-
-        private int canvasSize;
 
         private final float MAX_WIDTH;
         private final float MIN_WIDTH;
         private final float MAX_HEIGHT;
         private final float MIN_HEIGHT;
+        float x;
+        float y;
+        float width;
+        float height;
+        RectF rectF;
+        float speed;
+        @ColorInt
+        int color;
+        float scale;
+        private int viewWidth;
+        private int viewHeight;
+        private int canvasSize;
 
         private Rain(int viewWidth, int viewHeight, @ColorInt int color, float scale) {
             this.viewWidth = viewWidth;
@@ -134,7 +272,7 @@ public class RainImplementor extends MaterialWeatherView.WeatherAnimationImpleme
         private long delay;
 
         Thunder() {
-            this.r = this.g = this. b = 255;
+            this.r = this.g = this.b = 255;
             init();
             computeFrame();
         }
@@ -168,151 +306,5 @@ public class RainImplementor extends MaterialWeatherView.WeatherAnimationImpleme
             }
             computeFrame();
         }
-    }
-
-    public RainImplementor(@Size(2) int[] canvasSizes, @TypeRule int type) {
-        this.paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setAntiAlias(true);
-
-        int[] colors = new int[3];
-        switch (type) {
-            case TYPE_RAIN_DAY:
-                this.rains = new Rain[51];
-                this.thunder = null;
-                this.backgroundColor = Color.rgb(64, 151, 231);
-                colors = new int[]{
-                        Color.rgb(223, 179, 114),
-                        Color.rgb(152, 175, 222),
-                        Color.rgb(255, 255, 255)};
-                break;
-
-            case TYPE_RAIN_NIGHT:
-                this.rains = new Rain[51];
-                this.thunder = null;
-                this.backgroundColor = Color.rgb(38, 78, 143);
-                colors = new int[]{
-                        Color.rgb(182, 142, 82),
-                        Color.rgb(88, 92, 113),
-                        Color.rgb(255, 255, 255)};
-                break;
-
-            case TYPE_THUNDERSTORM:
-                this.rains = new Rain[45];
-                this.thunder = new Thunder();
-                this.backgroundColor = Color.rgb(43, 29, 69);
-                colors = new int[]{
-                        Color.rgb(182, 142, 82),
-                        Color.rgb(88, 92, 113),
-                        Color.rgb(255, 255, 255)};
-                break;
-
-            case TYPE_SLEET_DAY:
-                this.rains = new Rain[45];
-                this.thunder = null;
-                backgroundColor = Color.rgb(104, 186, 255);
-                colors = new int[] {
-                        Color.rgb(128, 197, 255),
-                        Color.rgb(185, 222, 255),
-                        Color.rgb(255, 255, 255)};
-                break;
-
-            case TYPE_SLEET_NIGHT:
-                this.rains = new Rain[45];
-                this.thunder = null;
-                backgroundColor = Color.rgb(26, 91, 146);
-                colors = new int[] {
-                        Color.rgb(40, 102, 155),
-                        Color.rgb(99, 144, 182),
-                        Color.rgb(255, 255, 255)};
-                break;
-        }
-
-        float[] scales = new float[] {0.6F, 0.8F, 1};
-        assert rains != null;
-        for (int i = 0; i < rains.length; i ++) {
-            rains[i] = new Rain(
-                    canvasSizes[0], canvasSizes[1],
-                    colors[i * 3 / rains.length], scales[i * 3 / rains.length]);
-        }
-
-        this.lastDisplayRate = 0;
-        this.lastRotation3D = INITIAL_ROTATION_3D;
-    }
-
-    @Override
-    public void updateData(@Size(2) int[] canvasSizes, long interval,
-                           float rotation2D, float rotation3D) {
-
-        for (Rain r : rains) {
-            r.move(interval, lastRotation3D == INITIAL_ROTATION_3D ? 0 : rotation3D - lastRotation3D);
-        }
-        if (thunder != null) {
-            thunder.shine(interval);
-        }
-        lastRotation3D = rotation3D;
-    }
-
-    @Override
-    public void draw(@Size(2) int[] canvasSizes, Canvas canvas,
-                     float displayRate, float scrollRate, float rotation2D, float rotation3D) {
-
-        if (displayRate >= 1) {
-            canvas.drawColor(backgroundColor);
-        } else {
-            canvas.drawColor(
-                    ColorUtils.setAlphaComponent(
-                            backgroundColor,
-                            (int) (displayRate * 255)));
-        }
-
-        if (scrollRate < 1) {
-            rotation2D += 8;
-            canvas.rotate(
-                    rotation2D,
-                    canvasSizes[0] * 0.5F,
-                    canvasSizes[1] * 0.5F);
-
-            for (Rain r : rains) {
-                paint.setColor(r.color);
-                if (displayRate < lastDisplayRate) {
-                    paint.setAlpha((int) (displayRate * (1 - scrollRate) * 255));
-                } else {
-                    paint.setAlpha((int) ((1 - scrollRate) * 255));
-                }
-                canvas.drawRect(r.rectF, paint);
-            }
-            if (thunder != null) {
-                canvas.drawColor(
-                        Color.argb(
-                                (int) (displayRate * (1 - scrollRate) * thunder.alpha * 255),
-                                thunder.r,
-                                thunder.g,
-                                thunder.b));
-            }
-        }
-
-        lastDisplayRate = displayRate;
-    }
-
-    @ColorInt
-    public static int getThemeColor(Context context, @TypeRule int type) {
-        switch (type) {
-            case TYPE_RAIN_DAY:
-                return Color.rgb(64, 151, 231);
-
-            case TYPE_RAIN_NIGHT:
-                return Color.rgb(38, 78, 143);
-
-            case TYPE_SLEET_DAY:
-                return Color.rgb(104, 186, 255);
-
-            case TYPE_SLEET_NIGHT:
-                return Color.rgb(26, 91, 146);
-
-            case TYPE_THUNDERSTORM:
-                return Color.rgb(43, 29, 69);
-        }
-        return ContextCompat.getColor(context, R.color.colorPrimary);
     }
 }

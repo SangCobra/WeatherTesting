@@ -12,21 +12,25 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * Precipitation.
- *
+ * <p>
  * default unit : {@link mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit#MM}
- * */
+ */
 public class Precipitation implements Serializable {
-
-    @Nullable private Float total;
-    @Nullable private Float thunderstorm;
-    @Nullable private Float rain;
-    @Nullable private Float snow;
-    @Nullable private Float ice;
 
     public static final float PRECIPITATION_LIGHT = 10;
     public static final float PRECIPITATION_MIDDLE = 25;
     public static final float PRECIPITATION_HEAVY = 50;
     public static final float PRECIPITATION_RAINSTORM = 100;
+    @Nullable
+    private Float total;
+    @Nullable
+    private Float thunderstorm;
+    @Nullable
+    private Float rain;
+    @Nullable
+    private Float snow;
+    @Nullable
+    private Float ice;
 
     public Precipitation(@Nullable Float total,
                          @Nullable Float thunderstorm,

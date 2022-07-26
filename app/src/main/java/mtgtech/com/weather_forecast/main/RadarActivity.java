@@ -7,16 +7,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.databinding.ActivityRadarBinding;
-import mtgtech.com.weather_forecast.weather_model.model.option.appearance.Language;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 public class RadarActivity extends GeoActivity {
 
-    private Float latitude ;
-    private Float longitude ;
+    private Float latitude;
+    private Float longitude;
 
     private ActivityRadarBinding binding;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +27,11 @@ public class RadarActivity extends GeoActivity {
         setContentView(binding.getRoot());
 
 
-        latitude = getIntent().getFloatExtra("latitude",0);
-        longitude = getIntent().getFloatExtra("longitude",0);
+        latitude = getIntent().getFloatExtra("latitude", 0);
+        longitude = getIntent().getFloatExtra("longitude", 0);
 
 
-        Log.d("lkasdfsdf","width: " + latitude + "height: " +longitude);
-
+        Log.d("lkasdfsdf", "width: " + latitude + "height: " + longitude);
 
 
         String html = "<html><head><style>" +
@@ -46,10 +45,10 @@ public class RadarActivity extends GeoActivity {
                 "}" +
                 "</style></head><body  style=\"padding: 0; margin: 0;\">" +
                 "<div ><iframe src=\"https://embed.windy.com/embed2.html?" +
-                "lat="+latitude+
-                "&lon="+longitude+
-                "&detailLat="+latitude+"" +
-                "&detailLon="+longitude+
+                "lat=" + latitude +
+                "&lon=" + longitude +
+                "&detailLat=" + latitude + "" +
+                "&detailLon=" + longitude +
                 "&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1\"" +
                 " frameborder=\"0\"></iframe></div></body></html>";
 

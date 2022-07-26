@@ -6,16 +6,16 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
-import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.settings.dialog.ProvidersPreviewerDialog;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 
 /**
  * Appearance settings fragment.
- * */
+ */
 
 public class AppearanceSettingsFragment extends AbstractSettingsFragment {
 
@@ -143,7 +143,7 @@ public class AppearanceSettingsFragment extends AbstractSettingsFragment {
     private void initIconProviderPreference() {
         Preference iconProvider = findPreference(getString(R.string.key_icon_provider));
         iconProvider.setSummary(ResourcesProviderFactory.getNewInstance().getProviderName());
-        
+
         iconProvider.setOnPreferenceClickListener(preference -> {
             ProvidersPreviewerDialog dialog = new ProvidersPreviewerDialog();
             dialog.setOnIconProviderChangedListener(iconProvider1 -> {

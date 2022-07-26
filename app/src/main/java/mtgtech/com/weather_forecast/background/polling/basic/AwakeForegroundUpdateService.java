@@ -5,14 +5,14 @@ import android.content.Context;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.WeatherFlow;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.background.polling.PollingManager;
 import mtgtech.com.weather_forecast.remoteviews.NotificationUtils;
 import mtgtech.com.weather_forecast.remoteviews.WidgetUtils;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 /**
  * Awake foreground update service.
- * */
+ */
 public class AwakeForegroundUpdateService extends ForegroundUpdateService {
 
     @Override

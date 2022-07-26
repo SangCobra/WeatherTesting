@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.UV;
 import mtgtech.com.weather_forecast.daily_weather.adapter.DailyWeatherAdapter;
 import mtgtech.com.weather_forecast.daily_weather.adapter.model.DailyUV;
+import mtgtech.com.weather_forecast.weather_model.model.weather.UV;
 
 public class UVHolder extends DailyWeatherAdapter.ViewHolder {
 

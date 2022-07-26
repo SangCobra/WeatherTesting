@@ -2,12 +2,6 @@ package mtgtech.com.weather_forecast.view.weather_widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.NestedScrollingParent2;
-import androidx.core.view.NestedScrollingParent3;
-import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
@@ -18,57 +12,41 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.NestedScrollingParent2;
+import androidx.core.view.NestedScrollingParent3;
+import androidx.core.view.ViewCompat;
+
 /**
  * Swipe switch layout.
- * */
+ */
 
 public class SwipeSwitchLayout extends FrameLayout
         implements NestedScrollingParent2, NestedScrollingParent3 {
 
-    @Nullable private View target;
-    @Nullable private OnSwitchListener switchListener;
-    @Nullable private OnPagerSwipeListener pageSwipeListener;
-
+    public static final int SWIPE_DIRECTION_LEFT = -1;
+    public static final int SWIPE_DIRECTION_RIGHT = 1;
+    private static final float SWIPE_RATIO = 0.4f;
+    private static final float NESTED_SCROLLING_RATIO = SWIPE_RATIO; // 0.075f
+    @Nullable
+    private View target;
+    @Nullable
+    private OnSwitchListener switchListener;
+    @Nullable
+    private OnPagerSwipeListener pageSwipeListener;
     private int totalCount = 1;
     private int position = 0;
-
     private int swipeDistance;
     private int swipeTrigger;
     private float nestedScrollingDistance;
     private float nestedScrollingTrigger;
-
     private float lastX, lastY;
     private int touchSlop;
-
     private boolean isBeingTouched;
     private boolean isBeingDragged;
     private boolean isHorizontalDragged;
     private boolean isBeingNestedScrolling;
-
-    private static final float SWIPE_RATIO = 0.4f;
-    private static final float NESTED_SCROLLING_RATIO = SWIPE_RATIO; // 0.075f
-
-    public static final int SWIPE_DIRECTION_LEFT = -1;
-    public static final int SWIPE_DIRECTION_RIGHT = 1;
-
-    private class ResetAnimation extends Animation {
-
-        private int triggerDistance;
-        private float translateRatio;
-
-        ResetAnimation(int triggerDistance, float translateRatio) {
-            super();
-            this.triggerDistance = triggerDistance;
-            this.translateRatio = translateRatio;
-        }
-
-        @Override
-        public void applyTransformation(float interpolatedTime, Transformation t) {
-            swipeDistance *= (1 - interpolatedTime);
-            setTranslation(triggerDistance, translateRatio);
-            notifySwipeListenerScrolled(triggerDistance);
-        }
-    }
 
     public SwipeSwitchLayout(Context context) {
         super(context);
@@ -85,8 +63,6 @@ public class SwipeSwitchLayout extends FrameLayout
         this.initialize();
     }
 
-    // init.
-
     private void initialize() {
         this.target = null;
         this.swipeDistance = 0;
@@ -96,7 +72,7 @@ public class SwipeSwitchLayout extends FrameLayout
         this.touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-    // layout.
+    // init.
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -105,8 +81,7 @@ public class SwipeSwitchLayout extends FrameLayout
         this.nestedScrollingTrigger = swipeTrigger;
     }
 
-
-    // touch.
+    // layout.
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -129,7 +104,7 @@ public class SwipeSwitchLayout extends FrameLayout
             case MotionEvent.ACTION_MOVE:
                 if (!isBeingTouched) {
                     isBeingTouched = true;
-                    lastY= ev.getY();
+                    lastY = ev.getY();
                 }
 
                 float x = ev.getX();
@@ -156,6 +131,9 @@ public class SwipeSwitchLayout extends FrameLayout
 
         return isBeingDragged && isHorizontalDragged;
     }
+
+
+    // touch.
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -197,8 +175,6 @@ public class SwipeSwitchLayout extends FrameLayout
         return true;
     }
 
-    // control.
-
     public void reset() {
         isBeingDragged = false;
         isHorizontalDragged = false;
@@ -206,6 +182,8 @@ public class SwipeSwitchLayout extends FrameLayout
         nestedScrollingDistance = 0;
         setTranslation(swipeTrigger, SWIPE_RATIO);
     }
+
+    // control.
 
     private void setTranslation(int triggerDistance, float translateRatio) {
         float realDistance = swipeDistance;
@@ -272,8 +250,6 @@ public class SwipeSwitchLayout extends FrameLayout
         }
     }
 
-    // interface.
-
     public void setData(int currentIndex, int pageCount) {
         if (currentIndex < 0 || currentIndex >= pageCount) {
             throw new RuntimeException("Invalid current index.");
@@ -282,22 +258,7 @@ public class SwipeSwitchLayout extends FrameLayout
         totalCount = pageCount;
     }
 
-    private void setPosition(int swipeDirection) {
-        switch (swipeDirection) {
-            case SWIPE_DIRECTION_LEFT:
-                position ++;
-                break;
-
-            case SWIPE_DIRECTION_RIGHT:
-                position --;
-                break;
-        }
-        if (position < 0) {
-            position = totalCount - 1;
-        } else if (position > totalCount - 1) {
-            position = 0;
-        }
-    }
+    // interface.
 
     public int getTotalCount() {
         return totalCount;
@@ -307,31 +268,34 @@ public class SwipeSwitchLayout extends FrameLayout
         return position;
     }
 
-    // interface.
+    private void setPosition(int swipeDirection) {
+        switch (swipeDirection) {
+            case SWIPE_DIRECTION_LEFT:
+                position++;
+                break;
 
-    // on switch listener.
-
-    public interface OnSwitchListener {
-        void onSwipeProgressChanged(int swipeDirection, float progress);
-        void onSwipeReleased(int swipeDirection, boolean doSwitch);
+            case SWIPE_DIRECTION_RIGHT:
+                position--;
+                break;
+        }
+        if (position < 0) {
+            position = totalCount - 1;
+        } else if (position > totalCount - 1) {
+            position = 0;
+        }
     }
 
     public void setOnSwitchListener(OnSwitchListener l) {
         switchListener = l;
     }
 
-    // on swipe listener.
+    // interface.
 
-    public interface OnPagerSwipeListener {
-        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
-        void onPageSelected(int position);
-    }
+    // on switch listener.
 
     public void setOnPageSwipeListener(OnPagerSwipeListener l) {
         pageSwipeListener = l;
     }
-
-    // nested scrolling parent.
 
     @Override
     public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes, int type) {
@@ -340,6 +304,8 @@ public class SwipeSwitchLayout extends FrameLayout
                 && type == ViewCompat.TYPE_TOUCH
                 && isEnabled();
     }
+
+    // on swipe listener.
 
     @Override
     public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
@@ -357,6 +323,8 @@ public class SwipeSwitchLayout extends FrameLayout
         isBeingNestedScrolling = false;
         release(swipeTrigger, NESTED_SCROLLING_RATIO);
     }
+
+    // nested scrolling parent.
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
@@ -407,5 +375,36 @@ public class SwipeSwitchLayout extends FrameLayout
             }
         }
         setTranslation(swipeTrigger, NESTED_SCROLLING_RATIO);
+    }
+
+    public interface OnSwitchListener {
+        void onSwipeProgressChanged(int swipeDirection, float progress);
+
+        void onSwipeReleased(int swipeDirection, boolean doSwitch);
+    }
+
+    public interface OnPagerSwipeListener {
+        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+
+        void onPageSelected(int position);
+    }
+
+    private class ResetAnimation extends Animation {
+
+        private int triggerDistance;
+        private float translateRatio;
+
+        ResetAnimation(int triggerDistance, float translateRatio) {
+            super();
+            this.triggerDistance = triggerDistance;
+            this.translateRatio = translateRatio;
+        }
+
+        @Override
+        public void applyTransformation(float interpolatedTime, Transformation t) {
+            swipeDistance *= (1 - interpolatedTime);
+            setTranslation(triggerDistance, translateRatio);
+            notifySwipeListenerScrolled(triggerDistance);
+        }
     }
 }

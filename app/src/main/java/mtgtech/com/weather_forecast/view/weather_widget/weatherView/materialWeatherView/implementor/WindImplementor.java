@@ -15,44 +15,107 @@ import mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWeat
 
 /**
  * DailyWind implementor.
- * */
+ */
 
 public class WindImplementor extends MaterialWeatherView.WeatherAnimationImplementor {
 
+    private static final float INITIAL_ROTATION_3D = 1000;
     private Paint paint;
     private Wind[] winds;
-
     private float lastDisplayRate;
-
     private float lastRotation3D;
-    private static final float INITIAL_ROTATION_3D = 1000;
-
     @ColorInt
     private int backgroundColor;
 
+    public WindImplementor(@Size(2) int[] canvasSizes) {
+        this.paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setAntiAlias(true);
+
+        backgroundColor = Color.rgb(233, 158, 60);
+        int[] colors = new int[]{
+                Color.rgb(240, 200, 148),
+                Color.rgb(237, 178, 100),
+                Color.rgb(209, 142, 54),};
+        float[] scales = new float[]{0.6F, 0.8F, 1};
+
+        this.winds = new Wind[51];
+        for (int i = 0; i < winds.length; i++) {
+            winds[i] = new Wind(
+                    canvasSizes[0], canvasSizes[1],
+                    colors[i * 3 / winds.length], scales[i * 3 / winds.length]);
+        }
+
+        this.lastDisplayRate = 0;
+        this.lastRotation3D = INITIAL_ROTATION_3D;
+    }
+
+    @ColorInt
+    public static int getThemeColor() {
+        return Color.rgb(233, 158, 60);
+    }
+
+    @Override
+    public void updateData(@Size(2) int[] canvasSizes, long interval,
+                           float rotation2D, float rotation3D) {
+        for (Wind w : winds) {
+            w.move(interval, lastRotation3D == INITIAL_ROTATION_3D ? 0 : rotation3D - lastRotation3D);
+        }
+        lastRotation3D = rotation3D;
+    }
+
+    @Override
+    public void draw(@Size(2) int[] canvasSizes, Canvas canvas,
+                     float displayRate, float scrollRate, float rotation2D, float rotation3D) {
+
+        if (displayRate >= 1) {
+            canvas.drawColor(backgroundColor);
+        } else {
+            canvas.drawColor(
+                    ColorUtils.setAlphaComponent(
+                            backgroundColor,
+                            (int) (displayRate * 255)));
+        }
+
+        if (scrollRate < 1) {
+            rotation2D -= 16;
+            canvas.rotate(
+                    rotation2D,
+                    canvasSizes[0] * 0.5F,
+                    canvasSizes[1] * 0.5F);
+
+            for (Wind w : winds) {
+                paint.setColor(w.color);
+                if (displayRate < lastDisplayRate) {
+                    paint.setAlpha((int) (displayRate * (1 - scrollRate) * 255));
+                } else {
+                    paint.setAlpha((int) ((1 - scrollRate) * 255));
+                }
+                canvas.drawRect(w.rectF, paint);
+            }
+        }
+
+        lastDisplayRate = displayRate;
+    }
+
     private class Wind {
-
-        float x;
-        float y;
-        float width;
-        float height;
-
-        RectF rectF;
-        float speed;
-
-        @ColorInt
-        int color;
-        float scale;
-
-        private int viewWidth;
-        private int viewHeight;
-
-        private int canvasSize;
 
         private final float MAX_WIDTH;
         private final float MIN_WIDTH;
         private final float MAX_HEIGHT;
         private final float MIN_HEIGHT;
+        float x;
+        float y;
+        float width;
+        float height;
+        RectF rectF;
+        float speed;
+        @ColorInt
+        int color;
+        float scale;
+        private int viewWidth;
+        private int viewHeight;
+        private int canvasSize;
 
         private Wind(int viewWidth, int viewHeight, @ColorInt int color, float scale) {
             this.viewWidth = viewWidth;
@@ -106,76 +169,5 @@ public class WindImplementor extends MaterialWeatherView.WeatherAnimationImpleme
                 buildRectF();
             }
         }
-    }
-
-    public WindImplementor(@Size(2) int[] canvasSizes) {
-        this.paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setAntiAlias(true);
-
-        backgroundColor = Color.rgb(233, 158, 60);
-        int[] colors = new int[] {
-                Color.rgb(240, 200, 148),
-                Color.rgb(237, 178, 100),
-                Color.rgb(209, 142, 54),};
-        float[] scales = new float[] {0.6F, 0.8F, 1};
-
-        this.winds = new Wind[51];
-        for (int i = 0; i < winds.length; i ++) {
-            winds[i] = new Wind(
-                    canvasSizes[0], canvasSizes[1],
-                    colors[i * 3 / winds.length], scales[i * 3 / winds.length]);
-        }
-
-        this.lastDisplayRate = 0;
-        this.lastRotation3D = INITIAL_ROTATION_3D;
-    }
-
-    @Override
-    public void updateData(@Size(2) int[] canvasSizes, long interval,
-                           float rotation2D, float rotation3D) {
-        for (Wind w : winds) {
-            w.move(interval, lastRotation3D == INITIAL_ROTATION_3D ? 0 : rotation3D - lastRotation3D);
-        }
-        lastRotation3D = rotation3D;
-    }
-
-    @Override
-    public void draw(@Size(2) int[] canvasSizes, Canvas canvas,
-                     float displayRate, float scrollRate, float rotation2D, float rotation3D) {
-
-        if (displayRate >= 1) {
-            canvas.drawColor(backgroundColor);
-        } else {
-            canvas.drawColor(
-                    ColorUtils.setAlphaComponent(
-                            backgroundColor,
-                            (int) (displayRate * 255)));
-        }
-
-        if (scrollRate < 1) {
-            rotation2D -= 16;
-            canvas.rotate(
-                    rotation2D,
-                    canvasSizes[0] * 0.5F,
-                    canvasSizes[1] * 0.5F);
-
-            for (Wind w : winds) {
-                paint.setColor(w.color);
-                if (displayRate < lastDisplayRate) {
-                    paint.setAlpha((int) (displayRate * (1 - scrollRate) * 255));
-                } else {
-                    paint.setAlpha((int) ((1 - scrollRate) * 255));
-                }
-                canvas.drawRect(w.rectF, paint);
-            }
-        }
-
-        lastDisplayRate = displayRate;
-    }
-
-    @ColorInt
-    public static int getThemeColor() {
-        return Color.rgb(233, 158, 60);
     }
 }

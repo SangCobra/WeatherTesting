@@ -11,14 +11,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.db.entity.DaoSession;
 import mtgtech.com.weather_forecast.db.entity.HistoryEntity;
 import mtgtech.com.weather_forecast.db.entity.HistoryEntityDao;
 import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
+import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 
 public class HistoryEntityController extends AbsEntityController<HistoryEntity> {
-    
+
     public HistoryEntityController(DaoSession session) {
         super(session);
     }

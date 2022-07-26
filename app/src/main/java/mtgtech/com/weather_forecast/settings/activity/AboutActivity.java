@@ -2,21 +2,21 @@ package mtgtech.com.weather_forecast.settings.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import android.view.View;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.settings.adapter.AboutAdapter;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 /**
  * About activity.
- * */
+ */
 
 public class AboutActivity extends GeoActivity
         implements View.OnClickListener {

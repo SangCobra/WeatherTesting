@@ -1,8 +1,6 @@
 package mtgtech.com.weather_forecast.weather_model.model.option.appearance;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
@@ -14,7 +12,7 @@ import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMappe
 
 public enum Language {
 
-//    FOLLOW_SYSTEM(
+    //    FOLLOW_SYSTEM(
 //            "follow_system",
 //            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
 //                    ? Resources.getSystem().getConfiguration().getLocales().get(0)

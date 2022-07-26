@@ -9,9 +9,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.option.NotificationStyle;
-import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
+import mtgtech.com.weather_forecast.background.polling.PollingManager;
 import mtgtech.com.weather_forecast.remoteviews.config.ClockDayDetailsWidgetConfigActivity;
 import mtgtech.com.weather_forecast.remoteviews.config.ClockDayHorizontalWidgetConfigActivity;
 import mtgtech.com.weather_forecast.remoteviews.config.ClockDayVerticalWidgetConfigActivity;
@@ -34,16 +32,18 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.HourlyTrendWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.MultiCityWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.TextWidgetIMP;
 import mtgtech.com.weather_forecast.remoteviews.presenter.WeekWidgetIMP;
+import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
 import mtgtech.com.weather_forecast.settings.dialog.RunningInBackgroundDialog;
 import mtgtech.com.weather_forecast.settings.dialog.RunningInBackgroundODialog;
 import mtgtech.com.weather_forecast.settings.dialog.TimeSetterDialog;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
-import mtgtech.com.weather_forecast.background.polling.PollingManager;
-import mtgtech.com.weather_forecast.remoteviews.presenter.notification.NormalNotificationIMP;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.option.NotificationStyle;
+import mtgtech.com.weather_forecast.weather_model.model.option.utils.OptionMapper;
 
 /**
  * Settings fragment.
- * */
+ */
 
 public class SettingsFragment extends AbstractSettingsFragment {
 

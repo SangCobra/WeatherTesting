@@ -32,11 +32,11 @@ public class BackgroundLocationDialog extends DialogFragment {
         return builder.create();
     }
 
-    public interface OnSetButtonClickListener {
-        void onSetButtonClicked();
-    }
-
     public void setOnSetButtonClickListener(OnSetButtonClickListener l) {
         this.listener = l;
+    }
+
+    public interface OnSetButtonClickListener {
+        void onSetButtonClicked();
     }
 }

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_main_details"
-    android:layout_margin="0dp"
-    style="@style/material_card">
+    style="@style/material_card"
+    android:layout_margin="0dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/container_main_details_title"
-            android:text="@string/life_details"
+            style="@style/content_text"
             android:layout_margin="@dimen/normal_margin"
+            android:text="@string/life_details"
             android:textSize="@dimen/title_text_size"
-            android:textStyle="bold"
-            style="@style/content_text" />
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/container_main_details_recyclerView"

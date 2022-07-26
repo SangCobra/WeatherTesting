@@ -6,13 +6,13 @@ import android.widget.RemoteViews;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.db.DatabaseHelper;
 import mtgtech.com.weather_forecast.remoteviews.presenter.MultiCityWidgetIMP;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 
 /**
  * Multi city widget config activity.
- * */
+ */
 public class MultiCityWidgetConfigActivity extends AbstractWidgetConfigActivity {
 
     private List<Location> locationList;

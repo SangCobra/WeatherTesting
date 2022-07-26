@@ -2,12 +2,12 @@ package mtgtech.com.weather_forecast.main;
 
 import android.content.Context;
 
-import mtgtech.com.weather_forecast.view.decotarion.ListDecoration;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.view.decotarion.ListDecoration;
 
 /**
  * Main list decoration.
- * */
+ */
 
 public class MainListDecoration extends ListDecoration {
 

@@ -9,22 +9,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.TimeZone;
 
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
 import mtgtech.com.weather_forecast.main.adapter.trend.daily.AbsDailyTrendAdapter;
 import mtgtech.com.weather_forecast.main.adapter.trend.daily.DailyAirQualityAdapter;
 import mtgtech.com.weather_forecast.main.adapter.trend.daily.DailyPrecipitationAdapter;
 import mtgtech.com.weather_forecast.main.adapter.trend.daily.DailyUVAdapter;
 import mtgtech.com.weather_forecast.main.adapter.trend.daily.DailyWindAdapter;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.SpeedUnit;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class DailyTrendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    @Nullable private AbsDailyTrendAdapter adapter;
+    @Nullable
+    private AbsDailyTrendAdapter adapter;
 
     public DailyTrendAdapter() {
         adapter = null;

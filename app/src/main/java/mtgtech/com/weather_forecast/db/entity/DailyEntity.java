@@ -2,26 +2,26 @@ package mtgtech.com.weather_forecast.db.entity;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.util.Date;
 
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WindDegree;
 import mtgtech.com.weather_forecast.db.propertyConverter.WeatherCodeConverter;
 import mtgtech.com.weather_forecast.db.propertyConverter.WindDegreeConverter;
-
-import org.greenrobot.greendao.annotation.Generated;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WindDegree;
 
 /**
  * Daily entity.
- *
+ * <p>
  * {@link mtgtech.com.weather_forecast.weather_model.model.weather.Daily}.
- * */
+ */
 @Entity
 public class DailyEntity {
 
-    @Id public Long id;
+    @Id
+    public Long id;
     public String cityId;
     public String weatherSource;
 
@@ -153,60 +153,60 @@ public class DailyEntity {
 
     @Generated(hash = 1727023126)
     public DailyEntity(Long id, String cityId, String weatherSource, Date date,
-            long time, String daytimeWeatherText, String daytimeWeatherPhase,
-            WeatherCode daytimeWeatherCode, int daytimeTemperature,
-            Integer daytimeRealFeelTemperature,
-            Integer daytimeRealFeelShaderTemperature,
-            Integer daytimeApparentTemperature, Integer daytimeWindChillTemperature,
-            Integer daytimeWetBulbTemperature, Integer daytimeDegreeDayTemperature,
-            Float daytimeTotalPrecipitation, Float daytimeThunderstormPrecipitation,
-            Float daytimeRainPrecipitation, Float daytimeSnowPrecipitation,
-            Float daytimeIcePrecipitation,
-            Float daytimeTotalPrecipitationProbability,
-            Float daytimeThunderstormPrecipitationProbability,
-            Float daytimeRainPrecipitationProbability,
-            Float daytimeSnowPrecipitationProbability,
-            Float daytimeIcePrecipitationProbability,
-            Float daytimeTotalPrecipitationDuration,
-            Float daytimeThunderstormPrecipitationDuration,
-            Float daytimeRainPrecipitationDuration,
-            Float daytimeSnowPrecipitationDuration,
-            Float daytimeIcePrecipitationDuration, String daytimeWindDirection,
-            WindDegree daytimeWindDegree, Float daytimeWindSpeed,
-            String daytimeWindLevel, Integer daytimeCloudCover,
-            String nighttimeWeatherText, String nighttimeWeatherPhase,
-            WeatherCode nighttimeWeatherCode, int nighttimeTemperature,
-            Integer nighttimeRealFeelTemperature,
-            Integer nighttimeRealFeelShaderTemperature,
-            Integer nighttimeApparentTemperature,
-            Integer nighttimeWindChillTemperature,
-            Integer nighttimeWetBulbTemperature,
-            Integer nighttimeDegreeDayTemperature,
-            Float nighttimeTotalPrecipitation,
-            Float nighttimeThunderstormPrecipitation,
-            Float nighttimeRainPrecipitation, Float nighttimeSnowPrecipitation,
-            Float nighttimeIcePrecipitation,
-            Float nighttimeTotalPrecipitationProbability,
-            Float nighttimeThunderstormPrecipitationProbability,
-            Float nighttimeRainPrecipitationProbability,
-            Float nighttimeSnowPrecipitationProbability,
-            Float nighttimeIcePrecipitationProbability,
-            Float nighttimeTotalPrecipitationDuration,
-            Float nighttimeThunderstormPrecipitationDuration,
-            Float nighttimeRainPrecipitationDuration,
-            Float nighttimeSnowPrecipitationDuration,
-            Float nighttimeIcePrecipitationDuration, String nighttimeWindDirection,
-            WindDegree nighttimeWindDegree, Float nighttimeWindSpeed,
-            String nighttimeWindLevel, Integer nighttimeCloudCover,
-            Date sunRiseDate, Date sunSetDate, Date moonRiseDate, Date moonSetDate,
-            Integer moonPhaseAngle, String moonPhaseDescription, String aqiText,
-            Integer aqiIndex, Float pm25, Float pm10, Float so2, Float no2,
-            Float o3, Float co, Integer grassIndex, Integer grassLevel,
-            String grassDescription, Integer moldIndex, Integer moldLevel,
-            String moldDescription, Integer ragweedIndex, Integer ragweedLevel,
-            String ragweedDescription, Integer treeIndex, Integer treeLevel,
-            String treeDescription, Integer uvIndex, String uvLevel,
-            String uvDescription, float hoursOfSun) {
+                       long time, String daytimeWeatherText, String daytimeWeatherPhase,
+                       WeatherCode daytimeWeatherCode, int daytimeTemperature,
+                       Integer daytimeRealFeelTemperature,
+                       Integer daytimeRealFeelShaderTemperature,
+                       Integer daytimeApparentTemperature, Integer daytimeWindChillTemperature,
+                       Integer daytimeWetBulbTemperature, Integer daytimeDegreeDayTemperature,
+                       Float daytimeTotalPrecipitation, Float daytimeThunderstormPrecipitation,
+                       Float daytimeRainPrecipitation, Float daytimeSnowPrecipitation,
+                       Float daytimeIcePrecipitation,
+                       Float daytimeTotalPrecipitationProbability,
+                       Float daytimeThunderstormPrecipitationProbability,
+                       Float daytimeRainPrecipitationProbability,
+                       Float daytimeSnowPrecipitationProbability,
+                       Float daytimeIcePrecipitationProbability,
+                       Float daytimeTotalPrecipitationDuration,
+                       Float daytimeThunderstormPrecipitationDuration,
+                       Float daytimeRainPrecipitationDuration,
+                       Float daytimeSnowPrecipitationDuration,
+                       Float daytimeIcePrecipitationDuration, String daytimeWindDirection,
+                       WindDegree daytimeWindDegree, Float daytimeWindSpeed,
+                       String daytimeWindLevel, Integer daytimeCloudCover,
+                       String nighttimeWeatherText, String nighttimeWeatherPhase,
+                       WeatherCode nighttimeWeatherCode, int nighttimeTemperature,
+                       Integer nighttimeRealFeelTemperature,
+                       Integer nighttimeRealFeelShaderTemperature,
+                       Integer nighttimeApparentTemperature,
+                       Integer nighttimeWindChillTemperature,
+                       Integer nighttimeWetBulbTemperature,
+                       Integer nighttimeDegreeDayTemperature,
+                       Float nighttimeTotalPrecipitation,
+                       Float nighttimeThunderstormPrecipitation,
+                       Float nighttimeRainPrecipitation, Float nighttimeSnowPrecipitation,
+                       Float nighttimeIcePrecipitation,
+                       Float nighttimeTotalPrecipitationProbability,
+                       Float nighttimeThunderstormPrecipitationProbability,
+                       Float nighttimeRainPrecipitationProbability,
+                       Float nighttimeSnowPrecipitationProbability,
+                       Float nighttimeIcePrecipitationProbability,
+                       Float nighttimeTotalPrecipitationDuration,
+                       Float nighttimeThunderstormPrecipitationDuration,
+                       Float nighttimeRainPrecipitationDuration,
+                       Float nighttimeSnowPrecipitationDuration,
+                       Float nighttimeIcePrecipitationDuration, String nighttimeWindDirection,
+                       WindDegree nighttimeWindDegree, Float nighttimeWindSpeed,
+                       String nighttimeWindLevel, Integer nighttimeCloudCover,
+                       Date sunRiseDate, Date sunSetDate, Date moonRiseDate, Date moonSetDate,
+                       Integer moonPhaseAngle, String moonPhaseDescription, String aqiText,
+                       Integer aqiIndex, Float pm25, Float pm10, Float so2, Float no2,
+                       Float o3, Float co, Integer grassIndex, Integer grassLevel,
+                       String grassDescription, Integer moldIndex, Integer moldLevel,
+                       String moldDescription, Integer ragweedIndex, Integer ragweedLevel,
+                       String ragweedDescription, Integer treeIndex, Integer treeLevel,
+                       String treeDescription, Integer uvIndex, String uvLevel,
+                       String uvDescription, float hoursOfSun) {
         this.id = id;
         this.cityId = cityId;
         this.weatherSource = weatherSource;

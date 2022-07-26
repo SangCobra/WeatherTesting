@@ -1,8 +1,9 @@
 package mtgtech.com.weather_forecast.background.service;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +14,16 @@ import cyanogenmod.weather.WeatherInfo;
 import cyanogenmod.weatherservice.ServiceRequest;
 import cyanogenmod.weatherservice.ServiceRequestResult;
 import cyanogenmod.weatherservice.WeatherProviderService;
+import mtgtech.com.weather_forecast.location_service.LocationHelper;
+import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.weather_forecast.WeatherHelper;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
-import mtgtech.com.weather_forecast.location_service.LocationHelper;
-import mtgtech.com.weather_forecast.weather_forecast.WeatherHelper;
-import mtgtech.com.weather_forecast.utils.manager.TimeManager;
 
 /**
  * CM weather provider service.
- * */
+ */
 
 public class CMWeatherProviderService extends WeatherProviderService
         implements WeatherHelper.OnRequestWeatherListener {
@@ -152,7 +153,7 @@ public class CMWeatherProviderService extends WeatherProviderService
             Weather weather = requestLocation.getWeather();
             if (request != null && weather != null) {
                 List<WeatherInfo.DayForecast> forecastList = new ArrayList<>();
-                for (int i = 0; i < weather.getDailyForecast().size(); i ++) {
+                for (int i = 0; i < weather.getDailyForecast().size(); i++) {
                     forecastList.add(
                             new WeatherInfo.DayForecast.Builder(
                                     WeatherConditionConvertHelper.getConditionCode(
@@ -169,10 +170,10 @@ public class CMWeatherProviderService extends WeatherProviderService
                         weather.getCurrent().getTemperature().getTemperature(),
                         WeatherContract.WeatherColumns.TempUnit.CELSIUS
                 ).setWeatherCondition(
-                                WeatherConditionConvertHelper.getConditionCode(
-                                        weather.getCurrent().getWeatherCode(),
-                                        TimeManager.isDaylight(requestLocation)
-                                ))
+                        WeatherConditionConvertHelper.getConditionCode(
+                                weather.getCurrent().getWeatherCode(),
+                                TimeManager.isDaylight(requestLocation)
+                        ))
                         .setTodaysHigh(weather.getDailyForecast().get(0).day().getTemperature().getTemperature())
                         .setTodaysLow(weather.getDailyForecast().get(0).night().getTemperature().getTemperature())
                         .setTimestamp(weather.getBase().getTimeStamp());

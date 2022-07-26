@@ -15,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.view.adapter.DailyForecastAdapter;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 
 public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> {
 
+    private final SettingsOptionManager settingsOptionManager;
     private Context context;
     private ArrayList<Daily> list;
-    private final SettingsOptionManager settingsOptionManager;
     private DailyForecastAdapter.DailyForecastClickListener listener;
 
     public DailyAdapter(Context context, DailyForecastAdapter.DailyForecastClickListener listener) {
@@ -31,8 +31,9 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         this.listener = listener;
         settingsOptionManager = SettingsOptionManager.getInstance(context);
     }
+
     @SuppressLint("NotifyDataSetChanged")
-    public void updateList(ArrayList<Daily> list){
+    public void updateList(ArrayList<Daily> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -48,10 +49,9 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Daily daily = list.get(position);
         String day = "";
-        if (daily.getDate().toString().startsWith("Mon")){
+        if (daily.getDate().toString().startsWith("Mon")) {
             day = "Mon";
-        }
-        else if (daily.getDate().toString().startsWith("Tue")) day = "Tue";
+        } else if (daily.getDate().toString().startsWith("Tue")) day = "Tue";
         else if (daily.getDate().toString().startsWith("Wed")) day = "Wed";
         else if (daily.getDate().toString().startsWith("Thu")) day = "Thu";
         else if (daily.getDate().toString().startsWith("Fri")) day = "Fri";
@@ -112,7 +112,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         holder.minTerm.setText(settingsOptionManager.getTemperatureUnit().getShortTemperatureText(context, daily.night().getTemperature().getTemperature()));
         int dif = daily.day().getTemperature().getTemperature() - daily.night().getTemperature().getTemperature();
         ViewGroup.LayoutParams layoutParams = holder.length.getLayoutParams();
-        layoutParams.height =(dif*100/getListIndexBiggest());
+        layoutParams.height = (dif * 100 / getListIndexBiggest());
         layoutParams.width = 25;
         holder.dayName.setOnClickListener(v -> {
             this.listener.clickDaily(position);
@@ -121,8 +121,8 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
 
     private int getListIndexBiggest() {
         int i = list.get(0).day().getTemperature().getTemperature() - list.get(0).night().getTemperature().getTemperature();
-        for (int j = 1; j < list.size(); j++){
-            if ((list.get(j).day().getTemperature().getTemperature() - list.get(j).night().getTemperature().getTemperature()) > i){
+        for (int j = 1; j < list.size(); j++) {
+            if ((list.get(j).day().getTemperature().getTemperature() - list.get(j).night().getTemperature().getTemperature()) > i) {
                 i = list.get(j).day().getTemperature().getTemperature() - list.get(j).night().getTemperature().getTemperature();
             }
         }
@@ -138,6 +138,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         private TextView dayName, percentRain, maxTerm, minTerm;
         private ImageView iconWeatherDaily, iconRain;
         private FrameLayout length;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dayName = itemView.findViewById(R.id.time_in_daily);

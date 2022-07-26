@@ -3,6 +3,8 @@ package mtgtech.com.weather_forecast.db.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import mtgtech.com.weather_forecast.db.entity.HourlyEntity;
+import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 import mtgtech.com.weather_forecast.weather_model.model.option.provider.WeatherSource;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Precipitation;
@@ -11,8 +13,6 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
 import mtgtech.com.weather_forecast.weather_model.model.weather.UV;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Wind;
 import mtgtech.com.weather_forecast.weather_model.model.weather.WindGust;
-import mtgtech.com.weather_forecast.db.entity.HourlyEntity;
-import mtgtech.com.weather_forecast.db.propertyConverter.WeatherSourceConverter;
 
 public class HourlyEntityConverter {
 
@@ -21,7 +21,7 @@ public class HourlyEntityConverter {
 
         entity.cityId = cityId;
         entity.weatherSource = new WeatherSourceConverter().convertToDatabaseValue(source);
-        
+
         entity.date = hourly.getDate();
         entity.time = hourly.getTime();
         entity.daylight = hourly.isDaylight();
@@ -96,8 +96,8 @@ public class HourlyEntityConverter {
                         entity.icePrecipitation
                 ),
                 new WindGust(entity.windGustSpeed),
-                new Wind(entity.getWindDirection(),entity.getWindDegree(), entity.windSpeed,entity.windLevel),
-                entity.visibility,entity.dewPoint,entity.cloudCover,entity.ceiling,new UV(entity.uvIndex,entity.uvLevel,entity.uvDescription),
+                new Wind(entity.getWindDirection(), entity.getWindDegree(), entity.windSpeed, entity.windLevel),
+                entity.visibility, entity.dewPoint, entity.cloudCover, entity.ceiling, new UV(entity.uvIndex, entity.uvLevel, entity.uvDescription),
                 new PrecipitationProbability(
                         entity.totalPrecipitationProbability,
                         entity.thunderstormPrecipitationProbability,

@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.resource.Constants;
 import mtgtech.com.weather_forecast.resource.ResourceUtils;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 public class ChronusResourceProvider extends ResourceProvider {
 
@@ -30,7 +30,8 @@ public class ChronusResourceProvider extends ResourceProvider {
 
     private Context context;
     private String providerName;
-    @Nullable private Drawable iconDrawable;
+    @Nullable
+    private Drawable iconDrawable;
 
     ChronusResourceProvider(@NonNull Context c, @NonNull String pkgName,
                             @NonNull ResourceProvider defaultProvider) {
@@ -48,12 +49,6 @@ public class ChronusResourceProvider extends ResourceProvider {
         } catch (Exception e) {
             buildDefaultInstance(c);
         }
-    }
-
-    private void buildDefaultInstance(@NonNull Context c) {
-        context = c.getApplicationContext();
-        providerName = c.getString(R.string.weather_flow);
-        iconDrawable = defaultProvider.getProviderIcon();
     }
 
     @NonNull
@@ -90,6 +85,12 @@ public class ChronusResourceProvider extends ResourceProvider {
         }
 
         return false;
+    }
+
+    private void buildDefaultInstance(@NonNull Context c) {
+        context = c.getApplicationContext();
+        providerName = c.getString(R.string.weather_flow);
+        iconDrawable = defaultProvider.getProviderIcon();
     }
 
     @Override
@@ -141,7 +142,7 @@ public class ChronusResourceProvider extends ResourceProvider {
 
     @Override
     public Drawable[] getWeatherIcons(WeatherCode code, boolean dayTime) {
-        return new Drawable[] {getWeatherIcon(code, dayTime), null, null};
+        return new Drawable[]{getWeatherIcon(code, dayTime), null, null};
     }
 
     @Nullable
@@ -206,7 +207,7 @@ public class ChronusResourceProvider extends ResourceProvider {
 
     @Override
     public Animator[] getWeatherAnimators(WeatherCode code, boolean dayTime) {
-        return new Animator[] {null, null, null};
+        return new Animator[]{null, null, null};
     }
 
     // minimal icon.

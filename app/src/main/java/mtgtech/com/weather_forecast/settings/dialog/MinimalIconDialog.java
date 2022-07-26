@@ -17,7 +17,7 @@ import mtgtech.com.weather_forecast.R;
 
 /**
  * Adaptive icon dialog.
- * */
+ */
 public class MinimalIconDialog extends DialogFragment {
 
     private String title;

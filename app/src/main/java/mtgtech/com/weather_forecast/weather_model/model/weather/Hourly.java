@@ -53,14 +53,6 @@ public class Hourly implements Serializable {
 
     }
 
-    public boolean isExpand() {
-        return isExpand;
-    }
-
-    public void setExpand(boolean expand) {
-        isExpand = expand;
-    }
-
     public Hourly(Date date, long time, boolean daylight,
                   String weatherText, WeatherCode weatherCode,
                   Temperature temperature,
@@ -92,6 +84,13 @@ public class Hourly implements Serializable {
         this.indoorRelativeHumidity = indoorRelativeHumidity;
     }
 
+    public boolean isExpand() {
+        return isExpand;
+    }
+
+    public void setExpand(boolean expand) {
+        isExpand = expand;
+    }
 
     public Integer getRelativeHumidity() {
         return relativeHumidity;

@@ -13,10 +13,10 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.Size;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.option.NotificationTextColor;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.resource.provider.DefaultResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.weather_model.model.option.NotificationTextColor;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 public class ResourceHelper {
 

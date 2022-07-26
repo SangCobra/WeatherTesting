@@ -12,7 +12,8 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 public class DailyPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Daily> dailyWeatherList;
-    public DailyPagerAdapter(@NonNull FragmentManager fm,ArrayList<Daily> dailyWeatherList) {
+
+    public DailyPagerAdapter(@NonNull FragmentManager fm, ArrayList<Daily> dailyWeatherList) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
         this.dailyWeatherList = dailyWeatherList;

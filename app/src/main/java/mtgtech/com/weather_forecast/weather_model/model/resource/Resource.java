@@ -4,12 +4,10 @@ import androidx.annotation.NonNull;
 
 public class Resource<T> implements Cloneable {
 
-    @NonNull public final T data;
-    @NonNull public final Status status;
-
-    public enum Status {
-        SUCCESS, ERROR, LOADING
-    }
+    @NonNull
+    public final T data;
+    @NonNull
+    public final Status status;
 
     protected Resource(@NonNull T data, @NonNull Status status) {
         this.data = data;
@@ -31,5 +29,9 @@ public class Resource<T> implements Cloneable {
 
     public static <T> Resource<T> loading(@NonNull T data) {
         return new Resource<>(data, Status.LOADING);
+    }
+
+    public enum Status {
+        SUCCESS, ERROR, LOADING
     }
 }

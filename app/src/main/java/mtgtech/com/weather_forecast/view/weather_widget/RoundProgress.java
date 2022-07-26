@@ -5,15 +5,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import androidx.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
 
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 /**
  * Round progress.
- * */
+ */
 
 public class RoundProgress extends View {
 
@@ -24,8 +25,10 @@ public class RoundProgress extends View {
 
     private float progress;
     private float max;
-    @ColorInt private int progressColor;
-    @ColorInt private int backgroundColor;
+    @ColorInt
+    private int progressColor;
+    @ColorInt
+    private int backgroundColor;
 
     public RoundProgress(Context context) {
         this(context, null);

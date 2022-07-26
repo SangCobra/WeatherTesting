@@ -16,22 +16,22 @@ import androidx.fragment.app.DialogFragment;
 import java.text.SimpleDateFormat;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.resource.ResourceHelper;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
+import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
+import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.AnimatableIconView;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.ProbabilityUnit;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Hourly;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
-import mtgtech.com.weather_forecast.resource.ResourceHelper;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
-import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
-import mtgtech.com.weather_forecast.view.weather_widget.AnimatableIconView;
-import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 
 /**
  * Hourly weather dialog.
- * */
+ */
 
 public class HourlyWeatherDialog extends DialogFragment {
 
@@ -40,7 +40,8 @@ public class HourlyWeatherDialog extends DialogFragment {
     private Weather weather;
     private int position;
 
-    @ColorInt private int weatherColor;
+    @ColorInt
+    private int weatherColor;
 
     @SuppressLint("InflateParams")
     @NonNull

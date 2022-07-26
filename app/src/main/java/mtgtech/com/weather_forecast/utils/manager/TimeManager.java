@@ -15,11 +15,18 @@ import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 /**
  * Time manager.
- * */
+ */
 
 public class TimeManager {
 
+    private static final String PREFERENCE_NAME = "time_preference";
+    private static final String KEY_DAY_TIME = "day_time";
     private static volatile TimeManager instance;
+    private boolean dayTime;
+    private TimeManager(Context context) {
+        dayTime = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+                .getBoolean(KEY_DAY_TIME, true);
+    }
 
     public static synchronized TimeManager getInstance(Context context) {
         synchronized (TimeManager.class) {
@@ -30,38 +37,13 @@ public class TimeManager {
         return instance;
     }
 
-    private boolean dayTime;
-
-    private static final String PREFERENCE_NAME = "time_preference";
-    private static final String KEY_DAY_TIME = "day_time";
-
-    private TimeManager(Context context) {
-        dayTime = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-                .getBoolean(KEY_DAY_TIME, true);
-    }
-
-    public boolean isDayTime() {
-        return dayTime;
-    }
-
-    public TimeManager update(Context context, @NonNull Location location) {
-        dayTime = isDaylight(location);
-
-        SharedPreferences.Editor editor = context.getSharedPreferences(
-                PREFERENCE_NAME, Context.MODE_PRIVATE
-        ).edit();
-        editor.putBoolean(KEY_DAY_TIME, dayTime);
-        editor.apply();
-        return this;
-    }
-
     public static boolean isDaylight(@NonNull Location location) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(location.getTimeZone());
         int time = 60 * calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE);
 
         Weather weather = location.getWeather();
-        if (weather != null ) {
+        if (weather != null) {
             Date riseDate = weather.getDailyForecast().get(0).sun().getRiseDate();
             Date setDate = weather.getDailyForecast().get(0).sun().getSetDate();
             if (riseDate != null && setDate != null) {
@@ -84,5 +66,20 @@ public class TimeManager {
 
     public static boolean is12Hour(Context context) {
         return !DateFormat.is24HourFormat(context);
+    }
+
+    public boolean isDayTime() {
+        return dayTime;
+    }
+
+    public TimeManager update(Context context, @NonNull Location location) {
+        dayTime = isDaylight(location);
+
+        SharedPreferences.Editor editor = context.getSharedPreferences(
+                PREFERENCE_NAME, Context.MODE_PRIVATE
+        ).edit();
+        editor.putBoolean(KEY_DAY_TIME, dayTime);
+        editor.apply();
+        return this;
     }
 }

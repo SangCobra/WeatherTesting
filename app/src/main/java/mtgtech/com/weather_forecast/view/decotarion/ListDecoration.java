@@ -4,24 +4,25 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Px;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 
 /**
  * List decoration.
- * */
+ */
 
 public class ListDecoration extends RecyclerView.ItemDecoration {
 
     private Paint paint;
-    private @Px int decorationWidth;
+    private @Px
+    int decorationWidth;
 
     public ListDecoration(Context context) {
         this(context, ThemeManager.getInstance(context).getLineColor(context));
@@ -38,7 +39,7 @@ public class ListDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        for (int i = 0; i < parent.getChildCount(); i ++){
+        for (int i = 0; i < parent.getChildCount(); i++) {
             View child = parent.getChildAt(i);
             c.drawLine(
                     child.getLeft(),

@@ -7,40 +7,40 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/item_details_icon"
-        android:src="@drawable/ic_forecast"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         style="@style/material_icon"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_forecast"
         tools:ignore="ContentDescription,RtlHardcoded" />
 
     <TextView
         android:id="@+id/item_details_title"
+        style="@style/content_text"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@id/item_details_icon"
         android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
-        android:textSize="@dimen/title_text_size"
+        android:layout_toEndOf="@id/item_details_icon"
         android:gravity="start"
         android:textAlignment="gravity"
-        style="@style/content_text"
-        tools:text="北风(实时南风)"
-        tools:ignore="RtlHardcoded" />
+        android:textSize="@dimen/title_text_size"
+        tools:ignore="RtlHardcoded"
+        tools:text="北风(实时南风)" />
 
     <TextView
         android:id="@+id/item_details_content"
+        style="@style/content_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/item_details_icon"
         android:layout_below="@id/item_details_title"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginBottom="@dimen/normal_margin"
-        android:textColor="@color/colorTextSubtitle"
-        android:lineSpacingMultiplier="1.15"
+        android:layout_toEndOf="@id/item_details_icon"
         android:gravity="start"
+        android:lineSpacingMultiplier="1.15"
         android:textAlignment="gravity"
-        style="@style/content_text"
-        tools:text="3-4 级(实时3级)"
-        tools:ignore="RtlHardcoded" />
+        android:textColor="@color/colorTextSubtitle"
+        tools:ignore="RtlHardcoded"
+        tools:text="3-4 级(实时3级)" />
 
 </RelativeLayout>

@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * Minutely.
- * */
+ */
 public class Minutely implements Serializable {
 
     private Date date;
@@ -18,8 +18,10 @@ public class Minutely implements Serializable {
     private WeatherCode weatherCode;
 
     private int minuteInterval;
-    @Nullable private Integer dbz;
-    @Nullable private Integer cloudCover;
+    @Nullable
+    private Integer dbz;
+    @Nullable
+    private Integer cloudCover;
 
     public Minutely(Date date, long time, boolean daylight,
                     String weatherText, WeatherCode weatherCode,

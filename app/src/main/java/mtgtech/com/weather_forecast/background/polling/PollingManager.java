@@ -9,7 +9,7 @@ import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 
 /**
  * Background manager.
- * */
+ */
 public class PollingManager {
 
     public static void resetAllBackgroundTask(Context context, boolean forceRefresh) {

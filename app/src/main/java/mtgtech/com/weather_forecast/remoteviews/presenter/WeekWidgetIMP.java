@@ -3,28 +3,27 @@ package mtgtech.com.weather_forecast.remoteviews.presenter;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-
-import androidx.core.content.ContextCompat;
-
 import android.net.Uri;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
+import androidx.core.content.ContextCompat;
+
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.background.receiver.widget.WidgetWeekProvider;
-import mtgtech.com.weather_forecast.weather_model.model.option.WidgetWeekIconMode;
-import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
-import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 import mtgtech.com.weather_forecast.remoteviews.WidgetUtils;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
 import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.SettingsOptionManager;
 import mtgtech.com.weather_forecast.utils.manager.TimeManager;
+import mtgtech.com.weather_forecast.weather_model.model.location.Location;
+import mtgtech.com.weather_forecast.weather_model.model.option.WidgetWeekIconMode;
+import mtgtech.com.weather_forecast.weather_model.model.option.unit.TemperatureUnit;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Temperature;
+import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
 
 public class WeekWidgetIMP extends AbstractRemoteViewsPresenter {
 

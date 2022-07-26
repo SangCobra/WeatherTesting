@@ -2,16 +2,15 @@ package mtgtech.com.weather_forecast.view.weather_widget.weatherView.materialWea
 
 /**
  * Delay Rotate controller.
- * */
+ */
 
 public class DelayRotateController extends MaterialWeatherView.RotateController {
 
+    private static final double DEFAULT_ABS_ACCELERATION = 90.0 / 200.0 / 800.0;
     private double targetRotation;
     private double currentRotation;
     private double velocity;
     private double acceleration;
-
-    private static final double DEFAULT_ABS_ACCELERATION = 90.0 / 200.0 / 800.0;
 
     public DelayRotateController(double initRotation) {
         targetRotation = getRotationInScope(initRotation);

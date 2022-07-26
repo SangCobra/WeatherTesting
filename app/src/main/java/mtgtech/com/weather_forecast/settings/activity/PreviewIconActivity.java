@@ -17,12 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
-import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 import mtgtech.com.weather_forecast.resource.ResourceHelper;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.DefaultResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.PixelResourcesProvider;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
 import mtgtech.com.weather_forecast.resource.provider.ResourcesProviderFactory;
 import mtgtech.com.weather_forecast.settings.adapter.WeatherIconAdapter;
 import mtgtech.com.weather_forecast.settings.dialog.AdaptiveIconDialog;
@@ -30,16 +28,16 @@ import mtgtech.com.weather_forecast.settings.dialog.AnimatableIconDialog;
 import mtgtech.com.weather_forecast.settings.dialog.MinimalIconDialog;
 import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
+import mtgtech.com.weather_forecast.weather_model.model.weather.WeatherCode;
 
 public class PreviewIconActivity extends GeoActivity {
 
-    private CoordinatorLayout container;
-
-    private ResourceProvider provider;
-    private List<WeatherIconAdapter.Item> itemList;
-
     public static final String KEY_ICON_PREVIEW_ACTIVITY_PACKAGE_NAME
             = "ICON_PREVIEW_ACTIVITY_PACKAGE_NAME";
+    private CoordinatorLayout container;
+    private ResourceProvider provider;
+    private List<WeatherIconAdapter.Item> itemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -296,7 +294,7 @@ class ShortcutIcon extends BaseWeatherIcon {
 class SunIcon extends WeatherIconAdapter.WeatherIcon {
 
     protected ResourceProvider provider;
-    
+
     SunIcon(ResourceProvider provider) {
         this.provider = provider;
     }

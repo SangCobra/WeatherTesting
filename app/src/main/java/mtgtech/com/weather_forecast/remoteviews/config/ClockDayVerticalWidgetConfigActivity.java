@@ -8,7 +8,7 @@ import mtgtech.com.weather_forecast.remoteviews.presenter.ClockDayVerticalWidget
 
 /**
  * Clock day vertical widget config activity.
- * */
+ */
 
 public class ClockDayVerticalWidgetConfigActivity extends AbstractWidgetConfigActivity {
 
@@ -20,7 +20,7 @@ public class ClockDayVerticalWidgetConfigActivity extends AbstractWidgetConfigAc
         String[] widgetStyleValues = getResources().getStringArray(R.array.widget_style_values);
 
         this.viewTypeValueNow = "rectangle";
-        this.viewTypes = new String[] {
+        this.viewTypes = new String[]{
                 widgetStyles[0],
                 widgetStyles[1],
                 widgetStyles[2],
@@ -28,7 +28,7 @@ public class ClockDayVerticalWidgetConfigActivity extends AbstractWidgetConfigAc
                 widgetStyles[6],
                 widgetStyles[9]
         };
-        this.viewTypeValues = new String[] {
+        this.viewTypeValues = new String[]{
                 widgetStyleValues[0],
                 widgetStyleValues[1],
                 widgetStyleValues[2],

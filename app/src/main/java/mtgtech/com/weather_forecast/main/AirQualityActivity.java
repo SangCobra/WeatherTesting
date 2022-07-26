@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +33,8 @@ public class AirQualityActivity extends GeoActivity {
         initView();
         AdmobManager.getInstance().loadBanner(this, BuildConfig.banner_aqi);
     }
-    private void initView(){
+
+    private void initView() {
         recyclerView = findViewById(R.id.rcvAirQuality);
         backHome = findViewById(R.id.backToHome);
         ArrayList<AirQualityModel> listAdapter = new ArrayList<>();
@@ -62,7 +62,7 @@ public class AirQualityActivity extends GeoActivity {
                 "201-300",
                 "301+"
         };
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             listAdapter.add(new AirQualityModel(listColor[i], listAdjust[i], listNumber[i]));
         }
         adapter = new AriQualityAdapter(this, listAdapter);

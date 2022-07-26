@@ -1,14 +1,15 @@
 package mtgtech.com.weather_forecast.settings.adapter;
 
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
@@ -16,34 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mtgtech.com.weather_forecast.R;
-import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.settings.model.AboutAppLibrary;
 import mtgtech.com.weather_forecast.settings.model.AboutAppLink;
 import mtgtech.com.weather_forecast.settings.model.AboutAppTranslator;
 import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
+import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 
 /**
  * About adapter.
- * */
+ */
 
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> {
 
     private GeoActivity activity;
     private List<Object> modelList;
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        GeoActivity activity;
-
-        ViewHolder(GeoActivity activity, View itemView) {
-            super(itemView);
-            this.activity = activity;
-        }
-
-        void onBindView(GeoActivity activity, Object model) {
-
-        }
-    }
 
     public AboutAdapter(GeoActivity activity) {
         this.activity = activity;
@@ -118,6 +105,20 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
     public int getItemViewType(int position) {
         return position;
     }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        GeoActivity activity;
+
+        ViewHolder(GeoActivity activity, View itemView) {
+            super(itemView);
+            this.activity = activity;
+        }
+
+        void onBindView(GeoActivity activity, Object model) {
+
+        }
+    }
 }
 
 class HeaderHolder extends AboutAdapter.ViewHolder {
@@ -163,7 +164,7 @@ class LinkHolder extends AboutAdapter.ViewHolder
 
     LinkHolder(GeoActivity activity, View itemView) {
         super(activity, itemView);
-        itemView.findViewById(R.id.item_about_link).setOnClickListener(this);
+//        itemView.findViewById(R.id.item_about_link).setOnClickListener(this);
 //        this.icon = itemView.findViewById(R.id.item_about_link_icon);
 //        this.title = itemView.findViewById(R.id.item_about_link_text);
     }
@@ -205,6 +206,15 @@ class TranslatorHolder extends AboutAdapter.ViewHolder implements View.OnClickLi
         this.flag = itemView.findViewById(R.id.item_about_translator_flag);
     }
 
+    private static boolean isEmail(String strEmail) {
+        String strPattern = "^[a-zA-Z0-9][\\w.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z.]*[a-zA-Z]$";
+        if (TextUtils.isEmpty(strPattern)) {
+            return false;
+        } else {
+            return strEmail.matches(strPattern);
+        }
+    }
+
     @Override
     void onBindView(GeoActivity activity, Object model) {
         AboutAppTranslator translator = (AboutAppTranslator) model;
@@ -224,15 +234,6 @@ class TranslatorHolder extends AboutAdapter.ViewHolder implements View.OnClickLi
             );
         } else {
             IntentHelper.startWebViewActivity(activity, content.getText().toString());
-        }
-    }
-
-    private static boolean isEmail(String strEmail) {
-        String strPattern = "^[a-zA-Z0-9][\\w.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z.]*[a-zA-Z]$";
-        if (TextUtils.isEmpty(strPattern)) {
-            return false;
-        } else {
-            return strEmail.matches(strPattern);
         }
     }
 }

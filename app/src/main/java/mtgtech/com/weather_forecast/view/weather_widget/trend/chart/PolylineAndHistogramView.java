@@ -10,6 +10,8 @@ import android.graphics.Path;
 import android.graphics.PathEffect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.util.AttributeSet;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 import androidx.annotation.Nullable;
@@ -17,54 +19,15 @@ import androidx.annotation.Size;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
-import android.util.AttributeSet;
-
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.utils.DisplayUtils;
 import mtgtech.com.weather_forecast.view.weather_widget.DayNightShaderWrapper;
 import mtgtech.com.weather_forecast.view.weather_widget.trend.abs.ChartItemView;
-import mtgtech.com.weather_forecast.utils.DisplayUtils;
 
 /**
  * Polyline and histogram view.
- * */
+ */
 public class PolylineAndHistogramView extends ChartItemView {
-
-    private Paint paint;
-    private Path path;
-    private DayNightShaderWrapper shaderWrapper;
-
-    private @Nullable @Size(3) Float[] highPolylineValues = new Float[3];
-    private @Nullable @Size(3) Float[] lowPolylineValues = new Float[3];
-    private @Nullable String highPolylineValueStr;
-    private @Nullable String lowPolylineValueStr;
-    private @Nullable Float highestPolylineValue;
-    private @Nullable Float lowestPolylineValue;
-
-    private @Nullable Float histogramValue;
-    private @Nullable String histogramValueStr;
-    private @Nullable Float highestHistogramValue;
-    private @Nullable Float lowestHistogramValue;
-
-    private int[] highPolylineY = new int[3];
-    private int[] lowPolylineY = new int[3];
-    private int histogramY;
-
-    private int marginTop;
-    private int marginBottom;
-    private int polylineWidth;
-    private int polylineTextSize;
-    private int histogramWidth;
-    private int histogramTextSize;
-    private int chartLineWith;
-    private int textMargin;
-
-    private int[] lineColors;
-    private int[] shadowColors;
-    private int textColor;
-    private int textShadowColor;
-    private int histogramTextColor;
-
-    private float histogramAlpha;
 
     private static final float MARGIN_TOP_DIP = 24;
     private static final float MARGIN_BOTTOM_DIP = 36;
@@ -75,9 +38,50 @@ public class PolylineAndHistogramView extends ChartItemView {
     private static final float HISTOGRAM_TEXT_SIZE_DIP = 11;
     private static final float CHART_LINE_SIZE_DIP = 1.5f;
     private static final float TEXT_MARGIN_DIP = 2;
-
     private static final float SHADOW_ALPHA_FACTOR_LIGHT = 0.0f;
     private static final float SHADOW_ALPHA_FACTOR_DARK = 0.5f;
+    private Paint paint;
+    private Path path;
+    private DayNightShaderWrapper shaderWrapper;
+    private @Nullable
+    @Size(3)
+    Float[] highPolylineValues = new Float[3];
+    private @Nullable
+    @Size(3)
+    Float[] lowPolylineValues = new Float[3];
+    private @Nullable
+    String highPolylineValueStr;
+    private @Nullable
+    String lowPolylineValueStr;
+    private @Nullable
+    Float highestPolylineValue;
+    private @Nullable
+    Float lowestPolylineValue;
+    private @Nullable
+    Float histogramValue;
+    private @Nullable
+    String histogramValueStr;
+    private @Nullable
+    Float highestHistogramValue;
+    private @Nullable
+    Float lowestHistogramValue;
+    private int[] highPolylineY = new int[3];
+    private int[] lowPolylineY = new int[3];
+    private int histogramY;
+    private int marginTop;
+    private int marginBottom;
+    private int polylineWidth;
+    private int polylineTextSize;
+    private int histogramWidth;
+    private int histogramTextSize;
+    private int chartLineWith;
+    private int textMargin;
+    private int[] lineColors;
+    private int[] shadowColors;
+    private int textColor;
+    private int textShadowColor;
+    private int histogramTextColor;
+    private float histogramAlpha;
 
     public PolylineAndHistogramView(Context context) {
         super(context);
@@ -95,10 +99,10 @@ public class PolylineAndHistogramView extends ChartItemView {
     }
 
     private void initialize() {
-        lineColors = new int[] {Color.BLACK, Color.DKGRAY, Color.LTGRAY};
-        shadowColors = new int[] {Color.BLACK, Color.WHITE};
+        lineColors = new int[]{Color.BLACK, Color.DKGRAY, Color.LTGRAY};
+        shadowColors = new int[]{Color.BLACK, Color.WHITE};
 
-        setTextColors(ContextCompat.getColor(getContext(),R.color.colorTextWhite), ContextCompat.getColor(getContext(),R.color.colorTextWhite));
+        setTextColors(ContextCompat.getColor(getContext(), R.color.colorTextWhite), ContextCompat.getColor(getContext(), R.color.colorTextWhite));
         setHistogramAlpha(0.33f);
 
         this.marginTop = (int) DisplayUtils.dpToPx(getContext(), MARGIN_TOP_DIP);
@@ -162,7 +166,6 @@ public class PolylineAndHistogramView extends ChartItemView {
         paint.setPathEffect(effect);
 
 
-
         canvas.drawLine(
                 getMeasuredWidth() / 2.f, highPolylineY[1],
                 getMeasuredWidth() / 2.f, getMeasuredHeight() - marginBottom,
@@ -179,13 +182,13 @@ public class PolylineAndHistogramView extends ChartItemView {
 
         canvas.drawCircle(getMeasuredWidth() / 2.f,
                 highPolylineY[1],
-                DisplayUtils.dpToPx(getContext(),6),
+                DisplayUtils.dpToPx(getContext(), 6),
                 lightCirclePaint
         );
 
         canvas.drawCircle(getMeasuredWidth() / 2.f,
                 highPolylineY[1],
-                DisplayUtils.dpToPx(getContext(),3),
+                DisplayUtils.dpToPx(getContext(), 3),
                 whiteCirclePaint
         );
 
@@ -292,7 +295,7 @@ public class PolylineAndHistogramView extends ChartItemView {
         canvas.drawText(
                 highPolylineValueStr,
                 getRTLCompactX((float) (getMeasuredWidth() / 2.0)),
-                highPolylineY[1] - paint.getFontMetrics().bottom - textMargin - DisplayUtils.dpToPx(getContext(),10),
+                highPolylineY[1] - paint.getFontMetrics().bottom - textMargin - DisplayUtils.dpToPx(getContext(), 10),
                 paint
         );
 //        paint.setShadowLayer(0, 0, 0, Color.TRANSPARENT);
@@ -462,7 +465,7 @@ public class PolylineAndHistogramView extends ChartItemView {
         float canvasHeight = getMeasuredHeight() - marginTop - marginBottom;
         if (highestPolylineValue != null && lowestPolylineValue != null) {
             if (highPolylineValues != null) {
-                for (int i = 0; i < highPolylineValues.length; i ++) {
+                for (int i = 0; i < highPolylineValues.length; i++) {
                     if (highPolylineValues[i] == null) {
                         highPolylineY[i] = 0;
                     } else {
@@ -472,7 +475,7 @@ public class PolylineAndHistogramView extends ChartItemView {
                 }
             }
             if (lowPolylineValues != null) {
-                for (int i = 0; i < lowPolylineValues.length; i ++) {
+                for (int i = 0; i < lowPolylineValues.length; i++) {
                     if (lowPolylineValues[i] == null) {
                         lowPolylineY[i] = 0;
                     } else {

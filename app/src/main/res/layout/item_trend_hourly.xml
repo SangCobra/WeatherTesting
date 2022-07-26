@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mtgtech.com.weather_forecast.view.weather_widget.trend.item.HourlyTrendItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<mtgtech.com.weather_forecast.view.weather_widget.trend.item.HourlyTrendItemView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_trend_hourly"
     android:layout_width="56dp"

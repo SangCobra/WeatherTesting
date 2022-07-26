@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_weather_daily_pollen"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="@drawable/selectable_item_background"
+    android:orientation="vertical"
     tools:ignore="UnusedAttribute">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         tools:ignore="DisableBaselineAlignment">
 
         <RelativeLayout
@@ -21,20 +21,20 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/grassIcon"
-                android:src="@drawable/ic_circle_medium"
-                android:layout_centerVertical="true"
                 style="@style/material_icon"
-                tools:tint="@color/colorLevel_1"
-                tools:ignore="ContentDescription" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_circle_medium"
+                tools:ignore="ContentDescription"
+                tools:tint="@color/colorLevel_1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_toEndOf="@id/grassIcon"
-                android:layout_centerVertical="true">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/grassTitle"
@@ -57,20 +57,20 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ragweedIcon"
-                android:src="@drawable/ic_circle_medium"
-                android:layout_centerVertical="true"
                 style="@style/material_icon"
-                tools:tint="@color/colorLevel_1"
-                tools:ignore="ContentDescription" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_circle_medium"
+                tools:ignore="ContentDescription"
+                tools:tint="@color/colorLevel_1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_toEndOf="@id/ragweedIcon"
-                android:layout_centerVertical="true">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ragweedTitle"
@@ -89,9 +89,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         tools:ignore="DisableBaselineAlignment">
 
         <RelativeLayout
@@ -101,20 +101,20 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/treeIcon"
-                android:src="@drawable/ic_circle_medium"
-                android:layout_centerVertical="true"
                 style="@style/material_icon"
-                tools:tint="@color/colorLevel_1"
-                tools:ignore="ContentDescription" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_circle_medium"
+                tools:ignore="ContentDescription"
+                tools:tint="@color/colorLevel_1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_toEndOf="@id/treeIcon"
-                android:layout_centerVertical="true">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/treeTitle"
@@ -137,20 +137,20 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/moldIcon"
-                android:src="@drawable/ic_circle_medium"
-                android:layout_centerVertical="true"
                 style="@style/material_icon"
-                tools:tint="@color/colorLevel_1"
-                tools:ignore="ContentDescription" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_circle_medium"
+                tools:ignore="ContentDescription"
+                tools:tint="@color/colorLevel_1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_toEndOf="@id/moldIcon"
-                android:layout_centerVertical="true">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/moldTitle"

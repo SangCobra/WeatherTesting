@@ -13,23 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-import mtgtech.com.weather_forecast.WeatherFlow;
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.resource.ResourceHelper;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.DoubleHistogramView;
+import mtgtech.com.weather_forecast.view.weather_widget.trend.item.DailyTrendItemView;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.PrecipitationUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Daily;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Precipitation;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Weather;
-import mtgtech.com.weather_forecast.resource.ResourceHelper;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.chart.DoubleHistogramView;
-import mtgtech.com.weather_forecast.view.weather_widget.trend.item.DailyTrendItemView;
-import mtgtech.com.weather_forecast.utils.manager.ThemeManager;
 
 /**
  * Daily precipitation adapter.
- * */
+ */
 public class DailyPrecipitationAdapter extends AbsDailyTrendAdapter<DailyPrecipitationAdapter.ViewHolder> {
 
     private Weather weather;
@@ -39,67 +38,6 @@ public class DailyPrecipitationAdapter extends AbsDailyTrendAdapter<DailyPrecipi
     private PrecipitationUnit unit;
 
     private float highestPrecipitation;
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        private DailyTrendItemView dailyItem;
-        private DoubleHistogramView doubleHistogramView;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            dailyItem = itemView.findViewById(R.id.item_trend_daily);
-            dailyItem.setParent(getTrendParent());
-
-            doubleHistogramView = new DoubleHistogramView(itemView.getContext());
-            dailyItem.setChartItemView(doubleHistogramView);
-        }
-
-        @SuppressLint("SetTextI18n, InflateParams")
-        void onBindView(int position) {
-            Context context = itemView.getContext();
-            Daily daily = weather.getDailyForecast().get(position);
-
-            if (daily.isToday(timeZone)) {
-                dailyItem.setWeekText(context.getString(R.string.today));
-            } else {
-                dailyItem.setWeekText(daily.getWeek(context));
-            }
-
-            dailyItem.setDateText(daily.getShortDate(context));
-
-            dailyItem.setTextColor(
-                    themeManager.getTextContentColor(context),
-                    themeManager.getTextSubtitleColor(context)
-            );
-
-            dailyItem.setDayIconDrawable(
-                    ResourceHelper.getWeatherIcon(provider, daily.day().getWeatherCode(), true));
-
-            Float daytimePrecipitation = weather.getDailyForecast().get(position).day().getPrecipitation().getTotal();
-            Float nighttimePrecipitation = weather.getDailyForecast().get(position).night().getPrecipitation().getTotal();
-            doubleHistogramView.setData(
-                    weather.getDailyForecast().get(position).day().getPrecipitation().getTotal(),
-                    weather.getDailyForecast().get(position).night().getPrecipitation().getTotal(),
-                    unit.getPrecipitationTextWithoutUnit(daytimePrecipitation == null ? 0 : daytimePrecipitation),
-                    unit.getPrecipitationTextWithoutUnit(nighttimePrecipitation == null ? 0 : nighttimePrecipitation),
-                    highestPrecipitation
-            );
-            doubleHistogramView.setLineColors(
-                    daily.day().getPrecipitation().getPrecipitationColor(context),
-                    daily.night().getPrecipitation().getPrecipitationColor(context),
-                    themeManager.getLineColor(context)
-            );
-            doubleHistogramView.setTextColors(themeManager.getTextContentColor(context));
-            doubleHistogramView.setHistogramAlphas(1f, 0.5f);
-
-            dailyItem.setNightIconDrawable(
-                    ResourceHelper.getWeatherIcon(provider, daily.night().getWeatherCode(), false));
-
-//            dailyItem.setOnClickListener(v ->  WeatherFlow.adUtil().showInterstitialAd((isLoaded, interstitial) -> {
-//                onItemClicked(getAdapterPosition());
-//            }));
-        }
-    }
 
     @SuppressLint("SimpleDateFormat")
     public DailyPrecipitationAdapter(GeoActivity activity, TrendRecyclerView parent,
@@ -116,7 +54,7 @@ public class DailyPrecipitationAdapter extends AbsDailyTrendAdapter<DailyPrecipi
         highestPrecipitation = Integer.MIN_VALUE;
         Float daytimePrecipitation;
         Float nighttimePrecipitation;
-        for (int i = weather.getDailyForecast().size() - 1; i >= 0; i --) {
+        for (int i = weather.getDailyForecast().size() - 1; i >= 0; i--) {
             daytimePrecipitation = weather.getDailyForecast().get(i).day().getPrecipitation().getTotal();
             nighttimePrecipitation = weather.getDailyForecast().get(i).night().getPrecipitation().getTotal();
             if (daytimePrecipitation != null && daytimePrecipitation > highestPrecipitation) {
@@ -183,5 +121,66 @@ public class DailyPrecipitationAdapter extends AbsDailyTrendAdapter<DailyPrecipi
     @Override
     public int getItemCount() {
         return weather.getDailyForecast().size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        private DailyTrendItemView dailyItem;
+        private DoubleHistogramView doubleHistogramView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            dailyItem = itemView.findViewById(R.id.item_trend_daily);
+            dailyItem.setParent(getTrendParent());
+
+            doubleHistogramView = new DoubleHistogramView(itemView.getContext());
+            dailyItem.setChartItemView(doubleHistogramView);
+        }
+
+        @SuppressLint("SetTextI18n, InflateParams")
+        void onBindView(int position) {
+            Context context = itemView.getContext();
+            Daily daily = weather.getDailyForecast().get(position);
+
+            if (daily.isToday(timeZone)) {
+                dailyItem.setWeekText(context.getString(R.string.today));
+            } else {
+                dailyItem.setWeekText(daily.getWeek(context));
+            }
+
+            dailyItem.setDateText(daily.getShortDate(context));
+
+            dailyItem.setTextColor(
+                    themeManager.getTextContentColor(context),
+                    themeManager.getTextSubtitleColor(context)
+            );
+
+            dailyItem.setDayIconDrawable(
+                    ResourceHelper.getWeatherIcon(provider, daily.day().getWeatherCode(), true));
+
+            Float daytimePrecipitation = weather.getDailyForecast().get(position).day().getPrecipitation().getTotal();
+            Float nighttimePrecipitation = weather.getDailyForecast().get(position).night().getPrecipitation().getTotal();
+            doubleHistogramView.setData(
+                    weather.getDailyForecast().get(position).day().getPrecipitation().getTotal(),
+                    weather.getDailyForecast().get(position).night().getPrecipitation().getTotal(),
+                    unit.getPrecipitationTextWithoutUnit(daytimePrecipitation == null ? 0 : daytimePrecipitation),
+                    unit.getPrecipitationTextWithoutUnit(nighttimePrecipitation == null ? 0 : nighttimePrecipitation),
+                    highestPrecipitation
+            );
+            doubleHistogramView.setLineColors(
+                    daily.day().getPrecipitation().getPrecipitationColor(context),
+                    daily.night().getPrecipitation().getPrecipitationColor(context),
+                    themeManager.getLineColor(context)
+            );
+            doubleHistogramView.setTextColors(themeManager.getTextContentColor(context));
+            doubleHistogramView.setHistogramAlphas(1f, 0.5f);
+
+            dailyItem.setNightIconDrawable(
+                    ResourceHelper.getWeatherIcon(provider, daily.night().getWeatherCode(), false));
+
+//            dailyItem.setOnClickListener(v ->  WeatherFlow.adUtil().showInterstitialAd((isLoaded, interstitial) -> {
+//                onItemClicked(getAdapterPosition());
+//            }));
+        }
     }
 }

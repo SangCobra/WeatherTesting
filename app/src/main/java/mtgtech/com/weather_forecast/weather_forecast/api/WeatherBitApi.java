@@ -1,8 +1,8 @@
 package mtgtech.com.weather_forecast.weather_forecast.api;
 
 
-import mtgtech.com.weather_forecast.weather_forecast.json.accu.CurrentCondition;
 import io.reactivex.Observable;
+import mtgtech.com.weather_forecast.weather_forecast.json.accu.CurrentCondition;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 

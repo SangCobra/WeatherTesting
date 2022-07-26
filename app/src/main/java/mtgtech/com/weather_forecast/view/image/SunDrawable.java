@@ -17,8 +17,11 @@ public class SunDrawable extends Drawable {
 
     private Paint paint;
 
-    @ColorInt private int coreColor;
-    @Size(2) @ColorInt private int[] haloColors;
+    @ColorInt
+    private int coreColor;
+    @Size(2)
+    @ColorInt
+    private int[] haloColors;
 
     private float alpha;
     private Rect bounds;
@@ -31,7 +34,7 @@ public class SunDrawable extends Drawable {
         paint.setAntiAlias(true);
 
         this.coreColor = Color.rgb(254, 214, 117);
-        this.haloColors = new int[] {
+        this.haloColors = new int[]{
                 Color.rgb(249, 183, 93),
                 Color.rgb(252, 198, 101),
         };

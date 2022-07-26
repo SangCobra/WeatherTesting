@@ -12,12 +12,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
-
-import android.provider.Settings;
-import android.text.TextUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,53 +27,27 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import mtgtech.com.weather_forecast.utils.LanguageUtils;
 
 /**
  * Android Location service.
- * */
+ */
 
 @SuppressLint("MissingPermission")
 public class AndroidLocationService extends LocationService {
 
+    private static final long TIMEOUT_MILLIS = 10 * 1000;
     private Context context;
     private Handler timer;
-
-    @Nullable private LocationManager locationManager;
-
-    @Nullable private LocationListener networkListener;
-    @Nullable private LocationListener gpsListener;
-
-    @Nullable private LocationCallback locationCallback;
-    @Nullable private Location lastKnownLocation;
-
-    private static final long TIMEOUT_MILLIS = 10 * 1000;
-
-    private class LocationListener implements android.location.LocationListener {
-
-        @Override
-        public void onLocationChanged(Location location) {
-            if (location != null) {
-                stopLocationUpdates();
-                handleLocation(location);
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            // do nothing.
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-            // do nothing.
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-            // do nothing.
-        }
-    }
+    @Nullable
+    private LocationManager locationManager;
+    @Nullable
+    private LocationListener networkListener;
+    @Nullable
+    private LocationListener gpsListener;
+    @Nullable
+    private LocationCallback locationCallback;
+    @Nullable
+    private Location lastKnownLocation;
 
     public AndroidLocationService(Context c) {
         context = c;
@@ -86,8 +60,30 @@ public class AndroidLocationService extends LocationService {
         lastKnownLocation = null;
     }
 
+    private static boolean locationEnabled(Context context, @NonNull LocationManager manager) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            if (!manager.isLocationEnabled()) {
+                return false;
+            }
+        } else {
+            int locationMode = -1;
+            try {
+                locationMode = Settings.Secure.getInt(
+                        context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
+                return false;
+            }
+        }
+
+        return manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                || manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
     @Override
-    public void requestLocation(Context context, @NonNull LocationCallback callback){
+    public void requestLocation(Context context, @NonNull LocationCallback callback) {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         if (locationManager == null
@@ -157,7 +153,7 @@ public class AndroidLocationService extends LocationService {
 
     @Override
     public String[] getPermissions() {
-        return new String[] {
+        return new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
         };
@@ -241,25 +237,29 @@ public class AndroidLocationService extends LocationService {
         return result;
     }
 
-    private static boolean locationEnabled(Context context, @NonNull LocationManager manager) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            if (!manager.isLocationEnabled()) {
-                return false;
-            }
-        } else {
-            int locationMode = -1;
-            try {
-                locationMode = Settings.Secure.getInt(
-                        context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();
-            }
-            if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
-                return false;
+    private class LocationListener implements android.location.LocationListener {
+
+        @Override
+        public void onLocationChanged(Location location) {
+            if (location != null) {
+                stopLocationUpdates();
+                handleLocation(location);
             }
         }
 
-        return manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                || manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            // do nothing.
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            // do nothing.
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            // do nothing.
+        }
     }
 }

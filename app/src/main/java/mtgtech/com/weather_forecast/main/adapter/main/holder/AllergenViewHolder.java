@@ -12,19 +12,19 @@ import androidx.cardview.widget.CardView;
 import androidx.core.widget.ImageViewCompat;
 
 import mtgtech.com.weather_forecast.R;
+import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
+import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 import mtgtech.com.weather_forecast.weather_model.GeoActivity;
 import mtgtech.com.weather_forecast.weather_model.model.location.Location;
 import mtgtech.com.weather_forecast.weather_model.model.option.unit.PollenUnit;
 import mtgtech.com.weather_forecast.weather_model.model.weather.Pollen;
-import mtgtech.com.weather_forecast.resource.provider.ResourceProvider;
-import mtgtech.com.weather_forecast.utils.helpter.IntentHelper;
 
 public class AllergenViewHolder extends AbstractMainCardViewHolder {
 
     private CardView card;
     private TextView title;
     private TextView subtitle;
-    
+
     private AppCompatImageView grassIcon;
     private TextView grassTitle;
     private TextView grassValue;
@@ -40,7 +40,7 @@ public class AllergenViewHolder extends AbstractMainCardViewHolder {
     private AppCompatImageView moldIcon;
     private TextView moldTitle;
     private TextView moldValue;
-    
+
     private PollenUnit unit;
 
     public AllergenViewHolder(ViewGroup parent) {
@@ -62,7 +62,7 @@ public class AllergenViewHolder extends AbstractMainCardViewHolder {
         this.moldIcon = itemView.findViewById(R.id.container_main_pollen_moldIcon);
         this.moldTitle = itemView.findViewById(R.id.container_main_pollen_moldTitle);
         this.moldValue = itemView.findViewById(R.id.container_main_pollen_moldValue);
-        
+
         this.unit = PollenUnit.PPCM;
     }
 
