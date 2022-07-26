@@ -59,7 +59,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <mtgtech.com.weather_forecast.view.weather_widget.astro.MoonPhaseView
+        <com.mtgtech.weather_forecast.view.weather_widget.astro.MoonPhaseView
             android:id="@+id/item_weather_daily_astro_moonPhaseIcon"
             style="@style/material_icon"
             android:layout_gravity="center_vertical"

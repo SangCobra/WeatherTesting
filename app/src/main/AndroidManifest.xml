@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="mtgtech.com.weather_forecast">
+    package="com.mtgtech.weather_forecast">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -64,19 +64,19 @@
             tools:ignore="MissingClass" />
 
         <meta-data
-            android:name="com.mtgtech.weatherFlow.PROVIDER_CONFIG"
+            android:name=".weatherFlow.PROVIDER_CONFIG"
             android:resource="@xml/icon_provider_config" />
         <meta-data
-            android:name="com.mtgtech.weatherFlow.DRAWABLE_FILTER"
+            android:name=".weatherFlow.DRAWABLE_FILTER"
             android:resource="@xml/icon_provider_drawable_filter" />
         <meta-data
-            android:name="com.mtgtech.weatherFlow.ANIMATOR_FILTER"
+            android:name=".weatherFlow.ANIMATOR_FILTER"
             android:resource="@xml/icon_provider_animator_filter" />
         <meta-data
-            android:name="com.mtgtech.weatherFlow.SHORTCUT_FILTER"
+            android:name=".weatherFlow.SHORTCUT_FILTER"
             android:resource="@xml/icon_provider_shortcut_filter" />
         <meta-data
-            android:name="com.mtgtech.weatherFlow.SUN_MOON_FILTER"
+            android:name=".weatherFlow.SUN_MOON_FILTER"
             android:resource="@xml/icon_provider_sun_moon_filter" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -368,7 +368,7 @@
                 android:resource="@xml/live_wallpaper" />
         </service> <!-- receiver -->
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.MainReceiver"
+            android:name=".background.receiver.MainReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -376,7 +376,7 @@
             </intent-filter>
         </receiver> <!-- widget -->
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetDayProvider"
+            android:name=".background.receiver.widget.WidgetDayProvider"
             android:exported="true"
             android:label="@string/widget_day">
             <meta-data
@@ -389,7 +389,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetWeekProvider"
+            android:name=".background.receiver.widget.WidgetWeekProvider"
             android:exported="true"
             android:label="@string/widget_week">
             <meta-data
@@ -402,7 +402,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetDayWeekProvider"
+            android:name=".background.receiver.widget.WidgetDayWeekProvider"
             android:exported="true"
             android:label="@string/widget_day_week">
             <meta-data
@@ -415,7 +415,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetClockDayHorizontalProvider"
+            android:name=".background.receiver.widget.WidgetClockDayHorizontalProvider"
             android:exported="true"
             android:label="@string/widget_clock_day_horizontal">
             <meta-data
@@ -428,7 +428,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetClockDayDetailsProvider"
+            android:name=".background.receiver.widget.WidgetClockDayDetailsProvider"
             android:exported="true"
             android:label="@string/widget_clock_day_details">
             <meta-data
@@ -441,7 +441,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetClockDayVerticalProvider"
+            android:name=".background.receiver.widget.WidgetClockDayVerticalProvider"
             android:exported="true"
             android:label="@string/widget_clock_day_vertical">
             <meta-data
@@ -454,7 +454,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetClockDayWeekProvider"
+            android:name=".background.receiver.widget.WidgetClockDayWeekProvider"
             android:exported="true"
             android:label="@string/widget_clock_day_week">
             <meta-data
@@ -467,7 +467,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetTextProvider"
+            android:name=".background.receiver.widget.WidgetTextProvider"
             android:exported="true"
             android:label="@string/widget_text">
             <meta-data
@@ -480,7 +480,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetTrendDailyProvider"
+            android:name=".background.receiver.widget.WidgetTrendDailyProvider"
             android:exported="true"
             android:label="@string/widget_trend_daily">
             <meta-data
@@ -493,7 +493,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetTrendHourlyProvider"
+            android:name=".background.receiver.widget.WidgetTrendHourlyProvider"
             android:exported="true"
             android:label="@string/widget_trend_hourly">
             <meta-data
@@ -506,7 +506,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="mtgtech.com.weather_forecast.background.receiver.widget.WidgetMultiCityProvider"
+            android:name=".background.receiver.widget.WidgetMultiCityProvider"
             android:exported="true"
             android:label="@string/widget_multi_city">
             <meta-data

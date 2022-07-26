@@ -1,0 +1,50 @@
+package com.mtgtech.weather_forecast.settings.activity;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.widget.Toolbar;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.mtgtech.weather_forecast.R;
+import com.mtgtech.weather_forecast.settings.fragment.ServiceProviderSettingsFragment;
+import com.mtgtech.weather_forecast.weather_model.GeoActivity;
+
+/**
+ * Select provider activity.
+ */
+
+public class SelectProviderActivity extends GeoActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.activity_settings);
+        initToolbar();
+        ServiceProviderSettingsFragment f = new ServiceProviderSettingsFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.activity_settings_container, f)
+                .commit();
+    }
+
+    @Override
+    public View getSnackBarContainer() {
+        return findViewById(R.id.activity_settings_container);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onSaveInstanceState(@NotNull Bundle outState) {
+        // do nothing.
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.activity_settings_toolbar);
+        toolbar.setTitle(getString(R.string.settings_title_service_provider));
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back);
+        toolbar.setNavigationOnClickListener(view -> finish());
+    }
+}
