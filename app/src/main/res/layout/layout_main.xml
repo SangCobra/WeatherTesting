@@ -8,7 +8,7 @@
     android:background="@drawable/clear">
 
 
-    <mtgtech.com.weather_forecast.view.weather_widget.verticalScrollView.VerticalSwipeRefreshLayout
+    <com.mtgtech.weather_forecast.view.weather_widget.verticalScrollView.VerticalSwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -281,7 +281,7 @@
                         android:background="@drawable/home_transparent_bg"
                         android:orientation="vertical">
 
-                        <mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView
+                        <com.mtgtech.weather_forecast.view.weather_widget.trend.TrendRecyclerView
                             android:id="@+id/container_main_hourly_trend_card_trendRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/hourly_trend_item_height"
@@ -663,7 +663,7 @@
                         android:background="@drawable/home_transparent_bg"
                         android:orientation="vertical">
 
-                        <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
+                        <com.mtgtech.weather_forecast.view.weather_widget.astro.SunMoonView
                             android:id="@+id/sunMoonView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -705,5 +705,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </mtgtech.com.weather_forecast.view.weather_widget.verticalScrollView.VerticalSwipeRefreshLayout>
+    </com.mtgtech.weather_forecast.view.weather_widget.verticalScrollView.VerticalSwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <!--    <mtgtech.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout-->
+    <!--    <com.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout-->
     <!--        android:id="@+id/refresh_layout"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="match_parent">-->
@@ -486,7 +486,7 @@
                 <!--                        </LinearLayout>-->
 
 
-                <!--                        &lt;!&ndash;                        <mtgtech.com.weatherFlow.ui.widget.trend.TrendRecyclerView&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        <com.com.weatherFlow.ui.widget.trend.TrendRecyclerView&ndash;&gt;-->
                 <!--&lt;!&ndash;                            android:id="@+id/container_main_hourly_trend_card_trendRecyclerView"&ndash;&gt;-->
                 <!--&lt;!&ndash;                            android:layout_width="match_parent"&ndash;&gt;-->
                 <!--&lt;!&ndash;                            android:layout_height="@dimen/hourly_trend_item_height"&ndash;&gt;-->
@@ -1073,7 +1073,7 @@
                     android:backgroundTint="#4D000000"
                     android:orientation="vertical">
 
-                    <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
+                    <com.mtgtech.weather_forecast.view.weather_widget.astro.SunMoonView
                         android:id="@+id/sunMoonView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1469,5 +1469,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    </mtgtech.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout>-->
+    <!--    </com.com.weatherFlow.ui.widget.verticalScrollView.VerticalSwipeRefreshLayout>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

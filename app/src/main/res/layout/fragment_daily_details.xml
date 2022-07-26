@@ -40,7 +40,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp">
 
-                <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
+                <com.mtgtech.weather_forecast.view.weather_widget.astro.SunMoonView
                     android:id="@+id/daySunMoonView"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp">
 
-                <mtgtech.com.weather_forecast.view.weather_widget.astro.SunMoonView
+                <com.mtgtech.weather_forecast.view.weather_widget.astro.SunMoonView
                     android:id="@+id/nightSunMoonView"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"

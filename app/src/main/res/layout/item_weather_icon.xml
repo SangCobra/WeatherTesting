@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mtgtech.com.weather_forecast.view.weather_widget.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mtgtech.weather_forecast.view.weather_widget.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_weather_icon"
     android:layout_width="match_parent"
@@ -16,4 +16,4 @@
         tools:ignore="ContentDescription"
         tools:src="@drawable/weather_clear_day" />
 
-</mtgtech.com.weather_forecast.view.weather_widget.SquareFrameLayout>
+</com.mtgtech.weather_forecast.view.weather_widget.SquareFrameLayout>

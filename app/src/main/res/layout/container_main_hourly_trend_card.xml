@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin" />
 
-        <mtgtech.com.weather_forecast.view.weather_widget.trend.TrendRecyclerView
+        <com.mtgtech.weather_forecast.view.weather_widget.trend.TrendRecyclerView
             android:id="@+id/container_main_hourly_trend_card_trendRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/hourly_trend_item_height"
@@ -57,7 +57,7 @@
                 android:text="@string/precipitation_overview"
                 tools:ignore="RtlHardcoded" />
 
-            <mtgtech.com.weather_forecast.view.weather_widget.PrecipitationBar
+            <com.mtgtech.weather_forecast.view.weather_widget.PrecipitationBar
                 android:id="@+id/container_main_hourly_trend_card_minutelyBar"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"

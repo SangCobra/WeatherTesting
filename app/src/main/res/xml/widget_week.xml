@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="mtgtech.com.weather_forecast.remoteviews.config.WeekWidgetConfigActivity"
+    android:configure="com.mtgtech.weather_forecast.remoteviews.config.WeekWidgetConfigActivity"
     android:initialLayout="@layout/widget_week"
     android:minWidth="@dimen/widget_grid_4"
     android:minHeight="@dimen/widget_grid_1"

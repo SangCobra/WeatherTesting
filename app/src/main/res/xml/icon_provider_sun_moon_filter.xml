@@ -3,9 +3,9 @@
 
     <item
         name="sun"
-        value="mtgtech.com.weather_forecast.view.image.SunDrawable" />
+        value="com.com.weather_forecast.view.image.SunDrawable" />
     <item
         name="moon"
-        value="mtgtech.com.weather_forecast.view.image.MoonDrawable" />
+        value="com.com.weather_forecast.view.image.MoonDrawable" />
 
 </resources>

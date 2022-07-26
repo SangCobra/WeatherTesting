@@ -17,7 +17,7 @@
         android:maxLines="1"
         android:text="@string/air_quality" />
 
-    <mtgtech.com.weather_forecast.view.weather_widget.RoundProgress
+    <com.mtgtech.weather_forecast.view.weather_widget.RoundProgress
         android:id="@+id/item_weather_daily_air_progress"
         android:layout_width="match_parent"
         android:layout_height="6dp" />

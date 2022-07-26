@@ -13,7 +13,7 @@
     tools:ignore="UnusedAttribute"
     tools:layout_height="256dp">
 
-    <mtgtech.com.weather_forecast.view.weather_widget.NumberAnimTextView
+    <com.mtgtech.weather_forecast.view.weather_widget.NumberAnimTextView
         android:id="@+id/container_main_header_tempTxt"
         style="@style/large_title_text"
         android:layout_width="match_parent"

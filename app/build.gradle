@@ -107,10 +107,10 @@ android {
         }
     }
 
-//    lintOptions {
-//        checkReleaseBuilds false
-//        abortOnError false
-//    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     buildTypes.each {
         it.buildConfigField 'String', 'ACCU_WEATHER_BASE_URL', ACCU_WEATHER_BASE_URL
         it.buildConfigField 'String', 'ACCU_WEATHER_KEY', ACCU_WEATHER_KEY

@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView
+        <com.mtgtech.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView
             android:id="@+id/activity_widget_config_scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -325,7 +325,7 @@
 
             </LinearLayout>
 
-        </mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView>
+        </com.mtgtech.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView>
 
         <LinearLayout
             android:id="@+id/activity_widget_config_custom_subtitle"
@@ -335,7 +335,7 @@
             app:behavior_hideable="true"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
-            <mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView
+            <com.mtgtech.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView
                 android:id="@+id/activity_widget_config_custom_scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -386,7 +386,7 @@
 
                 </LinearLayout>
 
-            </mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView>
+            </com.mtgtech.weather_forecast.view.weather_widget.insets.FitBottomSystemBarNestedScrollView>
 
         </LinearLayout>
 

@@ -107,7 +107,7 @@
         </FrameLayout>
 
 
-        <mtgtech.com.weather_forecast.view.weather_widget.insets.FitBottomSystemBarViewPager
+        <com.mtgtech.weather_forecast.view.weather_widget.insets.FitBottomSystemBarViewPager
             android:id="@+id/activity_weather_daily_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
