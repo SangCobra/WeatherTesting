@@ -100,7 +100,7 @@
             android:background="#3B3B3B">
 
             <include
-                layout="@layout/item_native"
+                layout="@layout/item_native_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
