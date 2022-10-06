@@ -10,6 +10,12 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.common.control.MyApplication;
 import com.common.control.manager.AppOpenManager;
 import com.google.gson.GsonBuilder;
+import com.mtgtech.weather_forecast.settings.SettingsOptionManager;
+import com.mtgtech.weather_forecast.utils.LanguageUtils;
+import com.mtgtech.weather_forecast.utils.manager.TimeManager;
+import com.mtgtech.weather_forecast.view.activity.SplashActivity;
+import com.mtgtech.weather_forecast.weather_forecast.TLSCompactHelper;
+import com.mtgtech.weather_forecast.weather_model.GeoActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,12 +24,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import com.mtgtech.weather_forecast.settings.SettingsOptionManager;
-import com.mtgtech.weather_forecast.utils.LanguageUtils;
-import com.mtgtech.weather_forecast.utils.manager.TimeManager;
-import com.mtgtech.weather_forecast.view.activity.SplashActivity;
-import com.mtgtech.weather_forecast.weather_forecast.TLSCompactHelper;
-import com.mtgtech.weather_forecast.weather_model.GeoActivity;
 import okhttp3.OkHttpClient;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -202,7 +202,7 @@ public class WeatherFlow extends MyApplication {
 
     @Override
     protected boolean isShowAdsTest() {
-        return true;
+        return BuildConfig.DEBUG || BuildConfig.TEST_AD;
     }
 
     @Override
