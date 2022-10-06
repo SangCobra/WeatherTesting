@@ -65,6 +65,7 @@ public class AirQualityActivity extends GeoActivity {
         for (int i = 0; i < 6; i++) {
             listAdapter.add(new AirQualityModel(listColor[i], listAdjust[i], listNumber[i]));
         }
+        listAdapter.add(2, null);
         adapter = new AriQualityAdapter(this, listAdapter);
         backHome.setOnClickListener(v -> {
             isStartAgain = false;

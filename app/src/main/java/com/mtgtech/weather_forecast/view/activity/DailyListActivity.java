@@ -114,6 +114,7 @@ public class DailyListActivity extends GeoActivity {
         }
         if (listAdapter != null) {
             listAdapter.add(2, null);
+            listAdapter.add(8, null);
         }
         dailyListAdapter.setList(listAdapter);
 

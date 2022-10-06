@@ -28,7 +28,8 @@ import com.mtgtech.weather_forecast.weather_model.model.location.Location;
 import com.mtgtech.weather_forecast.weather_model.model.weather.Hourly;
 import com.mtgtech.weather_forecast.weather_model.model.weather.Weather;
 
-public class HourlyListActivity extends GeoActivity {
+public class
+HourlyListActivity extends GeoActivity {
 
     private @Nullable
     Weather weather;
@@ -65,6 +66,7 @@ public class HourlyListActivity extends GeoActivity {
         ArrayList<Hourly> listAdapter = (ArrayList<Hourly>) weather.getHourlyForecast();
 
         listAdapter.add(2, null);
+        listAdapter.add(8, null);
         adapter.updateData(listAdapter);
     }
 
