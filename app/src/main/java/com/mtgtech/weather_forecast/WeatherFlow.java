@@ -192,7 +192,7 @@ public class WeatherFlow extends MyApplication {
 
     @Override
     protected boolean hasAds() {
-        return true;
+        return false;
     }
 
     @Override
