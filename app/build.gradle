@@ -76,35 +76,7 @@ android {
 
         }
 
-        vOfficial_ {
-            applicationId "com.dailyweather.accuweather.forecast.thermometer"
 
-            buildConfigField "boolean", "TEST_AD", "false"
-            buildConfigField "boolean", "PURCHASED", "false"
-            dimension "dimen"
-
-            def addConstantTo = { target, constantName, constantValue ->
-                target.manifestPlaceholders += [(constantName): constantValue]
-                target.buildConfigField "String", "${constantName}", "\"${constantValue}\""
-            }
-            addConstantTo(owner, "APP_ID", "ca-app-pub-3270179691816977~5638071308")
-
-            addConstantTo(owner, "inter_splash", "ca-app-pub-3270179691816977/6472624913")
-            addConstantTo(owner, "inter_move_screen", "ca-app-pub-3270179691816977/8715644873")
-            addConstantTo(owner, "inter_detail_daily", "ca-app-pub-3270179691816977/7782826835")
-
-            addConstantTo(owner, "native_hourly_weather", "ca-app-pub-3270179691816977/2150236529")
-            addConstantTo(owner, "native_daily_weather", "ca-app-pub-3270179691816977/7210991514")
-            addConstantTo(owner, "native_location", "ca-app-pub-3270179691816977/9166252775")
-            addConstantTo(owner, "native_detail_daily_weather", "ca-app-pub-3270179691816977/5706338152")
-
-            addConstantTo(owner, "open_app", "ca-app-pub-3270179691816977/6827848130")
-
-            addConstantTo(owner, "banner_main", "ca-app-pub-3270179691816977/9262439782")
-            addConstantTo(owner, "banner_aqi", "ca-app-pub-3270179691816977/3722354408")
-            addConstantTo(owner, "banner_hourly_weather", "ca-app-pub-3270179691816977/2409272739")
-            addConstantTo(owner, "banner_daily_weather", "ca-app-pub-3270179691816977/7757786425")
-        }
     }
 
     lintOptions {
